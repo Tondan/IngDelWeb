@@ -32,7 +32,7 @@ public abstract class TemplateServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    @Resource(name = "jdbc/webdb2")
+    @Resource(name = "jdbc/igw")
     private DataSource ds;
     protected abstract void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException;
     
