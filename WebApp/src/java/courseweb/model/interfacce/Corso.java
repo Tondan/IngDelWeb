@@ -16,9 +16,11 @@ public interface Corso {
     
     int getID();
     
-    CDL getCDL() throws DataLayerException;
+    CDL getCDL(int id_cdl) throws DataLayerException;
     
-    void setCDL(CDL cdl);
+    int getIDCDL();
+    
+    void setIDCDL(int id_cdl);
     
     String getNome_it();
     

@@ -5,6 +5,7 @@
  */
 package courseweb.model.interfacce;
 
+import courseweb.controller.data.DataLayerException;
 import java.util.List;
 /**
  *
@@ -12,16 +13,20 @@ import java.util.List;
  */
 public interface Docenti_Corso {
     
-    int getCorso(int id_corso);
+    Corso getCorso(int id_corso) throws DataLayerException;
     
-    void setCorso(int id_corso);
+    int getIDCorso(int id_corso);
     
-    int getDocente(int id_docente);
+    void setIDCorso(int id_corso);
     
-    void setDocente(int id_docente);
+    Docente getDocente(int id_docente) throws DataLayerException;
     
-    List<Docente> getDocenti(int corso);
+    int getIDDocente(int id_docente);
     
-    List<Corso> getCorsi(int docente);
+    void setIDDocente(int id_docente);
+    
+    List<Docente> getDocenti(int corso) throws DataLayerException;
+    
+    List<Corso> getCorsi(int docente) throws DataLayerException;
     
 }

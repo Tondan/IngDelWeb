@@ -5,6 +5,9 @@
  */
 package courseweb.model.interfacce;
 
+import courseweb.controller.data.DataLayerException;
+import java.util.List;
+
 /**
  *
  * @author Tony & Tony
@@ -13,9 +16,11 @@ public interface Materiale {
     
     int getID();
     
-    int getCorso();
+    Corso getCorso(int id_corso) throws DataLayerException;
     
-    void setCorso(int corso);
+    int getIDCorso();
+    
+    void setIDCorso(int corso);
     
     String getNome();
     
@@ -32,5 +37,7 @@ public interface Materiale {
     String getDescrizione_en();
     
     void setDescrizione_en(String descrizione_en);
+    
+    List<Materiale> getCorsiCollection(int id_materiale) throws DataLayerException;
     
 }

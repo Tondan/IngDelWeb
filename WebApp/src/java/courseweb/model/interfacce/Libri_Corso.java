@@ -5,21 +5,26 @@
  */
 package courseweb.model.interfacce;
 
+import courseweb.controller.data.DataLayerException;
 import java.util.List;
 /**
  *
- * @author Tony & Tony
+ * @author Toni & Tony
  */
 public interface Libri_Corso {
     
-    int getCorso();
+    Corso getCorso(int id_corso) throws DataLayerException;
     
-    void setCorso(int corso);
+    int getIDCorso();
     
-    int getLibro();
+    void setIDCorso(int id_corso);
     
-    void setLibro(int libro);
+    Libro getLibro(int id_libro) throws DataLayerException;
     
-    List<Libro> getLibroCollection(int corso);
+    int getIDLibro();
+    
+    void setIDLibro(int id_libro);
+    
+    List<Libro> getLibroCollection(int id_corso);
     
 }
