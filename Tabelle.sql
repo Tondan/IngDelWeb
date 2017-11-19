@@ -137,6 +137,7 @@ CREATE TABLE Colleg_Corsi(
 	Other_Corso INT,
     FOREIGN KEY (Other_Corso)
 		REFERENCES Corso(IDCorso),
+	PRIMARY KEY (This_Corso,Other_Corso),
 	Tipo VARCHAR(20) NOT NULL
 );
 
