@@ -5,6 +5,9 @@
  */
 package courseweb.model.interfacce;
 
+import courseweb.controller.data.DataLayerException;
+import java.util.List;
+
 /**
  *
  * @author Toni & Tony
@@ -55,5 +58,12 @@ public interface Docente{
     
     void setCurriculum(String curriculum);
     
-    void setRicevimento(String ricevimento);  
+    void setRicevimento(String ricevimento);
+    
+    List<Corso> getCorsi() throws DataLayerException;
+    
+    void setCorsi(List<Corso> corsi);
+    
+    void addCorso(Corso corso);
+    
 }

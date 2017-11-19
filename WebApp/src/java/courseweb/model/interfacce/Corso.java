@@ -7,6 +7,7 @@ package courseweb.model.interfacce;
 
 import courseweb.controller.data.DataLayerException;
 import java.time.Year;
+import java.util.List;
 /**
  *
  * @author Toni & Tony
@@ -16,11 +17,9 @@ public interface Corso {
     
     int getID();
     
-    CDL getCDL(int id_cdl) throws DataLayerException;
+    CDL getCDL() throws DataLayerException;
     
-    int getIDCDL();
-    
-    void setIDCDL(int id_cdl);
+    void setCDL(CDL cdl);
     
     String getNome_it();
     
@@ -53,5 +52,50 @@ public interface Corso {
     char getTipologia();
     
     void setTipologia(char tipologia);
-
+    
+    List<Corso> getCorsiMutuati() throws DataLayerException;
+    
+    void setCorsiMutuati(List<Corso> mutuati);
+    
+    List<Corso> getCorsiPrerequisiti() throws DataLayerException;
+    
+    void setCorsiPrerequisiti(List<Corso> prerequisiti);
+    
+    List<Corso> getCorsiModulo() throws DataLayerException;
+    
+    void setCorsiModulo(List<Corso> modulo);
+    
+    void addCorsoMutuato(Corso corso);
+    
+    void addCorsoPrerequisiti(Corso corso);
+    
+    void addCorsoModulo(Corso corso);
+    
+    List<Docente> getDocenti() throws DataLayerException;
+    
+    void setDocenti(Docente docente);
+    
+    void addDocente(Docente docente);
+    
+    Descrizione_it getDescrizione_it() throws DataLayerException;
+    
+    void setDescrizione_it(Descrizione_it descrizione);
+    
+    Descrizione_en getDescrizione_en() throws DataLayerException;
+    
+    void setDescrizione_en(Descrizione_en descrizione);
+    
+    Dublino_it getDublino_it() throws DataLayerException;
+    
+    void setDublino_it(Dublino_it dublino);
+    
+    Dublino_en getDublino_en() throws DataLayerException;
+    
+    void setDublino_en(Dublino_en dublino);
+    
+    List<Libro> getLibri() throws DataLayerException;
+    
+    void setLibri(List<Libro> libri);
+    
+    void addLibro(Libro libro);
 }

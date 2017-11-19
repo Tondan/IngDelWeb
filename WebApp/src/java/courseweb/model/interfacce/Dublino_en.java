@@ -7,7 +7,7 @@ package courseweb.model.interfacce;
 
 /**
  *
- * @author Tony & Tony
+ * @author Toni & Tony
  */
 public interface Dublino_en {
     

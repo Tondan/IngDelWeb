@@ -5,6 +5,9 @@
  */
 package courseweb.model.interfacce;
 
+import courseweb.controller.data.DataLayerException;
+import java.util.List;
+
 /**
  *
  * @author Tony
@@ -23,6 +26,10 @@ public interface Servizio {
     
     void setDescrizione(String descrizione);
     
+    List<Gruppo> getGruppi() throws DataLayerException;
     
+    void setGruppi(List<Gruppo> gruppi);
+    
+    void addGruppo(Gruppo gruppo);
     
 }
