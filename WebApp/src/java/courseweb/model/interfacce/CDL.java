@@ -5,9 +5,10 @@
  */
 package courseweb.model.interfacce;
 import courseweb.controller.data.DataLayerException;
+import java.time.Year;
 /**
  *
- * @author Toni $ Tony
+ @author Toni $ Tony
  */
 public interface CDL {
     
@@ -23,6 +24,7 @@ public interface CDL {
     
     int getAnno();
 
-    void setAnno(Year )
+    void setAnno(Year anno);
+    
     
 }
