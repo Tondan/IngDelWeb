@@ -7,7 +7,7 @@ package courseweb.model.interfacce;
 
 /**
  *
- * @author Tony & Toni
+ * @author Toni & Tony
  */
 public interface Docente{
  

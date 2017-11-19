@@ -9,7 +9,7 @@ import java.time.Year;
 
 /**
  *
- * @author Tony
+ * @author Toni & Tony
  */
 public interface Libro {
     

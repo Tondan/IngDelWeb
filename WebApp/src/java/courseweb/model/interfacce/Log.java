@@ -9,13 +9,6 @@ package courseweb.model.interfacce;
  *
  * @author Tony
  */
-public interface Gruppo {
-    
-    int getIDgruppo();
-    
-    String getNome();
-    
-    void setNome(String nome);
-    
+public interface Log {
     
 }

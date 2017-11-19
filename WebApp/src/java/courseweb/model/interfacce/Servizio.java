@@ -9,13 +9,20 @@ package courseweb.model.interfacce;
  *
  * @author Tony
  */
-public interface Gruppo {
+public interface Servizio {
     
-    int getIDgruppo();
+    int getIDServizio();
     
-    String getNome();
+    String getScript();
     
-    void setNome(String nome);
+    String Descrizione();
+    
+    void setIDServizio(int idservizio);
+    
+    void setScript(String script);
+    
+    void setDescrizione(String descrizione);
+    
     
     
 }
