@@ -1,2 +1,0 @@
-# CourseWeb
-Progetto IngWeb
