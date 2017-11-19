@@ -26,5 +26,7 @@ public interface CDL {
 
     void setAnno(Year anno);
     
+    int getCfu();
     
+    void setCfu(int cfu);
 }
