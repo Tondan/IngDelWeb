@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  *
- * @author Tony
+ * @author Toni & Tony
  */
 public interface Log {
     

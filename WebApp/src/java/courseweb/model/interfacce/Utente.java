@@ -31,5 +31,4 @@ public interface Utente {
     void setEmail(String email);
     
     
-    
 }

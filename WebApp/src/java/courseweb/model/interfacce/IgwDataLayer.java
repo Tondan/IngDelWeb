@@ -23,7 +23,7 @@ public interface IgwDataLayer extends DataLayer {
     
     Docente createDocente();
     
-    Docenti_Corso createDocenti_Corso();
+    //Docenti_Corso createDocenti_Corso();
     
     Descrizione_it createDescrizione_it();
     
@@ -37,9 +37,9 @@ public interface IgwDataLayer extends DataLayer {
     
     Libro createLibro();
     
-    Libri_Corso createLibri_corso();
+   // Libri_Corso createLibri_corso();
     
-    Colleg_Corsi createColleg_Corsi();
+    //Colleg_Corsi createColleg_Corsi();
     
     Gruppo createGruppo();
     
@@ -47,7 +47,7 @@ public interface IgwDataLayer extends DataLayer {
     
     Servizio createServizio();
     
-    Group_Services createGroup_Services();
+    //Group_Services createGroup_Services();
     
     Log CreateLog();
     
@@ -57,7 +57,7 @@ public interface IgwDataLayer extends DataLayer {
 
     Docente getDocente(int IDDocente) throws DataLayerException;
     
-    Docenti_Corso getDocenti_Corso(int Corso, int Docente) throws DataLayerException;
+    //Docenti_Corso getDocenti_Corso(int Corso, int Docente) throws DataLayerException;
     
     Descrizione_it getDescrizione_it(int Corso) throws DataLayerException;
     
@@ -71,9 +71,9 @@ public interface IgwDataLayer extends DataLayer {
     
     Libro getLibro(int IDLibro) throws DataLayerException;
     
-    Libri_Corso getLibri_Corso(int corso) throws DataLayerException;
+    //Libri_Corso getLibri_Corso(int corso) throws DataLayerException;
     
-    Colleg_Corsi getColleg_Corsi(int This_Corso, int Other_Corso) throws DataLayerException;
+    //Colleg_Corsi getColleg_Corsi(int This_Corso, int Other_Corso) throws DataLayerException;
     
     Gruppo getGruppo(int IDGruppo) throws DataLayerException;
     
@@ -81,7 +81,7 @@ public interface IgwDataLayer extends DataLayer {
     
     Servizio getServizio(int IDServizio) throws DataLayerException;
     
-    Group_Services getGroup_Services(int Gruppo, int Servizio) throws DataLayerException;
+    //Group_Services getGroup_Services(int Gruppo, int Servizio) throws DataLayerException;
     
     Log getLog(int IDLog) throws DataLayerException;
     

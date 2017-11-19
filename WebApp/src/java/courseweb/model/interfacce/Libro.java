@@ -5,7 +5,9 @@
  */
 package courseweb.model.interfacce;
 
+import courseweb.controller.data.DataLayerException;
 import java.time.Year;
+import java.util.List;
 
 /**
  *
@@ -40,6 +42,10 @@ public interface Libro {
     
     void setLink(String link);
     
+    List<Corso> getCorsi() throws DataLayerException;
     
+    void setCorsi(List<Corso> corsi);
+    
+    void addCorsi(Corso corso);
     
 }
