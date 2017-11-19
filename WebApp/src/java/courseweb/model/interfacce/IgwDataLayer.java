@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.util.List;
 /**
  *
- * @author Toni & Toni
+ * @author Toni & Tony
  */
 public interface IgwDataLayer extends DataLayer {
     
