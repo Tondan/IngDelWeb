@@ -5,6 +5,9 @@
  */
 package courseweb.model.interfacce;
 
+import courseweb.controller.data.DataLayerException;
+import java.util.Date;
+
 /**
  *
  * @author Tony
@@ -13,5 +16,17 @@ public interface Log {
     
     int getIDLog();
     
-    String getUtente();
+    Date getData();
+    
+    String getDescrizione();
+    
+    Utente getUtente() throws DataLayerException;
+    
+    void setUtente(Utente utente);
+    
+    void setIDLog(int idlog);
+    
+    void setData(Date data);
+    
+    void setDescrizione(String Descrizione);
 }
