@@ -5,6 +5,7 @@
  */
 package courseweb.model.interfacce;
 
+import java.util.List;
 /**
  *
  * @author Toni & Tony
@@ -19,8 +20,8 @@ public interface Docenti_Corso {
     
     void setDocente(int id_docente);
     
-    List<Docente>(int corso);
+    List<Docente> getDocenti(int corso);
     
-    List<Corso>(int docente);
+    List<Corso> getCorsi(int docente);
     
 }

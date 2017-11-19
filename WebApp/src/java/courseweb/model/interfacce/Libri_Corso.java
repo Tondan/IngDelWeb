@@ -5,6 +5,7 @@
  */
 package courseweb.model.interfacce;
 
+import java.util.List;
 /**
  *
  * @author Tony & Tony
