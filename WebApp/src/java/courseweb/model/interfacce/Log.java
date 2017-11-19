@@ -11,4 +11,7 @@ package courseweb.model.interfacce;
  */
 public interface Log {
     
+    int getIDLog();
+    
+    String getUtente();
 }
