@@ -7,20 +7,18 @@ package courseweb.model.interfacce;
 
 /**
  *
- * @author Toni & Tony
+ * @author Tony & Tony
  */
-public interface Docenti_Corso {
+public interface Libri_Corso {
     
-    int getCorso(int id_corso);
+    int getCorso();
     
-    void setCorso(int id_corso);
+    void setCorso(int corso);
     
-    int getDocente(int id_docente);
+    int getLibro();
     
-    void setDocente(int id_docente);
+    void setLibro(int libro);
     
-    List<Docente>(int corso);
-    
-    List<Corso>(int docente);
+    List<Libro> getLibroCollection(int corso);
     
 }
