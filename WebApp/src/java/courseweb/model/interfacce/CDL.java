@@ -5,6 +5,7 @@
 package courseweb.model.interfacce;
 import courseweb.controller.data.DataLayerException;
 import java.time.Year;
+import java.util.List;
 /**
  *
  @author Toni $ Tony
@@ -21,11 +22,17 @@ public interface CDL {
     
     void setNome_en(String nome_en);
     
-    int getAnno();
+    Year getAnno();
 
     void setAnno(Year anno);
     
     int getCfu();
     
     void setCfu(int cfu);
+    
+    List<Corso> getCorsiInCdl() throws DataLayerException;
+    
+    void setCorsiInCdl(List<Corso> corsi);
+    
+    void addCorsoInCdl(Corso corso);
 }

@@ -39,7 +39,7 @@ public interface Corso {
     
     int getSemestre();
     
-    void setSemestre(String semestre);
+    void setSemestre(int semestre);
     
     int getCfu();
     
@@ -73,7 +73,7 @@ public interface Corso {
     
     List<Docente> getDocenti() throws DataLayerException;
     
-    void setDocenti(Docente docente);
+    void setDocenti(List<Docente> docenti);
     
     void addDocente(Docente docente);
     
