@@ -18,7 +18,7 @@ public interface Servizio {
     
     String getScript();
     
-    String Descrizione();
+    String getDescrizione();
     
     void setIDServizio(int idservizio);
     

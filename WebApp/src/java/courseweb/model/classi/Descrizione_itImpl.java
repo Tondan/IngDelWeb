@@ -48,7 +48,7 @@ public class Descrizione_itImpl implements Descrizione_it{
 }
 
     @Override
-    public int getCorso(int id_corso) {
+    public int getCorso(int corso) {
         return this.corso;
     }
 

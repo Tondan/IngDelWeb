@@ -11,9 +11,9 @@ package courseweb.model.interfacce;
  */
 public interface Dublino_it {
     
-    int getCorso();
+    Corso getCorso();
     
-    void setCorso(int corso);
+    void setCorso(Corso corso);
     
     String getKnowledge();
     
@@ -33,6 +33,6 @@ public interface Dublino_it {
     
     String getLifelong();
     
-    void setLifelong();
+    void setLifelong(String lifelong);
     
 }
