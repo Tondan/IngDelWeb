@@ -26,7 +26,11 @@ public class Dublino_itImpl implements Dublino_it{
     
     private String lifelong;
     
-    public Dublino_itImpl(){
+    protected IgwDataLayer ownerdatalayer;
+    
+    
+    public Dublino_itImpl(IgwDataLayer ownerdatalayer){
+    this.ownerdatalayer=ownerdatalayer;
     this.corso=null;
     this.knowledge=null;
     this.application=null;

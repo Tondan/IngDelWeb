@@ -37,67 +37,67 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
 
     @Override
     public CDL createCDL() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new CDLImpl(this);
     }
 
     @Override
     public Corso createCorso() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new CorsoImpl(this);
     }
 
     @Override
     public Docente createDocente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new DocenteImpl(this);
     }
 
     @Override
     public Descrizione_it createDescrizione_it() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new Descrizione_itImpl(this);
     }
 
     @Override
     public Descrizione_en createDescrizione_en() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new Descrizione_enImpl(this);
     }
 
     @Override
     public Dublino_it createDublino_it() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new Dublino_itImpl(this);
     }
 
     @Override
     public Dublino_en createDublino_en() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new Dublino_enImpl(this);
     }
 
     @Override
     public Materiale createMateriale() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (Materiale) new MaterialeImpl(this);
     }
 
     @Override
     public Libro createLibro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new LibroImpl(this);
     }
 
     @Override
     public Gruppo createGruppo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (Gruppo) new GruppoImpl(this);
     }
 
     @Override
     public Utente createUtente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (Utente) new UtenteImpl(this);
     }
 
     @Override
     public Servizio createServizio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ServizioImpl(this);
     }
 
     @Override
     public Log CreateLog() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (Log) new LogImpl(this);
     }
 
     @Override

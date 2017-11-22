@@ -30,7 +30,10 @@ public class CDLImpl implements CDL{
     
     private List<Corso> corsi;
     
-    public CDLImpl(){
+    protected IgwDataLayer ownerdatalayer;
+    
+    public CDLImpl(IgwDataLayer ownerdatalayer){
+        this.ownerdatalayer=ownerdatalayer;
         this.id_cdl=0;
         this.nome_it=null;
         this.nome_en=null;

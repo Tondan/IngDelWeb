@@ -7,6 +7,7 @@ package courseweb.model.classi;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.Gruppo;
+import courseweb.model.interfacce.IgwDataLayer;
 
 /**
  *
@@ -24,7 +25,10 @@ public class UtenteImpl {
     
     private Gruppo gruppo;
     
-    public UtenteImpl(){
+    protected IgwDataLayer ownerdatalayer;
+    
+    public UtenteImpl(IgwDataLayer ownerdatalayer){
+        this.ownerdatalayer=ownerdatalayer;
         this.id=0;
         this.username=null;
         this.password=null;

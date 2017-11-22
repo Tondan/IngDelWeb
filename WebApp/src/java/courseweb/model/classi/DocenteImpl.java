@@ -39,8 +39,11 @@ public class DocenteImpl implements Docente {
     
     private List<Corso> corsi;
     
+    protected IgwDataLayer ownerdatalayer;
     
-    public DocenteImpl(){
+    
+    public DocenteImpl(IgwDataLayer ownerdatalayer){
+        this.ownerdatalayer=ownerdatalayer;
         this.id_docente=0;
         this.nome=null;
         this.cognome=null;

@@ -6,6 +6,7 @@
 package courseweb.model.classi;
 
 import courseweb.controller.data.DataLayerException;
+import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Servizio;
 import courseweb.model.interfacce.Utente;
 import java.util.List;
@@ -23,8 +24,10 @@ public class GruppoImpl {
     private List<Utente> utenti;
     
     private List<Servizio> servizi;
+    protected IgwDataLayer ownerdatalayer;
     
-    public GruppoImpl(){
+    public GruppoImpl(IgwDataLayer ownerdatalayer){
+        this.ownerdatalayer=ownerdatalayer;
         this.id=0;
         this.nome=null;
         this.utenti=null;

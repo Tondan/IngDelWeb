@@ -7,6 +7,7 @@ package courseweb.model.classi;
 import courseweb.model.interfacce.Servizio;
 import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.Gruppo;
+import courseweb.model.interfacce.IgwDataLayer;
 import java.util.List;
 /**
  *
@@ -18,9 +19,10 @@ public class ServizioImpl implements Servizio {
     private String Script;
     private String Descrizione;
     private List<Gruppo> Gruppi;
+    protected IgwDataLayer ownerdatalayer;
     
-    
-    public ServizioImpl(){
+    public ServizioImpl(IgwDataLayer ownerdatalayer){
+        this.ownerdatalayer=ownerdatalayer;
         this.IDServizio=0;
         this.Script=null;
         this.Descrizione=null;

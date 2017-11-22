@@ -33,9 +33,11 @@ public class Descrizione_enImpl implements Descrizione_en{
     
     private String risorse_ext;
     
+    protected IgwDataLayer ownerdatalayer;
     
     
-    public Descrizione_enImpl(){
+    public Descrizione_enImpl(IgwDataLayer ownerdatalayer){
+    this.ownerdatalayer=ownerdatalayer;
     this.corso=null;
     this.prerequisiti=null;
     this.obiettivi=null;

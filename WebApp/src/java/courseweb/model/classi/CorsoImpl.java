@@ -54,8 +54,11 @@ public class CorsoImpl implements Corso{
     
     private List<Materiale> materiale;
     
+    protected IgwDataLayer ownerdatalayer;
     
-    public CorsoImpl(){
+    
+    public CorsoImpl(IgwDataLayer ownerdatalayer){
+        this.ownerdatalayer=ownerdatalayer;
         this.id=0;
         this.cdl=null;
         this.nome_it=null;

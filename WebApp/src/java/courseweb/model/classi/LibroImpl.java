@@ -6,6 +6,7 @@
 package courseweb.model.classi;
 import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.Corso;
+import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Libro;
 import java.time.Year;
 import java.util.List;
@@ -25,8 +26,10 @@ public class LibroImpl implements Libro {
     private String Editore;
     private String Link;
     private List<Corso> Corso;
+    protected IgwDataLayer ownerdatalayer;
     
-    public LibroImpl(){
+    public LibroImpl(IgwDataLayer ownerdatalayer){
+        this.ownerdatalayer=ownerdatalayer;
         Corso=null;
         this.IDLibro=0;
         this.Autore=null;

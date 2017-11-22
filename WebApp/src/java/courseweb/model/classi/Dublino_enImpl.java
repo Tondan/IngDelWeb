@@ -20,7 +20,10 @@ public class Dublino_enImpl implements Dublino_en{
     
     private String lifelong;
     
-    public Dublino_enImpl(){
+    protected IgwDataLayer ownerdatalayer;
+    
+    public Dublino_enImpl(IgwDataLayer ownerdatalayer){
+    this.ownerdatalayer=ownerdatalayer;
     this.corso=null;
     this.knowledge=null;
     this.application=null;

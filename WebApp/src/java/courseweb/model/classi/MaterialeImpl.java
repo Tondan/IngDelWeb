@@ -7,6 +7,7 @@ package courseweb.model.classi;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.Corso;
+import courseweb.model.interfacce.IgwDataLayer;
 import java.util.List;
 
 /**
@@ -27,7 +28,10 @@ public class MaterialeImpl {
     
     private List<Corso> corsi;
     
-    public MaterialeImpl(){
+    protected IgwDataLayer ownerdatalayer;
+    
+    public MaterialeImpl(IgwDataLayer ownerdatalayer){
+        this.ownerdatalayer=ownerdatalayer;
         this.id=0;
         this.nome=null;
         this.descrizione_en=null;

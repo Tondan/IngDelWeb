@@ -6,6 +6,7 @@
 package courseweb.model.classi;
 
 import courseweb.controller.data.DataLayerException;
+import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Utente;
 import java.util.Date;
 
@@ -23,7 +24,10 @@ public class LogImpl {
     
     private Utente utente;
     
-    public LogImpl(){
+    protected IgwDataLayer ownerdatalayer;
+    
+    public LogImpl(IgwDataLayer ownerdatalayer){
+        this.ownerdatalayer=ownerdatalayer;
         this.id=0;
         this.data=null;
         this.descrizione=null;
