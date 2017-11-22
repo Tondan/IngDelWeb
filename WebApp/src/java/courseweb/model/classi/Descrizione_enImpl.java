@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package courseweb.model.classi;
+import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.*;
 
 /**
@@ -12,7 +13,7 @@ import courseweb.model.interfacce.*;
  */
 public class Descrizione_enImpl implements Descrizione_en{
     
-    private int corso;
+    private Corso corso;
     
     private String prerequisiti;
     
@@ -35,7 +36,7 @@ public class Descrizione_enImpl implements Descrizione_en{
     
     
     public Descrizione_enImpl(){
-    this.corso=0;
+    this.corso=null;
     this.prerequisiti=null;
     this.obiettivi=null;
     this.mod_esame=null;
@@ -48,13 +49,13 @@ public class Descrizione_enImpl implements Descrizione_en{
 }
 
     @Override
-    public int getCorso(int id_corso) {
+    public Corso getCorso() throws DataLayerException{
         return this.corso;
     }
 
     @Override
-    public void setCorso(int id_corso) {
-        this.corso=id_corso;
+    public void setCorso(Corso corso) {
+        this.corso=corso;
     }
 
     @Override

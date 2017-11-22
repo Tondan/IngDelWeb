@@ -24,8 +24,6 @@ public interface Log {
     
     void setUtente(Utente utente);
     
-    void setIDLog(int idlog);
-    
     void setData(Date data);
     
     void setDescrizione(String Descrizione);

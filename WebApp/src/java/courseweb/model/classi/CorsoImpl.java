@@ -52,6 +52,8 @@ public class CorsoImpl implements Corso{
     
     private List<Libro> libri;
     
+    private List<Materiale> materiale;
+    
     
     public CorsoImpl(){
         this.id=0;
@@ -73,6 +75,7 @@ public class CorsoImpl implements Corso{
         this.dublino_it=null;
         this.dublino_en=null;
         this.libri=null;
+        this.materiale=null;
     }
     
     @Override
@@ -285,4 +288,18 @@ public class CorsoImpl implements Corso{
         this.libri.add(libro);
     }
     
+    @Override
+    public List<Materiale> getMateriale() throws DataLayerException{
+        return this.materiale;
+    }
+    
+    @Override
+    public void setMateriale(List<Materiale> materiale){
+        this.materiale=materiale;
+    }
+    
+    @Override
+    public void addMateriale(Materiale materiale){
+        this.materiale.add(materiale);
+    }
 }
