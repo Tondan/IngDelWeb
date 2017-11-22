@@ -12,7 +12,7 @@ import courseweb.controller.data.DataLayerException;
  */
 public interface Utente {
     
-    int getIDUtente();
+    int getID();
     
     String getUsername();
     

@@ -12,7 +12,7 @@ import courseweb.model.interfacce.*;
  */
 public class Descrizione_itImpl implements Descrizione_it{
     
-    private int corso;
+    private Corso corso;
     
     private String prerequisiti;
     
@@ -35,7 +35,7 @@ public class Descrizione_itImpl implements Descrizione_it{
     
     
     public Descrizione_itImpl(){
-    this.corso=0;
+    this.corso=null;
     this.prerequisiti=null;
     this.obiettivi=null;
     this.mod_esame=null;
@@ -48,13 +48,13 @@ public class Descrizione_itImpl implements Descrizione_it{
 }
 
     @Override
-    public int getCorso(int corso) {
+    public Corso getCorso() {
         return this.corso;
     }
 
     @Override
-    public void setCorso(int id_corso) {
-        this.corso=id_corso;
+    public void setCorso(Corso corso) {
+        this.corso=corso;
     }
 
     @Override

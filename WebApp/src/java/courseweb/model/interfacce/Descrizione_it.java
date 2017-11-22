@@ -5,15 +5,17 @@
  */
 package courseweb.model.interfacce;
 
+import courseweb.controller.data.DataLayerException;
+
 /**
  *
  * @author Toni & Tony
  */
 public interface Descrizione_it {
     
-    int getCorso(int id_corso);
+    Corso getCorso() throws DataLayerException;
     
-    void setCorso(int id_corso);
+    void setCorso(Corso corso);
     
     String getPrerequisiti();
     

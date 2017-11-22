@@ -16,12 +16,6 @@ public interface Materiale {
     
     int getID();
     
-    Corso getCorso(int id_corso) throws DataLayerException;
-    
-    int getIDCorso();
-    
-    void setIDCorso(int corso);
-    
     String getNome();
     
     void setNome(String nome);
@@ -38,6 +32,10 @@ public interface Materiale {
     
     void setDescrizione_en(String descrizione_en);
     
-    List<Materiale> getCorsiCollection(int id_materiale) throws DataLayerException;
+    List<Corso> getCorsi() throws DataLayerException;
+    
+    void setCorsi(List<Corso> corsi);
+    
+    void addCorso(Corso corso);
     
 }

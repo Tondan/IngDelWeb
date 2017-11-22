@@ -98,4 +98,10 @@ public interface Corso {
     void setLibri(List<Libro> libri);
     
     void addLibro(Libro libro);
+    
+    List<Materiale> getMateriale() throws DataLayerException;
+    
+    void setMateriale(List<Materiale> materiale);
+    
+    void addMateriale(Materiale materiale);
 }
