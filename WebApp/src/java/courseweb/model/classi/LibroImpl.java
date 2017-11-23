@@ -22,7 +22,7 @@ public class LibroImpl implements Libro {
     private String Autore;
     private String Titolo;
     private String Volume;
-    private Year Anno;
+    private int Anno;
     private String Editore;
     private String Link;
     private List<Corso> Corso;
@@ -35,7 +35,7 @@ public class LibroImpl implements Libro {
         this.Autore=null;
         this.Titolo=null;
         this.Volume=null;
-        this.Anno=null;
+        this.Anno=0;
         this.Editore=null;
         this.Link=null;
     }
@@ -67,7 +67,7 @@ public class LibroImpl implements Libro {
     }
 
     @Override
-    public Year getAnno() {
+    public int getAnno() {
         return this.Anno;
     }
 
@@ -97,7 +97,7 @@ public class LibroImpl implements Libro {
     }
 
     @Override
-    public void setAnno(Year anno) {
+    public void setAnno(int anno) {
         this.Anno=anno;
     }
 

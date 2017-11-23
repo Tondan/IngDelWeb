@@ -30,7 +30,7 @@ public class CorsoImpl implements Corso{
     
     private int cfu;
     
-    private Year anno;
+    private int anno;
     
     private char tipologia;
     
@@ -67,7 +67,7 @@ public class CorsoImpl implements Corso{
         this.lingua=null;
         this.semestre=0;
         this.cfu=0;
-        this.anno=null;
+        this.anno=0;
         this.tipologia=0;
         this.mutuati=null;
         this.prerequisiti=null;
@@ -162,12 +162,12 @@ public class CorsoImpl implements Corso{
     }
     
     @Override
-    public Year getAnno(){
+    public int getAnno(){
         return this.anno;
     }
     
     @Override
-    public void setAnno(Year anno){
+    public void setAnno(int anno){
         this.anno=anno;
     }
     

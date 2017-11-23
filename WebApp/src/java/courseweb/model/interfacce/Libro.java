@@ -23,7 +23,7 @@ public interface Libro {
     
     String getVolume();
     
-    Year getAnno();
+    int getAnno();
     
     String getEditore();
     
@@ -37,7 +37,7 @@ public interface Libro {
     
     void setVolume(String volume);
     
-    void setAnno(Year anno);
+    void setAnno(int anno);
     
     void setEditore(String editore);
     

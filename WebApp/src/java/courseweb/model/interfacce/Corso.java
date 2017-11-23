@@ -47,9 +47,9 @@ public interface Corso {
     
     void setCfu(int cfu);
     
-    Year getAnno();
+    int getAnno();
     
-    void setAnno(Year anno);
+    void setAnno(int anno);
     
     char getTipologia();
     

@@ -6,6 +6,7 @@
 package courseweb.model.interfacce;
 
 import courseweb.controller.data.DataLayerException;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -18,7 +19,7 @@ public interface Log {
     
     int getIDLog();
     
-    Date getData();
+    Timestamp getData();
     
     String getDescrizione();
     
@@ -26,7 +27,7 @@ public interface Log {
     
     void setUtente(Utente utente);
     
-    void setData(Date data);
+    void setData(Timestamp data);
     
     void setDescrizione(String Descrizione);
 }

@@ -8,6 +8,7 @@ package courseweb.model.classi;
 import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Utente;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -18,7 +19,7 @@ public class LogImpl {
     
     private int id;
     
-    private Date data;
+    private Timestamp data;
     
     private String descrizione;
     
@@ -38,7 +39,7 @@ public class LogImpl {
         return this.id;
     }
     
-    public Date getData(){
+    public Timestamp getData(){
         return this.data;
     }
     
@@ -54,7 +55,7 @@ public class LogImpl {
         this.utente=utente;
     }
     
-    public void setData(Date data){
+    public void setData(Timestamp data){
         this.data=data;
     }
     
