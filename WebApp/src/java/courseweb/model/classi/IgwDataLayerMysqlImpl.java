@@ -62,11 +62,11 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     public CDL createCDL(ResultSet rs) throws DataLayerException {
         try {
             CDLImpl c = new CDLImpl(this);
-            c.setID(rs.getInt("ID")); //dobbiamo mettere tutti i metodi setid puttana
-            c.setNome_it(rs.getString("nome_it"));
-            c.setNome_en(rs.getString("nome_en"));
-            c.setAnno(rs.getInt("anno"));  //il metodo getYear è stato deprecato https://docs.oracle.com/javase/7/docs/api/java/sql/Time.html probabile che dobbiamo suare caldendar
-            c.setCfu(rs.getInt("cfu"));
+            c.setIDCDL(rs.getInt("IDCDL")); //dobbiamo mettere tutti i metodi setid puttana
+            c.setNome_it(rs.getString("Nome_it"));
+            c.setNome_en(rs.getString("Nome_en"));
+            c.setAnno(rs.getInt("Anno"));  //il metodo getYear è stato deprecato https://docs.oracle.com/javase/7/docs/api/java/sql/Time.html probabile che dobbiamo suare caldendar
+            c.setCfu(rs.getInt("Cfu"));
   
             return c;
         } catch (SQLException ex) {
@@ -78,17 +78,24 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     public Corso createCorso() {
         return new CorsoImpl(this);
     }
+    
+    
 
-    public CDL createCorso(ResultSet rs) throws DataLayerException {
+    public Corso createCorso(ResultSet rs) throws DataLayerException {
         try {
-            CDLImpl c = new CDLImpl(this);
-            c.setID(rs.getInt("ID")); //dobbiamo mettere tutti i metodi setid puttana
-            c.setNome_it(rs.getString("nome_it"));
-            c.setNome_en(rs.getString("nome_en"));
-            c.setAnno(rs.getInt("anno"));  //il metodo getYear è stato deprecato https://docs.oracle.com/javase/7/docs/api/java/sql/Time.html probabile che dobbiamo suare caldendar
-            c.setCfu(rs.getInt("cfu"));
-  
-            return c;
+            CorsoImpl co = new CorsoImpl(this);
+            
+            co.setID(rs.getInt("IDCorso")); 
+            co.setNome_it(rs.getString("Nome_it"));
+            co.setNome_en(rs.getString("Nome_en"));
+            co.setSSD(rs.getString("SSD"));  
+            co.setLingua(rs.getString("Lingua"));
+            co.setSemestre(rs.getInt("Semestre"));
+            co.setCfu(rs.getInt("CFU"));
+            co.setAnno(rs.getInt("Anno"));
+            co.setTipologia((char)rs.getInt("Tipologia"));
+            co.setCDL(rs)
+            return co;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create author object form ResultSet", ex);
         }
@@ -99,20 +106,6 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return new DocenteImpl(this);
     }
     
-    public CDL createDocente(ResultSet rs) throws DataLayerException {
-        try {
-            CDLImpl c = new CDLImpl(this);
-            c.setID(rs.getInt("ID")); //dobbiamo mettere tutti i metodi setid puttana
-            c.setNome_it(rs.getString("nome_it"));
-            c.setNome_en(rs.getString("nome_en"));
-            c.setAnno(rs.getInt("anno"));  //il metodo getYear è stato deprecato https://docs.oracle.com/javase/7/docs/api/java/sql/Time.html probabile che dobbiamo suare caldendar
-            c.setCfu(rs.getInt("cfu"));
-  
-            return c;
-        } catch (SQLException ex) {
-            throw new DataLayerException("Unable to create author object form ResultSet", ex);
-        }
-    }
 
     @Override
     public Descrizione_it createDescrizione_it() {
