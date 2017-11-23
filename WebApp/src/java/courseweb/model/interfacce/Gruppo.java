@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface Gruppo {
     
+    void setIDGruppo(int id);
+    
     int getIDgruppo();
     
     String getNome();

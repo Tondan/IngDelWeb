@@ -82,6 +82,11 @@ public class CorsoImpl implements Corso{
     }
     
     @Override
+    public void setID(int id){
+        this.id=id;
+    }
+    
+    @Override
     public int getID(){
         return this.id;
     }

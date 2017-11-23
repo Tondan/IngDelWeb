@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface Materiale {
     
+    void setID(int id);
+    
     int getID();
     
     String getNome();

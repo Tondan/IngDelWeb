@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface CDL {
     
+    void setIDCDL(int id);
+    
     int getIDCDL();
     
     String getNome_it();

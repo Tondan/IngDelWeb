@@ -29,6 +29,7 @@ public interface Libro {
     
     String getLink();
     
+    void setIDLibro(int id);
     
     void setAutore(String autore);
     
