@@ -6,8 +6,8 @@
 package courseweb.model.classi;
 
 import courseweb.controller.data.DataLayerException;
-import java.time.Year;
 import courseweb.model.interfacce.*;
+
 import java.util.List;
 
 /**
@@ -24,7 +24,7 @@ public class CDLImpl implements CDL{
     
     private String nome_en;
     
-    private Year anno;
+    private int anno;
     
     private int cfu;
     
@@ -32,12 +32,14 @@ public class CDLImpl implements CDL{
     
     protected IgwDataLayer ownerdatalayer;
     
+    
+    
     public CDLImpl(IgwDataLayer ownerdatalayer){
         this.ownerdatalayer=ownerdatalayer;
         this.id_cdl=0;
         this.nome_it=null;
         this.nome_en=null;
-        this.anno=null;
+        this.anno=0;
         this.cfu=0;
         this.corsi=null;
     }
@@ -68,12 +70,12 @@ public class CDLImpl implements CDL{
     }
     
     @Override
-    public Year getAnno(){
+    public int getAnno(){
         return this.anno;
     }
     
     @Override
-    public void setAnno(Year anno){
+    public void setAnno(int anno){
         this.anno=anno;
     }
     

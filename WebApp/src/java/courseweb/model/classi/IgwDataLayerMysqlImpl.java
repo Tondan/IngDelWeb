@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.Time;
+import java.util.Calendar;
 
 /**
  *
@@ -65,7 +65,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             c.setID(rs.getInt("ID")); //dobbiamo mettere tutti i metodi setid puttana
             c.setNome_it(rs.getString("nome_it"));
             c.setNome_en(rs.getString("nome_en"));
-            c.setAnno(rs.getYear("anno"));  //il metodo getYear è stato deprecato https://docs.oracle.com/javase/7/docs/api/java/sql/Time.html probabile che dobbiamo suare caldendar
+            c.setAnno(rs.getInt("anno"));  //il metodo getYear è stato deprecato https://docs.oracle.com/javase/7/docs/api/java/sql/Time.html probabile che dobbiamo suare caldendar
             c.setCfu(rs.getInt("cfu"));
   
             return c;
@@ -79,9 +79,39 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return new CorsoImpl(this);
     }
 
+    public CDL createCorso(ResultSet rs) throws DataLayerException {
+        try {
+            CDLImpl c = new CDLImpl(this);
+            c.setID(rs.getInt("ID")); //dobbiamo mettere tutti i metodi setid puttana
+            c.setNome_it(rs.getString("nome_it"));
+            c.setNome_en(rs.getString("nome_en"));
+            c.setAnno(rs.getInt("anno"));  //il metodo getYear è stato deprecato https://docs.oracle.com/javase/7/docs/api/java/sql/Time.html probabile che dobbiamo suare caldendar
+            c.setCfu(rs.getInt("cfu"));
+  
+            return c;
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to create author object form ResultSet", ex);
+        }
+    }
+    
     @Override
     public Docente createDocente() {
         return new DocenteImpl(this);
+    }
+    
+    public CDL createDocente(ResultSet rs) throws DataLayerException {
+        try {
+            CDLImpl c = new CDLImpl(this);
+            c.setID(rs.getInt("ID")); //dobbiamo mettere tutti i metodi setid puttana
+            c.setNome_it(rs.getString("nome_it"));
+            c.setNome_en(rs.getString("nome_en"));
+            c.setAnno(rs.getInt("anno"));  //il metodo getYear è stato deprecato https://docs.oracle.com/javase/7/docs/api/java/sql/Time.html probabile che dobbiamo suare caldendar
+            c.setCfu(rs.getInt("cfu"));
+  
+            return c;
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to create author object form ResultSet", ex);
+        }
     }
 
     @Override

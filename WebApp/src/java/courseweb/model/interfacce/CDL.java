@@ -4,7 +4,7 @@
  */
 package courseweb.model.interfacce;
 import courseweb.controller.data.DataLayerException;
-import java.time.Year;
+import java.util.Calendar;
 import java.util.List;
 /**
  *
@@ -22,9 +22,9 @@ public interface CDL {
     
     void setNome_en(String nome_en);
     
-    Year getAnno();
+    int getAnno();
 
-    void setAnno(Year anno);
+    void setAnno(int anno);
     
     int getCfu();
     
