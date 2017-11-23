@@ -15,6 +15,8 @@ import java.util.List;
 
 public interface Corso {
     
+    void setID(int id);
+    
     int getID();
     
     CDL getCDL() throws DataLayerException;

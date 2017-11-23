@@ -12,6 +12,8 @@ import courseweb.controller.data.DataLayerException;
  */
 public interface Utente {
     
+    void setID(int id);
+    
     int getID();
     
     String getUsername();

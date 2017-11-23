@@ -45,6 +45,11 @@ public class CDLImpl implements CDL{
     }
     
     @Override
+    public void setIDCDL(int id){
+        this.id_cdl=id;
+    }
+    
+    @Override
     public int getIDCDL(){
         return this.id_cdl;
     }

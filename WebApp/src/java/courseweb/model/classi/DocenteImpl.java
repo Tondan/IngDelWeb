@@ -57,6 +57,10 @@ public class DocenteImpl implements Docente {
         this.ricevimento=null;
     }
     
+    @Override
+    public void setIDDocente(int id){
+        this.id_docente=id;
+    }
     
     @Override
     public int getIDDocente(){

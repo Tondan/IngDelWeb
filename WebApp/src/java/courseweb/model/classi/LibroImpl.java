@@ -30,7 +30,7 @@ public class LibroImpl implements Libro {
     
     public LibroImpl(IgwDataLayer ownerdatalayer){
         this.ownerdatalayer=ownerdatalayer;
-        Corso=null;
+        this.Corso=null;
         this.IDLibro=0;
         this.Autore=null;
         this.Titolo=null;
@@ -38,6 +38,11 @@ public class LibroImpl implements Libro {
         this.Anno=null;
         this.Editore=null;
         this.Link=null;
+    }
+    
+    @Override
+    public void setIDLibro(int id){
+        this.IDLibro=id;
     }
     
     @Override
