@@ -32,6 +32,8 @@ public class CDLImpl implements CDL{
     
     protected IgwDataLayer ownerdatalayer;
     
+    protected boolean dirty;
+    
     
     
     public CDLImpl(IgwDataLayer ownerdatalayer){
@@ -42,11 +44,13 @@ public class CDLImpl implements CDL{
         this.anno=0;
         this.cfu=0;
         this.corsi=null;
+        this.dirty=false;
     }
     
     @Override
     public void setIDCDL(int id){
         this.id_cdl=id;
+        this.dirty=true;
     }
     
     @Override
@@ -67,11 +71,13 @@ public class CDLImpl implements CDL{
     @Override
     public void setNome_it(String nome){
         this.nome_it=nome;
+        this.dirty=true;
     }
     
     @Override
     public void setNome_en(String nome){
         this.nome_en=nome;
+        this.dirty=true;
     }
     
     @Override
@@ -82,6 +88,7 @@ public class CDLImpl implements CDL{
     @Override
     public void setAnno(int anno){
         this.anno=anno;
+        this.dirty=true;
     }
     
     @Override
@@ -92,20 +99,25 @@ public class CDLImpl implements CDL{
     @Override
     public void setCfu(int cfu){
         this.cfu=cfu;
+        this.dirty=true;
     }
     
     @Override
     public List<Corso> getCorsiInCdl() throws DataLayerException{
-        return this.corsi;
+        if(corsi==null)
+            corsi=ownerdatalayer.getCorsiInCdl(this);
+        return corsi;
     }
     
     @Override
     public void setCorsiInCdl(List<Corso> corsi){
         this.corsi=corsi;
+        this.dirty=true;
     }
     
     @Override
     public void addCorsoInCdl(Corso corso){
         this.corsi.add(corso);
+        this.dirty=true;
     }
 }

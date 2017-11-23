@@ -18,6 +18,8 @@ public class CorsoImpl implements Corso{
     
     private CDL cdl;
     
+    private int id_cdl;
+    
     private String nome_it;
     
     private String nome_en;
@@ -56,6 +58,8 @@ public class CorsoImpl implements Corso{
     
     protected IgwDataLayer ownerdatalayer;
     
+    protected boolean dirty;
+    
     
     public CorsoImpl(IgwDataLayer ownerdatalayer){
         this.ownerdatalayer=ownerdatalayer;
@@ -79,11 +83,14 @@ public class CorsoImpl implements Corso{
         this.dublino_en=null;
         this.libri=null;
         this.materiale=null;
+        this.id_cdl=0;
+        this.dirty=false;
     }
     
     @Override
     public void setID(int id){
         this.id=id;
+        this.dirty=true;
     }
     
     @Override
@@ -93,12 +100,15 @@ public class CorsoImpl implements Corso{
     
     @Override
     public CDL getCDL() throws DataLayerException{
-        return this.cdl;
+        if(cdl==null&&id_cdl>0)
+            cdl=ownerdatalayer.getCDL(id_cdl);
+        return cdl;
     }
     
     @Override
     public void setCDL(CDL cdl){
         this.cdl=cdl;
+        this.dirty=true;
     }
     
     @Override
@@ -114,11 +124,13 @@ public class CorsoImpl implements Corso{
     @Override
     public void setNome_it(String nome){
         this.nome_it=nome;
+        this.dirty=true;
     }
     
     @Override
     public void setNome_en(String nome){
         this.nome_en=nome;
+        this.dirty=true;
     }
     
     @Override
@@ -129,6 +141,7 @@ public class CorsoImpl implements Corso{
     @Override
     public void setSSD(String ssd){
         this.ssd=ssd;
+        this.dirty=true;
     }
     
     @Override
@@ -139,6 +152,7 @@ public class CorsoImpl implements Corso{
     @Override
     public void setLingua(String lingua){
         this.lingua=lingua;
+        this.dirty=true;
     }
     
     @Override
@@ -149,6 +163,7 @@ public class CorsoImpl implements Corso{
     @Override
     public void setSemestre(int semestre){
         this.semestre=semestre;
+        this.dirty=true;
     }
     
     @Override
@@ -159,6 +174,7 @@ public class CorsoImpl implements Corso{
     @Override
     public void setCfu(int cfu){
         this.cfu=cfu;
+        this.dirty=true;
     }
     
     @Override
@@ -169,6 +185,7 @@ public class CorsoImpl implements Corso{
     @Override
     public void setAnno(int anno){
         this.anno=anno;
+        this.dirty=true;
     }
     
     @Override
@@ -179,126 +196,161 @@ public class CorsoImpl implements Corso{
     @Override
     public void setTipologia(char tipologia){
         this.tipologia=tipologia;
+        this.dirty=true;
     }
     
     @Override
     public List<Corso> getCorsiMutuati() throws DataLayerException{
-        return this.mutuati;
+        if(mutuati==null)
+            mutuati=ownerdatalayer.getCorsiMutuati(this);
+        return mutuati;
     }
     
     @Override
     public void setCorsiMutuati(List<Corso> mutuati){
         this.mutuati=mutuati;
+        this.dirty=true;
     }
     
     @Override
     public List<Corso> getCorsiPrerequisiti() throws DataLayerException{
-        return this.prerequisiti;
+        if(prerequisiti==null)
+            prerequisiti=ownerdatalayer.getCorsiPrerequisiti(this);
+        return prerequisiti;
     }
     
     @Override
     public void setCorsiPrerequisiti(List<Corso> prerequisiti){
         this.prerequisiti=prerequisiti;
+        this.dirty=true;
     }
     
     @Override
     public List<Corso> getCorsiModulo() throws DataLayerException{
-        return this.modulo;
+        if(modulo==null)
+            modulo=ownerdatalayer.getCorsiModulo(this);
+        return modulo;
     }
     
     @Override
     public void setCorsiModulo(List<Corso> corsi){
         this.modulo=corsi;
+        this.dirty=true;
     }
     
     @Override
     public void addCorsoModulo(Corso corso){
         this.modulo.add(corso);
+        this.dirty=true;
     }
     
     @Override
     public void addCorsoMutuato(Corso corso){
         this.mutuati.add(corso);
+        this.dirty=true;
     }
     
     @Override
     public void addCorsoPrerequisiti(Corso corso){
         this.prerequisiti.add(corso);
+        this.dirty=true;
     }
     
     @Override
     public List<Docente> getDocenti() throws DataLayerException{
-        return this.docenti;
+        if(docenti==null)
+            docenti=ownerdatalayer.getDocentiCorso(this);
+        return docenti;
     }
     
     @Override
     public void setDocenti(List<Docente> docenti){
         this.docenti=docenti;
+        this.dirty=true;
     }
     
     @Override
     public void addDocente(Docente docente){
         this.docenti.add(docente);
+        this.dirty=true;
     }
     
     @Override
     public Descrizione_it getDescrizione_it() throws DataLayerException{
-        return this.descrizione_it;
+        if(descrizione_it==null)
+            descrizione_it=ownerdatalayer.getDescrizione_it(this);
+        return descrizione_it;
     }
     
     @Override
     public Descrizione_en getDescrizione_en() throws DataLayerException{
-        return this.descrizione_en;
+        if(descrizione_en==null)
+            descrizione_en=ownerdatalayer.getDescrizione_en(this);
+        return descrizione_en;
     }
     
     @Override
     public void setDescrizione_it(Descrizione_it descrizione){
         this.descrizione_it=descrizione;
+        this.dirty=true;
     }
     
     @Override
     public void setDescrizione_en(Descrizione_en descrizione){
         this.descrizione_en=descrizione;
+        this.dirty=true;
     }
     
     @Override
     public Dublino_it getDublino_it() throws DataLayerException{
-        return this.dublino_it;
+        if(dublino_it==null)
+            dublino_it=ownerdatalayer.getDublino_it(this);
+        return dublino_it;
     }
     
     @Override
     public void setDublino_it(Dublino_it dublino){
         this.dublino_it=dublino;
+        this.dirty=true;
     }
     
     @Override
     public Dublino_en getDublino_en() throws DataLayerException{
-        return this.dublino_en;
+        if(dublino_en==null)
+            dublino_en=ownerdatalayer.getDublino_en(this);
+        return dublino_en;
     }
     
     @Override
     public void setDublino_en(Dublino_en dublino){
         this.dublino_en=dublino;
+        this.dirty=true;
     }
     
     @Override
     public List<Libro> getLibri() throws DataLayerException{
-        return this.libri;
+        if(libri==null)
+            libri=ownerdatalayer.getLibriCorso(this);
+        return libri;
     }
     
     @Override
     public void setLibri(List<Libro> libri){
         this.libri=libri;
+        this.dirty=true;
     }
     
     @Override
     public void addLibro(Libro libro){
         this.libri.add(libro);
+        this.dirty=true;
     }
     
     @Override
     public List<Materiale> getMateriale() throws DataLayerException{
-        return this.materiale;
+        if(materiale==null)
+            materiale=ownerdatalayer.getMaterialeCorso(this);
+        return materiale;
     }
     
     @Override

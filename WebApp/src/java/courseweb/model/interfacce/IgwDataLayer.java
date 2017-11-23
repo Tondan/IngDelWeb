@@ -9,6 +9,7 @@ package courseweb.model.interfacce;
 
 import courseweb.controller.data.DataLayer;
 import courseweb.controller.data.DataLayerException;
+import courseweb.model.classi.CorsoImpl;
 import java.io.InputStream;
 import java.util.List;
 /**
@@ -59,13 +60,13 @@ public interface IgwDataLayer extends DataLayer {
     
     //Docenti_Corso getDocenti_Corso(int Corso, int Docente) throws DataLayerException;
     
-    Descrizione_it getDescrizione_it(int Corso) throws DataLayerException;
+    Descrizione_it getDescrizione_it(Corso corso) throws DataLayerException;
     
-    Descrizione_en getDescrizione_en(int Corso) throws DataLayerException;
+    Descrizione_en getDescrizione_en(Corso corso) throws DataLayerException;
     
-    Dublino_it getDublino_it(int Corso) throws DataLayerException;
+    Dublino_it getDublino_it(Corso corso) throws DataLayerException;
     
-    Dublino_en getDublino_en(int Corso) throws DataLayerException;
+    Dublino_en getDublino_en(Corso corso) throws DataLayerException;
     
     Materiale getMateriale(int IDLibro) throws DataLayerException;
     
@@ -84,9 +85,20 @@ public interface IgwDataLayer extends DataLayer {
     //Group_Services getGroup_Services(int Gruppo, int Servizio) throws DataLayerException;
     
     Log getLog(int IDLog) throws DataLayerException;
+
+    public List<Corso> getMutuati(Corso corso);
+
+    public List<Corso> getCorsiMutuati(Corso corso);
+
+    public List<Corso> getCorsiPrerequisiti(Corso corso);
+
+    public List<Corso> getCorsiModulo(Corso corso);
+
+    public List<Docente> getDocentiCorso(Corso corso);
     
+    public List<Libro> getLibriCorso(Corso corso);
     
+    public List<Materiale> getMaterialeCorso(Corso corso);
     
-    
-    
+    public List<Corso> getCorsiInCdl(CDL cdl);
 }
