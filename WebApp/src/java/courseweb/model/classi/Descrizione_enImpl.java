@@ -15,6 +15,8 @@ public class Descrizione_enImpl implements Descrizione_en{
     
     private Corso corso;
     
+    private int id_corso;
+    
     private String prerequisiti;
     
     private String obiettivi;
@@ -35,6 +37,8 @@ public class Descrizione_enImpl implements Descrizione_en{
     
     protected IgwDataLayer ownerdatalayer;
     
+    protected boolean dirty;
+    
     
     public Descrizione_enImpl(IgwDataLayer ownerdatalayer){
     this.ownerdatalayer=ownerdatalayer;
@@ -48,16 +52,21 @@ public class Descrizione_enImpl implements Descrizione_en{
     this.homepage=null;
     this.forum=null;
     this.risorse_ext=null;
+    this.id_corso=-1;
+    this.dirty=false;
 }
 
     @Override
     public Corso getCorso() throws DataLayerException{
-        return this.corso;
+        if(corso==null)
+            corso=ownerdatalayer.getCorso(id_corso);
+        return corso;
     }
 
     @Override
     public void setCorso(Corso corso) {
         this.corso=corso;
+        this.dirty=true;
     }
 
     @Override
@@ -68,6 +77,7 @@ public class Descrizione_enImpl implements Descrizione_en{
     @Override
     public void setPrerequisiti(String prerequisiti) {
         this.prerequisiti=prerequisiti;
+        this.dirty=true;
     }
 
     @Override
@@ -78,6 +88,7 @@ public class Descrizione_enImpl implements Descrizione_en{
     @Override
     public void setObiettivi(String obiettivi) {
         this.obiettivi=obiettivi;
+        this.dirty=true;
     }
 
     @Override
@@ -88,6 +99,7 @@ public class Descrizione_enImpl implements Descrizione_en{
     @Override
     public void setMod_Esame(String mod_esame) {
         this.mod_esame=mod_esame;
+        this.dirty=true;
     }
 
     @Override
@@ -98,6 +110,7 @@ public class Descrizione_enImpl implements Descrizione_en{
     @Override
     public void setMod_Insegnamento(String mod_insegnamento) {
         this.mod_insegnamento=mod_insegnamento;
+        this.dirty=true;
     }
 
     @Override
@@ -108,6 +121,7 @@ public class Descrizione_enImpl implements Descrizione_en{
     @Override
     public void setSillabo(String sillabo) {
         this.sillabo=sillabo;
+        this.dirty=true;
     }
 
     @Override
@@ -118,6 +132,7 @@ public class Descrizione_enImpl implements Descrizione_en{
     @Override
     public void setNote(String note) {
         this.note=note;
+        this.dirty=true;
     }
 
     @Override
@@ -128,6 +143,7 @@ public class Descrizione_enImpl implements Descrizione_en{
     @Override
     public void setHomepage(String Homepage) {
         this.homepage=Homepage;
+        this.dirty=true;
     }
 
     @Override
@@ -138,7 +154,7 @@ public class Descrizione_enImpl implements Descrizione_en{
     @Override
     public void setForum(String forum) {
         this.forum=forum;
-        
+        this.dirty=true;
     }
 
     @Override
@@ -149,5 +165,6 @@ public class Descrizione_enImpl implements Descrizione_en{
     @Override
     public void setRisorse_Ext(String risorse) {
         this.risorse_ext=risorse;
+        this.dirty=true;
     }
 }

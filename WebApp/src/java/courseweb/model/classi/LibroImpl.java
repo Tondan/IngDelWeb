@@ -27,6 +27,7 @@ public class LibroImpl implements Libro {
     private String Link;
     private List<Corso> Corso;
     protected IgwDataLayer ownerdatalayer;
+    protected boolean dirty;
     
     public LibroImpl(IgwDataLayer ownerdatalayer){
         this.ownerdatalayer=ownerdatalayer;
@@ -38,11 +39,13 @@ public class LibroImpl implements Libro {
         this.Anno=0;
         this.Editore=null;
         this.Link=null;
+        this.dirty=false;
     }
     
     @Override
     public void setIDLibro(int id){
         this.IDLibro=id;
+        this.dirty=true;
     }
     
     @Override
@@ -84,46 +87,56 @@ public class LibroImpl implements Libro {
     @Override
     public void setAutore(String autore) {
         this.Autore=autore;
+        this.dirty=true;
     }
 
     @Override
     public void setTitolo(String titolo) {
         this.Titolo=titolo;
+        this.dirty=true;
     }
 
     @Override
     public void setVolume(String volume) {
         this.Volume=volume;
+        this.dirty=true;
     }
 
     @Override
     public void setAnno(int anno) {
         this.Anno=anno;
+        this.dirty=true;
     }
 
     @Override
     public void setEditore(String editore) {
         this.Editore=editore;
+        this.dirty=true;
     }
 
     @Override
     public void setLink(String link) {
         this.Link=link;
+        this.dirty=true;
     }
 
     @Override
     public List<Corso> getCorsi() throws DataLayerException {
-        return this.Corso;
+        if(Corso==null)
+            Corso=ownerdatalayer.getCorsiDelLibro(this);
+        return Corso;
     }
 
     @Override
     public void setCorsi(List<Corso> corsi) {
         this.Corso=corsi;
+        this.dirty=true;
     }
 
     @Override
     public void addCorsi(Corso corso) {
         this.Corso.add(corso);
+        this.dirty=true;
     }
 
 }

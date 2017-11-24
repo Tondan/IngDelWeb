@@ -83,7 +83,7 @@ public class CorsoImpl implements Corso{
         this.dublino_en=null;
         this.libri=null;
         this.materiale=null;
-        this.id_cdl=0;
+        this.id_cdl=-1;
         this.dirty=false;
     }
     

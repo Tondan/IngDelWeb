@@ -8,13 +8,14 @@ package courseweb.model.classi;
 import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Materiale;
 import java.util.List;
 
 /**
  *
  * @author Toni & Tony
  */
-public class MaterialeImpl {
+public class MaterialeImpl implements Materiale{
     
     private int id;
     
@@ -30,6 +31,8 @@ public class MaterialeImpl {
     
     protected IgwDataLayer ownerdatalayer;
     
+    protected boolean dirty;
+    
     public MaterialeImpl(IgwDataLayer ownerdatalayer){
         this.ownerdatalayer=ownerdatalayer;
         this.id=0;
@@ -38,10 +41,16 @@ public class MaterialeImpl {
         this.descrizione_it=null;
         this.link=null;
         this.corsi=null;
+        this.dirty=false;
     }
     
     public int getID(){
         return this.id;
+    }
+    
+    public void setID(int id){
+        this.id=id;
+        this.dirty=true;
     }
     
     public String getNome(){
@@ -50,6 +59,7 @@ public class MaterialeImpl {
     
     public void setNome(String nome){
         this.nome=nome;
+        this.dirty=true;
     }
     
     public String getLink(){
@@ -58,6 +68,7 @@ public class MaterialeImpl {
     
     public void setLink(String link){
         this.link=link;
+        this.dirty=true;
     }
     
     public String getDescrizione_it(){
@@ -66,6 +77,7 @@ public class MaterialeImpl {
     
     public void setDescrizione_it(String descrizione){
         this.descrizione_it=descrizione;
+        this.dirty=true;
     }
     
     public String getDescrizione_en(){
@@ -74,18 +86,23 @@ public class MaterialeImpl {
     
     public void setDescrizione_en(String descrizione){
         this.descrizione_en=descrizione;
+        this.dirty=true;
     }
     
     public List<Corso> getCorsi() throws DataLayerException{
-        return this.corsi;
+        if(corsi==null)
+            corsi=ownerdatalayer.getCorsiDelMateriale(this);
+        return corsi;
     }
     
     public void setCorsi(List<Corso> corsi){
         this.corsi=corsi;
+        this.dirty=true;
     }
     
     public void addCorsi(Corso corso){
         this.corsi.add(corso);
+        this.dirty=true;
     }
         
 }

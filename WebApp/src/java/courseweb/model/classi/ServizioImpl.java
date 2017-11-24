@@ -11,7 +11,7 @@ import courseweb.model.interfacce.IgwDataLayer;
 import java.util.List;
 /**
  *
- * @author Tony
+ * @author Toni & Tony
  */
 public class ServizioImpl implements Servizio {
 
@@ -20,6 +20,7 @@ public class ServizioImpl implements Servizio {
     private String Descrizione;
     private List<Gruppo> Gruppi;
     protected IgwDataLayer ownerdatalayer;
+    protected boolean dirty;
     
     public ServizioImpl(IgwDataLayer ownerdatalayer){
         this.ownerdatalayer=ownerdatalayer;
@@ -27,6 +28,7 @@ public class ServizioImpl implements Servizio {
         this.Script=null;
         this.Descrizione=null;
         this.Gruppi=null;
+        this.dirty=false;
     }
     
     @Override
@@ -47,31 +49,38 @@ public class ServizioImpl implements Servizio {
     @Override
     public void setIDServizio(int idservizio) {
         this.IDServizio=idservizio;
+        this.dirty=true;
     }
 
     @Override
     public void setScript(String script) {
         this.Script=script;
+        this.dirty=true;
     }
 
     @Override
     public void setDescrizione(String descrizione) {
         this.Descrizione=descrizione;
+        this.dirty=true;
     }
 
     @Override
     public List<Gruppo> getGruppi() throws DataLayerException {
-      return this.Gruppi;
+      if(Gruppi==null)
+          Gruppi=ownerdatalayer.getGruppiDelServizio(this);
+      return Gruppi;
     }
 
     @Override
     public void setGruppi(List<Gruppo> gruppi) {
         this.Gruppi=gruppi;
+        this.dirty=true;
     }
 
     @Override
     public void addGruppo(Gruppo gruppo) {
         this.Gruppi.add(gruppo);
+        this.dirty=true;
     }
     
 }

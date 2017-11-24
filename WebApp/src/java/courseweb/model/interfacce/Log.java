@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public interface Log {
     
-    int setIDLog(int id);
+    void setIDLog(int id);
     
     int getIDLog();
     

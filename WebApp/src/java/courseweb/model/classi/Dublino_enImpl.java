@@ -1,14 +1,17 @@
 package courseweb.model.classi;
+import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.*;
 
 
 /**
  *
- * @author Tony
+ * @author Toni & Tony
  */
 public class Dublino_enImpl implements Dublino_en{
     
     private Corso corso;
+    
+    private int id_corso;
     
     private String knowledge;
     
@@ -22,6 +25,8 @@ public class Dublino_enImpl implements Dublino_en{
     
     protected IgwDataLayer ownerdatalayer;
     
+    protected boolean dirty;
+    
     public Dublino_enImpl(IgwDataLayer ownerdatalayer){
     this.ownerdatalayer=ownerdatalayer;
     this.corso=null;
@@ -30,16 +35,21 @@ public class Dublino_enImpl implements Dublino_en{
     this.evaluation=null;
     this.communication=null;
     this.lifelong=null;
+    this.id_corso=-1;
+    this.dirty=false;
 }
 
     @Override
-    public Corso getCorso() {
-        return this.corso;
+    public Corso getCorso() throws DataLayerException{
+        if(corso==null)
+            corso=ownerdatalayer.getCorso(id_corso);
+        return corso;
     }
 
     @Override
     public void setCorso(Corso corso) {
         this.corso=corso;
+        this.dirty=false;
     }
 
     @Override
@@ -50,6 +60,7 @@ public class Dublino_enImpl implements Dublino_en{
     @Override
     public void setKnowledge(String knowledge) {
         this.knowledge=knowledge;
+        this.dirty=false;
     }
 
     @Override
@@ -60,6 +71,7 @@ public class Dublino_enImpl implements Dublino_en{
     @Override
     public void setApplication(String application) {
         this.application=application;
+        this.dirty=false;
     }
 
     @Override
@@ -70,6 +82,7 @@ public class Dublino_enImpl implements Dublino_en{
     @Override
     public void setEvaluation(String evaluation) {
        this.evaluation=evaluation;
+       this.dirty=false;
     }
 
     @Override
@@ -80,6 +93,7 @@ public class Dublino_enImpl implements Dublino_en{
     @Override
     public void setCommunication(String communication) {
         this.communication=communication;
+        this.dirty=false;
     }
 
     @Override
@@ -90,6 +104,7 @@ public class Dublino_enImpl implements Dublino_en{
     @Override
     public void setLifelong(String lifelong) {
         this.lifelong=lifelong;
+        this.dirty=false;
     }
     
     

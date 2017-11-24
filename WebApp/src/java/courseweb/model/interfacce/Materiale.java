@@ -38,6 +38,6 @@ public interface Materiale {
     
     void setCorsi(List<Corso> corsi);
     
-    void addCorso(Corso corso);
+    void addCorsi(Corso corso);
     
 }

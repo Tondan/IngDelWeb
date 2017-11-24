@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package courseweb.model.classi;
+import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.*;
 
 /**
@@ -13,6 +14,8 @@ import courseweb.model.interfacce.*;
 public class Descrizione_itImpl implements Descrizione_it{
     
     private Corso corso;
+    
+    private int id_corso;
     
     private String prerequisiti;
     
@@ -34,6 +37,9 @@ public class Descrizione_itImpl implements Descrizione_it{
     
     protected IgwDataLayer ownerdatalayer;
     
+    protected boolean dirty;
+    
+    
     public Descrizione_itImpl(IgwDataLayer ownerdatalayer){
     this.ownerdatalayer=ownerdatalayer;
     this.corso=null;
@@ -46,16 +52,21 @@ public class Descrizione_itImpl implements Descrizione_it{
     this.homepage=null;
     this.forum=null;
     this.risorse_ext=null;
+    this.id_corso=-1;
+    this.dirty=false;
 }
 
     @Override
-    public Corso getCorso() {
-        return this.corso;
+    public Corso getCorso() throws DataLayerException{
+        if(corso==null)
+            corso=ownerdatalayer.getCorso(id_corso);
+        return corso;
     }
 
     @Override
     public void setCorso(Corso corso) {
         this.corso=corso;
+        this.dirty=true;
     }
 
     @Override
@@ -66,6 +77,7 @@ public class Descrizione_itImpl implements Descrizione_it{
     @Override
     public void setPrerequisiti(String prerequisiti) {
         this.prerequisiti=prerequisiti;
+        this.dirty=true;
     }
 
     @Override
@@ -76,6 +88,7 @@ public class Descrizione_itImpl implements Descrizione_it{
     @Override
     public void setObiettivi(String obiettivi) {
         this.obiettivi=obiettivi;
+        this.dirty=true;
     }
 
     @Override
@@ -86,6 +99,7 @@ public class Descrizione_itImpl implements Descrizione_it{
     @Override
     public void setMod_Esame(String mod_esame) {
         this.mod_esame=mod_esame;
+        this.dirty=true;
     }
 
     @Override
@@ -96,6 +110,7 @@ public class Descrizione_itImpl implements Descrizione_it{
     @Override
     public void setMod_Insegnamento(String mod_insegnamento) {
         this.mod_insegnamento=mod_insegnamento;
+        this.dirty=true;
     }
 
     @Override
@@ -106,6 +121,7 @@ public class Descrizione_itImpl implements Descrizione_it{
     @Override
     public void setSillabo(String sillabo) {
         this.sillabo=sillabo;
+        this.dirty=true;
     }
 
     @Override
@@ -116,6 +132,7 @@ public class Descrizione_itImpl implements Descrizione_it{
     @Override
     public void setNote(String note) {
         this.note=note;
+        this.dirty=true;
     }
 
     @Override
@@ -126,6 +143,7 @@ public class Descrizione_itImpl implements Descrizione_it{
     @Override
     public void setHomepage(String Homepage) {
         this.homepage=Homepage;
+        this.dirty=true;
     }
 
     @Override
@@ -136,7 +154,7 @@ public class Descrizione_itImpl implements Descrizione_it{
     @Override
     public void setForum(String forum) {
         this.forum=forum;
-        
+        this.dirty=true;
     }
 
     @Override
@@ -147,5 +165,6 @@ public class Descrizione_itImpl implements Descrizione_it{
     @Override
     public void setRisorse_Ext(String risorse) {
         this.risorse_ext=risorse;
+        this.dirty=true;
     }
 }

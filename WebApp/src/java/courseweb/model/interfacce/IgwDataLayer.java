@@ -101,4 +101,16 @@ public interface IgwDataLayer extends DataLayer {
     public List<Materiale> getMaterialeCorso(Corso corso);
     
     public List<Corso> getCorsiInCdl(CDL cdl);
+    
+    public List<Utente> getUtentiInGruppo(Gruppo gruppo);
+    
+    public List<Servizio> getServiziPerGruppo(Gruppo gruppo);
+    
+    public List<Corso> getCorsiDelDocente(Docente docente);
+    
+    public List<Corso> getCorsiDelLibro(Libro libro);
+    
+    public List<Corso> getCorsiDelMateriale(Materiale materiale);
+    
+    public List<Gruppo> getGruppiDelServizio(Servizio servizio);
 }

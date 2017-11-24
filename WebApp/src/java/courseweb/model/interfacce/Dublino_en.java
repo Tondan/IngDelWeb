@@ -5,13 +5,15 @@
  */
 package courseweb.model.interfacce;
 
+import courseweb.controller.data.DataLayerException;
+
 /**
  *
  * @author Toni & Tony
  */
 public interface Dublino_en {
     
-    Corso getCorso();
+    Corso getCorso() throws DataLayerException;
     
     void setCorso(Corso corso);
     

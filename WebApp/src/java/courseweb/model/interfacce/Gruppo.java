@@ -10,13 +10,13 @@ import java.util.List;
 
 /**
  *
- * @author Tony
+ * @author Toni & Tony
  */
 public interface Gruppo {
     
     void setIDGruppo(int id);
     
-    int getIDgruppo();
+    int getIDGruppo();
     
     String getNome();
     

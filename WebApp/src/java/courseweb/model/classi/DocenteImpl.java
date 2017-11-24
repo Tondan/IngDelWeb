@@ -41,6 +41,8 @@ public class DocenteImpl implements Docente {
     
     protected IgwDataLayer ownerdatalayer;
     
+    protected boolean dirty;
+    
     
     public DocenteImpl(IgwDataLayer ownerdatalayer){
         this.ownerdatalayer=ownerdatalayer;
@@ -55,11 +57,13 @@ public class DocenteImpl implements Docente {
         this.pubblicazione=null;
         this.curriculum=null;
         this.ricevimento=null;
+        this.dirty=false;
     }
     
     @Override
     public void setIDDocente(int id){
         this.id_docente=id;
+        this.dirty=true;
     }
     
     @Override
@@ -125,73 +129,88 @@ public class DocenteImpl implements Docente {
     @Override
     public void setImmagine(String Immagine) {
         this.immagine=Immagine;
+        this.dirty=true;
     }
     
 
     @Override
     public void setNome(String nome) {
         this.nome=nome;
+        this.dirty=true;
     }
 
     @Override
     public void setCognome(String cognome) {
         this.cognome=cognome;
+        this.dirty=true;
     }
 
     @Override
     public void setEmail(String email) {
         this.email=email;
+        this.dirty=true;
     }
 
     @Override
     public void setUfficio(String ufficio) {
        this.ufficio=ufficio;
+       this.dirty=true;
     }
 
     @Override
     public void setTelefono(String telefono) {
         this.telefono=telefono;
+        this.dirty=true;
     }
 
     @Override
     public void setSpecializzazione(String specializzazione) {
-        this.specializzazione=specializzazione;    
+        this.specializzazione=specializzazione;  
+        this.dirty=true;
     }
 
     @Override
     public void setRicerche(String ricerche) {
         this.ricerche=ricerche;
+        this.dirty=true;
     }
 
     @Override
     public void setPubblicazioni(String pubblicazioni) {
         this.pubblicazione=pubblicazioni;
+        this.dirty=true;
     
     }
 
     @Override
     public void setCurriculum(String curriculum) {
         this.curriculum=curriculum;
+        this.dirty=true;
     }
 
     @Override
     public void setRicevimento(String ricevimento) {
         this.ricevimento=ricevimento;
+        this.dirty=true;
     }
 
     @Override
     public List<Corso> getCorsi() throws DataLayerException {
-        return this.corsi;
+        if(corsi==null)
+            corsi=ownerdatalayer.getCorsiDelDocente(this);
+        return corsi;
     }
 
         @Override
     public void setCorsi(List<Corso> corsi){
         this.corsi=corsi;
+        this.dirty=true;
     }
     
     @Override
     public void addCorso(Corso corso){
         this.corsi.add(corso);
+        this.dirty=true;
     }
     
 }
