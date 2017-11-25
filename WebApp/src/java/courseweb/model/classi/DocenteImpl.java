@@ -9,7 +9,7 @@ import courseweb.controller.data.DataLayerException;
 import java.util.List;
 /**
  *
- * @author Tony & Toni
+ * @author Toni & Tony
  */
 public class DocenteImpl implements Docente {
     

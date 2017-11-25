@@ -6,7 +6,6 @@
 package courseweb.model.classi;
 import courseweb.model.interfacce.*;
 import courseweb.controller.data.DataLayerException;
-import java.time.Year;
 import java.util.List;
 /**
  *
@@ -86,6 +85,13 @@ public class CorsoImpl implements Corso{
         this.id_cdl=-1;
         this.dirty=false;
     }
+    
+    
+    public void setIDCDL(int id_cdl){
+        this.id_cdl=id_cdl;
+        this.dirty=true;
+    }
+    
     
     @Override
     public void setID(int id){

@@ -94,7 +94,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             co.setCfu(rs.getInt("CFU"));
             co.setAnno(rs.getInt("Anno"));
             co.setTipologia((char)rs.getInt("Tipologia"));
-            co.setCDL(rs)
+            co.setIDCDL(rs.getInt("cdl"));
             return co;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create author object form ResultSet", ex);
@@ -106,7 +106,26 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return new DocenteImpl(this);
     }
     
-
+        public Docente createDocente(ResultSet rs) throws DataLayerException {
+        try {
+            CorsoImpl d = new CorsoImpl(this);
+            
+            d.setIDDocente(rs.getInt("ID")); 
+            d.setNome_it(rs.getString("Nome_it"));
+            d.setNome_en(rs.getString("Nome_en"));
+            d.setSSD(rs.getString("SSD"));  
+            d.setLingua(rs.getString("Lingua"));
+            d.setSemestre(rs.getInt("Semestre"));
+            d.setCfu(rs.getInt("CFU"));
+            d.setAnno(rs.getInt("Anno"));
+            d.setTipologia((char)rs.getInt("Tipologia"));
+            d.setIDCDL(rs.getInt("cdl"));
+            return d;
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to create author object form ResultSet", ex);
+        }
+    }
+    
     @Override
     public Descrizione_it createDescrizione_it() {
         return new Descrizione_itImpl(this);
