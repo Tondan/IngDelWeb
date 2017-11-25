@@ -132,38 +132,27 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return new Descrizione_itImpl(this);
     }
     
-            public Descrizione_it(ResultSet rs) throws DataLayerException {
+            public Descrizione_it createDescrizione_it(ResultSet rs) throws DataLayerException {
         try {
             Descrizione_itImpl de = new Descrizione_itImpl(this);
             
             de.setIDCorso(rs.getInt("Corso")); 
             de.setPrerequisiti(rs.getString("Prerequisiti"));
-            de.setNome(rs.getString("Nome"));
-            de.setCognome(rs.getString("SSD"));  
-            de.setEmail(rs.getString("Email"));
-            de.setUfficio(rs.getString("Uffico"));
-            de.setTelefono(rs.getString("Telefono"));
-            de.setSpecializzazione(rs.getString("Specializzazione"));
-            de.setRicerche(rs.getString("Ricerche"));
-            de.setPubblicazioni(rs.getString("Pubblicazioni"));
-            de.setCurriculum(rs.getString("Curriculum"));
-            de.setRicevimento(rs.getString("Ricevimento"));
-            
+            de.setObiettivi(rs.getString("Obiettivi"));
+            de.setMod_Esame(rs.getString("Mod_Esame"));  
+            de.setMod_Insegnamento(rs.getString("Mod_Insegnamento"));
+            de.setSillabo(rs.getString("Sillabo"));
+            de.setNote(rs.getString("Note"));
+            de.setHomepage(rs.getString("Homepage"));
+            de.setForum(rs.getString("Forum"));
+            de.setRisorse_Ext(rs.getString("Risorse_ext"));
             return de;
         } catch (SQLException ex) {
-            throw new DataLayerException("Unable to create author object form ResultSet", ex);
+            throw new DataLayerException("Unable to create Descrizione_it object form ResultSet", ex);
         }
-    }
+   }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
     
 
     @Override
