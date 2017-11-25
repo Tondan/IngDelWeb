@@ -108,14 +108,14 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     
         public Docente createDocente(ResultSet rs) throws DataLayerException {
         try {
-            CorsoImpl d = new CorsoImpl(this);
+            DocenteImpl d = new DocenteImpl(this);
             
-            d.setIDDocente(rs.getInt("ID")); 
-            d.setNome_it(rs.getString("Nome_it"));
-            d.setNome_en(rs.getString("Nome_en"));
-            d.setSSD(rs.getString("SSD"));  
-            d.setLingua(rs.getString("Lingua"));
-            d.setSemestre(rs.getInt("Semestre"));
+            d.setIDDocente(rs.getInt("IDDocente")); 
+            d.setImmagine(rs.getString("Immagine"));
+            d.setNome(rs.getString("Nome"));
+            d.setCognome(rs.getString("SSD"));  
+            d.setEmail(rs.getString("Email"));
+            d.setUffico(rs.getString("Uffico"));
             d.setCfu(rs.getInt("CFU"));
             d.setAnno(rs.getInt("Anno"));
             d.setTipologia((char)rs.getInt("Tipologia"));
