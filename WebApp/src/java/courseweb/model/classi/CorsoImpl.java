@@ -86,7 +86,7 @@ public class CorsoImpl implements Corso{
         this.dirty=false;
     }
     
-    
+    @Override
     public void setIDCDL(int id_cdl){
         this.id_cdl=id_cdl;
         this.dirty=true;

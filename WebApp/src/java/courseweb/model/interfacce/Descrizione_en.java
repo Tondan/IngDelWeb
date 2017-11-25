@@ -13,6 +13,8 @@ import courseweb.controller.data.DataLayerException;
  */
 public interface Descrizione_en {
     
+    void setIDCorso(int id_corso);
+    
     Corso getCorso() throws DataLayerException;
     
     void setCorso(Corso corso);

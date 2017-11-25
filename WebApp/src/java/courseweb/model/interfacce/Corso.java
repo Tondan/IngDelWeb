@@ -15,6 +15,8 @@ import java.util.List;
 
 public interface Corso {
     
+    void setIDCDL(int id_cdl);
+    
     void setID(int id);
     
     int getID();
