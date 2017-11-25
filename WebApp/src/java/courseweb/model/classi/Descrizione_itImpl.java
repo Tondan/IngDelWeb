@@ -56,6 +56,15 @@ public class Descrizione_itImpl implements Descrizione_it{
     this.dirty=false;
 }
 
+    
+    public void setIDCorso(int id_corso) {
+        this.id_corso=id_corso;
+        this.dirty=true;
+    }
+    
+    
+    
+    
     @Override
     public Corso getCorso() throws DataLayerException{
         if(corso==null)

@@ -27,7 +27,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.util.Calendar;
 
 /**
  *
@@ -115,11 +114,13 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             d.setNome(rs.getString("Nome"));
             d.setCognome(rs.getString("SSD"));  
             d.setEmail(rs.getString("Email"));
-            d.setUffico(rs.getString("Uffico"));
-            d.setCfu(rs.getInt("CFU"));
-            d.setAnno(rs.getInt("Anno"));
-            d.setTipologia((char)rs.getInt("Tipologia"));
-            d.setIDCDL(rs.getInt("cdl"));
+            d.setUfficio(rs.getString("Uffico"));
+            d.setTelefono(rs.getString("Telefono"));
+            d.setSpecializzazione(rs.getString("Specializzazione"));
+            d.setRicerche(rs.getString("Ricerche"));
+            d.setPubblicazioni(rs.getString("Pubblicazioni"));
+            d.setCurriculum(rs.getString("Curriculum"));
+            d.setRicevimento(rs.getString("Ricevimento"));
             return d;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create author object form ResultSet", ex);
@@ -130,6 +131,40 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     public Descrizione_it createDescrizione_it() {
         return new Descrizione_itImpl(this);
     }
+    
+            public Descrizione_it(ResultSet rs) throws DataLayerException {
+        try {
+            Descrizione_itImpl de = new Descrizione_itImpl(this);
+            
+            de.setIDCorso(rs.getInt("Corso")); 
+            de.setPrerequisiti(rs.getString("Prerequisiti"));
+            de.setNome(rs.getString("Nome"));
+            de.setCognome(rs.getString("SSD"));  
+            de.setEmail(rs.getString("Email"));
+            de.setUfficio(rs.getString("Uffico"));
+            de.setTelefono(rs.getString("Telefono"));
+            de.setSpecializzazione(rs.getString("Specializzazione"));
+            de.setRicerche(rs.getString("Ricerche"));
+            de.setPubblicazioni(rs.getString("Pubblicazioni"));
+            de.setCurriculum(rs.getString("Curriculum"));
+            de.setRicevimento(rs.getString("Ricevimento"));
+            
+            return de;
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to create author object form ResultSet", ex);
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     @Override
     public Descrizione_en createDescrizione_en() {
