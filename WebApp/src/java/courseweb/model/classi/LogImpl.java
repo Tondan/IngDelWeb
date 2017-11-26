@@ -10,7 +10,6 @@ import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Log;
 import courseweb.model.interfacce.Utente;
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  *
@@ -42,41 +41,54 @@ public class LogImpl implements Log{
         this.id_utente=-1;
     }
     
+    @Override
     public int getIDLog(){
         return this.id;
     }
     
+    @Override
     public void setIDLog(int id){
         this.id=id;
         this.dirty=true;
     }
     
+    @Override
     public Timestamp getData(){
         return this.data;
     }
     
+    @Override
     public String getDescrizione(){
         return this.descrizione;
     }
     
+    @Override
     public Utente getUtente() throws DataLayerException{
         if(utente==null&&id_utente>=0)
             utente=ownerdatalayer.getUtente(id_utente);
         return utente;
     }
     
+    @Override
     public void setUtente(Utente utente){
         this.utente=utente;
         this.dirty=true;
     }
     
+    @Override
     public void setData(Timestamp data){
         this.data=data;
         this.dirty=true;
     }
     
+    @Override
     public void setDescrizione(String descrizione){
         this.descrizione=descrizione;
         this.dirty=true;
+    }
+
+    @Override
+    public void setIDUtente(int id_utente) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

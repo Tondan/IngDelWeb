@@ -31,5 +31,7 @@ public interface Servizio {
     void setGruppi(List<Gruppo> gruppi);
     
     void addGruppo(Gruppo gruppo);
+
+    public void setIDGruppo(int aInt);
     
 }

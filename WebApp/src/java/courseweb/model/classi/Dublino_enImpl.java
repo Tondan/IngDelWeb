@@ -106,6 +106,10 @@ public class Dublino_enImpl implements Dublino_en{
         this.lifelong=lifelong;
         this.dirty=false;
     }
+
+    void setIDCorso(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

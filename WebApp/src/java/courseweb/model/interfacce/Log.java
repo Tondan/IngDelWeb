@@ -30,4 +30,6 @@ public interface Log {
     void setData(Timestamp data);
     
     void setDescrizione(String Descrizione);
+
+    public void setIDUtente(int aInt);
 }

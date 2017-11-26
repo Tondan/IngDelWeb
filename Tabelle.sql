@@ -114,7 +114,7 @@ CREATE TABLE Libro(
 	IDLibro INT PRIMARY KEY AUTO_INCREMENT,
 	Autore VARCHAR(20) NOT NULL,
     Titolo VARCHAR(50) NOT NULL,
-    Volume INT,
+    Volume VARCHAR(20),
     Anno YEAR NOT NULL,
     Editore VARCHAR(50),
     Link TEXT

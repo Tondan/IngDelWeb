@@ -43,51 +43,66 @@ public class UtenteImpl implements Utente{
         this.id_gruppo=-1;
     }
     
+    @Override
     public int getID(){
         return this.id;
     }
     
+    @Override
     public void setID(int id){
         this.id=id;
         this.dirty=true;
     }
     
+    @Override
     public String getUsername(){
         return this.username;
     }
     
+    @Override
     public String getPassword(){
         return this.password;
     }
     
+    @Override
     public String getEmail(){
         return this.email;
     }
     
+    @Override
     public Gruppo getGruppo() throws DataLayerException{
         if(gruppo==null&&id_gruppo>=0)
             gruppo=ownerdatalayer.getGruppo(id_gruppo);
         return this.gruppo;
     }
 
+    @Override
     public void setGruppo(Gruppo gruppo){
         this.gruppo=gruppo;
         this.dirty=true;
     }
     
+    @Override
     public void setUsername(String username){
         this.username=username;
         this.dirty=true;
     }
     
+    @Override
     public void setPassword(String password){
         this.password=password;
         this.dirty=true;
     }
     
+    @Override
     public void setEmail(String email){
         this.email=email;
         this.dirty=true;
+    }
+
+    @Override
+    public void setIDGruppo(int id_gruppo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

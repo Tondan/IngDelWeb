@@ -82,5 +82,10 @@ public class ServizioImpl implements Servizio {
         this.Gruppi.add(gruppo);
         this.dirty=true;
     }
+
+    @Override
+    public void setIDGruppo(int id_gruppo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

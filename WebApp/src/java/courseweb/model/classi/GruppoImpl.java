@@ -39,54 +39,74 @@ public class GruppoImpl implements Gruppo{
         this.dirty=false;
     }
     
+    @Override
     public int getIDGruppo(){
         return this.id;
     }
     
+    @Override
     public void setIDGruppo(int id){
         this.id=id;
         this.dirty=true;
     }
     
+    @Override
     public String getNome(){
         return this.nome;
     }
     
+    @Override
     public void setNome(String nome){
         this.nome=nome;
         this.dirty=true;
     }
     
+    @Override
     public List<Utente> getUtenti() throws DataLayerException{
         if(utenti==null)
             utenti=ownerdatalayer.getUtentiInGruppo(this);
         return utenti;
     }
     
+    @Override
     public void setUtenti(List<Utente> utenti){
         this.utenti=utenti;
         this.dirty=true;
     }
     
+    @Override
     public void addUtente(Utente utente){
         this.utenti.add(utente);
         this.dirty=true;
     }
     
+    @Override
     public List<Servizio> getServizi() throws DataLayerException{
         if(servizi==null)
             servizi=ownerdatalayer.getServiziPerGruppo(this);
         return servizi;
     }
     
+    @Override
     public void setServizi(List<Servizio> servizi){
         this.servizi=servizi;
         this.dirty=true;
     }
     
+    @Override
     public void addServizio(Servizio servizio){
         this.servizi.add(servizio);
         this.dirty=true;
+    }
+
+    
+    //da scrivere qua ed in interfaccia
+    void setIDUtenti(int id_utenti) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void setIDServizi(int id_servizio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

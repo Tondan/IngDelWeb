@@ -167,4 +167,9 @@ public class Descrizione_enImpl implements Descrizione_en{
         this.risorse_ext=risorse;
         this.dirty=true;
     }
+
+    @Override
+    public void setIDCorso(int id_corso) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
