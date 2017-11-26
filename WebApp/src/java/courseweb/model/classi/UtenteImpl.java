@@ -43,6 +43,10 @@ public class UtenteImpl implements Utente{
         this.id_gruppo=-1;
     }
     
+    public void setIDGruppo(int id_gruppo){
+        this.id_gruppo=id_gruppo;
+    }
+    
     public int getID(){
         return this.id;
     }

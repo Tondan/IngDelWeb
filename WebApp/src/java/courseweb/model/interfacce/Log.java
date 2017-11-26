@@ -15,6 +15,8 @@ import java.util.Date;
  */
 public interface Log {
     
+    void setIDUtente(int id_utente);
+    
     void setIDLog(int id);
     
     int getIDLog();
