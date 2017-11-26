@@ -33,8 +33,6 @@ public interface Utente {
     void setPassword(String password);
     
     void setEmail(String email);
-
-    public void setIDGruppo(int aInt);
     
     
 }

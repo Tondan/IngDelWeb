@@ -103,9 +103,4 @@ public class UtenteImpl implements Utente{
         this.dirty=true;
     }
 
-    @Override
-    public void setIDGruppo(int id_gruppo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

@@ -41,10 +41,12 @@ public class LogImpl implements Log{
         this.id_utente=-1;
     }
     
+    @Override
     public void setIDUtente(int id_utente){
         this.id_utente=id_utente;
     }
     
+    @Override
     public int getIDLog(){
         return this.id;
     }
@@ -90,8 +92,4 @@ public class LogImpl implements Log{
         this.dirty=true;
     }
 
-    @Override
-    public void setIDUtente(int id_utente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
