@@ -19,6 +19,10 @@ public class MaterialeImpl implements Materiale{
     
     private int id;
     
+    private int id_corso;
+    
+    private Corso corso;
+    
     private String nome;
     
     private String link;
@@ -27,8 +31,6 @@ public class MaterialeImpl implements Materiale{
     
     private String descrizione_en;
     
-    private List<Corso> corsi;
-    
     protected IgwDataLayer ownerdatalayer;
     
     protected boolean dirty;
@@ -36,12 +38,13 @@ public class MaterialeImpl implements Materiale{
     public MaterialeImpl(IgwDataLayer ownerdatalayer){
         this.ownerdatalayer=ownerdatalayer;
         this.id=0;
+        this.corso=null;
         this.nome=null;
         this.descrizione_en=null;
         this.descrizione_it=null;
         this.link=null;
-        this.corsi=null;
         this.dirty=false;
+        this.id_corso=-1;
     }
     
     public int getID(){
@@ -51,6 +54,13 @@ public class MaterialeImpl implements Materiale{
     public void setID(int id){
         this.id=id;
         this.dirty=true;
+    }
+    
+    @Override
+    public Corso getCorso() throws DataLayerException{
+        if(corso==null&&id_corso>0)
+            corso=ownerdatalayer.getCorso(id_corso);
+        return corso;
     }
     
     public String getNome(){
@@ -88,25 +98,10 @@ public class MaterialeImpl implements Materiale{
         this.descrizione_en=descrizione;
         this.dirty=true;
     }
-    
-    public List<Corso> getCorsi() throws DataLayerException{
-        if(corsi==null)
-            corsi=ownerdatalayer.getCorsiDelMateriale(this);
-        return corsi;
-    }
-    
-    public void setCorsi(List<Corso> corsi){
-        this.corsi=corsi;
-        this.dirty=true;
-    }
-    
-    public void addCorsi(Corso corso){
-        this.corsi.add(corso);
-        this.dirty=true;
+
+    void setIDCorso(int id_corso) {
+        this.id_corso=id_corso;
     }
 
-    void setIDCorso(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
         
 }

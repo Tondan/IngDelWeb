@@ -34,10 +34,6 @@ public interface Materiale {
     
     void setDescrizione_en(String descrizione_en);
     
-    List<Corso> getCorsi() throws DataLayerException;
-    
-    void setCorsi(List<Corso> corsi);
-    
-    void addCorsi(Corso corso);
+    public Corso getCorso() throws DataLayerException;
     
 }

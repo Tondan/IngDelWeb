@@ -25,6 +25,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -35,17 +36,43 @@ import javax.sql.DataSource;
  */
 public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwDataLayer {
 
-    private PreparedStatement a; //roba roba roba
+    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID;
+    private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio;
     
     @Override
     public void init() throws DataLayerException {
         try {
             super.init();
             
-            a=connection.prepareStatement("query sql"); //placeholder per ricordare
-
+            sCDLByID=connection.prepareStatement("SELECT * FROM CDL WHERE IDCDL=?");
+            sCorsoByID=connection.prepareStatement("SELECT * FROM Corso WHERE IDCorso=?");
+            sDocenteByID=connection.prepareStatement("SELECT * FROM Docente WHERE IDDocente=?");
+            sDescrizione_itByCorso=connection.prepareStatement("SELECT * FROM Descrizione_it WHERE Corso=?");
+            sDescrizione_enByCorso=connection.prepareStatement("SELECT * FROM Descrizione_en WHERE Corso=?");
+            sDublino_itByCorso=connection.prepareStatement("SELECT * FROM Dublino_it WHERE Corso=?");
+            sDublino_enByCorso=connection.prepareStatement("SELECT * FROM Dublino_en WHERE Corso=?");
+            sMaterialeByID=connection.prepareStatement("SELECT * FROM Materiale WHERE IDMateriale=?");
+            sLibroByID=connection.prepareStatement("SELECT * FROM Libro WHERE IDLibro=?");
+            sGruppoByID=connection.prepareStatement("SELECT * FROM Gruppo WHERE IDGruppo=?");
+            sUtenteByID=connection.prepareStatement("SELECT * FROM Utente WHERE IDUtente=?");
+            sServizioByID=connection.prepareStatement("SELECT * FROM Servizio WHERE IDServizio=?");
+            sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
+            
+            sCorsiMutuatiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Mutuato");
+            sCorsiPrerequisitiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Prerequisito");
+            sCorsiModuloByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Modulo");
+            sDocentiByCorso=connection.prepareStatement("SELECT Docente FROM Docenti_Corso WHERE Corso=?");
+            sLibriByCorso=connection.prepareStatement("SELECT Libro FROM Libri_Corso WHERE Corso=?");
+            sMaterialeByCorso=connection.prepareStatement("SELECT IDMateriale FROM Materiale WHERE Corso=?");
+            sCorsiByCDL=connection.prepareStatement("SELECT IDCorso FROM Corso WHERE CDL=?");
+            sUtentiByGruppo=connection.prepareStatement("SELECT IDUtente FROM Utente WHERE Gruppo=?");
+            sServiziByGruppo=connection.prepareStatement("SELECT Servizio FROM Group_Services WHERE Gruppo=?");
+            sCorsiByDocente=connection.prepareStatement("SELECT Corso FROM Docenti_Corso WHERE Docente=?");
+            sCorsiByLibro=connection.prepareStatement("SELECT Corso FROM Libri_Corso WHERE Libro=?");
+            sGruppiByServizio=connection.prepareStatement("SELECT Gruppo FROM Group_Services WHERE Servizio=?");
+            
         } catch (SQLException ex) {
-            throw new DataLayerException("Error initializing newspaper data layer", ex);
+            throw new DataLayerException("Error initializing igw data layer", ex);
         }
     }
     
@@ -364,157 +391,381 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     
     @Override
     public CDL getCDL(int IDCdl) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            sCDLByID.setInt(1,IDCdl);
+            try (ResultSet rs=sCDLByID.executeQuery()) {
+                if(rs.next())
+                    return createCDL(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load CDL by ID",ex);
+        }
+        return null;
     }
 
     @Override
     public Corso getCorso(int IDCorso) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            sCorsoByID.setInt(1,IDCorso);
+            try (ResultSet rs=sCorsoByID.executeQuery()) {
+                if(rs.next())
+                    return createCorso(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Corso by ID",ex);
+        }
+        return null;
     }
 
     @Override
     public Docente getDocente(int IDDocente) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Descrizione_it getDescrizione_it(int Corso) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Descrizione_en getDescrizione_en(int Corso) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Dublino_it getDublino_it(int Corso) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Dublino_en getDublino_en(int Corso) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Materiale getMateriale(int IDLibro) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Libro getLibro(int IDLibro) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Gruppo getGruppo(int IDGruppo) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Utente getUtente(int IDUtente) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Servizio getServizio(int IDServizio) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Log getLog(int IDLog) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            sDocenteByID.setInt(1,IDDocente);
+            try (ResultSet rs=sDocenteByID.executeQuery()) {
+                if(rs.next())
+                    return createDocente(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Docente by ID",ex);
+        }
+        return null;
     }
 
     @Override
     public Descrizione_it getDescrizione_it(Corso corso) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            sDescrizione_itByCorso.setInt(1,corso.getID());
+            try (ResultSet rs=sDescrizione_itByCorso.executeQuery()) {
+                if(rs.next())
+                    return createDescrizione_it(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Descrizione_it by Corso",ex);
+        }
+        return null;
     }
 
     @Override
     public Descrizione_en getDescrizione_en(Corso corso) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            sDescrizione_enByCorso.setInt(1,corso.getID());
+            try (ResultSet rs=sDescrizione_enByCorso.executeQuery()) {
+                if(rs.next())
+                    return createDescrizione_en(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Descrizione_en by Corso",ex);
+        }
+        return null;
     }
 
     @Override
     public Dublino_it getDublino_it(Corso corso) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            sDublino_itByCorso.setInt(1,corso.getID());
+            try (ResultSet rs=sDublino_itByCorso.executeQuery()) {
+                if(rs.next())
+                    return createDublino_it(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Dublino_it by Corso",ex);
+        }
+        return null;
     }
 
     @Override
     public Dublino_en getDublino_en(Corso corso) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            sDublino_enByCorso.setInt(1,corso.getID());
+            try (ResultSet rs=sDublino_enByCorso.executeQuery()) {
+                if(rs.next())
+                    return createDublino_en(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Dublino_en by Corso",ex);
+        }
+        return null;
     }
 
     @Override
-    public List<Corso> getMutuati(Corso corso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Materiale getMateriale(int IDMateriale) throws DataLayerException {
+        try {
+            sMaterialeByID.setInt(1,IDMateriale);
+            try (ResultSet rs=sMaterialeByID.executeQuery()) {
+                if(rs.next())
+                    return createMateriale(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Materiale by ID",ex);
+        }
+        return null;
     }
 
     @Override
-    public List<Corso> getCorsiMutuati(Corso corso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Libro getLibro(int IDLibro) throws DataLayerException {
+        try {
+            sLibroByID.setInt(1,IDLibro);
+            try (ResultSet rs=sLibroByID.executeQuery()) {
+                if(rs.next())
+                    return createLibro(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Libro by ID",ex);
+        }
+        return null;
     }
 
     @Override
-    public List<Corso> getCorsiPrerequisiti(Corso corso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Gruppo getGruppo(int IDGruppo) throws DataLayerException {
+        try {
+            sGruppoByID.setInt(1,IDGruppo);
+            try (ResultSet rs=sGruppoByID.executeQuery()) {
+                if(rs.next())
+                    return createGruppo(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Gruppo by ID",ex);
+        }
+        return null;
     }
 
     @Override
-    public List<Corso> getCorsiModulo(Corso corso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Utente getUtente(int IDUtente) throws DataLayerException {
+        try {
+            sUtenteByID.setInt(1,IDUtente);
+            try (ResultSet rs=sUtenteByID.executeQuery()) {
+                if(rs.next())
+                    return createUtente(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Utente by ID",ex);
+        }
+        return null;
     }
 
     @Override
-    public List<Docente> getDocentiCorso(Corso corso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Servizio getServizio(int IDServizio) throws DataLayerException {
+        try {
+            sServizioByID.setInt(1,IDServizio);
+            try (ResultSet rs=sServizioByID.executeQuery()) {
+                if(rs.next())
+                    return createServizio(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Servizio by ID",ex);
+        }
+        return null;
     }
 
     @Override
-    public List<Libro> getLibriCorso(Corso corso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Log getLog(int IDLog) throws DataLayerException {
+        try {
+            sLogByID.setInt(1,IDLog);
+            try (ResultSet rs=sLogByID.executeQuery()) {
+                if(rs.next())
+                    return createLog(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Log by ID",ex);
+        }
+        return null;
     }
 
     @Override
-    public List<Materiale> getMaterialeCorso(Corso corso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Corso> getCorsiMutuati(Corso corso) throws DataLayerException {
+        List<Corso> result = new ArrayList();
+        try {
+            sCorsiMutuatiByCorso.setInt(1,corso.getID());
+            try (ResultSet rs=sCorsiMutuatiByCorso.executeQuery()) {
+                while (rs.next()){
+                    result.add(getCorso(rs.getInt("Other_Corso")));
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to load CorsiMutuati by Corso", ex);
+        }
+        return result;
     }
 
     @Override
-    public List<Corso> getCorsiInCdl(CDL cdl) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Corso> getCorsiPrerequisiti(Corso corso) throws DataLayerException {
+        List<Corso> result = new ArrayList();
+        try {
+            sCorsiPrerequisitiByCorso.setInt(1,corso.getID());
+            try (ResultSet rs=sCorsiPrerequisitiByCorso.executeQuery()) {
+                while (rs.next()){
+                    result.add(getCorso(rs.getInt("Other_Corso")));
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to load CorsiPrerequisiti by Corso", ex);
+        }
+        return result;
     }
 
     @Override
-    public List<Utente> getUtentiInGruppo(Gruppo gruppo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Corso> getCorsiModulo(Corso corso) throws DataLayerException {
+        List<Corso> result = new ArrayList();
+        try {
+            sCorsiModuloByCorso.setInt(1,corso.getID());
+            try (ResultSet rs=sCorsiModuloByCorso.executeQuery()) {
+                while (rs.next()){
+                    result.add(getCorso(rs.getInt("Other_Corso")));
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to load CorsiModulo by Corso", ex);
+        }
+        return result;
     }
 
     @Override
-    public List<Servizio> getServiziPerGruppo(Gruppo gruppo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Docente> getDocentiCorso(Corso corso) throws DataLayerException {
+        List<Docente> result = new ArrayList();
+        try {
+            sDocentiByCorso.setInt(1,corso.getID());
+            try (ResultSet rs=sDocentiByCorso.executeQuery()) {
+                while (rs.next()){
+                    result.add(getDocente(rs.getInt("Docente")));
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to load DocentiCorso by Corso", ex);
+        }
+        return result;
     }
 
     @Override
-    public List<Corso> getCorsiDelDocente(Docente docente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Libro> getLibriCorso(Corso corso) throws DataLayerException {
+        List<Libro> result=new ArrayList();
+        try{
+            sLibriByCorso.setInt(1, corso.getID());
+            try (ResultSet rs=sLibriByCorso.executeQuery()){
+                while(rs.next())
+                    result.add(getLibro(rs.getInt("Libro")));
+            }
+        } catch (SQLException ex){
+            throw new DataLayerException("Unable to load LibriCorso by Corso",ex);
+        }
+        return result;
     }
 
     @Override
-    public List<Corso> getCorsiDelLibro(Libro libro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Materiale> getMaterialeCorso(Corso corso) throws DataLayerException {
+        List<Materiale> result = new ArrayList();
+        try{
+            sMaterialeByCorso.setInt(1, corso.getID());
+            try (ResultSet rs=sMaterialeByCorso.executeQuery()){
+                while(rs.next())
+                    result.add(getMateriale(rs.getInt("IDMateriale")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load MaterialeCorso by Corso",ex);
+        }
+        return result;
     }
 
     @Override
-    public List<Corso> getCorsiDelMateriale(Materiale materiale) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Corso> getCorsiInCdl(CDL cdl) throws DataLayerException {
+        List<Corso> result = new ArrayList();
+        try{
+            sCorsiByCDL.setInt(1, cdl.getIDCDL());
+            try (ResultSet rs=sCorsiByCDL.executeQuery()){
+                while(rs.next())
+                    result.add(getCorso(rs.getInt("IDCorso")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load CorsiInCdl by CDL",ex);
+        }
+        return result;
+    }
+    @Override
+    public List<Utente> getUtentiInGruppo(Gruppo gruppo) throws DataLayerException {
+        List<Utente> result = new ArrayList();
+        try{
+            sUtentiByGruppo.setInt(1, gruppo.getIDGruppo());
+            try (ResultSet rs=sUtentiByGruppo.executeQuery()){
+                while(rs.next())
+                    result.add(getUtente(rs.getInt("IDUtente")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load UtentiInGruppo by Gruppo",ex);
+        }
+        return result;
     }
 
     @Override
-    public List<Gruppo> getGruppiDelServizio(Servizio servizio) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Servizio> getServiziPerGruppo(Gruppo gruppo) throws DataLayerException {
+        List<Servizio> result = new ArrayList();
+        try{
+            sServiziByGruppo.setInt(1, gruppo.getIDGruppo());
+            try (ResultSet rs=sServiziByGruppo.executeQuery()){
+                while(rs.next())
+                    result.add(getServizio(rs.getInt("Servizio")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load ServiziPerGruppo by Gruppo",ex);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Corso> getCorsiDelDocente(Docente docente) throws DataLayerException {
+        List<Corso> result = new ArrayList();
+        try{
+            sCorsiByDocente.setInt(1, docente.getIDDocente());
+            try (ResultSet rs=sCorsiByDocente.executeQuery()){
+                while(rs.next())
+                    result.add(getCorso(rs.getInt("Corso")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load CorsiDelDocente by Docente",ex);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Corso> getCorsiDelLibro(Libro libro) throws DataLayerException {
+        List<Corso> result = new ArrayList();
+        try{
+            sCorsiByLibro.setInt(1, libro.getIDLibro());
+            try (ResultSet rs=sCorsiByLibro.executeQuery()){
+                while(rs.next())
+                    result.add(getCorso(rs.getInt("Corso")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load CorsiDelLibro by Docente",ex);
+        }
+        return result;
     }
     
+    @Override
+    public List<Gruppo> getGruppiDelServizio(Servizio servizio) throws DataLayerException {
+        List<Gruppo> result = new ArrayList();
+        try{
+            sGruppiByServizio.setInt(1, servizio.getIDServizio());
+            try (ResultSet rs=sGruppiByServizio.executeQuery()){
+                while(rs.next())
+                    result.add(getGruppo(rs.getInt("Gruppo")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load GruppiDelServizio by Servizio",ex);
+        }
+        return result;
+    }
+
+
 }

@@ -68,7 +68,7 @@ public interface IgwDataLayer extends DataLayer {
     
     Dublino_en getDublino_en(Corso corso) throws DataLayerException;
     
-    Materiale getMateriale(int IDLibro) throws DataLayerException;
+    Materiale getMateriale(int IDMateriale) throws DataLayerException;
     
     Libro getLibro(int IDLibro) throws DataLayerException;
     
@@ -85,32 +85,28 @@ public interface IgwDataLayer extends DataLayer {
     //Group_Services getGroup_Services(int Gruppo, int Servizio) throws DataLayerException;
     
     Log getLog(int IDLog) throws DataLayerException;
+    
+    public List<Corso> getCorsiMutuati(Corso corso) throws DataLayerException;
 
-    public List<Corso> getMutuati(Corso corso);
+    public List<Corso> getCorsiPrerequisiti(Corso corso) throws DataLayerException;
 
-    public List<Corso> getCorsiMutuati(Corso corso);
+    public List<Corso> getCorsiModulo(Corso corso) throws DataLayerException;
 
-    public List<Corso> getCorsiPrerequisiti(Corso corso);
-
-    public List<Corso> getCorsiModulo(Corso corso);
-
-    public List<Docente> getDocentiCorso(Corso corso);
+    public List<Docente> getDocentiCorso(Corso corso) throws DataLayerException;
     
-    public List<Libro> getLibriCorso(Corso corso);
+    public List<Libro> getLibriCorso(Corso corso) throws DataLayerException;
     
-    public List<Materiale> getMaterialeCorso(Corso corso);
+    public List<Materiale> getMaterialeCorso(Corso corso) throws DataLayerException;
     
-    public List<Corso> getCorsiInCdl(CDL cdl);
+    public List<Corso> getCorsiInCdl(CDL cdl) throws DataLayerException;
     
-    public List<Utente> getUtentiInGruppo(Gruppo gruppo);
+    public List<Utente> getUtentiInGruppo(Gruppo gruppo) throws DataLayerException;
     
-    public List<Servizio> getServiziPerGruppo(Gruppo gruppo);
+    public List<Servizio> getServiziPerGruppo(Gruppo gruppo) throws DataLayerException;
     
-    public List<Corso> getCorsiDelDocente(Docente docente);
+    public List<Corso> getCorsiDelDocente(Docente docente) throws DataLayerException;
     
-    public List<Corso> getCorsiDelLibro(Libro libro);
-    
-    public List<Corso> getCorsiDelMateriale(Materiale materiale);
-    
-    public List<Gruppo> getGruppiDelServizio(Servizio servizio);
+    public List<Corso> getCorsiDelLibro(Libro libro) throws DataLayerException;
+        
+    public List<Gruppo> getGruppiDelServizio(Servizio servizio) throws DataLayerException;
 }
