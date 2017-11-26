@@ -41,7 +41,10 @@ public class LogImpl implements Log{
         this.id_utente=-1;
     }
     
-    @Override
+    public void setIDUtente(int id_utente){
+        this.id_utente=id_utente;
+    }
+    
     public int getIDLog(){
         return this.id;
     }

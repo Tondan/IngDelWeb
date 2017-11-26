@@ -12,6 +12,8 @@ import courseweb.controller.data.DataLayerException;
  */
 public interface Utente {
     
+    void setIDGruppo(int id_gruppo);
+    
     void setID(int id);
     
     int getID();

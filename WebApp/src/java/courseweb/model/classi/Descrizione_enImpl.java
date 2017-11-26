@@ -55,6 +55,11 @@ public class Descrizione_enImpl implements Descrizione_en{
     this.id_corso=-1;
     this.dirty=false;
 }
+    
+    @Override
+    public void setIDCorso(int id_corso){
+        this.id_corso=id_corso;
+    }
 
     @Override
     public Corso getCorso() throws DataLayerException{
