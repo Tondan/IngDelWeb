@@ -29,7 +29,7 @@ public class ListCorsi extends BaseController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("page_title", "Corso");
-            request.setAttribute("corso", ((IgwDataLayer)request.getAttribute("datalayer")).getCorso());
+           // request.setAttribute("corso", ((IgwDataLayer)request.getAttribute("datalayer")).getCorso());
             res.activate("corso_list.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
