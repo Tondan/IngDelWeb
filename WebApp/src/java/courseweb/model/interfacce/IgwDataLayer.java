@@ -55,6 +55,8 @@ public interface IgwDataLayer extends DataLayer {
     CDL getCDL(int IDCdl) throws DataLayerException;
     
     Corso getCorso(int IDCorso) throws DataLayerException;
+    
+    List<Corso> getCorso() throws DataLayerException;
 
     Docente getDocente(int IDDocente) throws DataLayerException;
     
