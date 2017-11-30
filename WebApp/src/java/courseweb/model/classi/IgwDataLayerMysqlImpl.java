@@ -767,5 +767,10 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return result;
     }
 
+    @Override
+    public List<Corso> getCorso() throws DataLayerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 }

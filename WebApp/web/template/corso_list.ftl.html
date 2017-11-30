@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="it">
+<html lang="it">
 
 <head>
 
     <!-- Meta Tags -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="" />
+    <meta name="description" content=""/>
     <meta name="keywords" content="education,school,university,educational,learn,learning,teaching,workshop" />
     <meta name="author" content="Toni & Tony" />
 
@@ -1472,37 +1472,29 @@
                     <div class="row">
                         <div class="col-md-12 mt-40">
                             <hr>
-                            <h4 class="title">Striped rows</h4>
+                            <h4 class="title">Tabella prova</h4>
 
                             <div data-example-id="striped-table" class="bs-example">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
+                                            <th>Nome it</th>
+                                            <th>Lingua</th>
+                                            <th>Semestre</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        
+                                        <#list corsi as corso>
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+                                            <th scope="row">$<corso.id></th>
+                                            <td>$<corso.nome_it></td>
+                                            <td>$<corso.lingua></td>
+                                            <td>$<corso.semestre></td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
+                                       </#list>
+
                                     </tbody>
                                 </table>
                             </div>

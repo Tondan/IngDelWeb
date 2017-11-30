@@ -1,7 +1,6 @@
 package courseweb.controller;
 
 
-import courseweb.controller.data.DataLayer;
 import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;

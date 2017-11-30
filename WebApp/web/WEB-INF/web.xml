@@ -8,6 +8,12 @@
         <servlet-name>TemplateServlet</servlet-name>
         <url-pattern>/TemplateServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListCorsi</servlet-name>
+        <url-pattern>/ListCorsi</url-pattern>
+    </servlet-mapping>
+    
+  
     <session-config>
         <session-timeout>
             30
