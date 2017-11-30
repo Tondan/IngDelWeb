@@ -121,7 +121,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             co.setSemestre(rs.getInt("Semestre"));
             co.setCfu(rs.getInt("CFU"));
             co.setAnno(rs.getInt("Anno"));
-            co.setTipologia((char)rs.getInt("Tipologia"));
+            co.setTipologia(rs.getString("Tipologia").charAt(0));
             co.setIDCDL(rs.getInt("cdl"));
             return co;
         } catch (SQLException ex) {
@@ -774,7 +774,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         try{
             try (ResultSet rs=sCorsi.executeQuery()){
                 while(rs.next())
-                    result.add(getCorso(rs.getInt("Corso")));
+                    result.add(getCorso(rs.getInt("IDCorso")));
             }
         }catch (SQLException ex){
             throw new DataLayerException("Unable to load sCorso",ex);

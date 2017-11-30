@@ -46,12 +46,12 @@
                                     </thead>
                                     <tbody>
                                         
-                                        <#list corso as corso>
+                                        <#list corsi as corso>
                                         <tr>
-                                            <th scope="row">$<corso.id></th>
-                                            <td>$<corso.nome_it></td>
-                                            <td>$<corso.lingua></td>
-                                            <td>$<corso.semestre></td>
+                                            <th scope="row">${corso.id} </th>
+                                            <td>${corso.nome_it}</td>
+                                            <td>${corso.lingua}</td>
+                                            <td>${corso.semestre}</td>
                                         </tr>
                                        </#list>
 
