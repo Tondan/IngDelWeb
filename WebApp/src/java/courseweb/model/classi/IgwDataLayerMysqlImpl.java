@@ -58,7 +58,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sServizioByID=connection.prepareStatement("SELECT * FROM Servizio WHERE IDServizio=?");
             sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
             
-            sCorsi=connection.prepareStatement("SELECT * FROM Corso");
+            sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso");
             sCorsiMutuatiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Mutuato");
             sCorsiPrerequisitiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Prerequisito");
             sCorsiModuloByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Modulo");
@@ -122,7 +122,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             co.setCfu(rs.getInt("CFU"));
             co.setAnno(rs.getInt("Anno"));
             co.setTipologia(rs.getString("Tipologia").charAt(0));
-            co.setIDCDL(rs.getInt("cdl"));
+            co.setIDCDL(rs.getInt("CDL"));
             return co;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create Corso object form ResultSet", ex);

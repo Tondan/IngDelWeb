@@ -6,6 +6,8 @@ CREATE TABLE CDL(
     CFU INT NOT NULL
 );
 
+ALTER TABLE CDL AUTO_INCREMENT=1;
+
 CREATE TABLE Corso(
 	IDCorso INT PRIMARY KEY AUTO_INCREMENT,
     CDL INT NOT NULL,
@@ -21,6 +23,8 @@ CREATE TABLE Corso(
     Tipologia CHAR(1) 
 );
 
+ALTER TABLE Corso AUTO_INCREMENT=1;
+
 CREATE TABLE Docente(
 	IDDocente INT PRIMARY KEY AUTO_INCREMENT,
     Immagine TEXT,
@@ -35,6 +39,8 @@ CREATE TABLE Docente(
     Curriculum TEXT,
     Ricevimento TEXT NOT NULL
 );
+
+ALTER TABLE Docente AUTO_INCREMENT=1;
 
 CREATE TABLE Docenti_Corso(
 	Corso INT,
@@ -110,6 +116,8 @@ CREATE TABLE Materiale(
     Descizione_en TEXT
 );
 
+ALTER TABLE Materiale AUTO_INCREMENT=1;
+
 CREATE TABLE Libro(
 	IDLibro INT PRIMARY KEY AUTO_INCREMENT,
 	Autore VARCHAR(20) NOT NULL,
@@ -119,6 +127,8 @@ CREATE TABLE Libro(
     Editore VARCHAR(50),
     Link TEXT
 );
+
+ALTER TABLE Libro AUTO_INCREMENT=1;
 
 CREATE TABLE Libri_Corso(
 	Corso INT,
@@ -156,11 +166,15 @@ CREATE TABLE Utente(
 		REFERENCES Gruppo(IDGruppo)
 );
 
+ALTER TABLE Utente AUTO_INCREMENT=1;
+
 CREATE TABLE Servizio(
 	IDServizio INT PRIMARY KEY AUTO_INCREMENT,
     Script VARCHAR(50) NOT NULL,
     Descrizione TEXT
 );
+
+ALTER TABLE Servizio AUTO_INCREMENT=1;
 
 CREATE TABLE Group_Services(
 	Gruppo INT,
@@ -180,3 +194,5 @@ CREATE TABLE Log(
     Data DATE NOT NULL,
     Descrizione TEXT
 );
+
+ALTER TABLE Log AUTO_INCREMENT=1;
