@@ -37,7 +37,7 @@ import javax.sql.DataSource;
 public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwDataLayer {
 
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID;
-    private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio;
+    private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi;
     
     @Override
     public void init() throws DataLayerException {
@@ -58,6 +58,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sServizioByID=connection.prepareStatement("SELECT * FROM Servizio WHERE IDServizio=?");
             sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
             
+            sCorsi=connection.prepareStatement("SELECT * FROM Corso");
             sCorsiMutuatiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Mutuato");
             sCorsiPrerequisitiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Prerequisito");
             sCorsiModuloByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Modulo");
@@ -769,7 +770,16 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
 
     @Override
     public List<Corso> getCorso() throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Corso> result = new ArrayList();
+        try{
+            try (ResultSet rs=sCorsi.executeQuery()){
+                while(rs.next())
+                    result.add(getCorso(rs.getInt("Corso")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load sCorso",ex);
+        }
+        return result;
     }
 
 
