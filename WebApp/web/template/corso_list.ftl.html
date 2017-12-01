@@ -40,8 +40,13 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Nome it</th>
+                                            <th>CDL</th>
+                                            <th>SSD</th>
+                                            <th>CFU</th>
+                                            <th>Anno</th>
                                             <th>Lingua</th>
                                             <th>Semestre</th>
+                                            <th>Tipologia</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -50,8 +55,13 @@
                                         <tr>
                                             <th scope="row">${corso.ID} </th>
                                             <td>${corso.nome_it}</td>
+                                            <td>${corso.CDL.nome_it}</td>
+                                            <td>${corso.SSD}</td>
+                                            <td>${corso.cfu}</td>
+                                            <td>${corso.anno}</td>
                                             <td>${corso.lingua}</td>
                                             <td>${corso.semestre}</td>
+                                            <td>${corso.tipologia}</td>
                                         </tr>
                                        </#list>
 
