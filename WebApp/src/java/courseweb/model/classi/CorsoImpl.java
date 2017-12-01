@@ -174,7 +174,7 @@ public class CorsoImpl implements Corso{
     
     @Override
     public int getCfu(){
-        return this.semestre;
+        return this.cfu;
     }
     
     @Override
