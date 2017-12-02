@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    
     <context-param>
         <param-name>view.outline_template</param-name>
         <param-value>outline.ftl.html</param-value>
@@ -19,7 +18,7 @@
     </context-param>
     <context-param>
         <param-name>view.data.author</param-name>
-        <param-value>Giuseppe Della Penna</param-value>
+        <param-value>Tony e Toni</param-value>
     </context-param>
     <context-param>
         <param-name>view.data.homepage_url</param-name>
@@ -32,14 +31,11 @@
     <context-param>
         <param-name>view.error_template</param-name>
         <param-value>error.ftl.html</param-value>
-    </context-param>       
-    
-    
+    </context-param>
     <servlet>
         <servlet-name>ListCorsi</servlet-name>
         <servlet-class>courseweb.controller.ListCorsi</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
