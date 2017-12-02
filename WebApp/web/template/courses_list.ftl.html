@@ -66,24 +66,17 @@
                         <thead>
                             <tr class="filters">
                                 <th><input type="text" class="form-control" placeholder="ID" disabled ></th>
-                                <th><input type="text" class="form-control" placeholder="COURSE NAME" disabled></th>
-                                <th><input type="text" class="form-control" placeholder="START DATE" disabled ></th>
-                                <th><input type="text" class="form-control" placeholder="TEACHER" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="Nome_it" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="CDL" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="SSD" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="CFU" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="Anno" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="Lingua" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="Semestre" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="Tipologia" disabled ></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>#</th>
-                                <th>Nome it</th>
-                                <th>CDL</th>
-                                <th>SSD</th>
-                                <th>CFU</th>
-                                <th>Anno</th>
-                                <th>Lingua</th>
-                                <th>Semestre</th>
-                                <th>Tipologia</th>
-                            </tr>
-                            
                             <#list corsi as corso>
                             <tr>
                                 <th scope="row">${corso.ID} </th>
@@ -99,8 +92,10 @@
                            </#list>
         
                         </tbody>
-                    </table>
-                    </div><!-- End filterable -->
+                   
+
+                </table>
+                </div><!-- End filterable -->
                     
       
  
