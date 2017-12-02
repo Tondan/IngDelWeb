@@ -28,10 +28,7 @@
         <param-name>view.encoding</param-name>
         <param-value>ISO-8859-1</param-value>
     </context-param>
-    <context-param>
-        <param-name>view.error_template</param-name>
-        <param-value>error.ftl.html</param-value>
-    </context-param>
+
     <servlet>
         <servlet-name>ListCorsi</servlet-name>
         <servlet-class>courseweb.controller.ListCorsi</servlet-class>
