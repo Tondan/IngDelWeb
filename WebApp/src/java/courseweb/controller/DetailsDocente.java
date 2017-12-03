@@ -2,6 +2,8 @@ package courseweb.controller;
 
 
 import courseweb.controller.data.DataLayerException;
+import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Toni & Tony
  */
-public class ListDocenti extends BaseController {
+public class DetailsDocente extends BaseController {
 
     private void action_error(HttpServletRequest request, HttpServletResponse response) {
         if (request.getAttribute("exception") != null) {
@@ -25,12 +27,13 @@ public class ListDocenti extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            request.setAttribute("page_title", "Lista Docenti");
-            request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
-            res.activate("teachers.ftl.html", request, response);
+            Docente doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
+            request.setAttribute("page_title", doc.getNome() + " " + doc.getCognome() );
+            request.setAttribute("docente", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id));
+            res.activate("teacher_profile.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
@@ -41,9 +44,13 @@ public class ListDocenti extends BaseController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
 
+        int k;
         try {
-            action_default(request, response);
-
+            k = SecurityLayer.checkNumeric(request.getParameter("k"));
+            action_default(request, response, k);
+        } catch (NumberFormatException ex) {
+            request.setAttribute("message", "Teacher key not specified");
+            action_error(request, response);
         } catch (IOException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);

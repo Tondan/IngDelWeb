@@ -24,10 +24,11 @@
 </ol>
       
        <div class="row">
+           <#list docenti as docente>
                     	<div class="col-md-6 col-sm-6">
                         	<div class=" box_style_3">
-                            	<p><img src="img/teacher_1_small.jpg" alt="Teacher" class="img-circle styled"></p>
-                                <h4 class="p-title">Patricia Doe <small>Biologist</small></h4>
+                            	<p><img src="${docente.immagine}" alt="Teacher" class="img-circle styled"></p>
+                                <h4 class="p-title">${docente.nome} ${docente.cognome} <small>${docente.specializzazione}</small></h4>
              					<p> When an unknown printer took a galley of type and <strong>scrambled it to make</strong> a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
                                 <ul class="social_team">
                                     <li><a href="#"><i class="icon-facebook"></i></a></li>
@@ -35,53 +36,11 @@
                                     <li><a href="#"><i class=" icon-google"></i></a></li>
 							</ul>    
                             <hr>
-                             <a href="teacher_profile.html" class="button_medium_outline">Profile</a>           
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                        	<div class=" box_style_3">
-                            	<p><img src="img/teacher_2_small.jpg" alt="Teacher" class="img-circle styled"></p>
-                                <h4 class="p-title">Megan Fox <small>Engineer</small></h4>
-             					<p> When an unknown printer took a galley of type and <strong>scrambled it to make</strong> a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                                <ul class="social_team">
-                                    <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                    <li><a href="#"><i class=" icon-google"></i></a></li>
-							</ul>    
-                            <hr>
-                             <a href="teacher_profile.html" class="button_medium_outline">Profile</a>                                  
+                             <a href="dettaglidocente?k=${docente.IDDocente}" class="button_medium_outline">Profile</a>           
                             </div>
                         </div>
                         
-                        <div class="col-md-6 col-sm-6">
-                        	<div class=" box_style_3">
-                            	<p><img src="img/teacher_3_small.jpg" alt="Teacher" class="img-circle styled"></p>
-                                <h4 class="p-title">Silvia Doe <small>Biologist</small></h4>
-             					<p> When an unknown printer took a galley of type and <strong>scrambled it to make</strong> a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                                <ul class="social_team">
-                                    <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                    <li><a href="#"><i class=" icon-google"></i></a></li>
-							</ul>    
-                            <hr>
-                             <a href="teacher_profile.html" class="button_medium_outline">Profile</a>                 
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                        	<div class=" box_style_3">
-                            	<p><img src="img/teacher_4_small.jpg" alt="Teacher" class="img-circle styled"></p>
-                                <h4 class="p-title">Roberta Twain <small>Engineer</small></h4>
-             					<p> When an unknown printer took a galley of type and <strong>scrambled it to make</strong> a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                                <ul class="social_team">
-                                    <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                    <li><a href="#"><i class=" icon-google"></i></a></li>
-							</ul>    
-                            <hr>
-                            <a href="teacher_profile.html" class="button_medium_outline">Profile</a>                      
-                            </div>
-                        </div>
-                        
+            </#list>            
         </div><!-- End row -->    
         
 </div><!-- End container -->

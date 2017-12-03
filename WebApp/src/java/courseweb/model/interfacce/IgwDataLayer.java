@@ -112,5 +112,5 @@ public interface IgwDataLayer extends DataLayer {
         
     public List<Gruppo> getGruppiDelServizio(Servizio servizio) throws DataLayerException;
 
-    public Object getDocente();
+    public List<Docente> getDocente() throws DataLayerException;
 }

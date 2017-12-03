@@ -44,6 +44,10 @@
         <servlet-name>ListDocenti</servlet-name>
         <servlet-class>courseweb.controller.ListDocenti</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DettagliDocente</servlet-name>
+        <servlet-class>courseweb.controller.DetailsDocente</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
@@ -59,6 +63,10 @@
     <servlet-mapping>
         <servlet-name>ListDocenti</servlet-name>
         <url-pattern>/listdocenti</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DettagliDocente</servlet-name>
+        <url-pattern>/dettaglidocente</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

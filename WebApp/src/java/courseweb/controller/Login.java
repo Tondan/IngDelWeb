@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Giuseppe Della Penna
+ * @author Toni & Tony
  */
 public class Login extends BaseController {
 

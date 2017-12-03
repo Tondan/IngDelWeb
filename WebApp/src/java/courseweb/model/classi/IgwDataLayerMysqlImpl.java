@@ -37,7 +37,7 @@ import javax.sql.DataSource;
 public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwDataLayer {
 
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID;
-    private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi;
+    private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti;
     
     @Override
     public void init() throws DataLayerException {
@@ -58,6 +58,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sServizioByID=connection.prepareStatement("SELECT * FROM Servizio WHERE IDServizio=?");
             sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
             
+            sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso");
             sCorsiMutuatiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Mutuato");
             sCorsiPrerequisitiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Prerequisito");
@@ -141,9 +142,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             d.setIDDocente(rs.getInt("IDDocente")); 
             d.setImmagine(rs.getString("Immagine"));
             d.setNome(rs.getString("Nome"));
-            d.setCognome(rs.getString("SSD"));  
+            d.setCognome(rs.getString("Cognome"));  
             d.setEmail(rs.getString("Email"));
-            d.setUfficio(rs.getString("Uffico"));
+            d.setUfficio(rs.getString("Ufficio"));
             d.setTelefono(rs.getString("Telefono"));
             d.setSpecializzazione(rs.getString("Specializzazione"));
             d.setRicerche(rs.getString("Ricerche"));
@@ -783,8 +784,17 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     }
 
     @Override
-    public Object getDocente() {
-        throw new UnsupportedOperationException("IMPLEMENTAAAAAA COGLIONEEEEEEEEEEEEEEEE"); //EDDAJEEEEEEEEEEE
+    public List<Docente> getDocente() throws DataLayerException {
+        List<Docente> result = new ArrayList();
+        try{
+            try (ResultSet rs=sDocenti.executeQuery()){
+                while(rs.next())
+                    result.add(getDocente(rs.getInt("IDDocente")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load sDocenti",ex);
+        }
+        return result;
     }
 
 

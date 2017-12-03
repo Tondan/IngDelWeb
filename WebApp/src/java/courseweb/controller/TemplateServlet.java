@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 
 /**
  *
- * @author jonathan
+ * @author Toni & Tony
  */
 public abstract class TemplateServlet extends HttpServlet {
 
