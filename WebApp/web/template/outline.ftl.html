@@ -17,6 +17,7 @@
 
         <!-- CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js" rel="js">
         <link href="css/superfish.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="fontello/css/fontello.css" rel="stylesheet">
@@ -34,6 +35,10 @@
               })();
         </script>
     
+   <script> $(function(){
+        $('.selectpicker').selectpicker();});
+    </script>
+
       </head>
     
     <!---------------------------------inizio menu -----------------------  -->
@@ -45,7 +50,12 @@
                 <a href="Home" id="logo">Learn</a>
             </div>
             <div class="col-md-9 col-sm-9 col-xs-9">
-                <div class="pull-right"><a href="Login" class="button_top" id="login_top">Login</a> 
+                <div class="pull-right"><a href="Login" class="button_top" id="login_top">Login</a>
+                    
+                    <select class="selectpicker" data-width="fit">
+                        <option data-content='<span class="flag-icon flag-icon-us"></span> English'>English</option>
+                      <option  data-content='<span class="flag-icon flag-icon-it"></span> Italiano'>Italiano</option>
+                    </select> 
                 
             </div>
         </div>
