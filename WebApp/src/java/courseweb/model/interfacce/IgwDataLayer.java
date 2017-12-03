@@ -111,4 +111,6 @@ public interface IgwDataLayer extends DataLayer {
     public List<Corso> getCorsiDelLibro(Libro libro) throws DataLayerException;
         
     public List<Gruppo> getGruppiDelServizio(Servizio servizio) throws DataLayerException;
+
+    public Object getDocente();
 }

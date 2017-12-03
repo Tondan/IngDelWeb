@@ -78,9 +78,10 @@
                         </thead>
                         <tbody>
                             <#list corsi as corso>
+                        
                             <tr>
-                                <th scope="row">${corso.ID} </th>
-                                <td>${corso.nome_it}</td>
+                        <th scope="row">${corso.ID} </th>
+                                <td><a href="#">${corso.nome_it}</a></td>
                                 <td>${corso.CDL.nome_it}</td>
                                 <td>${corso.SSD}</td>
                                 <td>${corso.cfu}</td>
@@ -89,6 +90,7 @@
                                 <td>${corso.semestre}</td>
                                 <td>${corso.tipologia}</td>
                             </tr>
+                        </a>
                            </#list>
         
                         </tbody>

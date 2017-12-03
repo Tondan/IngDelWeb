@@ -11,7 +11,10 @@
         <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
         <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
         <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
-        
+         
+        <!-- REVOLUTION BANNER CSS SETTINGS -->
+	    <link href="rs-plugin/css/settings.css" media="screen" rel="stylesheet">
+
         <!-- CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/superfish.css" rel="stylesheet">
@@ -39,10 +42,10 @@
           <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-3 col-xs-3">
-                <a href="courses_list.html" id="logo">Learn</a>
+                <a href="Home" id="logo">Learn</a>
             </div>
             <div class="col-md-9 col-sm-9 col-xs-9">
-                <div class="pull-right"><a href="login.html" class="button_top" id="login_top">Sign in</a> 
+                <div class="pull-right"><a href="Login" class="button_top" id="login_top">Login</a> 
                 
             </div>
         </div>
@@ -56,22 +59,17 @@
                 <div id="mobnav-btn"></div>
                 <ul class="sf-menu">
                     <li class="normal_drop_down"><a href="listcorsi">Course</a></li>
-                    <li><a href="course_details_4.html">Course details v1</a></li>
-                    <li><a href="teachers.html">Teachers</a></li>
-                    <li><a href="teacher_profile.html">Teacher profile</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
-                    <li><a href="apply.html">register comlpeto</a></li>
+                    <li><a href="listdocenti">Teachers</a></li>
+                    
+                    
+                    
             </div>
         </div><!-- End row -->
     </div><!-- End container -->
     </nav>
 <!---------------------------------fine menu -----------------------  -->
 
-
-
-<#include content_tpl>
-
+<#include content_tpl> <!-----------------BODY---------------------->
 
 <footer>
         <div class="container">
@@ -132,7 +130,7 @@
                 </div><!-- End col-md-4 -->
             </div><!-- End row -->
         </div>
-        <div id="copy_right">� 1998-2014</div>
+        <div id="copy_right">1998-2014</div>
         </footer>
         
         <div id="toTop">Back to top</div>
@@ -140,7 +138,33 @@
         <!-- JQUERY -->
         <script src="js/jquery-1.10.2.min.js"></script>
         <script src="js/table_filter.js"></script>
+        <script data-cfasync="false" src="/cdn-cgi/scripts/ddc5a536/cloudflare-static/email-decode.min.js"></script>
+        <script src="js/jquery-2.2.4.min.js"></script>
+        <!-- jQuery REVOLUTION Slider  -->
+        <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+        <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
         
+        <script type="text/javascript">
+            
+                    var revapi;
+            
+                    jQuery(document).ready(function() {
+            
+                           revapi = jQuery('.tp-banner').revolution(
+                            {
+                                delay:9000,
+                                startwidth:1700,
+                                startheight:600,
+                                hideThumbs:true,
+                                navigationType:"none",
+                                fullWidth:"on",
+                                forceFullWidth:"on"
+                            });
+            
+                    });	//ready
+            
+                </script>
+
         <!-- OTHER JS --> 
         <script src="js/superfish.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -154,16 +178,16 @@
         <script>new UISearch( document.getElementById( 'sb-search' ) );</script>
         
         <!-- STYLE SWITCHER  -->
-        <link rel="stylesheet" type="text/css" media="screen,projection" href="src/jquery-sticklr-1.4-light-color.css" >
-        <script type="text/javascript" src="src/jquery-sticklr-1.4.min.js"></script>
-            <script type="text/javascript">
-                $(document).ready(function(){
-                    $('#example-1').sticklr({
-                        animate         : true,
-                        showOn		    : 'hover'
-                    });
-                });
-            </script>
-        
-          </body>
-        </html>
+<link rel="stylesheet" type="text/css" media="screen,projection" href="src/jquery-sticklr-1.4-light-color.css" >
+<script type="text/javascript" src="src/jquery-sticklr-1.4.min.js"></script>
+	<script type="text/javascript">
+	    $(document).ready(function(){
+	        $('#example-1').sticklr({
+                animate         : true,
+                showOn		    : 'hover'
+			});
+	    });
+	</script>
+
+  </body>
+</html>

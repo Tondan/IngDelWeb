@@ -782,5 +782,10 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return result;
     }
 
+    @Override
+    public Object getDocente() {
+        throw new UnsupportedOperationException("IMPLEMENTAAAAAA COGLIONEEEEEEEEEEEEEEEE"); //EDDAJEEEEEEEEEEE
+    }
+
 
 }

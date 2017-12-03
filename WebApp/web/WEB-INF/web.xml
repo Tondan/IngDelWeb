@@ -28,14 +28,37 @@
         <param-name>view.encoding</param-name>
         <param-value>ISO-8859-1</param-value>
     </context-param>
-
     <servlet>
         <servlet-name>ListCorsi</servlet-name>
         <servlet-class>courseweb.controller.ListCorsi</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <servlet-class>courseweb.controller.Home</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>courseweb.controller.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListDocenti</servlet-name>
+        <servlet-class>courseweb.controller.ListDocenti</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListDocenti</servlet-name>
+        <url-pattern>/listdocenti</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -43,7 +66,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>listcorsi</welcome-file>
+        <welcome-file>Home</welcome-file>
     </welcome-file-list>
     <resource-ref>
         <res-ref-name>jdbc/igw</res-ref-name>
