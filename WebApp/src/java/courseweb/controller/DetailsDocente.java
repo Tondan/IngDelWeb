@@ -32,7 +32,7 @@ public class DetailsDocente extends BaseController {
             TemplateResult res = new TemplateResult(getServletContext());
             Docente doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
             request.setAttribute("page_title", doc.getNome() + " " + doc.getCognome() );
-            request.setAttribute("docente", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id));
+            request.setAttribute("docente", doc);
             res.activate("teacher_profile.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
