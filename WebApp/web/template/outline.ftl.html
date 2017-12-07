@@ -24,18 +24,6 @@
         <link href="fontello/css/fontello.css" rel="stylesheet">
         <link href="css/my.css" rel="stylesheet">
         
-        
-        <script type="text/javascript">
-              var _gaq = _gaq || [];
-              _gaq.push(['_setAccount', 'UA-11097556-8']);
-              _gaq.push(['_trackPageview']);
-            
-              (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-              })();
-        </script>
     
       </head>
     
@@ -48,22 +36,27 @@
                 <a href="Home" id="logo">Learn</a>
             </div>
             <div class="col-md-9 col-sm-9 col-xs-9">
-                <div class="pull-right"><a href="Login" class="button_top" id="login_top">Login</a>
+                   
                     
+                <div class="pull-right">
+                    <a href="Login" class="button_top" id="login_top">Login</a>
+                    &nbsp
+                    <select>
+                            <option value="it">Italiano</option>
+                            <option value="en">Inglese</option>
+                        </select>
                 </div>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img id="imgNavSel" src="" alt="..." class="img-thumbnail icon-small">  <span id="lanNavSel">ITA</span> <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                    <li><a id="navIta" href="#" class="language"> <img id="imgNavIta" src="" alt="..." class="img-thumbnail icon-small">  <span id="lanNavIta">Italiano</span></a></li>
-                    <li><a id="navEng" href="#" class="language"><img id="imgNavEng" src="" alt="..." class="img-thumbnail icon-small">  <span id="lanNavEng">English</span></a></li>
-                    </ul>
-                </li>    
+           
             </div>
 
 
     </div>
+    </div>
     </header><!-- End header -->
     
+
+
+
     <nav>
     <div class="container">
         <div class="row">
@@ -74,7 +67,7 @@
                     <li><a href="listdocenti">Teachers</a></li>
                     
                     
-                    
+              </ul>      
             </div>
         </div><!-- End row -->
     </div><!-- End container -->
