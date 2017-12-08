@@ -11,141 +11,188 @@
         </div><!-- End row -->
         
         <div class="row" id="sub-header-features-2">
-        	<div class="col-md-6">
-            	<h2>A brief summary</h2>
-                <p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor <strong>imperdiet deterruisset</strong>, doctus volumus explicari qui ex, appareat similique an usu. Vel an hinc putant fierent, saperet legimus offendit sed ei doctus volumus explicari qui ex, appareat similique an usu. . Dolor euripidis cum eu, ea per lucilius periculis corrumpit, ut euismod omittam ancillae his.</p>
-                <p><em>John - General Manager</em></p>
-            </div>
-            <div class="col-md-6">
-            	<h2>What you will learn</h2>
-                <p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui.</p>
+        	<div class="col-md-4">
+            	<h2>Informazioni generali </h2>
                 <ul class="list_ok">
-                    <li><strong>SSD</strong>${corso.SSD}</li>
-                    <li><strong>Lingua</strong> doumentation provided</li>
-                    <li><strong>CFU</strong> garantee</li>
-                    <li><strong>Became an exeprt</strong> in only 6 days</li>
-                </ul>
-           </div>
+                    <li><strong>SSD</strong>  ${corso.SSD}</li>
+                    <li><strong>CDL</strong>  ${corso.CDL.nome_it}</li>
+                    <li><strong>Lingua</strong>  ${corso.lingua}</li>
+                    <li><strong>Semestre</strong>  ${corso.semestre}</li>
+                    <li><strong>CFU (e tipo)</strong>  ${corso.cfu} / ${corso.tipologia}</li>
+                    <li><strong>Anno</strong>  ${corso.anno?c}</li>
+            </div>
+
+            <div class="col-md-4">
+                <h2>Prerequisiti</h2>
+                <span>ciao ciao ciao</span>
+            </div>
+
+           <div class="col-md-4">
+            <h2>Obiettivi</h2>
+            <span>CIAO CIAO CIAO</span>
+       </div>
         	
         </div><!-- End row -->
     </div><!-- End container -->
+
+
+
+
     <div class="divider_top"></div>
   </section>
   
+  <!------------ FINE PARTE INFORMATIVA (VERDE)---->
+
+
+
+
+
+
+
+
+
+
+
+
   <section id="main_content">
   <div class="container">
   
   <ol class="breadcrumb">
-      <li><a href="index.html">Home</a></li>
+      <li><a href="Home">Home</a></li>
+      <li><a href="listcorsi">Corsi</a></li>
       <li class="active">${corso.nome_it}</li>
     </ol>
 
 	 <div class="row">
      		<div class="col-md-8">
-                    
-                    <div class="row">
-                    	<div class="col-md-12">
-                        	<span></span><span id="end"><i class="icon-trophy"></i></span>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" data-percentage="25"></div>
-                                </div>
-                        </div>
-                    </div><!-- End progress bar -->
-                    
-                    <hr>
-                    
-                    <h3 class="chapter_course">Chapter 1: Welcome.</h3>
-                    <div class="strip_single_course">
-                        <h4 class="completed"><a href="course_detail_page_txt.html">Lorem ipsum dolor sit amet, case saepe impetus sed ut.</a></h4>
-                        <ul>
-                              <li><i class="icon-clock"></i> 00:58</li>
-                              <li><i class="icon-doc"></i>Text reading</li>
-                        </ul>
-                    </div><!-- end strip single course -->
-                    
-                    <div class="strip_single_course">
-                        <h4 class="completed"><a href="course_detail_page_video.html">Oportere efficiantur usu ad.</a></h4>
-                        <ul>
-                            <li><i class="icon-clock"></i> 00:58</li>
-                              <li><i class="icon-video"></i> Video lesson</li>
-                        </ul>
-                    </div><!-- end strip single course -->
-                    
-                    <div class="strip_single_course">
-                        <h4 class="completed"><a href="#">Oportere efficiantur usu ad.</a></h4>
-                        <ul>
-                            <li><i class="icon-clock"></i> 00:58</li>
-                              <li><i class="icon-mic"></i> Audio lesson</li>
-                        </ul>
-                    </div><!-- end strip single course -->
-                                      
-                    <h3 class="chapter_course">Chapter 2: Case aeque melius duo ut, porro ridens habemus quo in.</h3>
-                    <div class="strip_single_course">
-                        <h4 class="inprogress"><a href="#">Et has suscipit probatus.</a></h4>
-                        <ul>
-                              <li><i class="icon-clock"></i> 00:58</li>
-                              <li><i class="icon-doc"></i>Text reading</li>
-                        </ul>
-                    </div><!-- end strip single course -->
-                    
-                    <div class="strip_single_course">
-                        <h4 class="start"><a href="#">Quo ea feugiat saperet vulputate</a></h4>
-                        <ul>
-                              <li><i class="icon-clock"></i> 00:58</li>
-                              <li><i class="icon-doc"></i>Text reading</li>
-                        </ul>
-                    </div><!-- end strip single course -->
-                    
-                    <div class="strip_single_course">
-                        <h4 class="inprogress"><a href="#">Legere sanctus perfecto at eos</a></h4>
-                        <ul>
-                              <li><i class="icon-clock"></i> 00:58</li>
-                              <li><i class="icon-doc"></i>Text reading</li>
-                        </ul>
-                    </div><!-- end strip single course -->
-                    
-                    <div class="strip_single_course">
-                        <h4 class="inprogress"><a href="#">Mei habemus voluptua ex, utroque instructior.</a></h4>
-                        <ul>
-                              <li><i class="icon-clock"></i> 00:58</li>
-                              <li><i class="icon-doc"></i>Text reading</li>
-                        </ul>
-                    </div><!-- end strip single course -->
-                    
-                    <h3 class="chapter_course">Chapter 3: Case aeque melius duo ut, porro ridens habemus quo in.</h3>
-                    <div class="strip_single_course">
-                        <h4 class="inprogress"><a href="#">Ysu suavitate adversarium philosophia.</a></h4>
-                        <ul>
-                            <li><i class="icon-clock"></i> 00:58</li>
-                              <li><i class="icon-video"></i> Video</li>
-                        </ul>
-                    </div><!-- end strip single course -->
-                    
-                    <div class="strip_single_course">
-                        <h4 class="start"><a href="#">Eu sit causae elaboraret efficiendi.</a></h4>
-                        <ul>
-                            <li><i class="icon-clock"></i> 00:58</li>
-                              <li><i class="icon-video"></i> Video</li>
-                        </ul>
-                    </div><!-- end strip single course -->
-                    
-                    <div class="strip_single_course">
-                        <h4 class="start"><a href="#">Moderatius efficiantur eu mei.</a></h4>
-                        <ul>
-                            <li><i class="icon-clock"></i> 00:58</li>
-                              <li><i class="icon-video"></i> Video</li>
-                        </ul>
-                    </div><!-- end strip single course -->
-                    
-                    <div class="strip_single_course add_bottom_30">
-                        <h4 class="start"><a href="#">Diam assentior sententiae eu duo.</a></h4>
-                        <ul>
-                            <li><i class="icon-clock"></i> 00:58</li>
-                              <li><i class="icon-video"></i> Video</li>
-                        </ul>
-                    </div><!-- end strip single course -->
-                
-            </div><!-- End col-md-8  -->
+
+<hr>
+
+<!--------Contenuto principale---------->
+    
+
+<ul class="nav nav-tabs" id="mytabs">
+        <li class="active"><a href="#profile_teacher" data-toggle="tab">Profile</a></li>
+        <li><a href="#courses" data-toggle="tab">My Courses</a></li>
+    </ul>
+    
+     <div class="tab-content">
+    
+        <div class="tab-pane fade in active" id="profile_teacher">
+        <h3>About me</h3>
+        <p>Lorem ipsum dolor sit amet, dicta oportere ad est, ea eos partem neglegentur theophrastus. Esse voluptatum duo ne, expetenda corrumpit no per, at mei nobis lucilius. No eos semper aperiri neglegentur, vis noluisse quaestio no. Vix an nostro inimicus, qui ut animal fabellas reprehendunt. In quando repudiare intellegebat sed, nam suas dicta melius ea.</p>
+        <p>Mei ut decore accusam consequat, alii dignissim no usu. Phaedrum intellegat sit ut, no pri mutat eirmod. In eum iriure perpetua adolescens, pri dicunt prodesset et. Vis dicta postulant ad.</p>
+         <h4>Credentials</h4>
+        <p>Lorem ipsum dolor sit amet, dicta oportere ad est, ea eos partem neglegentur theophrastus. Esse voluptatum duo ne, expetenda corrumpit no per, at mei nobis lucilius. No eos semper aperiri neglegentur, vis noluisse quaestio no. Vix an nostro inimicus, qui ut animal fabellas reprehendunt. In quando repudiare intellegebat sed, nam suas dicta melius ea.</p>
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list_3">
+                    <li><strong>September 2009 - Bachelor Degree in Economics</strong><p>University of Cambrige - United Kingdom</p></li>
+                    <li><strong>December 2012 - Master course in Economics</strong><p>University of Cambrige - United Kingdom</p></li>
+                    <li><strong>October 2013 - Master's Degree in Statistic</strong><p>University of Oxford - United Kingdom</p></li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list_3">
+                    <li><strong>September 2009 - Bachelor Degree in Economics</strong><p>University of Cambrige - United Kingdom</p></li>
+                    <li><strong>December 2012 - Master course in Economics</strong><p>University of Cambrige - United Kingdom</p></li>
+                </ul>
+            </div>
+        </div><!-- End row--> 
+       </div><!-- End tab-pane --> 
+       
+       <div class="tab-pane fade in" id="courses">
+                   <h3>Active courses</h3>
+                <p>Mei ut decore accusam consequat, alii dignissim no usu. Phaedrum intellegat sit ut, no pri mutat eirmod. In eum iriure perpetua adolescens, pri dicunt prodesset et. Vis dicta postulant ad.</p>
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Category</th>
+                        <th>Course name</th>
+                        <th>Lessons</th>
+                        <th>Rate</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Business</td>
+                        <td><a href="#">Business Plan</a></td>
+                        <td>12</td>
+                        <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i><i class=" icon-star-empty"></i></td>
+                      </tr>
+                       <tr>
+                        <td>Business</td>
+                        <td><a href="#">Economy pinciples</a></td>
+                        <td>12</td>
+                        <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></td>
+                      </tr>
+                       <tr>
+                        <td>Business</td>
+                        <td><a href="#">Understand diagrams</a></td>
+                        <td>04</td>
+                        <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i><i class=" icon-star-empty"></i></td>
+                      </tr>
+                       <tr>
+                        <td>Business</td>
+                        <td><a href="#">Marketing strategies</a></td>
+                        <td>10</td>
+                        <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i><i class=" icon-star-empty"></i></td>
+                      </tr>
+                       <tr>
+                        <td>Business</td>
+                        <td><a href="#">Marketing</a></td>
+                        <td>20</td>
+                        <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i></td>
+                      </tr>
+                       <tr>
+                        <td>Business</td>
+                        <td><a href="#">Business Plan</a></td>
+                        <td>12</td>
+                        <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></td>
+                      </tr>
+                      <tr>
+                        <td>Business</td>
+                        <td><a href="#">Economy pinciples</a></td>
+                        <td>12</td>
+                        <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></td>
+                      </tr>
+                       <tr>
+                        <td>Business</td>
+                        <td><a href="#">Understand diagrams</a></td>
+                        <td>04</td>
+                        <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i><i class=" icon-star-empty"></i></td>
+                      </tr>
+                       <tr>
+                        <td>Business</td>
+                        <td><a href="#">Marketing strategies</a></td>
+                        <td>10</td>
+                        <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i><i class=" icon-star-empty"></i></td>
+                      </tr>
+                       <tr>
+                        <td>Business</td>
+                        <td><a href="#">Marketing</a></td>
+                        <td>20</td>
+                        <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i></td>
+                      </tr>
+                       <tr>
+                        <td>Business</td>
+                        <td><a href="#">Business Plan</a></td>
+                        <td>12</td>
+                        <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></td>
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                  </div>
+       </div><!-- End tab-pane -->
+       
+  </div>   <!-- End content-->              
+
+</div><!-- End col-md-8-->   	                 
+
+
+
             
             <aside class="col-md-4">
             
