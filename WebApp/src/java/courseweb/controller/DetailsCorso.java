@@ -2,6 +2,8 @@ package courseweb.controller;
 
 
 import courseweb.controller.data.DataLayerException;
+import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Toni & Tony
  */
-public class ListDocenti extends BaseController {
+public class DetailsCorso extends BaseController {
 
     private void action_error(HttpServletRequest request, HttpServletResponse response) {
         if (request.getAttribute("exception") != null) {
@@ -25,12 +27,13 @@ public class ListDocenti extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            request.setAttribute("page_title", "Lista Docenti");
-            request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
-            res.activate("teachers.ftl.html", request, response);
+            Corso co=((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
+            request.setAttribute("page_title", co.getNome_it());
+            request.setAttribute("corso", co);
+            res.activate("course_details_4.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
@@ -41,14 +44,14 @@ public class ListDocenti extends BaseController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
 
+        int n;
         try {
-            action_default(request, response);
-
-        } catch (IOException ex) {
-            request.setAttribute("exception", ex);
+            n = SecurityLayer.checkNumeric(request.getParameter("n"));
+            action_default(request, response, n);
+        } catch (NumberFormatException ex) {
+            request.setAttribute("message", "Chiave corso non specificata");
             action_error(request, response);
-
-        } catch (TemplateManagerException ex) {
+        } catch (IOException | TemplateManagerException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
 
