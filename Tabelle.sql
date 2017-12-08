@@ -73,7 +73,7 @@ CREATE TABLE Descrizione_en(
      FOREIGN KEY (Corso)
 		REFERENCES Corso(IDCorso),
 	 Prerequisiti TEXT NOT NULL,
-     Obiettivi TEXT,
+     Obiettivi TEXT NOT NULL,
      Mod_Esame TEXT NOT NULL,
      Mod_Insegnamento TEXT NOT NULL,
      Sillabo TEXT NOT NULL,
