@@ -796,6 +796,18 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         }
         return result;
     }
-
-
+    
+    
+    
+    @Override
+    public void destroy() {
+        //anche chiudere i PreparedStamenent è una buona pratica...
+        //also closing PreparedStamenents is a good practice...
+        try {
+            sCorsoByID.close();
+        } catch (SQLException ex) {
+            //
+        }
+        super.destroy();
+    }
 }

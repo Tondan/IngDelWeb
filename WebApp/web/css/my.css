@@ -7,11 +7,6 @@
   box-sizing: border-box;
 }
 
-
-body {
-  font: 14px/1 'Open Sans', sans-serif;
-}
-
 h1 {
   padding: 50px 0;
   font-weight: 400;
@@ -26,7 +21,7 @@ p {
 .main {
   min-width: 320px;
   max-width: 800px;
-  padding: 50px;
+  padding: 10px;
   margin: 0 auto;
   background: #fff;
 }
@@ -61,6 +56,7 @@ label[for*='1']:before { content: '\f1cb'; }
 label[for*='2']:before { content: '\f17d'; }
 label[for*='3']:before { content: '\f16b'; }
 label[for*='4']:before { content: '\f1a9'; }
+label[for*='5']:before { content: '\f1a9'; }
 
 label:hover {
   color: #888;
@@ -77,7 +73,8 @@ label:hover {
 #tab1:checked ~ #content1,
 #tab2:checked ~ #content2,
 #tab3:checked ~ #content3,
-#tab4:checked ~ #content4 {
+#tab4:checked ~ #content4,
+#tab5:checked ~ #content5 {
   display: block;
 }
 
@@ -102,7 +99,7 @@ label:hover {
 
 /* Piccole modifiche */
 
-.list_ok{
+.list_ok li{
 
   font-size: 16px;
 
