@@ -1,9 +1,10 @@
 package courseweb.controller;
 
-
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.Corso;
+import courseweb.model.interfacce.Descrizione_it;
+import courseweb.model.interfacce.Dublino_it;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
@@ -30,18 +31,23 @@ public class DetailsCorso extends BaseController {
     private void action_default(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            Corso co=((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
-            request.setAttribute("page_title", co.getNome_it());
-            request.setAttribute("corso", co);
-            request.setAttribute("descrizione", ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_it(co));
-            request.setAttribute("dublino", ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_it(co));
+            
+            Corso corso =((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
+            Descrizione_it des = ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_it(corso);
+            Dublino_it dub = ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_it(corso);
+            
+            request.setAttribute("page_title", corso.getNome_it());
+            request.setAttribute("corso", corso);
+            request.setAttribute("descrizione_it", des);
+            request.setAttribute("dublino_it", dub);
             res.activate("course_details_4.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
         }
     }
-
+    
+    
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
