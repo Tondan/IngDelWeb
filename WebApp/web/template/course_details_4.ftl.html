@@ -15,21 +15,21 @@
             	<h2>Informazioni generali</h2>
                 <ul class="list_ok">
                     <li><strong>SSD</strong>  ${corso.SSD}</li>
-                    <li><strong>CDL</strong>  ${corso.CDL.nome_it}</li>
+                    <li><strong>CDL</strong> ${corso.CDL.nome_it}</li>
                     <li><strong>Lingua</strong>  ${corso.lingua}</li>
                     <li><strong>Semestre</strong>  ${corso.semestre}</li>
                     <li><strong>CFU (e tipo)</strong>  ${corso.cfu} / ${corso.tipologia}</li>
-                    <li><strong>Anno</strong>  ${corso.anno?c}</li>
+                    <li><strong>Anno</strong> ${corso.anno?c}</li>
             </div>
 
             <div class="col-md-4">
                 <h2>Prerequisiti</h2>
-                <span><#--${descrizione_it.prerequisiti}--></span>
+                <span>${descrizione_it.prerequisiti}</span>
             </div>
 
            <div class="col-md-4">
             <h2>Obiettivi</h2>
-            <span><#--${descrizione_it.obiettivi}--></span>
+            <span>${descrizione_it.obiettivi}</span>
        </div>
         	
         </div><!-- End row -->
@@ -76,23 +76,23 @@
             
 
             <section class="section" id="content1">
-                <#-- ${dublino.Knowledge}-->
+                 ${dublino_it.knowledge}
             </section>
               
             <section class="section" id="content2">
-                <#--  ${dublino.Application}-->
+                 ${dublino_it.application}
             </section>
               
             <section class="section" id="content3">
-                <#--  ${dublino.Evaluation}-->
+                 ${dublino_it.evaluation}
             </section>
               
             <section class="section" id="content4">
-                <#-- ${dublino.Communication}-->
+                ${dublino_it.communication}
             </section>
               
             <section class="section" id="content5">
-                <#--  ${dublino.Lifelong} -->
+                 ${dublino_it.lifelong}
             </section>
         
         </main>

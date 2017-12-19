@@ -24,20 +24,15 @@
       <div class="row">
      <aside class="col-md-4">
      	<div class=" box_style_1 profile">
-		<p class="text-center"><img src="${docente.immagine}" alt="Teacher" class="img-circle styled"></p>
-        		  <ul class="social_teacher">
-                    <li><a href="#"><i class="icon-facebook"></i></a></li>
-                    <li><a href="#"><i class="icon-twitter"></i></a></li>
-                    <li><a href="#"><i class=" icon-google"></i></a></li>
-                </ul>   
+		<p class="text-center"><img src="${docente.immagine}" alt="Teacher" class="img-circle styled"></p> 
                  <ul>
                      <li>Name <strong class="pull-right">${docente.nome} ${docente.cognome}</strong> </li>
                      <li>Specializzazione <strong class="pull-right">${docente.specializzazione}</strong></li>
-                     <li>Email <strong class="pull-right">${docente.email}</strong></li>
+                     <li>Email<a href="mailto:${docente.email}" target="top"> <strong class="pull-right">${docente.email}</strong></a></li>
                      <li>Ufficio <strong class="pull-right">${docente.ufficio}</strong></li>
                      <li>Telephone  <strong class="pull-right">${docente.telefono}</strong></li>
                      <li>Ricevimento <strong class="pull-right">${docente.ricevimento}</strong></li>
-                     <li>Curriculum <strong class="pull-right"></strong></li>
+                     <li>Curriculum <strong class="pull-right"><a href="${docente.curriculum}" target="top"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a></strong></li>
                 </ul>
               
 			</div><!-- End box-sidebar -->
@@ -46,49 +41,25 @@
      <div class="col-md-8">
 
         <main class="main">
-            
-                        <input class="input" id="tab1" type="radio" name="tabs" checked>
-                        <label for="tab1"></label>
-                          
-                        <input class="input" id="tab2" type="radio" name="tabs">
-                        <label for="tab2">Application</label>
+               
+                        <input class="input" id="tab2" type="radio" name="tabs" checked>
+                        <label for="tab2">Ricerche</label>
                           
                         <input class="input" id="tab3" type="radio" name="tabs">
-                        <label for="tab3">Evaluation</label>
-                          
-                        <input class="input" id="tab4" type="radio" name="tabs">
-                        <label for="tab4">Communication</label>
-                          
-                      
-                        
-            
-                        <section class="section" id="content1">
-                        cacca
-                        </section>
-                          
+                        <label for="tab3">Pubblicazioni</label>
+   
                         <section class="section" id="content2">
-                         cacca2
+                         ${docente.ricerche}
                         </section>
                           
                         <section class="section" id="content3">
-                          cacca3
+                        ${docente.pubblicazione}
                         </section>
-                          
-                        <section class="section" id="content4">
-                        cacca4
-                        </section>
-                          
+                           
                        
-                    
                     </main>
      
      			
-                       
-    
-      
-
-
-
 		
      </div><!-- End col-md-8-->   	
   </div><!-- End row-->   
