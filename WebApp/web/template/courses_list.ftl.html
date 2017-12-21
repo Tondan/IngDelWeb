@@ -31,45 +31,34 @@
 
                 <!--ATTENZIONE PASSIAMO ID CORSO LAUREA TUTTO DA SERVLET-->
 
-
-
-
-                
             <ul class="submenu-col">
-                <li><a href="#">Tutti i corsi</a></li>
-                <li><a href="course_details_1.html"  id="active">Biology (02)</a></li>
-                <li><a href="course_details_1.html">Business (08)</a></li>
-                <li><a href="course_details_1.html">Communication (05) <img src="img/new.png" alt="New" class="hidden-"></a></li>
-                <li><a href="course_details_1.html">Computing (08) </a></li>
-                <li><a href="course_details_1.html">Counseling (04)</a></li>
-                <li><a href="course_details_1.html">Education (06)</a></li>
-                <li><a href="course_details_1.html">Engineering (08)</a></li>
+                <li><a href="listcorsi">Tutti i corsi</a></li>
+                <#list cdl as cdl>
+                <li><a href="DetailsCorsoCdl?n=${cdl.IDCDL}">${cdl.nome_it}</a></li>
+                </#list>
             </ul>
             
-            <hr>
-            
-            <h5>Upcoming Courses</h5>
-            <p>Suspendisse quis risus turpis, ut pharetra arcu. Donec adipiscing, quam non faucibus luctus, mi arcu blandit diam, at faucibus mi ante vel augue.</p>
+                <hr>
             </div>
         </aside>
         
         <div class="col-lg-9 col-md-8 col-sm-8">
        
-            <h3>Filterable Biology courses</h3>
-            <p>Lorem ipsum dolor sit amet, has at illum dictas definitiones, ei primis indoctum torquatos nec. Vis te velit probatus, natum atomorum tincidunt nec an. Vix summo eirmod eu. Quas probatus ad duo, vidisse recteque ad eos, vitae platonem ne quo. Ius mutat suscipit patrioque ea, ius id dictas explicari aliquando, vel malorum voluptua ea.</p>
+            <h3>Tutti i corsi</h3>
+            <p>Lista di tutti i corsi</p>
 
                 <div class="panel panel-info filterable add_bottom_45">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Biology courses</h3>
+                        <h3 class="panel-title">Tutti i corsi </h3>
                         <div class="pull-right">
-                            <button class="btn-filter"><span class="icon-th-list"></span> Filter</button>
+                            <button class="btn-filter"><span class="icon-th-list"></span>Filtri</button>
                         </div>
                     </div>
                     <table class="table table-responsive table-striped">
                         <thead>
                             <tr class="filters">
                                 <th><input type="text" class="form-control" placeholder="ID" disabled ></th>
-                                <th><input type="text" class="form-control" placeholder="Nome_it" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Nome" disabled></th>
                                 <th><input type="text" class="form-control" placeholder="CDL" disabled ></th>
                                 <th><input type="text" class="form-control" placeholder="SSD" disabled ></th>
                                 <th><input type="text" class="form-control" placeholder="CFU" disabled ></th>

@@ -52,6 +52,10 @@
         <servlet-name>DetailsCorso</servlet-name>
         <servlet-class>courseweb.controller.DetailsCorso</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DetailsCorsoCdl</servlet-name>
+        <servlet-class>courseweb.controller.DetailsCorsoCdl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
@@ -75,6 +79,10 @@
     <servlet-mapping>
         <servlet-name>DetailsCorso</servlet-name>
         <url-pattern>/DetailsCorso</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailsCorsoCdl</servlet-name>
+        <url-pattern>/DetailsCorsoCdl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -10,13 +10,14 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import courseweb.model.classi.CDLImpl;
 
 /**
  *
  * @author Giuseppe Della Penna
  */
 public class ListCorsi extends BaseController {
-
+   
     private void action_error(HttpServletRequest request, HttpServletResponse response) {
         if (request.getAttribute("exception") != null) {
             (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("exception"), request, response);
@@ -28,8 +29,9 @@ public class ListCorsi extends BaseController {
     private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            request.setAttribute("page_title", "Lista Corso");
+            request.setAttribute("page_title", "Lista Corsi");
             request.setAttribute("corsi", ((IgwDataLayer)request.getAttribute("datalayer")).getCorso());
+            request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
             res.activate("courses_list.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());

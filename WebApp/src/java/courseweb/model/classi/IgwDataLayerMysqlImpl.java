@@ -37,7 +37,7 @@ import javax.sql.DataSource;
 public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwDataLayer {
 
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID;
-    private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti;
+    private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL;
     
     @Override
     public void init() throws DataLayerException {
@@ -60,6 +60,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso");
+            sCDL = connection.prepareStatement("SELECT IDCDL FROM CDL");
             sCorsiMutuatiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Mutuato");
             sCorsiPrerequisitiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Prerequisito");
             sCorsiModuloByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Modulo");
@@ -797,7 +798,19 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return result;
     }
     
-    
+    @Override
+    public List<CDL> getCDL() throws DataLayerException {
+        List<CDL> result = new ArrayList();
+        try{
+            try (ResultSet rs=sCDL.executeQuery()){
+                while(rs.next())
+                    result.add(getCDL(rs.getInt("IDCDL")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load sCDL",ex);
+        }
+        return result;
+    }
     
     @Override
     public void destroy() {
