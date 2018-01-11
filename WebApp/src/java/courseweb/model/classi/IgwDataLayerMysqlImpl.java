@@ -21,6 +21,7 @@ import courseweb.model.interfacce.Log;
 import courseweb.model.interfacce.Materiale;
 import courseweb.model.interfacce.Servizio;
 import courseweb.model.interfacce.Utente;
+import static java.lang.Character.toUpperCase;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,8 +94,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         try {
             CDLImpl c = new CDLImpl(this);
             c.setIDCDL(rs.getInt("IDCDL")); //dobbiamo mettere tutti i metodi setid puttana
-            c.setNome_it(rs.getString("Nome_it"));
-            c.setNome_en(rs.getString("Nome_en"));
+            c.setNome_it(rs.getString("Nome_it").toUpperCase());
+            c.setNome_en(rs.getString("Nome_en").toUpperCase());
             c.setAnno(rs.getInt("Anno"));  //il metodo getYear è stato deprecato https://docs.oracle.com/javase/7/docs/api/java/sql/Time.html probabile che dobbiamo suare caldendar
             c.setCfu(rs.getInt("Cfu"));
   
@@ -118,12 +119,12 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             co.setID(rs.getInt("IDCorso")); 
             co.setNome_it(rs.getString("Nome_it"));
             co.setNome_en(rs.getString("Nome_en"));
-            co.setSSD(rs.getString("SSD"));  
+            co.setSSD(rs.getString("SSD").toUpperCase());  
             co.setLingua(rs.getString("Lingua"));
             co.setSemestre(rs.getInt("Semestre"));
             co.setCfu(rs.getInt("CFU"));
             co.setAnno(rs.getInt("Anno"));
-            co.setTipologia(rs.getString("Tipologia").charAt(0));
+            co.setTipologia(toUpperCase(rs.getString("Tipologia").charAt(0)));
             co.setIDCDL(rs.getInt("CDL"));
             return co;
         } catch (SQLException ex) {

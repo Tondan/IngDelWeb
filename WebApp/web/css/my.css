@@ -36,6 +36,13 @@ p {
   display: none;
 }
 
+
+#img-piccola {
+    width: 68px;
+    height: 68px;
+}
+
+
 label {
   display: inline-block;
   margin: 0 0 -1px;

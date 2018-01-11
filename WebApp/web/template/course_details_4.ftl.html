@@ -115,12 +115,12 @@
                         <#list docenti as docente>
                     <div class="media">
                         <div class="pull-right">
-                            <img src="${docente.immagine}" class="img-circle" alt="">
+                            <img id="img-piccola" src="${docente.immagine}" class="img-circle" alt="">
                         </div>
                         <div class="media-body">
                             <h5 class="media-heading"><a href="dettaglidocente?k=${docente.IDDocente}">${docente.nome} ${docente.cognome}</a></h5>
                             <p>
-                                Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. 
+                                ${docente.specializzazione}
                             </p>
                         </div>
                     </div>
@@ -130,11 +130,11 @@
            </div>
            
             <div class="box_style_1">
-                    <h4>Legend</h4>
+                    <h4>Libri di Testo</h4>
                     <ul class="legend_course">
-                          <li id="tostart">Still to start</li>
-                          <li id="inprogress">In progress</li>
-                          <li id="completed">Completed</li>
+                        <#list libri as libro>
+                        <li><a href="${libro.Link}">${libro.Titolo}</a>,<#if libro.Volume??> ${libro.Volume},</#if> ${libro.Anno}, ${libro.Autore}, ${libro.Editore} </li>
+                        </#list>
                      </ul>
            </div>
        	 	
