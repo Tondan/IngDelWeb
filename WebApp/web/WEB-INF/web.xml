@@ -60,6 +60,10 @@
         <servlet-name>ListMateriale</servlet-name>
         <servlet-class>courseweb.controller.ListMateriale</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Download</servlet-name>
+        <servlet-class>courseweb.controller.Download</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
@@ -91,6 +95,10 @@
     <servlet-mapping>
         <servlet-name>ListMateriale</servlet-name>
         <url-pattern>/listmateriale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Download</servlet-name>
+        <url-pattern>/download</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
