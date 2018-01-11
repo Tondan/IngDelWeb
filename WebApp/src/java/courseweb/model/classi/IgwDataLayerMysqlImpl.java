@@ -271,9 +271,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             de.setIDCorso(rs.getInt("Corso")); 
             de.setID(rs.getInt("IDMateriale"));
             de.setNome(rs.getString("Nome"));
-            de.setLink(rs.getString("Mod_Esame"));  
-            de.setDescrizione_it(rs.getString("Mod_Insegnamento"));
-            de.setDescrizione_en(rs.getString("Sillabo"));
+            de.setLink(rs.getString("Link"));  
+            de.setDescrizione_it(rs.getString("Descrizione_it"));
+            de.setDescrizione_en(rs.getString("Descrizione_en"));
             return de;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create Materiale object form ResultSet", ex);
@@ -667,10 +667,10 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     }
 
     @Override
-    public List<Materiale> getMaterialeCorso(Corso corso) throws DataLayerException {
+    public List<Materiale> getMaterialeCorso(int corso) throws DataLayerException {
         List<Materiale> result = new ArrayList();
         try{
-            sMaterialeByCorso.setInt(1, corso.getID());
+            sMaterialeByCorso.setInt(1, corso);
             try (ResultSet rs=sMaterialeByCorso.executeQuery()){
                 while(rs.next())
                     result.add(getMateriale(rs.getInt("IDMateriale")));

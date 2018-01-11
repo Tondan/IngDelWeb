@@ -84,8 +84,8 @@ public class DetailsDocente extends BaseController {
         try {
             k = SecurityLayer.checkNumeric(request.getParameter("k"));
             action_default(request, response, k);
-            int res = SecurityLayer.checkNumeric(request.getParameter("res"));
-            action_download(request, response, res);
+        //    int res = SecurityLayer.checkNumeric(request.getParameter("res"));
+        //    action_download(request, response, res);
     
         } catch (NumberFormatException ex) {
             request.setAttribute("message", "Teacher key not specified");

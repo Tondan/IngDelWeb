@@ -48,7 +48,7 @@
   
   <ol class="breadcrumb">
       <li><a href="Home">Home</a></li>
-      <li><a href="listcorsi">Corsi</a></li>
+      <li><a href="listcorsi">Lista Corsi</a></li>
       <li class="active">${corso.nome_it}</li>
     </ol>
 
@@ -57,6 +57,7 @@
 <!--------Contenuto principale---------->
 <div class="row">
     <div class="col-md-8">
+        <h3>Descrittori di Dublino</h3>
         <main class="main">
 
             <input class="input" id="tab1" type="radio" name="tabs" checked>
@@ -96,6 +97,10 @@
             </section>
         
         </main>
+        
+        <br>
+        <h3>Sillabo</h3>
+        
     </div><!-- End col-md-8-->   	
 
 
@@ -105,34 +110,23 @@
             <aside class="col-md-4"> <!--tabelle destra-->
             
             	<div class="box_style_1">
-         			<h4>Lessons <span class="pull-right">17</span></h4>
-         			<h4>Hours <span class="pull-right">12</span></h4>
-                    <h4>Rates <span class="pull-right rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i><i class=" icon-star-empty"></i></span></h4>
-                    <h4><a href="#">Download files <i class="icon-download pull-right"></i></a></h4><br>
-                	<h4>Speakers</h4>
+                    <h4><a href="listmateriale?k=${corso.ID}">Materiale</a></h4><br>
+                	<h4>Insegnanti</h4>
+                        <#list docenti as docente>
                     <div class="media">
                         <div class="pull-right">
-                            <img src="img/avatar1.jpg" class="img-circle" alt="">
+                            <img src="${docente.immagine}" class="img-circle" alt="">
                         </div>
                         <div class="media-body">
-                            <h5 class="media-heading"><a href="#">Marc Twain</a></h5>
+                            <h5 class="media-heading"><a href="dettaglidocente?k=${docente.IDDocente}">${docente.nome} ${docente.cognome}</a></h5>
                             <p>
                                 Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. 
                             </p>
                         </div>
                     </div>
+                    </#list>
                     
-                    <div class="media">
-                        <div class="pull-right">
-                            <img src="img/avatar1.jpg" class="img-circle" alt="">
-                        </div>
-                        <div class="media-body">
-                            <h5 class="media-heading"><a href="#">Marc Twain</a></h5>
-                            <p>
-                                Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in.
-                            </p>
-                        </div>
-                    </div>
+                    
            </div>
            
             <div class="box_style_1">

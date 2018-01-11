@@ -4,12 +4,14 @@ import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.Descrizione_it;
+import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.Dublino_it;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,11 +37,13 @@ public class DetailsCorso extends BaseController {
             Corso corso =((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
             Descrizione_it des = ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_it(corso);
             Dublino_it dub = ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_it(corso);
+            List<Docente> doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocentiCorso(corso);
             
             request.setAttribute("page_title", corso.getNome_it());
             request.setAttribute("corso", corso);
             request.setAttribute("descrizione_it", des);
             request.setAttribute("dublino_it", dub);
+            request.setAttribute("docenti", doc);
             res.activate("course_details_4.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());

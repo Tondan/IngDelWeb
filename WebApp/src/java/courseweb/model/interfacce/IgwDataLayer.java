@@ -100,7 +100,7 @@ public interface IgwDataLayer extends DataLayer {
     
     public List<Libro> getLibriCorso(Corso corso) throws DataLayerException;
     
-    public List<Materiale> getMaterialeCorso(Corso corso) throws DataLayerException;
+    public List<Materiale> getMaterialeCorso(int corso) throws DataLayerException;
     
     public List<Corso> getCorsiInCdl(CDL cdl) throws DataLayerException;
     

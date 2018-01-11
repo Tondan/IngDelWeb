@@ -1,0 +1,88 @@
+<section id="sub-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 text-center">
+                <h1>Inside Learn</h1>
+                <p class="lead boxed ">Ex utamur fierent tacimates duis choro an</p>
+                <p class="lead">
+                    Lorem ipsum dolor sit amet, ius minim gubergren ad. At mei sumo sonet audiam, ad mutat elitr platonem vix. Ne nisl idque fierent vix. 
+                </p>
+            </div>
+        </div><!-- End row -->
+    </div><!-- End container -->
+    <div class="divider_top"></div>
+    </section><!-- End sub-header -->
+    
+    
+    <section id="main_content" >
+    	<div class="container">
+        
+        <ol class="breadcrumb">
+          <li><a href="Home">Home</a></li>
+          <li><a href="listcorsi">Lista Corsi</a></li>
+          <li><a href="DetailsCorso?n=${corso.ID}">${corso.nome_it}</a></li>
+          <li class="active">Materiale</li>
+        </ol>
+        
+        <div class="row">
+        
+        
+        
+        <div class="col-lg-9 col-md-8 col-sm-8">
+       
+            <h3>Materiale</h3>
+            
+
+                <div class="panel panel-info filterable add_bottom_45">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Materiale </h3>
+                    </div>
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                            <tr class="filters">
+                                
+                                <th><input type="text" class="form-control" placeholder="Nome" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Descrizione" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="Download" disabled ></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <#list materiale as materiale>
+                        
+                            <tr>
+                        <th scope="row">${materiale.nome} </th>
+                                <td>${materiale.descrizione_it}</td>
+                                <td class="icon-download"> <a href="${materiale.link}">Scarica Ora</a></td>
+                            </tr>
+                        </a>
+                           </#list>
+        
+                        </tbody>
+                   
+
+                </table>
+                </div><!-- End filterable -->
+                    
+      
+ 
+        </div><!-- End col-lg-9-->                        
+        </div><!-- End row -->
+        
+        <hr>
+        <div class="row">
+        	<div class="col-md-12 text-center">
+            	<ul class="pagination">
+                  <li><a href="#">&laquo;</a></li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+            </div>
+        </div>
+            	
+        </div><!-- End container -->
+    </section><!-- End main_content -->
+

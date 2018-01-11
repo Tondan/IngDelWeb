@@ -355,7 +355,7 @@ public class CorsoImpl implements Corso{
     @Override
     public List<Materiale> getMateriale() throws DataLayerException{
         if(materiale==null)
-            materiale=ownerdatalayer.getMaterialeCorso(this);
+            materiale=ownerdatalayer.getMaterialeCorso(this.id);
         return materiale;
     }
     
