@@ -20,7 +20,7 @@ public class LibroImpl implements Libro {
     private int IDLibro;
     private String Autore;
     private String Titolo;
-    private String Volume;
+    private int Volume;
     private int Anno;
     private String Editore;
     private String Link;
@@ -34,7 +34,7 @@ public class LibroImpl implements Libro {
         this.IDLibro=0;
         this.Autore=null;
         this.Titolo=null;
-        this.Volume=null;
+        this.Volume=0;
         this.Anno=0;
         this.Editore=null;
         this.Link=null;
@@ -64,7 +64,7 @@ public class LibroImpl implements Libro {
     }
 
     @Override
-    public String getVolume() {
+    public int getVolume() {
         return this.Volume;
     }
 
@@ -96,7 +96,7 @@ public class LibroImpl implements Libro {
     }
 
     @Override
-    public void setVolume(String volume) {
+    public void setVolume(int volume) {
         this.Volume=volume;
         this.dirty=true;
     }

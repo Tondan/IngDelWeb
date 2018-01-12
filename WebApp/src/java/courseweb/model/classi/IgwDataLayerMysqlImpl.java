@@ -294,7 +294,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             de.setIDLibro(rs.getInt("IDLibro")); 
             de.setAutore(rs.getString("Autore"));
             de.setTitolo(rs.getString("Titolo"));
-            de.setVolume(rs.getString("Volume"));  
+            de.setVolume(rs.getInt("Volume"));  
             de.setAnno(rs.getInt("Anno"));
             de.setEditore(rs.getString("Editore"));
             de.setLink(rs.getString("Link"));

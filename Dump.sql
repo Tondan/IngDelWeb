@@ -31,7 +31,7 @@ CREATE TABLE `cdl` (
   `Anno` year(4) NOT NULL,
   `CFU` int(11) NOT NULL,
   PRIMARY KEY (`IDCDL`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `cdl` (
 
 LOCK TABLES `cdl` WRITE;
 /*!40000 ALTER TABLE `cdl` DISABLE KEYS */;
-INSERT INTO `cdl` VALUES (1,'inf','inf',2010,180);
+INSERT INTO `cdl` VALUES (1,'inf','inf',2010,180),(2,'Bio','Bio',2017,180);
 /*!40000 ALTER TABLE `cdl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,6 +68,7 @@ CREATE TABLE `colleg_corsi` (
 
 LOCK TABLES `colleg_corsi` WRITE;
 /*!40000 ALTER TABLE `colleg_corsi` DISABLE KEYS */;
+INSERT INTO `colleg_corsi` VALUES (1,2,'mutuato');
 /*!40000 ALTER TABLE `colleg_corsi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +93,7 @@ CREATE TABLE `corso` (
   PRIMARY KEY (`IDCorso`),
   KEY `CDL` (`CDL`),
   CONSTRAINT `corso_ibfk_1` FOREIGN KEY (`CDL`) REFERENCES `cdl` (`IDCDL`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +102,7 @@ CREATE TABLE `corso` (
 
 LOCK TABLES `corso` WRITE;
 /*!40000 ALTER TABLE `corso` DISABLE KEYS */;
-INSERT INTO `corso` VALUES (1,1,'igw','igw','skl','ita',2,6,2010,'B');
+INSERT INTO `corso` VALUES (1,1,'igw','igw','skl','ita',2,6,2010,'B'),(2,1,'aaaaaaaa','aaaaaaaaaaaa','aaaaaaaa','aaaaaa',2,23,2015,'c'),(3,2,'erbristeria','erboristeriainfsghi','adsd','it',2,30,2017,'A');
 /*!40000 ALTER TABLE `corso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,6 +167,7 @@ CREATE TABLE `descrizione_it` (
 
 LOCK TABLES `descrizione_it` WRITE;
 /*!40000 ALTER TABLE `descrizione_it` DISABLE KEYS */;
+INSERT INTO `descrizione_it` VALUES (1,'aaa','aaa','aaaa','aaa','aaa','aa','aaaa','aaaaaa','aaaaa');
 /*!40000 ALTER TABLE `descrizione_it` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,7 +201,7 @@ CREATE TABLE `docente` (
 
 LOCK TABLES `docente` WRITE;
 /*!40000 ALTER TABLE `docente` DISABLE KEYS */;
-INSERT INTO `docente` VALUES (1,'img/teacher_2_small.jpg','Giuseppe','Della Penna','dsjfkns@dfdsfks.ds','dsl','441225632','Web Enginereeng',NULL,NULL,NULL,'Lun 8:00'),(2,'img/teacher_2_small.jpg','Bestia','DeSatana','bestiadesatana@fanculo.com','inferno','666666666999999','Dolore',NULL,NULL,NULL,'Lun 6:66');
+INSERT INTO `docente` VALUES (1,'img/teacher_2_small.jpg','Giuseppe','Della Penna','dsjfkns@dfdsfks.ds','dsl','441225632','Web Enginereeng','arabo','arabo','curriculum/curriculum1.txt','Lun 8:00'),(2,'img/teacher_2_small.jpg','Bestia','DeSatana','bestiadesatana@fanculo.com','inferno','666666666999999','Dolore','asasddas','adad','C:\\Users\\Chris-PC\\Desktop\\curriculum.txt','Lun 6:66');
 /*!40000 ALTER TABLE `docente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,6 +228,7 @@ CREATE TABLE `docenti_corso` (
 
 LOCK TABLES `docenti_corso` WRITE;
 /*!40000 ALTER TABLE `docenti_corso` DISABLE KEYS */;
+INSERT INTO `docenti_corso` VALUES (1,1),(1,2);
 /*!40000 ALTER TABLE `docenti_corso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,6 +285,7 @@ CREATE TABLE `dublino_it` (
 
 LOCK TABLES `dublino_it` WRITE;
 /*!40000 ALTER TABLE `dublino_it` DISABLE KEYS */;
+INSERT INTO `dublino_it` VALUES (1,'aaaaaaaaaa','aaaaaaaaaaaaa','aaaaaaaaaaa','aaaaaaaaaaaaa','aaaaaaaaaa');
 /*!40000 ALTER TABLE `dublino_it` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,6 +361,7 @@ CREATE TABLE `libri_corso` (
 
 LOCK TABLES `libri_corso` WRITE;
 /*!40000 ALTER TABLE `libri_corso` DISABLE KEYS */;
+INSERT INTO `libri_corso` VALUES (1,1);
 /*!40000 ALTER TABLE `libri_corso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,12 +376,12 @@ CREATE TABLE `libro` (
   `IDLibro` int(11) NOT NULL AUTO_INCREMENT,
   `Autore` varchar(20) NOT NULL,
   `Titolo` varchar(50) NOT NULL,
-  `Volume` varchar(20) DEFAULT NULL,
+  `Volume` int(11) DEFAULT NULL,
   `Anno` year(4) NOT NULL,
   `Editore` varchar(50) DEFAULT NULL,
   `Link` text,
   PRIMARY KEY (`IDLibro`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -385,6 +390,7 @@ CREATE TABLE `libro` (
 
 LOCK TABLES `libro` WRITE;
 /*!40000 ALTER TABLE `libro` DISABLE KEYS */;
+INSERT INTO `libro` VALUES (1,'Bestiaccia','Ingegneria',1,2010,'Satana',NULL);
 /*!40000 ALTER TABLE `libro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -427,12 +433,12 @@ CREATE TABLE `materiale` (
   `Corso` int(11) DEFAULT NULL,
   `Nome` varchar(20) NOT NULL,
   `Link` text NOT NULL,
-  `Descrizione_it` text,
-  `Descizione_en` text,
+  `Descrizione_it` varchar(50) DEFAULT NULL,
+  `Descrizione_en` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`IDMateriale`),
   KEY `Corso` (`Corso`),
   CONSTRAINT `materiale_ibfk_1` FOREIGN KEY (`Corso`) REFERENCES `corso` (`IDCorso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,6 +447,7 @@ CREATE TABLE `materiale` (
 
 LOCK TABLES `materiale` WRITE;
 /*!40000 ALTER TABLE `materiale` DISABLE KEYS */;
+INSERT INTO `materiale` VALUES (1,1,'Roba','img/art.jpg','aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa','Roba roba roba tanta tanta ');
 /*!40000 ALTER TABLE `materiale` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -505,4 +512,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-05  0:30:37
+-- Dump completed on 2018-01-12 10:11:53
