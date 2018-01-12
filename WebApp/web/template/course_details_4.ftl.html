@@ -139,15 +139,19 @@
            </div>
        	 	
            
+            <#if descrizione_it.homepage?? || descrizione_it.forum?? || descrizione_it.risorse_Ext??>   
+                
            <div class="box_style_1">
-                    <h4>Related content</h4>
+                    <h4>Link Esterni</h4>
                     <ul class="list_1">
-                          <li><a href="#">Ceteros mediocritatem</a></li>
-                          <li><a href="#">Labore nostrum</a></li>
-                          <li><a href="#">Primis bonorum</a></li>
-                          <li><a href="#">Ceteros mediocritatem</a></li>
+                          <#if descrizione_it.homepage??><li><a href="${descrizione_it.homepage}">Homepage</a></li></#if>
+                          <#if descrizione_it.forum??><li><a href="${descrizione_it.forum}">Forum</a></li></#if>
+                          <#if descrizione_it.risorse_Ext??><li><a href="${descrizione_it.risorse_Ext}">Risorse Esterne</a></li></#if>
                      </ul>
            </div>
+            
+            </#if>
+            
          </aside> <!-- End col-md-4 -->
      	
      </div><!-- End row -->
