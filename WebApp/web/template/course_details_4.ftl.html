@@ -133,7 +133,7 @@
                     <h4>Libri di Testo</h4>
                     <ul class="legend_course">
                         <#list libri as libro>
-                        <li><#if libro.Link??><a href="${libro.Link}"></#if>${libro.titolo}</a>,<#if libro.volume!=0> Vol.${libro.volume},</#if> ${libro.anno?c}, ${libro.autore}, ${libro.editore} </li>
+                        <li><#if libro.link??><a href="${libro.link}"></#if>${libro.titolo}</a>,<#if libro.volume!=0> Vol.${libro.volume},</#if> ${libro.anno?c}, ${libro.autore}, ${libro.editore} </li>
                         </#list>
                      </ul>
            </div>
