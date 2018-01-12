@@ -26,7 +26,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -37,7 +39,7 @@ import javax.sql.DataSource;
  */
 public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwDataLayer {
 
-    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID;
+    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno;
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL;
     
     @Override
@@ -58,6 +60,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sUtenteByID=connection.prepareStatement("SELECT * FROM Utente WHERE IDUtente=?");
             sServizioByID=connection.prepareStatement("SELECT * FROM Servizio WHERE IDServizio=?");
             sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
+            sCorsiByAnno=connection.prepareStatement("SELECT * FROM Corso WHERE Anno=?");
             
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso");
@@ -781,6 +784,26 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             }
         }catch (SQLException ex){
             throw new DataLayerException("Unable to load sCorso",ex);
+        }
+        return result;
+    }
+    
+    @Override
+    public List<Corso> getCorsiByAnno() throws DataLayerException {
+        List<Corso> result = new ArrayList();
+        LocalDate date=LocalDate.now();
+        int month=date.getMonthValue();
+        int year=date.getYear();
+        if(month<=6)
+            year=year-1;
+        try{
+            sCorsiByAnno.setInt(1, year);
+            try (ResultSet rs=sCorsiByAnno.executeQuery()){
+                while(rs.next())
+                    result.add(getCorso(rs.getInt("IDCorso")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load sCorsoByAnno",ex);
         }
         return result;
     }
