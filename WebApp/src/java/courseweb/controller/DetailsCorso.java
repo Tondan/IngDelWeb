@@ -35,7 +35,7 @@ public class DetailsCorso extends BaseController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             
-            Corso corso =((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
+            Corso corso = ((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
             Descrizione_it des = ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_it(corso);
             Dublino_it dub = ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_it(corso);
             List<Docente> doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocentiCorso(corso);

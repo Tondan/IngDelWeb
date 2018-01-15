@@ -30,11 +30,19 @@ public class CDLImpl implements CDL{
     
     private List<Corso> corsi;
     
+    private int magistrale;
+    
+    private String immagine;
+    
+    private String descrizione_it;
+    
+    private String descrizione_en;
+    
     protected IgwDataLayer ownerdatalayer;
     
     protected boolean dirty;
     
-    
+ 
     
     public CDLImpl(IgwDataLayer ownerdatalayer){
         this.ownerdatalayer=ownerdatalayer;
@@ -119,5 +127,49 @@ public class CDLImpl implements CDL{
     public void addCorsoInCdl(Corso corso){
         this.corsi.add(corso);
         this.dirty=true;
+    }
+
+    @Override
+    public int getMagistrale() {
+        return this.magistrale;
+    }
+
+    @Override
+    public void setMagistrale(int magistrale) {
+       this.magistrale = magistrale;
+       this.dirty=true;
+    }
+
+    @Override
+    public String getImmagine() {
+        return this.immagine;
+    }
+
+    @Override
+    public void setImmagine(String immagine) {
+       this.immagine = immagine;
+       this.dirty=true;
+    }
+
+    @Override
+    public String getDescrizione_it() {
+        return this.descrizione_it;
+    }
+
+    @Override
+    public void setDescrizione_it(String descrizione_it) {
+       this.descrizione_it = descrizione_it;
+       this.dirty=true;
+    }
+
+    @Override
+    public String getDescrizione_en() {
+        return this.descrizione_en;
+    }
+
+    @Override
+    public void setDescrizione_en(String descrizione_en) {
+       this.descrizione_en = descrizione_en;
+       this.dirty=true;
     }
 }

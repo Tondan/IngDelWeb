@@ -56,6 +56,8 @@ public interface IgwDataLayer extends DataLayer {
     
     List<CDL> getCDL() throws DataLayerException;
     
+    List<CDL> getCDLMag() throws DataLayerException;
+    
     Corso getCorso(int IDCorso) throws DataLayerException;
     
     List<Corso> getCorso() throws DataLayerException;
@@ -75,6 +77,7 @@ public interface IgwDataLayer extends DataLayer {
     Materiale getMateriale(int IDMateriale) throws DataLayerException;
     
     Libro getLibro(int IDLibro) throws DataLayerException;
+    
     
     //Libri_Corso getLibri_Corso(int corso) throws DataLayerException;
     

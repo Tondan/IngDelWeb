@@ -32,6 +32,23 @@ public interface CDL {
     
     void setCfu(int cfu);
     
+    int getMagistrale();
+    
+    void setMagistrale(int magistrale);
+    
+    String getImmagine();
+    
+    void setImmagine(String immagine);
+    
+    String getDescrizione_it();
+    
+    void setDescrizione_it(String descrizione_it);
+    
+    String getDescrizione_en();
+    
+    void setDescrizione_en(String descrizione_en);
+    
+    
     List<Corso> getCorsiInCdl() throws DataLayerException;
     
     void setCorsiInCdl(List<Corso> corsi);

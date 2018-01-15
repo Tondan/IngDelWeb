@@ -119,6 +119,7 @@ label:hover {
 
 
 
+<<<<<<< HEAD
 #ricerca {
     width: 130px;
     box-sizing: border-box;
@@ -136,4 +137,17 @@ label:hover {
 #ricerca:focus {
     width: 100%;
 }
+=======
+/*link*/
+a.lnbar:visited,
+a.lnbar:link{
+  color: #fff;
+}
+
+a.lnbar:hover{
+    color: #1dd7b2;
+} 
+
+
+>>>>>>> origin/master
 

@@ -39,8 +39,8 @@ import javax.sql.DataSource;
  */
 public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwDataLayer {
 
+    private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno;
-    private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL;
     
     @Override
     public void init() throws DataLayerException {
@@ -61,6 +61,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sServizioByID=connection.prepareStatement("SELECT * FROM Servizio WHERE IDServizio=?");
             sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
             sCorsiByAnno=connection.prepareStatement("SELECT * FROM Corso WHERE Anno=?");
+            
+            sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1");
+            sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0");
             
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso");
@@ -101,7 +104,10 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             c.setNome_en(rs.getString("Nome_en").toUpperCase());
             c.setAnno(rs.getInt("Anno"));  //il metodo getYear è stato deprecato https://docs.oracle.com/javase/7/docs/api/java/sql/Time.html probabile che dobbiamo suare caldendar
             c.setCfu(rs.getInt("Cfu"));
-  
+            c.setMagistrale(rs.getInt("Magistrale"));
+            c.setImmagine(rs.getString("Immagine"));
+            c.setDescrizione_it(rs.getString("Descrizione_it"));
+            c.setDescrizione_en(rs.getString("Descrizione_en"));
             return c;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create CDL object form ResultSet", ex);
@@ -836,6 +842,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return result;
     }
     
+    
+    
     @Override
     public void destroy() {
         //anche chiudere i PreparedStamenent è una buona pratica...
@@ -847,4 +855,20 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         }
         super.destroy();
     }
-}
+
+    @Override
+    public List<CDL> getCDLMag() throws DataLayerException {
+        List<CDL> result = new ArrayList();
+        try{
+            try (ResultSet rs=sCdlByMagistrale.executeQuery()){
+                while(rs.next())
+                    result.add(getCDL(rs.getInt("IDCDL")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load sCDLByMagistrale",ex);
+        }
+        return result;
+    }
+
+
+    }

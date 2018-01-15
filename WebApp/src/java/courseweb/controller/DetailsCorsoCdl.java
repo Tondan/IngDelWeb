@@ -32,7 +32,6 @@ public class DetailsCorsoCdl extends BaseController {
     private void action_default(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            
             CDL Cdl =((IgwDataLayer)request.getAttribute("datalayer")).getCDL(id);
             request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
             request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdl(Cdl));
