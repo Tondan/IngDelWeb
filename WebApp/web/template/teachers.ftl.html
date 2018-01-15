@@ -23,10 +23,14 @@
   <li class="active">Lista docenti</li>
 </ol>
       
-       <div class="row">
+    <input id="ricerca" class="pull-right col-md-12" type="text" name="search" placeholder="Search..">
+    
+       <div id="table" class="row">
+           
+           <br class="col-md-12">
            <#list docenti as docente>
-                    	<div class="col-md-6 col-sm-6">
-                        	<div class=" box_style_3">
+                    	<div  class="col-md-6 col-sm-6">
+                        	<div class="box_style_3">
                             	<p><img src="${docente.immagine}" alt="Teacher" class="img-circle styled"></p>
                                 <h4 class="p-title">${docente.nome} ${docente.cognome} <br> <small>${docente.specializzazione}</small></h4>
              					<p></p>
