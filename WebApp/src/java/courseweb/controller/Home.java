@@ -12,6 +12,8 @@ import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,9 +34,16 @@ public class Home extends BaseController {
     }
 
     private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
-        TemplateResult res = new TemplateResult(getServletContext());
-        request.setAttribute("page_title", "Home");
-        res.activate("homepage.ftl.html", request, response);
+        try {
+            TemplateResult res = new TemplateResult(getServletContext());
+            request.setAttribute("page_title", "Home");
+            request.setAttribute("corsi", ((IgwDataLayer)request.getAttribute("datalayer")).getCorso());
+            request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
+            request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
+            res.activate("homepage.ftl.html", request, response);
+        } catch (DataLayerException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

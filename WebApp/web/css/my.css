@@ -116,3 +116,18 @@ label:hover {
   font-size: 16px;
 
 }
+
+
+
+/*link*/
+a.lnbar:visited,
+a.lnbar:link{
+  color: #fff;
+}
+
+a.lnbar:hover{
+    color: #1dd7b2;
+} 
+
+
+
