@@ -40,13 +40,15 @@ public class DetailsCorso extends BaseController {
             Dublino_it dub = ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_it(corso);
             List<Docente> doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocentiCorso(corso);
             List<Libro> lib=((IgwDataLayer)request.getAttribute("datalayer")).getLibriCorso(corso);
-            
+    
             request.setAttribute("page_title", corso.getNome_it());
             request.setAttribute("corso", corso);
             request.setAttribute("descrizione_it", des);
             request.setAttribute("dublino_it", dub);
             request.setAttribute("docenti", doc);
             request.setAttribute("libri", lib);
+            
+            
             res.activate("course_details_4.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());

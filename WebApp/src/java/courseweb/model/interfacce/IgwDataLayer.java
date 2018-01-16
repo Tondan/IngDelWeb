@@ -122,4 +122,7 @@ public interface IgwDataLayer extends DataLayer {
     public List<Corso> getCorsiByAnno() throws DataLayerException;
     
     public List<CDL> getCDLNoMag() throws DataLayerException;
+    
+    public List<Utente> getUtenti(String Username, String password) throws DataLayerException;
+    
 }

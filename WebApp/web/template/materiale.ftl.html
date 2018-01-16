@@ -43,6 +43,7 @@
                                 
                                 <th><input type="text" class="form-control" placeholder="Nome" disabled></th>
                                 <th><input type="text" class="form-control" placeholder="Descrizione" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="Dimensioni" disabled ></th>
                                 <th><input type="text" class="form-control" placeholder="Download" disabled ></th>
                             </tr>
                         </thead>
@@ -50,9 +51,10 @@
                             <#list materiale as materiale>
                         
                             <tr>
-                        <th scope="row">${materiale.nome} </th>
+                        <th scope="row">${materiale.nome}</th>
                                 <td>${materiale.descrizione_it}</td>
-                                <td class="icon-download"> <a href="download?k=${materiale.link}">Scarica Ora</a></td>
+                                <td>${pesofile} KB</td>
+                                <td class="icon-download"><a href="download?k=${materiale.link}">Scarica Ora</a></td>
                             </tr>
                         </a>
                            </#list>

@@ -33,10 +33,12 @@ public class DetailsCorsoCdl extends BaseController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             CDL Cdl =((IgwDataLayer)request.getAttribute("datalayer")).getCDL(id);
-            request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
+            request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag());
+             request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
             request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdl(Cdl));
             request.setAttribute("page_title", Cdl.getNome_it());
-            res.activate("courses_list.ftl.html", request, response);
+            request.setAttribute("info", Cdl.getNome_it());
+            res.activate("courses_list+.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);

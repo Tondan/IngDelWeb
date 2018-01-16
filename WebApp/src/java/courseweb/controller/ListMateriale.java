@@ -28,10 +28,16 @@ public class ListMateriale extends BaseController {
 
     private void action_default(HttpServletRequest request, HttpServletResponse response,int id) throws IOException, ServletException, TemplateManagerException {
         try {
+            
+            long PesoFile;
+            PesoFile = Download.getPesofile();
+            
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("page_title", "Lista Materiale");
             request.setAttribute("materiale", ((IgwDataLayer)request.getAttribute("datalayer")).getMaterialeCorso(id));
             request.setAttribute("corso",((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id));
+            
+            request.setAttribute("pesofile",PesoFile);
             res.activate("materiale.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());

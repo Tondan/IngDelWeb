@@ -11,6 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import courseweb.model.classi.CDLImpl;
+import courseweb.model.interfacce.Corso;
+import courseweb.model.interfacce.Docente;
+import java.util.List;
 
 /**
  *
@@ -30,8 +33,11 @@ public class ListCorsi extends BaseController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("page_title", "Lista Corsi");
-            request.setAttribute("corsi", ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
-            request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
+
+            
+            request.setAttribute("corsi", ((IgwDataLayer)request.getAttribute("datalayer")).getCorso()); //momentaneo per vedere tutti i corsi
+            request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag());
+            request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
             res.activate("courses_list.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());

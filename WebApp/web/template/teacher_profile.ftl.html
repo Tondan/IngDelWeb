@@ -47,7 +47,10 @@
                           
                         <input class="input" id="tab3" type="radio" name="tabs">
                         <label for="tab3">Pubblicazioni</label>
-   
+
+						<input class="input" id="tab4" type="radio" name="tabs">
+                        <label for="tab4">Insegnamenti</label>
+
                         <section class="section" id="content2">
                          ${docente.ricerche}
                         </section>
@@ -55,7 +58,14 @@
                         <section class="section" id="content3">
                         ${docente.pubblicazione}
                         </section>
-                           
+						   
+						<section class="section" id="content4">
+							<ul>
+						<#list docentecorsi as docentecorsi>
+						<li><a href="DetailsCorso?n=${docentecorsi.ID}">${docentecorsi.nome_it}</a></li>
+						</#list>
+							</ul>
+						</section>
                        
                     </main>
      

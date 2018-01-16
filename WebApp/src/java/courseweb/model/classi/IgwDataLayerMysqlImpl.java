@@ -61,10 +61,12 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sServizioByID=connection.prepareStatement("SELECT * FROM Servizio WHERE IDServizio=?");
             sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
             sCorsiByAnno=connection.prepareStatement("SELECT * FROM Corso WHERE Anno=?");
-            
+           
             sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1 AND Anno=?");
             sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0 AND Anno=?");
             
+            PreparedStatement Login=connection.prepareStatement("SELECT * FROM Utente,Gruppo,Servizio WHERE Utente.Username=? AND Utente.Password=? AND Gruppo.");
+
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso");
             sCDL = connection.prepareStatement("SELECT IDCDL FROM CDL WHERE Anno=?");
@@ -900,6 +902,15 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             throw new DataLayerException("Unable to load sCDLByMagistrale",ex);
         }
         return result;
+    }
+
+    
+
+    
+    @Override
+    public List<Utente> getUtenti(String Username, String password) throws DataLayerException {
+        return null;
+        
     }
 
 

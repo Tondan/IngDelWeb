@@ -118,24 +118,27 @@ label:hover {
 }
 
 
-
-
 #ricerca {
-    width: 130px;
+    position: relative;
+    top:-20px;
+    width: 120px;
     box-sizing: border-box;
-    border: 2px solid #ccc;
+    border: 2px solid #1dd7b2;
     border-radius: 4px;
     font-size: 16px;
     background-color: white;
     background-position: 10px 10px; 
     background-repeat: no-repeat;
-    padding: 12px 20px 12px 40px;
+    padding: 10px 20px 12px 40px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
+    margin-bottom: 2em;
 }
 
+
 #ricerca:focus {
-    width: 100%;
+    width: 50%;
+
 }
 
 /*link*/
@@ -148,6 +151,13 @@ a.lnbar:hover{
     color: #1dd7b2;
 } 
 
+.divider{
+  padding: 1em;
+}
+
+#tipocorso{
+  font-size:16px;
+}
 
 
 

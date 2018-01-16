@@ -26,16 +26,22 @@
         
         <aside class="col-lg-3 col-md-4 col-sm-4">
             <div class="box_style_1">
-                <h4>Corsi di laurea</h4>
-
-
-                <!--ATTENZIONE PASSIAMO ID CORSO LAUREA TUTTO DA SERVLET-->
-
+                
+              
             <ul class="submenu-col">
                 <li><a href="listcorsi">Tutti i corsi</a></li>
+                <br>
+                <h4>Corsi di laurea Triennale</h4>
                 <#list cdl as cdl>
                 <li><a href="DetailsCorsoCdl?n=${cdl.IDCDL}">${cdl.nome_it}</a></li>
                 </#list>
+
+                
+                <h4>Corsi di laurea Magistrale</h4>
+                <#list cdlm as cdlm>
+                <li><a href="DetailsCorsoCdl?n=${cdlm.IDCDL}">${cdlm.nome_it}</a></li>
+                </#list>
+
             </ul>
             
                 <hr>
@@ -44,12 +50,12 @@
         
         <div class="col-lg-9 col-md-8 col-sm-8">
        
-            <h3>Tutti i corsi</h3>
-            <p>Lista di tutti i corsi</p>
+            <h3 align="center">Tutti i corsi</h3>
+            <p></p>
 
                 <div class="panel panel-info filterable add_bottom_45">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Tutti i corsi</h3>
+                        <h3 class="panel-title">Corsi</h3>
                         <div class="pull-right">
                             <button class="btn-filter"><span class="icon-th-list"></span>Filtri</button>
                         </div>
@@ -69,7 +75,6 @@
                         </thead>
                         <tbody>
                             <#list corsi as corso>
-                        
                             <tr>
                                 <td scope="row"><b>${corso.ID}</b></td>
                                 <td><a href="DetailsCorso?n=${corso.ID}">${corso.nome_it}</a></td>
@@ -83,8 +88,6 @@
                            </#list>
         
                         </tbody>
-                   
-
                 </table>
                 </div><!-- End filterable -->
                     

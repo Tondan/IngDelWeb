@@ -985,10 +985,9 @@ button[disabled].forward {
 }
 
 .col-item .btn-add {
-    width: 50%;
+    width: 100%;
     float: left;
-    border-right: 1px solid #ededed
-}
+    }
 
 .col-item .btn-details {
     width: 45%;

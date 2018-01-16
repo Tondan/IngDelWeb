@@ -23,6 +23,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
 public class Download extends BaseController {
+
+    private static long i;
+    
+    public static long getPesofile(){
+         return i/1024;
+    }
     
     private void action_error(HttpServletRequest request, HttpServletResponse response) {
         if (request.getAttribute("exception") != null) {
@@ -32,16 +38,15 @@ public class Download extends BaseController {
         }
     }
  
-    protected void action_download(HttpServletRequest request,
-            HttpServletResponse response, String k) throws ServletException, IOException {
+        protected void action_download(HttpServletRequest request, HttpServletResponse response, String k) throws ServletException, IOException {
         
         String relativePath = getServletContext().getRealPath("");
         System.out.println("relativePath = " + relativePath);
         String filePath = relativePath+"/"+k;
         File downloadFile = new File(filePath);
         FileInputStream inStream = new FileInputStream(downloadFile);
-         
         
+        i=downloadFile.length();
          
         // obtains ServletContext
         ServletContext context = getServletContext();

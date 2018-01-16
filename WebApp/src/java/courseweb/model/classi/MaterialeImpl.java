@@ -9,7 +9,6 @@ import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Materiale;
-import java.util.List;
 
 /**
  *
@@ -47,10 +46,12 @@ public class MaterialeImpl implements Materiale{
         this.id_corso=-1;
     }
     
+    @Override
     public int getID(){
         return this.id;
     }
     
+    @Override
     public void setID(int id){
         this.id=id;
         this.dirty=true;
@@ -63,39 +64,47 @@ public class MaterialeImpl implements Materiale{
         return corso;
     }
     
+    @Override
     public String getNome(){
         return this.nome;
     }
     
+    @Override
     public void setNome(String nome){
         this.nome=nome;
         this.dirty=true;
     }
     
+    @Override
     public String getLink(){
         return this.link;
     }
     
+    @Override
     public void setLink(String link){
         this.link=link;
         this.dirty=true;
     }
     
+    @Override
     public String getDescrizione_it(){
         return this.descrizione_it;
     }
     
-    public void setDescrizione_it(String descrizione){
-        this.descrizione_it=descrizione;
+    @Override
+    public void setDescrizione_it(String descrizione_it){
+        this.descrizione_it=descrizione_it;
         this.dirty=true;
     }
     
+    @Override
     public String getDescrizione_en(){
         return this.descrizione_en;
     }
     
-    public void setDescrizione_en(String descrizione){
-        this.descrizione_en=descrizione;
+    @Override
+    public void setDescrizione_en(String descrizione_en){
+        this.descrizione_en=descrizione_en;
         this.dirty=true;
     }
 

@@ -3,6 +3,7 @@ package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLConnection;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +38,11 @@ public class DetailsDocente extends BaseController {
             TemplateResult res = new TemplateResult(getServletContext());
             Docente doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
             request.setAttribute("page_title", doc.getNome() + " " + doc.getCognome() );
+            List<Corso> docentecorsi;
+            docentecorsi = ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(doc);
+                    
             request.setAttribute("docente", doc);
+            request.setAttribute("docentecorsi", docentecorsi);
             res.activate("teacher_profile.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
