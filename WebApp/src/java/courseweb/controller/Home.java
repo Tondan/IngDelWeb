@@ -47,13 +47,15 @@ public class Home extends BaseController {
             List<CDL> rcdl=new ArrayList();
             List<CDL> rcdlm=new ArrayList();
             int n=4;
+            int cdlsize=cdl.size();
+            int cdlmsize=cdlm.size();
             for (int i=0;i<n;i++){
-                if(i<=cdl.size()){
+                if(cdl.size()!=0 &&i<=cdlsize){
                     int randomIndex=rand.nextInt(cdl.size());
                     rcdl.add(cdl.get(randomIndex));
                     cdl.remove(randomIndex);
                 }
-                if(i<=cdlm.size()){
+                if(cdlm.size()!=0 && i<=cdlmsize){
                     int randomIndex=rand.nextInt(cdlm.size());
                     rcdlm.add(cdlm.get(randomIndex));
                     cdlm.remove(randomIndex);

@@ -62,12 +62,12 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
             sCorsiByAnno=connection.prepareStatement("SELECT * FROM Corso WHERE Anno=?");
             
-            sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1");
-            sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0");
+            sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1 AND Anno=?");
+            sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0 AND Anno=?");
             
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso");
-            sCDL = connection.prepareStatement("SELECT IDCDL FROM CDL");
+            sCDL = connection.prepareStatement("SELECT IDCDL FROM CDL WHERE Anno=?");
             sCorsiMutuatiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Mutuato");
             sCorsiPrerequisitiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Prerequisito");
             sCorsiModuloByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo=Modulo");
@@ -831,7 +831,13 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     @Override
     public List<CDL> getCDL() throws DataLayerException {
         List<CDL> result = new ArrayList();
+        LocalDate date=LocalDate.now();
+        int month=date.getMonthValue();
+        int year=date.getYear();
+        if(month<=6)
+            year=year-1;    
         try{
+            sCDL.setInt(1,year);
             try (ResultSet rs=sCDL.executeQuery()){
                 while(rs.next())
                     result.add(getCDL(rs.getInt("IDCDL")));
@@ -859,7 +865,13 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     @Override
     public List<CDL> getCDLMag() throws DataLayerException {
         List<CDL> result = new ArrayList();
+        LocalDate date=LocalDate.now();
+        int month=date.getMonthValue();
+        int year=date.getYear();
+        if(month<=6)
+            year=year-1;
         try{
+            sCdlByMagistrale.setInt(1, year);
             try (ResultSet rs=sCdlByMagistrale.executeQuery()){
                 while(rs.next())
                     result.add(getCDL(rs.getInt("IDCDL")));
@@ -873,7 +885,13 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     @Override
     public List<CDL> getCDLNoMag() throws DataLayerException {
         List<CDL> result = new ArrayList();
+        LocalDate date=LocalDate.now();
+        int month=date.getMonthValue();
+        int year=date.getYear();
+        if(month<=6)
+            year=year-1;
         try{
+            sCdlByTriennale.setInt(1, year);
             try (ResultSet rs=sCdlByTriennale.executeQuery()){
                 while(rs.next())
                     result.add(getCDL(rs.getInt("IDCDL")));
