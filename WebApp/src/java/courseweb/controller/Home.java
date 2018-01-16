@@ -6,12 +6,16 @@
 package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
+import courseweb.model.interfacce.CDL;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -37,9 +41,26 @@ public class Home extends BaseController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("page_title", "Home");
-            request.setAttribute("corsi", ((IgwDataLayer)request.getAttribute("datalayer")).getCorso());
-            request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
-            request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
+            Random rand= new Random();
+            List<CDL> cdl=((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag();
+            List<CDL> cdlm=((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag();
+            List<CDL> rcdl=new ArrayList();
+            List<CDL> rcdlm=new ArrayList();
+            int n=4;
+            for (int i=0;i<n;i++){
+                if(i<=cdl.size()){
+                    int randomIndex=rand.nextInt(cdl.size());
+                    rcdl.add(cdl.get(randomIndex));
+                    cdl.remove(randomIndex);
+                }
+                if(i<=cdlm.size()){
+                    int randomIndex=rand.nextInt(cdlm.size());
+                    rcdlm.add(cdlm.get(randomIndex));
+                    cdlm.remove(randomIndex);
+                }
+            }
+            request.setAttribute("cdl",rcdl);
+            request.setAttribute("cdlm",rcdlm);
             res.activate("homepage.ftl.html", request, response);
         } catch (DataLayerException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);

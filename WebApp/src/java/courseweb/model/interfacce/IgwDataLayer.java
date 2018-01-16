@@ -120,4 +120,6 @@ public interface IgwDataLayer extends DataLayer {
     public List<Docente> getDocente() throws DataLayerException;
     
     public List<Corso> getCorsiByAnno() throws DataLayerException;
+    
+    public List<CDL> getCDLNoMag() throws DataLayerException;
 }

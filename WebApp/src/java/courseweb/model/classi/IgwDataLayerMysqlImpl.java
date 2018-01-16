@@ -870,5 +870,19 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return result;
     }
 
+    @Override
+    public List<CDL> getCDLNoMag() throws DataLayerException {
+        List<CDL> result = new ArrayList();
+        try{
+            try (ResultSet rs=sCdlByTriennale.executeQuery()){
+                while(rs.next())
+                    result.add(getCDL(rs.getInt("IDCDL")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load sCDLByMagistrale",ex);
+        }
+        return result;
+    }
+
 
     }
