@@ -36,7 +36,9 @@ public class Login extends BaseController {
             throws ServletException {
 
         try {
-            action_default(request, response);
+            String email = request.getParameter("email");
+            String pass = request.getParameter("pass");
+            action_default(request, response, email, pass);
 
         } catch (IOException ex) {
             request.setAttribute("exception", ex);

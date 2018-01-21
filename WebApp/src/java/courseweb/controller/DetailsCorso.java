@@ -40,7 +40,10 @@ public class DetailsCorso extends BaseController {
             Dublino_it dub = ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_it(corso);
             List<Docente> doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocentiCorso(corso);
             List<Libro> lib=((IgwDataLayer)request.getAttribute("datalayer")).getLibriCorso(corso);
-    
+            
+            request.setAttribute("propedeudici",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiPrerequisiti(corso));
+            request.setAttribute("mutuati",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiMutuati(corso));
+            request.setAttribute("moduli",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiModulo(corso));
             request.setAttribute("page_title", corso.getNome_it());
             request.setAttribute("corso", corso);
             request.setAttribute("descrizione_it", des);

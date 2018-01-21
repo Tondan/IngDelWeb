@@ -38,9 +38,26 @@
         <div class="divider"></div>
         <div class="row">
             <div class="col-md-12" id="tipocorso">
-                    <li><strong>Corsi propedeudici</strong> </li>
-                    <li><strong>Corsi mutuati</strong> </li>
-                    <li><strong>Corsi modulo</strong> </li>
+
+
+                    <#list propedeudici as propedeudico>
+                    <li><strong>Corsi propedeudici:</strong> <#if propedeudico.nome_it??>  ${propedeudico.nome_it} </#if> </li>
+                    </#list>
+
+
+
+                    <#list mutuati as mutuato>
+                    <li><strong>Corsi mutuati:</strong> <#if mutuato.nome_it??>  ${mutuato.nome_it} </#if> </li>
+                    </#list>
+
+
+
+                    <#list moduli as modulo>
+                    <li><strong>Corsi moduli:</strong> <#if modulo.nome_it??>  ${modulo.nome_it} </#if> </li>
+                    </#list>
+
+                   
+
             </div>
         </div>
     </div><!-- End container -->

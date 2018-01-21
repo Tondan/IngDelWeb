@@ -68,6 +68,10 @@
         <servlet-name>CambioLingua</servlet-name>
         <servlet-class>courseweb.controller.CambioLingua</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Backoffice</servlet-name>
+        <servlet-class>courseweb.controller.Backoffice</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
@@ -107,6 +111,10 @@
     <servlet-mapping>
         <servlet-name>CambioLingua</servlet-name>
         <url-pattern>/cambiolingua</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Backoffice</servlet-name>
+        <url-pattern>/Backoffice</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
