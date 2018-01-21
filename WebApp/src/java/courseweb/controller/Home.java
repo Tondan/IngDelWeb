@@ -92,7 +92,8 @@ public class Home extends BaseController {
                 }
             if(b)
                 lin=request.getParameter("lin");
-            lin="it";
+            else
+                lin="it";
             action_default(request, response,lin);
 
         } catch (IOException | TemplateManagerException ex) {
