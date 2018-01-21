@@ -52,12 +52,12 @@ public class Home extends BaseController {
             int cdlsize=cdl.size();
             int cdlmsize=cdlm.size();
             for (int i=0;i<n;i++){
-                if(cdl.size()!=0 &&i<=cdlsize){
+                if(!cdl.isEmpty() &&i<=cdlsize){
                     int randomIndex=rand.nextInt(cdl.size());
                     rcdl.add(cdl.get(randomIndex));
                     cdl.remove(randomIndex);
                 }
-                if(cdlm.size()!=0 && i<=cdlmsize){
+                if(!cdlm.isEmpty() && i<=cdlmsize){
                     int randomIndex=rand.nextInt(cdlm.size());
                     rcdlm.add(cdlm.get(randomIndex));
                     cdlm.remove(randomIndex);
@@ -66,12 +66,12 @@ public class Home extends BaseController {
             request.setAttribute("servlet","Home");
             request.setAttribute("cdl",rcdl);
             request.setAttribute("cdlm",rcdlm);
-            ServletContext context = getServletContext();
-            if(lingua.equals("it")){
-                res.activate("homepage.ftl.html", request, response);
-                context.setInitParameter("view.outline_template", "outline.ftl.html"); 
+            if(lingua.equals("it")||lingua.equals("")){
+                request.setAttribute("lingua","it");
+                res.activate("homepage.ftl.html", request, response); 
             }
             else
+                request.setAttribute("lingua","en");
                 res.activate("homepage_en.ftl.html", request, response);
         } catch (DataLayerException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,9 +84,9 @@ public class Home extends BaseController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
             String lin;
-            boolean b=false;
+            //boolean b=false;
         try {
-            Enumeration list=request.getParameterNames();
+            /*Enumeration list=request.getParameterNames();
             while(list.hasMoreElements())
                 if(list.nextElement().toString().equals("lin")){
                     b=true;
@@ -95,7 +95,11 @@ public class Home extends BaseController {
             if(b)
                 lin=request.getParameter("lin");
             lin="it";
-            
+            */
+            if(request.getParameter("lin")==null)
+                lin="it";
+            else
+                lin=request.getParameter("lin");
             action_default(request, response,lin);
 
         } catch (IOException | TemplateManagerException ex) {

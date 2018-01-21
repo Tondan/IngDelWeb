@@ -35,7 +35,7 @@ public class ListCorsi extends BaseController {
             request.setAttribute("page_title", "Lista Corsi");
 
             
-            request.setAttribute("corsi", ((IgwDataLayer)request.getAttribute("datalayer")).getCorso()); //momentaneo per vedere tutti i corsi
+            request.setAttribute("corsi", ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno()); //momentaneo per vedere tutti i corsi
             request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag());
             request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
             res.activate("courses_list.ftl.html", request, response);
