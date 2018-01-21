@@ -14,10 +14,12 @@ import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +39,7 @@ public class Home extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("page_title", "Home");
@@ -61,9 +63,16 @@ public class Home extends BaseController {
                     cdlm.remove(randomIndex);
                 }
             }
+            request.setAttribute("servlet","Home");
             request.setAttribute("cdl",rcdl);
             request.setAttribute("cdlm",rcdlm);
-            res.activate("homepage.ftl.html", request, response);
+            ServletContext context = getServletContext();
+            if(lingua.equals("it")){
+                res.activate("homepage.ftl.html", request, response);
+                context.setInitParameter("view.outline_template", "outline.ftl.html"); 
+            }
+            else
+                res.activate("homepage_en.ftl.html", request, response);
         } catch (DataLayerException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,9 +81,19 @@ public class Home extends BaseController {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
-
+            String lin;
+            boolean b=false;
         try {
-            action_default(request, response);
+            Enumeration list=request.getParameterNames();
+            while(list.hasMoreElements())
+                if(list.nextElement().toString().equals("lin")){
+                    b=true;
+                    break;
+                }
+            if(b)
+                lin=request.getParameter("lin");
+            lin="it";
+            action_default(request, response,lin);
 
         } catch (IOException | TemplateManagerException ex) {
             request.setAttribute("exception", ex);
