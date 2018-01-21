@@ -78,6 +78,8 @@ public class Home extends BaseController {
         }
     }
 
+    
+    
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
@@ -92,8 +94,8 @@ public class Home extends BaseController {
                 }
             if(b)
                 lin=request.getParameter("lin");
-            else
-                lin="it";
+            lin="it";
+            
             action_default(request, response,lin);
 
         } catch (IOException | TemplateManagerException ex) {
