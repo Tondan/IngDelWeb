@@ -39,9 +39,11 @@
                    
                     
                 <div class="pull-right">
-                    
-                    <a href="Login" class="button_top" id="login_top">Login</a>
-                   
+                    <#if nome??>
+                    <a href="Logout" class="button_top" id="login_top">Logout</a>
+                   <#else>
+                   <a href="Login" class="button_top" id="login_top">Login</a>
+                   </#if>
 
 
 

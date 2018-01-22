@@ -33,10 +33,15 @@ public class Login extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua) throws IOException, ServletException, TemplateManagerException {
         TemplateResult res = new TemplateResult(getServletContext());
+        request.setAttribute("servlet","login?");
+            if(lingua.equals("it")||lingua.equals("")){
+                request.setAttribute("lingua","it");
+        
         request.setAttribute("page_title", "Login");
         res.activate("login.ftl.html", request, response);
+    }
     }
 
     private void action_login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
@@ -70,11 +75,17 @@ public class Login extends BaseController {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
-        try {
+        String lin;
+        try{
             if (request.getParameter("login") != null) {
                 action_login(request, response);
             } else {
-                action_default(request, response);
+            
+            if(request.getParameter("lin")==null)
+                lin="it";
+            else
+                lin=request.getParameter("lin");
+                action_default(request, response,lin);
             }
         } catch (IOException ex) {
             request.setAttribute("exception", ex);

@@ -93,13 +93,10 @@ public class ListMateriale extends BaseController {
         } catch (NumberFormatException ex) {
             request.setAttribute("message", "Course key not specified");
             action_error(request, response);
-        } catch (IOException ex) {
+        } catch (IOException | TemplateManagerException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
                
-        } catch (TemplateManagerException ex) {
-            request.setAttribute("exception", ex);
-            action_error(request, response);
         }
     }
 

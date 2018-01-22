@@ -64,11 +64,7 @@ public class ListCorsi extends BaseController {
                 lin=request.getParameter("lin");
             action_default(request, response,lin);
 
-        } catch (IOException ex) {
-            request.setAttribute("exception", ex);
-            action_error(request, response);
-
-        } catch (TemplateManagerException ex) {
+        } catch (IOException | TemplateManagerException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
 
