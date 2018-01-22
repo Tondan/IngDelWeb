@@ -31,13 +31,11 @@ public class DetailsCorso extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response, int id, String lingua) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             
             Corso corso = ((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
-            Descrizione_it des = ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_it(corso);
-            Dublino_it dub = ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_it(corso);
             List<Docente> doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocentiCorso(corso);
             List<Libro> lib=((IgwDataLayer)request.getAttribute("datalayer")).getLibriCorso(corso);
             
@@ -46,13 +44,22 @@ public class DetailsCorso extends BaseController {
             request.setAttribute("moduli",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiModulo(corso));
             request.setAttribute("page_title", corso.getNome_it());
             request.setAttribute("corso", corso);
-            request.setAttribute("descrizione_it", des);
-            request.setAttribute("dublino_it", dub);
             request.setAttribute("docenti", doc);
             request.setAttribute("libri", lib);
+            request.setAttribute("servlet","DetailsCorso?n="+id+"&");
+            if(lingua.equals("it")||lingua.equals("")){
+                request.setAttribute("lingua","it");
+                request.setAttribute("descrizione_it", ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_it(corso));
+                request.setAttribute("dublino_it", ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_it(corso));                
+                res.activate("course_details_4.ftl.html", request, response); 
+            }
+            else{
+                request.setAttribute("lingua","en");
+                request.setAttribute("descrizione_en", ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_en(corso));
+                request.setAttribute("dublino_en", ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_en(corso));
+                res.activate("course_details_4_en.ftl.html", request, response);
+            }
             
-            
-            res.activate("course_details_4.ftl.html", request, response);
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
@@ -65,9 +72,14 @@ public class DetailsCorso extends BaseController {
             throws ServletException {
 
         int n;
+        String lin;
         try {
+            if(request.getParameter("lin")==null)
+                lin="it";
+            else
+                lin=request.getParameter("lin");
             n = SecurityLayer.checkNumeric(request.getParameter("n"));
-            action_default(request, response, n);
+            action_default(request, response, n, lin);
         } catch (NumberFormatException ex) {
             request.setAttribute("message", "Chiave corso non specificata");
             action_error(request, response);

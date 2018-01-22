@@ -33,13 +33,13 @@
                 <br>
                 <h4>Corsi di laurea Triennale</h4>
                 <#list cdl as cdl>
-                <li><a href="DetailsCorsoCdl?n=${cdl.IDCDL}">${cdl.nome_it}</a></li>
+                <li><a href="DetailsCorsoCdl?n=${cdl.IDCDL}&lin=it">${cdl.nome_it}</a></li>
                 </#list>
 
                 
                 <h4>Corsi di laurea Magistrale</h4>
                 <#list cdlm as cdlm>
-                <li><a href="DetailsCorsoCdl?n=${cdlm.IDCDL}">${cdlm.nome_it}</a></li>
+                <li><a href="DetailsCorsoCdl?n=${cdlm.IDCDL}&lin=it">${cdlm.nome_it}</a></li>
                 </#list>
 
             </ul>
@@ -77,7 +77,7 @@
                             <#list corsi as corso>
                             <tr>
                                 <td scope="row"><b>${corso.ID}</b></td>
-                                <td><a href="DetailsCorso?n=${corso.ID}">${corso.nome_it}</a></td>
+                                <td><a href="DetailsCorso?n=${corso.ID}&lin=it">${corso.nome_it}</a></td>
                                 <td>${corso.CDL.nome_it}</td>
                                 <td>${corso.SSD}</td>
                                 <td>${corso.cfu}</td>

@@ -258,11 +258,11 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             Dublino_enImpl de = new Dublino_enImpl(this);
             
             de.setIDCorso(rs.getInt("Corso")); 
-            de.setKnowledge(rs.getString("Prerequisiti"));
-            de.setApplication(rs.getString("Obiettivi"));
-            de.setEvaluation(rs.getString("Mod_Esame"));  
-            de.setCommunication(rs.getString("Mod_Insegnamento"));
-            de.setLifelong(rs.getString("Sillabo"));
+            de.setKnowledge(rs.getString("Knowledge"));
+            de.setApplication(rs.getString("Application"));
+            de.setEvaluation(rs.getString("Evaluation"));  
+            de.setCommunication(rs.getString("Communication"));
+            de.setLifelong(rs.getString("LifeLong"));
             return de;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create Dublino_en object form ResultSet", ex);

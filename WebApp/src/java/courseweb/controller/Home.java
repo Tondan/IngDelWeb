@@ -63,16 +63,17 @@ public class Home extends BaseController {
                     cdlm.remove(randomIndex);
                 }
             }
-            request.setAttribute("servlet","Home");
+            request.setAttribute("servlet","Home?");
             request.setAttribute("cdl",rcdl);
             request.setAttribute("cdlm",rcdlm);
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 res.activate("homepage.ftl.html", request, response); 
             }
-            else
+            else{
                 request.setAttribute("lingua","en");
                 res.activate("homepage_en.ftl.html", request, response);
+            }
         } catch (DataLayerException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }

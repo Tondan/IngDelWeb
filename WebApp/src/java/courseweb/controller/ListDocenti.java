@@ -25,12 +25,20 @@ public class ListDocenti extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("page_title", "Lista Docenti");
             request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
-            res.activate("teachers.ftl.html", request, response);
+            request.setAttribute("servlet","listdocenti?");
+            if(lingua.equals("it")||lingua.equals("")){
+                request.setAttribute("lingua","it");
+                res.activate("teachers.ftl.html", request, response); 
+            }
+            else{
+                request.setAttribute("lingua","en");
+                res.activate("teachers_en.ftl.html", request, response);
+            }
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
@@ -40,9 +48,13 @@ public class ListDocenti extends BaseController {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
-
+        String lin;
         try {
-            action_default(request, response);
+            if(request.getParameter("lin")==null)
+                lin="it";
+            else
+                lin=request.getParameter("lin");
+            action_default(request, response,lin);
 
         } catch (IOException ex) {
             request.setAttribute("exception", ex);

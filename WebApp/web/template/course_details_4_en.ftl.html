@@ -1,0 +1,196 @@
+
+
+<section id="sub-header" >
+  	<div class="container">
+    
+    	<div class="row">
+        	<div class="col-md-12 text-center">
+            	<h1>Course details</h1>
+                <p class="lead"></p>
+            </div>
+        </div><!-- End row -->
+        
+        <div class="row" id="sub-header-features-2">
+        	<div class="col-md-4">
+            	<h2>General Informations</h2>
+                <ul class="list_ok">
+                    <li><strong>SSD</strong>  ${corso.SSD}</li>
+                    <li><strong>CDL</strong> ${corso.CDL.nome_en}</li>
+                    <li><strong>Language</strong>  ${corso.lingua}</li>
+                    <li><strong>Semester</strong>  ${corso.semestre}</li>
+                    <li><strong>CFU (e tipo)</strong>  ${corso.cfu} / ${corso.tipologia}</li>
+                    <li><strong>Year</strong> ${corso.anno?c}</li>
+            </div>
+
+            <div class="col-md-4">
+                <h2>Prerequisites</h2>
+                <span>${descrizione_en.prerequisiti}</span>
+            </div>
+
+           <div class="col-md-4">
+            <h2>Objectives</h2>
+            <span>${descrizione_en.obiettivi}</span>
+       </div>
+
+        	       
+        </div><!-- End row --> 
+
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-md-12" id="tipocorso">
+
+
+                    <#list propedeudici as propedeudico>
+                    <li><strong>Preparatory Courses:</strong> <#if propedeudico.nome_en??>  ${propedeudico.nome_en} </#if> </li>
+                    </#list>
+
+
+
+                    <#list mutuati as mutuato>
+                    <li><strong>Borrowed Courses:</strong> <#if mutuato.nome_en??>  ${mutuato.nome_en} </#if> </li>
+                    </#list>
+
+
+
+                    <#list moduli as modulo>
+                    <li><strong>Module Courses:</strong> <#if modulo.nome_en??>  ${modulo.nome_en} </#if> </li>
+                    </#list>
+
+                   
+
+            </div>
+        </div>
+    </div><!-- End container -->
+
+
+
+
+<div class="divider_top"></div>
+  </section>
+  
+  <!------------ FINE PARTE INFORMATIVA (VERDE)---->
+
+  <section id="main_content">
+   <div class="container">
+  
+  <ol class="breadcrumb">
+      <li><a href="Home?lin=en">Home</a></li>
+      <li><a href="listcorsi?lin=en">Courses List</a></li>
+      <li class="active">${corso.nome_en}</li>
+    </ol>
+
+	 
+
+<!--------Contenuto principale---------->
+<div class="row">
+    <div class="col-md-8">
+
+            <section>
+                <h3>Syllabus</h3>
+                 ${descrizione_en.sillabo}
+            </section>
+
+
+
+
+
+
+
+        <h3>Dublin Descriptors</h3>
+        <main class="main">
+
+            <input class="input" id="tab1" type="radio" name="tabs" checked>
+            <label for="tab1">Knowledge</label>
+              
+            <input class="input" id="tab2" type="radio" name="tabs">
+            <label for="tab2">Application</label>
+              
+            <input class="input" id="tab3" type="radio" name="tabs">
+            <label for="tab3">Evaluation</label>
+              
+            <input class="input" id="tab4" type="radio" name="tabs">
+            <label for="tab4">Communication</label>
+              
+            <input class="input" id="tab5" type="radio" name="tabs">
+            <label for="tab5">Lifelong</label>
+            
+
+            <section class="section" id="content1">
+                 ${dublino_en.knowledge}
+            </section>
+              
+            <section class="section" id="content2">
+                 ${dublino_en.application}
+            </section>
+              
+            <section class="section" id="content3">
+                 ${dublino_en.evaluation}
+            </section>
+              
+            <section class="section" id="content4">
+                ${dublino_en.communication}
+            </section>
+              
+            <section class="section" id="content5">
+                 ${dublino_en.lifelong}
+            </section>
+        
+        </main>
+        
+    </div><!-- End col-md-8-->   	
+
+
+<!-------Fine Contenuto principale---------->
+  	                 
+
+            <aside class="col-md-4"> <!--tabelle destra-->
+            
+            	<div class="box_style_1">
+                    <h4><a href="listmateriale?k=${corso.ID}&lin=en">Material</a></h4><br>
+                	<h4>Teachers</h4>
+                        <#list docenti as docente>
+                    <div class="media">
+                        <div class="pull-right">
+                            <img id="img-piccola" src="${docente.immagine}" class="img-circle" alt="">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="media-heading"><a href="dettaglidocente?k=${docente.IDDocente}&lin=en">${docente.nome} ${docente.cognome}</a></h5>
+                            <p>
+                                ${docente.specializzazione}
+                            </p>
+                        </div>
+                    </div>
+                    </#list>
+                    
+                    
+           </div>
+           
+            <div class="box_style_1">
+                    <h4>Books</h4>
+                    <ul class="legend_course">
+                        <#list libri as libro>
+                        <li><#if libro.link??><a href="${libro.link}"></#if>${libro.titolo}</a>,<#if libro.volume!=0> Vol.${libro.volume},</#if> ${libro.anno?c}, ${libro.autore}, ${libro.editore} </li>
+                        </#list>
+                     </ul>
+           </div>
+       	 	
+           
+            <#if descrizione_en.homepage?? || descrizione_en.forum?? || descrizione_en.risorse_Ext??>   
+                
+           <div class="box_style_1">
+                    <h4>External Links</h4>
+                    <ul class="list_1">
+                          <#if descrizione_en.homepage??><li><a href="${descrizione_en.homepage}">Homepage</a></li></#if>
+                          <#if descrizione_en.forum??><li><a href="${descrizione_en.forum}">Forum</a></li></#if>
+                          <#if descrizione_en.risorse_Ext??><li><a href="${descrizione_en.risorse_Ext}">External Resources</a></li></#if>
+                     </ul>
+           </div>
+            
+            </#if>
+            
+         </aside> <!-- End col-md-4 -->
+     	
+     </div><!-- End row -->
+  </div><!-- End container -->
+  </section>
+

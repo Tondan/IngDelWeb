@@ -1,13 +1,9 @@
-
 <section id="sub-header">
 <div class="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 text-center">
 			<h1>Insegnanti</h1>
-			<p class="lead boxed ">Ex utamur fierent tacimates duis choro an</p>
-			<p class="lead">
-				Lorem ipsum dolor sit amet, ius minim gubergren ad. At mei sumo sonet audiam, ad mutat elitr platonem vix. Ne nisl idque fierent vix. 
-			</p>
+			<p class="lead"></p>
 		</div>
 	</div><!-- End row -->
 </div><!-- End container -->
@@ -19,34 +15,64 @@
 <div class="container">
 
 <ol class="breadcrumb">
-  <li><a href="Home?lin=it">Home</a></li>
-  <li class="active">Lista Docenti</li>
+  <li><a href="Home?lin=en">Home</a></li>
+  <li><a href="listdocenti?lin=en">Teachers List</a></li>
+  <li class="active">${docente.nome} ${docente.cognome}</li>
 </ol>
-      
-    <input id="ricerca" class="pull-right col-md-9" type="text" name="search" placeholder="Cerca...">
-    
-       <div id="table" class="row">
-           
-           <br class="col-md-12">
-           <#list docenti as docente>
-                    	<div  class="col-md-6 col-sm-6">
-                        	<div class="box_style_3">
-                            	<p><img src="${docente.immagine}" alt="Teacher" class="img-circle styled"></p>
-                                <h4 class="p-title">${docente.nome} ${docente.cognome} <br> <small>${docente.specializzazione}</small></h4>
-             					<p></p>
-                                <ul class="social_team">
-                                    <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                    <li><a href="#"><i class=" icon-google"></i></a></li>
-							</ul>    
-                            <hr>
-                             <a href="dettaglidocente?k=${docente.IDDocente}&lin=it" class="button_medium_outline">Profilo</a>           
-                            </div>
-                        </div>
-                        
-            </#list>            
-        </div><!-- End row -->    
-        
+      <div class="row">
+     <aside class="col-md-4">
+     	<div class=" box_style_1 profile">
+		<p class="text-center"><img src="${docente.immagine}" alt="Teacher" class="img-circle styled"></p> 
+                 <ul>
+                     <li>Name <strong class="pull-right">${docente.nome} ${docente.cognome}</strong> </li>
+                     <li>Specialization <strong class="pull-right">${docente.specializzazione}</strong></li>
+                     <li>Email<a href="mailto:${docente.email}" target="top"> <strong class="pull-right">${docente.email}</strong></a></li>
+                     <li>Office <strong class="pull-right">${docente.ufficio}</strong></li>
+                     <li>Telephone  <strong class="pull-right">${docente.telefono}</strong></li>
+                     <li>Receipt <strong class="pull-right">${docente.ricevimento}</strong></li>
+                     <li>Curriculum <strong class="pull-right"><a href="download?k=${docente.curriculum}" target="top"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a></strong></li>
+                 </ul>
+                <div class="divider"></div>
+                <h4>Teachings</h4>
+                    <ul class="legend_course">
+                        <#list docentecorsi as docentecorsi>
+                        <li><a href="DetailsCorso?n=${docentecorsi.ID}&lin=en">${docentecorsi.nome_en}</a></li>
+                        </#list>
+                     </ul>
+			  
+			</div><!-- End box-sidebar -->
+     </aside><!-- End aside -->
+     
+     <div class="col-md-8">
+
+        <main class="main">
+               
+                        <input class="input" id="tab2" type="radio" name="tabs" checked>
+                        <label for="tab2">Research</label>
+                          
+                        <input class="input" id="tab3" type="radio" name="tabs">
+                        <label for="tab3">Publications</label>
+
+                        <section class="section" id="content2">
+                         ${docente.ricerche}
+                        </section>
+                          
+                        <section class="section" id="content3">
+                        ${docente.pubblicazione}
+                        </section>
+						   
+                       
+                    </main>
+     
+     			
+		
+	 </div><!-- End col-md-8--> 
+	 
+            
+		
+
+
+  </div><!-- End row-->   
 </div><!-- End container -->
 </section><!-- End main_content-->
 

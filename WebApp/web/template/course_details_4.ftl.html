@@ -74,8 +74,8 @@
    <div class="container">
   
   <ol class="breadcrumb">
-      <li><a href="Home">Home</a></li>
-      <li><a href="listcorsi">Lista Corsi</a></li>
+      <li><a href="Home?lin=it">Home</a></li>
+      <li><a href="listcorsi?lin=it">Lista Corsi</a></li>
       <li class="active">${corso.nome_it}</li>
     </ol>
 
@@ -146,7 +146,7 @@
             <aside class="col-md-4"> <!--tabelle destra-->
             
             	<div class="box_style_1">
-                    <h4><a href="listmateriale?k=${corso.ID}">Materiale</a></h4><br>
+                    <h4><a href="listmateriale?k=${corso.ID}&lin=it">Materiale</a></h4><br>
                 	<h4>Insegnanti</h4>
                         <#list docenti as docente>
                     <div class="media">
@@ -154,7 +154,7 @@
                             <img id="img-piccola" src="${docente.immagine}" class="img-circle" alt="">
                         </div>
                         <div class="media-body">
-                            <h5 class="media-heading"><a href="dettaglidocente?k=${docente.IDDocente}">${docente.nome} ${docente.cognome}</a></h5>
+                            <h5 class="media-heading"><a href="dettaglidocente?k=${docente.IDDocente}&lin=it">${docente.nome} ${docente.cognome}</a></h5>
                             <p>
                                 ${docente.specializzazione}
                             </p>

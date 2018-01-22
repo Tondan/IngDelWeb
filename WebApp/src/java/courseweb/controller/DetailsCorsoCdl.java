@@ -29,7 +29,7 @@ public class DetailsCorsoCdl extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response, int id, String lingua) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             CDL Cdl =((IgwDataLayer)request.getAttribute("datalayer")).getCDL(id);
@@ -38,7 +38,15 @@ public class DetailsCorsoCdl extends BaseController {
             request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdl(Cdl));
             request.setAttribute("page_title", Cdl.getNome_it());
             request.setAttribute("info", Cdl.getNome_it());
-            res.activate("courses_list+.ftl.html", request, response);
+            request.setAttribute("servlet","listcorsi?");
+            if(lingua.equals("it")||lingua.equals("")){
+                request.setAttribute("lingua","it");
+                res.activate("courses_list+.ftl.html", request, response); 
+            }
+            else{
+                request.setAttribute("lingua","en");
+                res.activate("courses_list_en+.ftl.html", request, response);
+            }
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
@@ -51,9 +59,14 @@ public class DetailsCorsoCdl extends BaseController {
             throws ServletException {
 
         int n;
+        String lin;
         try {
+            if(request.getParameter("lin")==null)
+                lin="it";
+            else
+                lin=request.getParameter("lin");
             n = SecurityLayer.checkNumeric(request.getParameter("n"));
-            action_default(request, response, n);
+            action_default(request, response, n, lin);
         } catch (NumberFormatException ex) {
             request.setAttribute("message", "Chiave corso non specificata");
             action_error(request, response);

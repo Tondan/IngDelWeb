@@ -29,7 +29,7 @@ public class ListCorsi extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("page_title", "Lista Corsi");
@@ -38,7 +38,15 @@ public class ListCorsi extends BaseController {
             request.setAttribute("corsi", ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
             request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag());
             request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
-            res.activate("courses_list.ftl.html", request, response);
+            request.setAttribute("servlet","listcorsi?");
+            if(lingua.equals("it")||lingua.equals("")){
+                request.setAttribute("lingua","it");
+                res.activate("courses_list.ftl.html", request, response); 
+            }
+            else{
+                request.setAttribute("lingua","en");
+                res.activate("courses_list_en.ftl.html", request, response);
+            }
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
@@ -48,9 +56,13 @@ public class ListCorsi extends BaseController {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
-
+            String lin;
         try {
-            action_default(request, response);
+            if(request.getParameter("lin")==null)
+                lin="it";
+            else
+                lin=request.getParameter("lin");
+            action_default(request, response,lin);
 
         } catch (IOException ex) {
             request.setAttribute("exception", ex);

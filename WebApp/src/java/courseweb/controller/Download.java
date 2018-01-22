@@ -24,11 +24,6 @@ import javax.servlet.http.HttpServletResponse;
  
 public class Download extends BaseController {
 
-    private static long i;
-    
-    public static long getPesofile(){
-         return i/1024;
-    }
     
     private void action_error(HttpServletRequest request, HttpServletResponse response) {
         if (request.getAttribute("exception") != null) {
@@ -46,7 +41,6 @@ public class Download extends BaseController {
         File downloadFile = new File(filePath);
         FileInputStream inStream = new FileInputStream(downloadFile);
         
-        i=downloadFile.length();
          
         // obtains ServletContext
         ServletContext context = getServletContext();

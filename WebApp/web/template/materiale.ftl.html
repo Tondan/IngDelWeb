@@ -18,10 +18,17 @@
     	<div class="container">
         
         <ol class="breadcrumb">
-          <li><a href="Home">Home</a></li>
-          <li><a href="listcorsi">Lista Corsi</a></li>
-          <li><a href="DetailsCorso?n=${corso.ID}">${corso.nome_it}</a></li>
-          <li class="active">Materiale</li>
+          <#if lingua=="it">
+            <li><a href="Home">Home</a></li>
+            <li><a href="listcorsi">Lista Corsi</a></li>
+            <li><a href="DetailsCorso?n=${corso.ID}">${corso.nome_it}</a></li>
+            <li class="active">Materiale</li>
+          <#else>
+            <li><a href="Home?lin=en">Home</a></li>
+            <li><a href="listcorsi?lin=en">Courses List</a></li>
+            <li><a href="DetailsCorso?n=${corso.ID}&lin=en">${corso.nome_en}</a></li>
+            <li class="active">Materiale</li>
+          </#if>
         </ol>
         
         <div class="row">
@@ -30,9 +37,14 @@
         
         <div class="col-lg-9 col-md-8 col-sm-8">
        
-            <h3>Materiale</h3>
+            <#if lingua="it">
+                <h3>Materiale</h3>
+            <#else>
+                <h3>Material</h3>
+            </#if>
             
-
+            
+            <#if lingua="it">
                 <div class="panel panel-info filterable add_bottom_45">
                     <div class="panel-heading">
                         <h3 class="panel-title">Materiale </h3>
@@ -48,12 +60,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <#list materiale as materiale>
+                            <#list materiale as materiale,peso>
                         
                             <tr>
                         <th scope="row">${materiale.nome}</th>
                                 <td>${materiale.descrizione_it}</td>
-                                <td>${pesofile} KB</td>
+                                <td>${peso} KB</td>
                                 <td class="icon-download"><a href="download?k=${materiale.link}">Scarica Ora</a></td>
                             </tr>
                         </a>
@@ -64,7 +76,40 @@
 
                 </table>
                 </div><!-- End filterable -->
-                    
+                
+            <#else>
+                <div class="panel panel-info filterable add_bottom_45">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Material </h3>
+                    </div>
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                            <tr class="filters">
+                                
+                                <th><input type="text" class="form-control" placeholder="Name" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Description" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="Dimensions" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="Download" disabled ></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <#list materiale as materiale,peso>
+                        
+                            <tr>
+                        <th scope="row">${materiale.nome}</th>
+                                <td>${materiale.descrizione_en}</td>
+                                <td>${peso} KB</td>
+                                <td class="icon-download"><a href="download?k=${materiale.link}">Scarica Ora</a></td>
+                            </tr>
+                        </a>
+                           </#list>
+        
+                        </tbody>
+                   
+
+                </table>
+                </div><!-- End filterable -->
+            </#if>
       
  
         </div><!-- End col-lg-9-->                        
