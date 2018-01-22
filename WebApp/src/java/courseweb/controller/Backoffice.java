@@ -1,76 +1,78 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package courseweb.controller;
 
+import courseweb.controller.security.SecurityLayer;
+import courseweb.view.FailureResult;
+import courseweb.view.TemplateManagerException;
+import courseweb.view.TemplateResult;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Tony
+ * @author Toni & Tony
  */
-public class Backoffice extends HttpServlet {
+public class Backoffice extends BaseController {
+    
+    
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Backoffice</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Backoffice at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+    private void action_error(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getAttribute("exception") != null) {
+            (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("exception"), request, response);
+        } else {
+            (new FailureResult(getServletContext())).activate((String) request.getAttribute("message"), request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+        TemplateResult res = new TemplateResult(getServletContext());
+        request.setAttribute("page_title", "Backoffice");
+        
+        HttpSession s = request.getSession(false);
+        
+        
+        res.activate("backoffice.ftl.html", request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
+    
+   
+
+    
+    
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        try {
+            HttpSession s = SecurityLayer.checkSession(request);
+            if (s != null) {
+                action_default(request, response);
+            } else {
+                //se la pagina non è accessibile come utente anonimo, ridirigiamo a quella di login
+                //if this page cannot be accessed as anonymous user, redirect to the login page
+                //notare come passiamo alla servlet di login la nostra URL come referrer
+                //note how we pass to the login servlet our URL as the referrer
+                response.sendRedirect("login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
+                //...oppure dichiariamo che è richiesta la login, ma lasciamo all'utente la scelta
+                //...or declare that a login is required and let the user choose
+                //action_accessdenied(request, response);
+                //...o generiamo un errore
+                //...or output an error message
+                //request.setAttribute("exception", new Exception("Access not allowed"));
+                //action_error(request, response);
+            }
+        } catch (IOException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        } catch (TemplateManagerException ex) {
+            Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -80,7 +82,7 @@ public class Backoffice extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Main Login servlet";
     }// </editor-fold>
 
 }

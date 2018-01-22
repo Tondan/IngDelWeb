@@ -37,10 +37,6 @@
         <servlet-class>courseweb.controller.Home</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>courseweb.controller.Login</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ListDocenti</servlet-name>
         <servlet-class>courseweb.controller.ListDocenti</servlet-class>
     </servlet>
@@ -64,12 +60,18 @@
         <servlet-name>Download</servlet-name>
         <servlet-class>courseweb.controller.Download</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>Backoffice</servlet-name>
         <servlet-class>courseweb.controller.Backoffice</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>courseweb.controller.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>courseweb.controller.Logout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
@@ -77,10 +79,6 @@
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListDocenti</servlet-name>
@@ -109,6 +107,14 @@
     <servlet-mapping>
         <servlet-name>Backoffice</servlet-name>
         <url-pattern>/Backoffice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

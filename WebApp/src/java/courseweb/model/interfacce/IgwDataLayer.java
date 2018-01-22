@@ -123,6 +123,7 @@ public interface IgwDataLayer extends DataLayer {
     
     public List<CDL> getCDLNoMag() throws DataLayerException;
     
-    public List<Utente> getUtenti(String Username, String password) throws DataLayerException;
+    public Utente getUtenti(String username, String password) throws DataLayerException;
+    
     
 }

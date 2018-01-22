@@ -7,17 +7,18 @@
 				<img src="img/login_logo.png" alt="">
 			</p>
 			<hr>
-			<form method="post" action="login">
+
+			<form method="post" action="Login">
        
 				<div class="form-group" style="margin-bottom:-1em">
-					<input type="text" class=" form-control " placeholder="Username">
+					<input type="text" class="form-control" placeholder="Username" name="username">
 					<span class="input-icon"><i class="icon-user"></i></span>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Password" style="margin-bottom:5px;">
+					<input type="password" class="form-control" placeholder="Password" style="margin-bottom:5px;" name="password">
 					<span class="input-icon"><i class="icon-lock"></i></span>
 				</div>
-				<a href="login" class="button_fullwidth">Log in</a>
+				<input type="submit" name="login" value="login" class="button_fullwidth">
 				
 			</form>
 		</div>

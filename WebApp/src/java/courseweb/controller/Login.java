@@ -2,6 +2,7 @@ package courseweb.controller;
 
 
 import courseweb.controller.data.DataLayerException;
+import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
@@ -10,13 +11,20 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import courseweb.model.classi.CDLImpl;
+import courseweb.model.interfacce.Corso;
+import courseweb.model.interfacce.Docente;
+import courseweb.model.interfacce.Utente;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author Toni & Tony
+ * @author Giuseppe Della Penna
  */
 public class Login extends BaseController {
-
+   
     private void action_error(HttpServletRequest request, HttpServletResponse response) {
         if (request.getAttribute("exception") != null) {
             (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("exception"), request, response);
@@ -31,34 +39,48 @@ public class Login extends BaseController {
         res.activate("login.ftl.html", request, response);
     }
 
+    private void action_login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+        
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            
+            
+             if (!username.isEmpty() && !password.isEmpty()){
+                
+                try {
+                    Utente utente;
+                    utente = ((IgwDataLayer)request.getAttribute("datalayer")).getUtenti(username, password);
+                    
+                    int userid = utente.getID();
+                    SecurityLayer.createSession(request, username, userid);
+                    //se è stato trasmesso un URL di origine, torniamo a quell'indirizzo
+                    //if an origin URL has been transmitted, return to it
+                    {
+                        response.sendRedirect("Backoffice");
+                    }
+                } catch (DataLayerException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, "Login errato", ex);
+                }
+            } else {
+                request.setAttribute("exception", new Exception("Login vuoto"));
+                action_error(request, response);
+            }
+        } 
+
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
-
         try {
-            String email = request.getParameter("email");
-            String pass = request.getParameter("pass");
-            action_default(request, response, email, pass);
-
+            if (request.getParameter("login") != null) {
+                action_login(request, response);
+            } else {
+                action_default(request, response);
+            }
         } catch (IOException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
-
         } catch (TemplateManagerException ex) {
-            request.setAttribute("exception", ex);
-            action_error(request, response);
-
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Main Login servlet";
-    }// </editor-fold>
-
-}
+        }

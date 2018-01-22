@@ -40,7 +40,7 @@ import javax.sql.DataSource;
 public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwDataLayer {
 
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
-    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno;
+    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,Login;
     
     @Override
     public void init() throws DataLayerException {
@@ -65,7 +65,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1 AND Anno=?");
             sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0 AND Anno=?");
             
-            PreparedStatement Login=connection.prepareStatement("SELECT * FROM Utente WHERE Utente.Username=? AND Utente.Password=?");
+            Login=connection.prepareStatement("SELECT * FROM Utente WHERE Utente.Username=? AND Utente.Password=?");
 
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso");
@@ -569,6 +569,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return null;
     }
 
+    
+     
+    
     @Override
     public Servizio getServizio(int IDServizio) throws DataLayerException {
         try {
@@ -904,14 +907,23 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return result;
     }
 
-    
-
-    
-    @Override
-    public List<Utente> getUtenti(String Username, String password) throws DataLayerException {
+    @Override //LOGIN QUERY
+    public Utente getUtenti(String username, String password) throws DataLayerException {
+    try{
+            Login.setString(1,username);
+            Login.setString(2,password);
+            try (ResultSet rs=Login.executeQuery()){
+                if(rs.next())
+                    return createUtente(rs);
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load Login",ex);
+        }
         return null;
-        
     }
 
+    
+}
 
-    }
+
+  

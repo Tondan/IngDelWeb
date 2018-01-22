@@ -34,7 +34,27 @@
                      <li>Ricevimento <strong class="pull-right">${docente.ricevimento}</strong></li>
                      <li>Curriculum <strong class="pull-right"><a href="download?k=${docente.curriculum}" target="top"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a></strong></li>
                 </ul>
-              
+			  
+				<hr>
+				<div class="box_style_1">
+						<h4>Insegnamenti</h4>
+							
+						<div class="media">
+							<div class="media-body">
+								<p>
+										<ul>
+										<#list docentecorsi as docentecorsi>
+										<li><a href="DetailsCorso?n=${docentecorsi.ID}">${docentecorsi.nome_it}</a></li>
+										</#list>
+										</ul>
+								</p>
+							</div>
+						</div>
+						
+							
+			   </div>
+
+
 			</div><!-- End box-sidebar -->
      </aside><!-- End aside -->
      
@@ -48,9 +68,6 @@
                         <input class="input" id="tab3" type="radio" name="tabs">
                         <label for="tab3">Pubblicazioni</label>
 
-						<input class="input" id="tab4" type="radio" name="tabs">
-                        <label for="tab4">Insegnamenti</label>
-
                         <section class="section" id="content2">
                          ${docente.ricerche}
                         </section>
@@ -59,19 +76,19 @@
                         ${docente.pubblicazione}
                         </section>
 						   
-						<section class="section" id="content4">
-							<ul>
-						<#list docentecorsi as docentecorsi>
-						<li><a href="DetailsCorso?n=${docentecorsi.ID}">${docentecorsi.nome_it}</a></li>
-						</#list>
-							</ul>
-						</section>
                        
                     </main>
      
      			
 		
-     </div><!-- End col-md-8-->   	
+	 </div><!-- End col-md-8--> 
+	 
+	 
+	 
+            
+		
+
+
   </div><!-- End row-->   
 </div><!-- End container -->
 </section><!-- End main_content-->
