@@ -72,6 +72,14 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>courseweb.controller.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateCorso</servlet-name>
+        <servlet-class>courseweb.controller.CreateCorso</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterDocente</servlet-name>
+        <servlet-class>courseweb.controller.RegisterDocente</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
@@ -115,6 +123,14 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateCorso</servlet-name>
+        <url-pattern>/CreateCorso</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterDocente</servlet-name>
+        <url-pattern>/RegisterDocente</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

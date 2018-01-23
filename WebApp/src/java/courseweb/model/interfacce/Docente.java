@@ -67,5 +67,10 @@ public interface Docente{
     void setCorsi(List<Corso> corsi);
     
     void addCorso(Corso corso);
-    
+
+    boolean isDirty();
+
+    public void copyFrom(Docente docente);
+
+    public void setDirty(boolean dirty);
 }

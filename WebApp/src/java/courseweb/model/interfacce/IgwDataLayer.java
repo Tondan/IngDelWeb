@@ -126,4 +126,8 @@ public interface IgwDataLayer extends DataLayer {
     public Utente getUtenti(String username, String password) throws DataLayerException;
     
     
+    //store inizio
+    public void storeDocente(Docente docente) throws DataLayerException;
+    
+    
 }

@@ -41,6 +41,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
 
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,Login;
+    private PreparedStatement iDocente;
+    private PreparedStatement uDocente;
+    private PreparedStatement dDocente;
     
     @Override
     public void init() throws DataLayerException {
@@ -65,7 +68,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1 AND Anno=?");
             sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0 AND Anno=?");
             
-            Login=connection.prepareStatement("SELECT * FROM Utente WHERE Utente.Username=? AND Utente.Password=?");
+            Login=connection.prepareStatement("SELECT * FROM Utente INNER JOIN Gruppo ON Utente.Gruppo=Gruppo.IDGruppo WHERE Utente.Username=? AND Utente.Password=? AND Gruppo.IDGruppo=2;");
 
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso");
@@ -82,6 +85,14 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sCorsiByDocente=connection.prepareStatement("SELECT Corso FROM Docenti_Corso WHERE Docente=?");
             sCorsiByLibro=connection.prepareStatement("SELECT Corso FROM Libri_Corso WHERE Libro=?");
             sGruppiByServizio=connection.prepareStatement("SELECT Gruppo FROM Group_Services WHERE Servizio=?");
+            
+            
+            
+            //insert
+            iDocente = connection.prepareStatement("INSERT INTO Docente (Nome,Cognome,Email) VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            uDocente =  connection.prepareStatement("UPDATE Docente Set Nome=?,Cognome=?,Email=? WHERE IDDocente=? ");
+            dDocente = connection.prepareStatement("DELETE FROM Docente WHERE IDDocente=?");
+            
             
         } catch (SQLException ex) {
             throw new DataLayerException("Error initializing igw data layer", ex);
@@ -853,20 +864,6 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return result;
     }
     
-    
-    
-    @Override
-    public void destroy() {
-        //anche chiudere i PreparedStamenent è una buona pratica...
-        //also closing PreparedStamenents is a good practice...
-        try {
-            sCorsoByID.close();
-        } catch (SQLException ex) {
-            //
-        }
-        super.destroy();
-    }
-
     @Override
     public List<CDL> getCDLMag() throws DataLayerException {
         List<CDL> result = new ArrayList();
@@ -923,6 +920,83 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     }
 
     
+    
+    @Override
+    public void storeDocente(Docente docente) throws DataLayerException{
+        int key = docente.getIDDocente();
+         try {
+            if (key > 0) { //update
+                //non facciamo nulla se l'oggetto non ha subito modifiche
+                //do not store the object if it was not modified
+                if (!docente.isDirty()) {
+                    return;
+                }
+                
+                uDocente.setString(1, docente.getNome());
+                uDocente.setString(2, docente.getCognome());
+                uDocente.setString(3, docente.getEmail());
+                uDocente.executeUpdate();
+                
+            } else { //insert
+                iDocente.setString(1, docente.getNome());
+                iDocente.setString(2, docente.getCognome());
+                iDocente.setString(3, docente.getEmail());
+                
+                if (iDocente.executeUpdate() == 1) {
+                    //per leggere la chiave generata dal database
+                    //per il record appena inserito, usiamo il metodo
+                    //getGeneratedKeys sullo statement.
+                    //to read the generated record key from the database
+                    //we use the getGeneratedKeys method on the same statement
+                    try (ResultSet keys = iDocente.getGeneratedKeys()) {
+                        //il valore restituito è un ResultSet con un record
+                        //per ciascuna chiave generata (uno solo nel nostro caso)
+                        //the returned value is a ResultSet with a distinct record for
+                        //each generated key (only one in our case)
+                        if (keys.next()) {
+                            //i campi del record sono le componenti della chiave
+                            //(nel nostro caso, un solo intero)
+                            //the record fields are the key componenets
+                            //(a single integer in our case)
+                            key = keys.getInt(1);
+                        }
+                    }
+                }
+            }
+            //restituiamo l'oggetto appena inserito RICARICATO
+            //dal database tramite le API del modello. In tal
+            //modo terremo conto di ogni modifica apportata
+            //durante la fase di inserimento
+            //we return the just-inserted object RELOADED from the
+            //database through our API. In this way, the resulting
+            //object will ambed any data correction performed by
+            //the DBMS
+            if (key > 0) {
+                docente.copyFrom(getDocente(key));
+            }
+            docente.setDirty(false);
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to store docente", ex);
+        }
+    }
+        
+        
+    
+    
+    
+    
+    
+    @Override
+    public void destroy() {
+        //anche chiudere i PreparedStamenent è una buona pratica...
+        //also closing PreparedStamenents is a good practice...
+        try {
+            sCorsoByID.close();
+        } catch (SQLException ex) {
+            //
+        }
+        super.destroy();
+    }
 }
 
 

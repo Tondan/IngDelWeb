@@ -212,5 +212,37 @@ public class DocenteImpl implements Docente {
         this.corsi.add(corso);
         this.dirty=true;
     }
+
+     @Override
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    @Override
+    public void copyFrom(Docente docente) {
+        
+        id_docente = docente.getIDDocente();
+        immagine = docente.getImmagine();
+        nome = docente.getNome();
+        cognome = docente.getCognome();
+        email = docente.getEmail();
+        ufficio = docente.getUfficio();
+        telefono = docente.getTelefono();
+        specializzazione = docente.getSpecializzazione();
+        ricerche = docente.getRicerche();
+        pubblicazione = docente.getPubblicazione();
+        curriculum = docente.getCurriculum();
+        ricevimento = docente.getRicevimento();
     
+        this.dirty = true;
+    }
+    
+
+
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
+    
+   
 }
