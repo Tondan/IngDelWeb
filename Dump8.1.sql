@@ -77,6 +77,33 @@ INSERT INTO `colleg_corsi` VALUES (1,2,'mutuato');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `corsi_cdl`
+--
+
+DROP TABLE IF EXISTS `corsi_cdl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `corsi_cdl` (
+  `Corso` int(11) NOT NULL,
+  `CDL` int(11) NOT NULL,
+  PRIMARY KEY (`Corso`,`CDL`),
+  KEY `CDL` (`CDL`),
+  CONSTRAINT `corsi_cdl_ibfk_1` FOREIGN KEY (`Corso`) REFERENCES `corso` (`IDCorso`),
+  CONSTRAINT `corsi_cdl_ibfk_2` FOREIGN KEY (`CDL`) REFERENCES `cdl` (`IDCDL`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `corsi_cdl`
+--
+
+LOCK TABLES `corsi_cdl` WRITE;
+/*!40000 ALTER TABLE `corsi_cdl` DISABLE KEYS */;
+INSERT INTO `corsi_cdl` VALUES (1,1),(2,1),(3,2),(1,3);
+/*!40000 ALTER TABLE `corsi_cdl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `corso`
 --
 
@@ -85,7 +112,6 @@ DROP TABLE IF EXISTS `corso`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `corso` (
   `IDCorso` int(11) NOT NULL AUTO_INCREMENT,
-  `CDL` int(11) NOT NULL,
   `Nome_it` varchar(50) NOT NULL,
   `Nome_en` varchar(50) NOT NULL,
   `SSD` varchar(10) DEFAULT NULL,
@@ -94,9 +120,7 @@ CREATE TABLE `corso` (
   `CFU` int(11) DEFAULT NULL,
   `Anno` year(4) NOT NULL,
   `Tipologia` char(1) DEFAULT NULL,
-  PRIMARY KEY (`IDCorso`),
-  KEY `CDL` (`CDL`),
-  CONSTRAINT `corso_ibfk_1` FOREIGN KEY (`CDL`) REFERENCES `cdl` (`IDCDL`)
+  PRIMARY KEY (`IDCorso`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -106,7 +130,7 @@ CREATE TABLE `corso` (
 
 LOCK TABLES `corso` WRITE;
 /*!40000 ALTER TABLE `corso` DISABLE KEYS */;
-INSERT INTO `corso` VALUES (1,1,'igw','igw','skl','ita',2,6,2017,'B'),(2,1,'aaaaaaaa','aaaaaaaaaaaa','aaaaaaaa','aaaaaa',2,23,2016,'c'),(3,2,'erbristeria','erboristeriainfsghi','adsd','it',2,30,2017,'A');
+INSERT INTO `corso` VALUES (1,'igw','igw','skl','ita',2,6,2017,'B'),(2,'aaaaaaaa','aaaaaaaaaaaa','aaaaaaaa','aaaaaa',2,23,2016,'c'),(3,'erbristeria','erboristeriainfsghi','adsd','it',2,30,2017,'A');
 /*!40000 ALTER TABLE `corso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -521,4 +545,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-25 12:48:02
+-- Dump completed on 2018-01-25 15:16:47
