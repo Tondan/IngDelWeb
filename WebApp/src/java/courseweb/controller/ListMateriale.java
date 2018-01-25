@@ -35,6 +35,7 @@ public class ListMateriale extends BaseController {
 
     private void action_default(HttpServletRequest request, HttpServletResponse response,int id, String lingua) throws IOException, ServletException, TemplateManagerException {
         try {
+            
             List<Materiale> mat=((IgwDataLayer)request.getAttribute("datalayer")).getMaterialeCorso(id);
             List<Integer> pesi=new ArrayList();
             File file;
@@ -49,6 +50,7 @@ public class ListMateriale extends BaseController {
                 file=new File(filePath);
                 pesi.add((int)(file.length()/1024));
             }
+            
             Map<Materiale,Integer> materiale=new HashMap();
             Iterator<Materiale> itrm=mat.iterator();
             Iterator<Integer> itrp=pesi.iterator();

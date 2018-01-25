@@ -34,7 +34,7 @@
                      <li>Ricevimento<strong class="pull-right">${docente.ricevimento}</strong></li>
                      <li>Curriculum<strong class="pull-right"><a href="download?k=${docente.curriculum}" target="top"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a></strong></li>
                  </ul>
-				<div class="divider"></div>
+				<div id="divider"></div>
 				
                 <h4>Insegnamenti</h4>
                     <ul>
@@ -46,8 +46,8 @@
 			  
 			</div><!-- End box-sidebar -->
      </aside><!-- End aside -->
-     
-     <div class="col-md-8">
+	 
+<div class="col-md-8">
 
         <main class="main">
                
@@ -57,20 +57,55 @@
                         <input class="input" id="tab3" type="radio" name="tabs">
                         <label for="tab3">Pubblicazioni</label>
 
+						<input class="input" id="tab4" type="radio" name="tabs">
+                        <label for="tab4">Insegnamenti attivi</label>
+
                         <section class="section" id="content2">
-                         ${docente.ricerche}
+                        ${docente.ricerche}
                         </section>
                           
                         <section class="section" id="content3">
                         ${docente.pubblicazione}
                         </section>
 						   
-                       
-                    </main>
+						<section class="section" id="content4">
+						<div class="tab-pane fade in" id="courses">
+							<h3>Active courses</h3>
+							 <p>Mei ut decore accusam consequat, alii dignissim no usu. 
+								 Phaedrum intellegat sit ut, no pri mutat eirmod. 
+								 In eum iriure perpetua adolescens, pri dicunt prodesset et. Vis dicta postulant ad.</p>
+							 <div class="table-responsive">
+							   <table class="table table-striped">
+								 <thead>
+								   <tr>
+									 <th>Category</th>
+									 <th>Course name</th>
+									 <th>Lessons</th>
+									 <th>Rate</th>
+								   </tr>
+								 </thead>
+								 <tbody>
+								   
+									<#list docentecorsi as docentecorsi>
+									<tr>
+                        			<td><a href="DetailsCorso?n=${docentecorsi.ID}&lin=it">${docentecorsi.nome_it}</a></td>
+                        
+									 <td>${docentecorsi.nome_it}</td>
+									 <td>boh1</td>
+									 <td>boh2</td>
+								   </tr>
+								   </#list>
+								  
+								 </tbody>
+							   </table>
+							   </div>
+					</div><!-- End tab-pane -->
+					
+			   </div>   <!-- End content-->              
+			</section>
+</main>
      
-     			
-		
-	 </div><!-- End col-md-8--> 
+</div><!-- End col-md-8--> 
 	 
             
 		
