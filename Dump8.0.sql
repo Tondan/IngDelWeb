@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `igw` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `igw`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: igw
@@ -34,6 +32,8 @@ CREATE TABLE `cdl` (
   `Immagine` varchar(100) DEFAULT NULL,
   `Descrizione_it` longtext,
   `Descrizione_en` longtext,
+  `Abbr_it` varchar(5) NOT NULL,
+  `Abbr_en` varchar(5) NOT NULL,
   PRIMARY KEY (`IDCDL`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -44,7 +44,7 @@ CREATE TABLE `cdl` (
 
 LOCK TABLES `cdl` WRITE;
 /*!40000 ALTER TABLE `cdl` DISABLE KEYS */;
-INSERT INTO `cdl` VALUES (1,'inf','inf',2017,180,0,'img\\cdl\\Cyber-security-Sicurezza-informatica-2-Imc-e1483610025215.jpg','La Laurea in Informatica (3 anni) si propone di fornire allo studente un’adeguata padronanza di metodi e contenuti scientifici generali finalizzati all’inserimento nel mondo del lavoro nel settore dell’ICT (Tecnologie dell\'Informazione e della Comunicazione). ','Shit'),(2,'Bio','Bio',2017,180,0,'img\\cdl\\progettazione-di-massima-piana-di-biologia-46609916.jpg','Il Corso di laurea in Scienze biologiche si propone l\'obiettivo di fornire agli studenti una solida conoscenza di base dei principali settori delle scienze biologiche e una buona padronanza delle metodologie e tecnologie inerenti ai relativi campi di indagine scientifica, offrendo una preparazione adeguata alla conoscenza e comprensione dei progressi scientifici e tecnologici relativi alle scienze della vita.','Il Corso di laurea in Scienze biologiche si propone l\'obiettivo di fornire agli studenti una solida conoscenza di base dei principali settori delle scienze biologiche e una buona padronanza delle metodologie e tecnologie inerenti ai relativi campi di indagine scientifica, offrendo una preparazione adeguata alla conoscenza e comprensione dei progressi scientifici e tecnologici relativi alle scienze della vita.'),(3,'Pippo','Pippus',2017,120,1,'img\\art.jpg','ashfjkdsgfjksghfdskjfgssfdgdsgfgdsghdsg','jadsjasjkldadsjklsjkasdjkdsadsajkjkladsjkljld'),(4,'Vecchio','Old',2016,180,0,'img\\poetry.jpg','Roba molto vecchia',NULL);
+INSERT INTO `cdl` VALUES (1,'inf','Computer Science',2017,180,0,'img\\cdl\\Cyber-security-Sicurezza-informatica-2-Imc-e1483610025215.jpg','La Laurea in Informatica (3 anni) si propone di fornire allo studente un’adeguata padronanza di metodi e contenuti scientifici generali finalizzati all’inserimento nel mondo del lavoro nel settore dell’ICT (Tecnologie dell\'Informazione e della Comunicazione). ','Shit','inf','c.s'),(2,'Bio','Bio',2017,180,0,'img\\cdl\\progettazione-di-massima-piana-di-biologia-46609916.jpg','Il Corso di laurea in Scienze biologiche si propone l\'obiettivo di fornire agli studenti una solida conoscenza di base dei principali settori delle scienze biologiche e una buona padronanza delle metodologie e tecnologie inerenti ai relativi campi di indagine scientifica, offrendo una preparazione adeguata alla conoscenza e comprensione dei progressi scientifici e tecnologici relativi alle scienze della vita.','Il Corso di laurea in Scienze biologiche si propone l\'obiettivo di fornire agli studenti una solida conoscenza di base dei principali settori delle scienze biologiche e una buona padronanza delle metodologie e tecnologie inerenti ai relativi campi di indagine scientifica, offrendo una preparazione adeguata alla conoscenza e comprensione dei progressi scientifici e tecnologici relativi alle scienze della vita.','bio','bio'),(3,'Pippo','Pippus',2017,120,1,'img\\art.jpg','ashfjkdsgfjksghfdskjfgssfdgdsgfgdsghdsg','jadsjasjkldadsjklsjkasdjkdsadsajkjkladsjkljld','pippo','pippo'),(4,'Vecchio','Old',2016,180,0,'img\\poetry.jpg','Roba molto vecchia',NULL,'vecch','old');
 /*!40000 ALTER TABLE `cdl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,12 +88,12 @@ CREATE TABLE `corso` (
   `CDL` int(11) NOT NULL,
   `Nome_it` varchar(50) NOT NULL,
   `Nome_en` varchar(50) NOT NULL,
-  `SSD` varchar(10) ,
-  `Lingua` varchar(20) ,
-  `Semestre` int(11) ,
-  `CFU` int(11) ,
+  `SSD` varchar(10) DEFAULT NULL,
+  `Lingua` varchar(20) DEFAULT NULL,
+  `Semestre` int(11) DEFAULT NULL,
+  `CFU` int(11) DEFAULT NULL,
   `Anno` year(4) NOT NULL,
-  `Tipologia` char(1) ,
+  `Tipologia` char(1) DEFAULT NULL,
   PRIMARY KEY (`IDCorso`),
   KEY `CDL` (`CDL`),
   CONSTRAINT `corso_ibfk_1` FOREIGN KEY (`CDL`) REFERENCES `cdl` (`IDCDL`)
@@ -188,10 +188,10 @@ CREATE TABLE `docente` (
   `Immagine` text,
   `Nome` varchar(20) NOT NULL,
   `Cognome` varchar(20) NOT NULL,
-  `Email` varchar(50) ,
-  `Ufficio` varchar(50) ,
-  `Telefono` varchar(20),
-  `Specializzazione` varchar(50),
+  `Email` varchar(50) DEFAULT NULL,
+  `Ufficio` varchar(50) DEFAULT NULL,
+  `Telefono` varchar(20) DEFAULT NULL,
+  `Specializzazione` varchar(50) DEFAULT NULL,
   `Ricerche` text,
   `Pubblicazioni` text,
   `Curriculum` text,
@@ -495,11 +495,10 @@ CREATE TABLE `utente` (
   `Docente` int(11) DEFAULT NULL,
   `Gruppo` int(11) DEFAULT NULL,
   PRIMARY KEY (`IDUtente`),
-  CONSTRAINT utente_ibfk_2
-  FOREIGN KEY(Docente)
-	REFERENCES docente(IDDocente), 
+  KEY `utente_ibfk_2` (`Docente`),
   KEY `Gruppo` (`Gruppo`),
-  CONSTRAINT `utente_ibfk_1` FOREIGN KEY (`Gruppo`) REFERENCES `gruppo` (`IDGruppo`)
+  CONSTRAINT `utente_ibfk_1` FOREIGN KEY (`Gruppo`) REFERENCES `gruppo` (`IDGruppo`),
+  CONSTRAINT `utente_ibfk_2` FOREIGN KEY (`Docente`) REFERENCES `docente` (`IDDocente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -522,4 +521,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-25 11:36:08
+-- Dump completed on 2018-01-25 12:48:02
