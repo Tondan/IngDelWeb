@@ -121,6 +121,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             c.setImmagine(rs.getString("Immagine"));
             c.setDescrizione_it(rs.getString("Descrizione_it"));
             c.setDescrizione_en(rs.getString("Descrizione_en"));
+            c.setAbbr_it(rs.getString("Abbr_it"));
+            c.setAbbr_en(rs.getString("Abbr_en"));
             return c;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create CDL object form ResultSet", ex);

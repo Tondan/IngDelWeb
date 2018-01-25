@@ -22,7 +22,11 @@ public class CDLImpl implements CDL{
     
     private String nome_it;
     
+    private String abbr_it;
+    
     private String nome_en;
+    
+    private String abbr_en;
     
     private int anno;
     
@@ -72,8 +76,18 @@ public class CDLImpl implements CDL{
     }
     
     @Override
+    public String getAbbr_it(){
+        return this.abbr_it;
+    }
+    
+    @Override
     public String getNome_en(){
         return this.nome_en;
+    }
+    
+    @Override
+    public String getAbbr_en(){
+        return this.abbr_en;
     }
     
     @Override
@@ -83,8 +97,20 @@ public class CDLImpl implements CDL{
     }
     
     @Override
+    public void setAbbr_it(String abbr){
+        this.abbr_it=abbr;
+        this.dirty=true;
+    }
+    
+    @Override
     public void setNome_en(String nome){
         this.nome_en=nome;
+        this.dirty=true;
+    }
+    
+    @Override
+    public void setAbbr_en(String abbr){
+        this.abbr_en=abbr;
         this.dirty=true;
     }
     
