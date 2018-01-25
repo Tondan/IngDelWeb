@@ -360,7 +360,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             de.setID(rs.getInt("IDUtente")); 
             de.setUsername(rs.getString("Username"));
             de.setPassword(rs.getString("Password"));
-            de.setEmail(rs.getString("Email"));  
+            de.setDocente(rs.getInt("Docente"));  
             de.setIDGruppo(rs.getInt("Gruppo"));
             return de;
         } catch (SQLException ex) {

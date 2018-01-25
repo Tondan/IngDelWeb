@@ -22,7 +22,7 @@ public interface Utente {
     
     String getPassword();
     
-    String getEmail();
+    int getDocente();
     
     Gruppo getGruppo() throws DataLayerException;
     
@@ -32,7 +32,7 @@ public interface Utente {
     
     void setPassword(String password);
     
-    void setEmail(String email);
+    void setDocente(int docente);
     
     
 }

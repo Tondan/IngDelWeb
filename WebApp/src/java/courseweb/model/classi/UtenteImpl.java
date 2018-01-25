@@ -22,7 +22,7 @@ public class UtenteImpl implements Utente{
     
     private String password;
     
-    private String email;
+    private int docente;
     
     private Gruppo gruppo;
     
@@ -37,7 +37,7 @@ public class UtenteImpl implements Utente{
         this.id=0;
         this.username=null;
         this.password=null;
-        this.email=null;
+        this.docente=0;
         this.gruppo=null;
         this.dirty=false;
         this.id_gruppo=-1;
@@ -68,8 +68,8 @@ public class UtenteImpl implements Utente{
     }
     
     @Override
-    public String getEmail(){
-        return this.email;
+    public int getDocente(){
+        return this.docente;
     }
     
     @Override
@@ -98,8 +98,8 @@ public class UtenteImpl implements Utente{
     }
     
     @Override
-    public void setEmail(String email){
-        this.email=email;
+    public void setDocente(int docente){
+        this.docente=docente;
         this.dirty=true;
     }
 
