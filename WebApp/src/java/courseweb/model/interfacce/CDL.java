@@ -20,9 +20,17 @@ public interface CDL {
     
     void setNome_it(String nome_it);
     
+    String getAbbr_it();
+    
+    void setAbbr_it(String abbr);
+    
     String getNome_en();
     
     void setNome_en(String nome_en);
+    
+    String getAbbr_en();
+    
+    void setAbbr_en(String abbr);
     
     int getAnno();
 
