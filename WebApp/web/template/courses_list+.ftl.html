@@ -32,13 +32,13 @@
                 <li><a href="listcorsi">Tutti i corsi</a></li>
                 <br>
                 <h4>Corsi di laurea Triennale</h4>
-                <#list cdl as cdl>
+                <#list cdl?sort_by("nome_it") as cdl>
                 <li><a href="DetailsCorsoCdl?n=${cdl.IDCDL}&lin=it">${cdl.nome_it}</a></li>
                 </#list>
 
                 
                 <h4>Corsi di laurea Magistrale</h4>
-                <#list cdlm as cdlm>
+                <#list cdlm?sort_by("nome_it") as cdlm>
                 <li><a href="DetailsCorsoCdl?n=${cdlm.IDCDL}&lin=it">${cdlm.nome_it}</a></li>
                 </#list>
 
@@ -75,7 +75,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <#list corsi as corso>
+                            <#list corsi?sort_by("nome_it") as corso>
                             <tr>
                                 <td scope="row"><b>${corso.ID}</b></td>
                                 <td><a href="DetailsCorso?n=${corso.ID}&lin=it">${corso.nome_it}</a></td>
