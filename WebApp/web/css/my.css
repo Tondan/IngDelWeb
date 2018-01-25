@@ -151,7 +151,9 @@ a.lnbar:hover{
     color: #1dd7b2;
 } 
 
-
+a.lnbar{
+  outline:none;
+}
 
 #divider{
   padding: 1em;
