@@ -99,7 +99,7 @@ CREATE TABLE `corsi_cdl` (
 
 LOCK TABLES `corsi_cdl` WRITE;
 /*!40000 ALTER TABLE `corsi_cdl` DISABLE KEYS */;
-INSERT INTO `corsi_cdl` VALUES (1,1),(2,1),(3,2),(1,3);
+INSERT INTO `corsi_cdl` VALUES (1,1),(3,2),(1,3),(2,4);
 /*!40000 ALTER TABLE `corsi_cdl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -545,4 +545,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-25 15:16:47
+-- Dump completed on 2018-01-25 17:41:41
