@@ -28,6 +28,7 @@ public class ListDocenti extends BaseController {
     private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
+            
             request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
             request.setAttribute("servlet","listdocenti?");
             if(lingua.equals("it")||lingua.equals("")){

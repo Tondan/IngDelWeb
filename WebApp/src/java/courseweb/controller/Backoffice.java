@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,16 +43,18 @@ public class Backoffice extends BaseController {
                 request.setAttribute("lingua","it");
         request.setAttribute("page_title", "Backoffice");
         
+        
+        
         HttpSession s = request.getSession(false);
         String a = (String) s.getAttribute("username");
-        int id = (int) s.getAttribute("userid");
         request.setAttribute("nome",a);
-        request.setAttribute("id",id);
         
+        String b=request.getSession().getId();
+        request.setAttribute("session_id",b);
         
-        
-       
         res.activate("backoffice.ftl.html", request, response);
+       
+
     }
     }
 

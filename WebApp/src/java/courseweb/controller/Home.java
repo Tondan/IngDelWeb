@@ -41,8 +41,16 @@ public class Home extends BaseController {
 
     private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
         try {
+           
+            if(request.getSession(false)!=null){
+            String a= (String) request.getSession(false).getAttribute("username");
+            request.setAttribute("nome",a);
+            
+            }else{
+            
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("page_title", "Home");
+            
             Random rand= new Random();
             List<CDL> cdl=((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag();
             List<CDL> cdlm=((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag();
@@ -63,6 +71,7 @@ public class Home extends BaseController {
                     cdlm.remove(randomIndex);
                 }
             }
+            
             request.setAttribute("servlet","Home?");
             request.setAttribute("cdl",rcdl);
             request.setAttribute("cdlm",rcdlm);
@@ -74,6 +83,9 @@ public class Home extends BaseController {
                 request.setAttribute("lingua","en");
                 res.activate("homepage_en.ftl.html", request, response);
             }
+            
+            }
+            
         } catch (DataLayerException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
