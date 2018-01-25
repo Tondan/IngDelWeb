@@ -38,11 +38,9 @@ public class DetailsDocente extends BaseController {
             TemplateResult res = new TemplateResult(getServletContext());
             Docente doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
             request.setAttribute("page_title", doc.getNome() + " " + doc.getCognome() );
-            List<Corso> docentecorsi;
-            docentecorsi = ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(doc);
                     
             request.setAttribute("docente", doc);
-            request.setAttribute("docentecorsi", docentecorsi);
+            request.setAttribute("docentecorsi", doc.getCorsi());
             request.setAttribute("servlet","dettaglidocente?k="+id+"&");
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");

@@ -125,6 +125,8 @@ public interface IgwDataLayer extends DataLayer {
     
     public Utente getUtenti(String username, String password) throws DataLayerException;
     
+    public List<CDL> getCDLInCorso(Corso corso) throws DataLayerException;
+    
     
     //store inizio
     public void storeDocente(Docente docente) throws DataLayerException;

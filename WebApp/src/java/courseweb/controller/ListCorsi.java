@@ -32,7 +32,7 @@ public class ListCorsi extends BaseController {
     private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            request.setAttribute("page_title", "Lista Corsi");
+            
 
             
             request.setAttribute("corsi", ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
@@ -41,10 +41,12 @@ public class ListCorsi extends BaseController {
             request.setAttribute("servlet","listcorsi?");
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
+                request.setAttribute("page_title", "Lista Corsi");
                 res.activate("courses_list.ftl.html", request, response); 
             }
             else{
                 request.setAttribute("lingua","en");
+                request.setAttribute("page_title", "Courses List");
                 res.activate("courses_list_en.ftl.html", request, response);
             }
         } catch (DataLayerException ex) {

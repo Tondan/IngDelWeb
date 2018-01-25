@@ -34,17 +34,19 @@ public class DetailsCorsoCdl extends BaseController {
             TemplateResult res = new TemplateResult(getServletContext());
             CDL Cdl =((IgwDataLayer)request.getAttribute("datalayer")).getCDL(id);
             request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag());
-             request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
-            request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdl(Cdl));
-            request.setAttribute("page_title", Cdl.getNome_it());
-            request.setAttribute("info", Cdl.getNome_it());
+            request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
+            request.setAttribute("corsi",Cdl.getCorsiInCdl());
             request.setAttribute("servlet","listcorsi?");
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
+                request.setAttribute("page_title", Cdl.getNome_it());
+                request.setAttribute("info", Cdl.getNome_it());
                 res.activate("courses_list+.ftl.html", request, response); 
             }
             else{
                 request.setAttribute("lingua","en");
+                request.setAttribute("page_title", Cdl.getNome_en());
+                request.setAttribute("info", Cdl.getNome_en());
                 res.activate("courses_list_en+.ftl.html", request, response);
             }
         } catch (DataLayerException ex) {

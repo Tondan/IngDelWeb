@@ -3,6 +3,7 @@ package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Materiale;
 import courseweb.view.FailureResult;
@@ -35,8 +36,8 @@ public class ListMateriale extends BaseController {
 
     private void action_default(HttpServletRequest request, HttpServletResponse response,int id, String lingua) throws IOException, ServletException, TemplateManagerException {
         try {
-            
-            List<Materiale> mat=((IgwDataLayer)request.getAttribute("datalayer")).getMaterialeCorso(id);
+            Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
+            List<Materiale> mat=corso.getMateriale();
             List<Integer> pesi=new ArrayList();
             File file;
             
@@ -58,18 +59,19 @@ public class ListMateriale extends BaseController {
                 materiale.put(itrm.next(), itrp.next());
             
             TemplateResult res = new TemplateResult(getServletContext());
-            request.setAttribute("page_title", "Lista Materiale");
             request.setAttribute("materiale", materiale);
-            request.setAttribute("corso",((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id));
+            request.setAttribute("corso",corso);
             
             //request.setAttribute("pesofile",pesi);
             
             request.setAttribute("servlet","listmateriale?k="+id+"&");
             if(lingua.equals("it")||lingua.equals("")){
+                request.setAttribute("page_title", "Lista Materiale");
                 request.setAttribute("lingua","it"); 
             }
             else{
                 request.setAttribute("lingua","en");
+                request.setAttribute("page_title", "Material List");
             }
             res.activate("materiale.ftl.html", request, response);
         } catch (DataLayerException ex) {

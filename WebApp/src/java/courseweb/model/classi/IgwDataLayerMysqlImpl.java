@@ -40,7 +40,7 @@ import javax.sql.DataSource;
 public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwDataLayer {
 
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
-    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,Login;
+    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login;
     private PreparedStatement iDocente;
     private PreparedStatement uDocente;
     private PreparedStatement dDocente;
@@ -64,6 +64,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sServizioByID=connection.prepareStatement("SELECT * FROM Servizio WHERE IDServizio=?");
             sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
             sCorsiByAnno=connection.prepareStatement("SELECT * FROM Corso WHERE Anno=?");
+            sCDLByCorso=connection.prepareStatement("SELECT * FROM CDL,Corsi_CDL WHERE CDL.IDCDL=Corsi_CDL.CDL AND Corso=?");
            
             sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1 AND Anno=?");
             sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0 AND Anno=?");
@@ -79,7 +80,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sDocentiByCorso=connection.prepareStatement("SELECT Docente FROM Docenti_Corso WHERE Corso=?");
             sLibriByCorso=connection.prepareStatement("SELECT Libro FROM Libri_Corso WHERE Corso=?");
             sMaterialeByCorso=connection.prepareStatement("SELECT IDMateriale FROM Materiale WHERE Corso=?");
-            sCorsiByCDL=connection.prepareStatement("SELECT IDCorso FROM Corso WHERE CDL=?");
+            sCorsiByCDL=connection.prepareStatement("SELECT Corso FROM Corsi_CDL WHERE CDL=?");
             sUtentiByGruppo=connection.prepareStatement("SELECT IDUtente FROM Utente WHERE Gruppo=?");
             sServiziByGruppo=connection.prepareStatement("SELECT Servizio FROM Group_Services WHERE Gruppo=?");
             sCorsiByDocente=connection.prepareStatement("SELECT Corso FROM Docenti_Corso WHERE Docente=?");
@@ -121,8 +122,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             c.setImmagine(rs.getString("Immagine"));
             c.setDescrizione_it(rs.getString("Descrizione_it"));
             c.setDescrizione_en(rs.getString("Descrizione_en"));
-            c.setAbbr_it(rs.getString("Abbr_it"));
-            c.setAbbr_en(rs.getString("Abbr_en"));
+            c.setAbbr_it(rs.getString("Abbr_it").toUpperCase());
+            c.setAbbr_en(rs.getString("Abbr_en").toUpperCase());
             return c;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create CDL object form ResultSet", ex);
@@ -149,7 +150,6 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             co.setCfu(rs.getInt("CFU"));
             co.setAnno(rs.getInt("Anno"));
             co.setTipologia(toUpperCase(rs.getString("Tipologia").charAt(0)));
-            co.setIDCDL(rs.getInt("CDL"));
             return co;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create Corso object form ResultSet", ex);
@@ -716,7 +716,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sCorsiByCDL.setInt(1, cdl.getIDCDL());
             try (ResultSet rs=sCorsiByCDL.executeQuery()){
                 while(rs.next())
-                    result.add(getCorso(rs.getInt("IDCorso")));
+                    result.add(getCorso(rs.getInt("Corso")));
             }
         }catch (SQLException ex){
             throw new DataLayerException("Unable to load CorsiInCdl by CDL",ex);
@@ -998,6 +998,21 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             //
         }
         super.destroy();
+    }
+
+    @Override
+    public List<CDL> getCDLInCorso(Corso corso) throws DataLayerException {
+        List<CDL> result = new ArrayList();
+        try{
+            sCDLByCorso.setInt(1, corso.getID());
+            try (ResultSet rs=sCDLByCorso.executeQuery()){
+                while(rs.next())
+                    result.add(getCDL(rs.getInt("IDCDL")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load CDLInCorso by Corso",ex);
+        }
+        return result;
     }
 }
 

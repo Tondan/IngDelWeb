@@ -14,12 +14,15 @@
         	<div class="col-md-4">
             	<h2>General Informations</h2>
                 <ul class="list_ok">
-                    <li><strong>SSD</strong>  ${corso.SSD}</li>
-                    <li><strong>CDL</strong> ${corso.CDL.nome_en}</li>
-                    <li><strong>Language</strong>  ${corso.lingua}</li>
-                    <li><strong>Semester</strong>  ${corso.semestre}</li>
-                    <li><strong>CFU (e tipo)</strong>  ${corso.cfu} / ${corso.tipologia}</li>
-                    <li><strong>Year</strong> ${corso.anno?c}</li>
+                    <li><strong>SSD:</strong> &nbsp;${corso.SSD}</li>
+                    <li><strong>CDL:</strong>&nbsp;<#list corso.CDL as cdl>
+                                    ${cdl.abbr_en}<#if cdl?has_next>,&nbsp;</#if>
+                                </#list></li>
+                    <li><strong>Language:</strong>&nbsp;  ${corso.lingua}</li>
+                    <li><strong>Semester:</strong>&nbsp;  ${corso.semestre}</li>
+                    <li><strong>CFU (e tipo):</strong>&nbsp;  ${corso.cfu} / ${corso.tipologia}</li>
+                    <li><strong>Year:</strong>&nbsp; ${corso.anno?c}</li>
+                </ul>
             </div>
 
             <div class="col-md-4">

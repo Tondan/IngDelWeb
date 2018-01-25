@@ -15,9 +15,7 @@ public class CorsoImpl implements Corso{
     
     private int id;
     
-    private CDL cdl;
-    
-    private int id_cdl;
+    private List<CDL> cdl;
     
     private String nome_it;
     
@@ -82,16 +80,8 @@ public class CorsoImpl implements Corso{
         this.dublino_en=null;
         this.libri=null;
         this.materiale=null;
-        this.id_cdl=-1;
         this.dirty=false;
-    }
-    
-    @Override
-    public void setIDCDL(int id_cdl){
-        this.id_cdl=id_cdl;
-        this.dirty=true;
-    }
-    
+    }  
     
     @Override
     public void setID(int id){
@@ -105,15 +95,21 @@ public class CorsoImpl implements Corso{
     }
     
     @Override
-    public CDL getCDL() throws DataLayerException{
-        if(cdl==null&&id_cdl>0)
-            cdl=ownerdatalayer.getCDL(id_cdl);
+    public List<CDL> getCDL() throws DataLayerException{
+        if(cdl==null)
+            cdl=ownerdatalayer.getCDLInCorso(this);
         return cdl;
     }
     
     @Override
-    public void setCDL(CDL cdl){
+    public void setCDLInCorso(List<CDL> cdl){
         this.cdl=cdl;
+        this.dirty=true;
+    }
+    
+    @Override
+    public void addCDLInCorso(CDL cdl){
+        this.cdl.add(cdl);
         this.dirty=true;
     }
     

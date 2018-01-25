@@ -15,15 +15,15 @@ import java.util.List;
 
 public interface Corso {
     
-    void setIDCDL(int id_cdl);
-    
     void setID(int id);
     
     int getID();
     
-    CDL getCDL() throws DataLayerException;
+    List<CDL> getCDL() throws DataLayerException;
     
-    void setCDL(CDL cdl);
+    void setCDLInCorso(List<CDL> cdl);
+    
+    void addCDLInCorso(CDL cdl);
     
     String getNome_it();
     

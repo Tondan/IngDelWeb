@@ -65,25 +65,31 @@
                             <tr class="filters">
                                 <th><input type="text" class="form-control" placeholder="ID" disabled ></th>
                                 <th><input type="text" class="form-control" placeholder="Name" disabled></th>
-                                <th><input type="text" class="form-control" placeholder="CDL" disabled ></th>
                                 <th><input type="text" class="form-control" placeholder="SSD" disabled ></th>
                                 <th><input type="text" class="form-control" placeholder="CFU" disabled ></th>
                                 <th><input type="text" class="form-control" placeholder="Language" disabled ></th>
                                 <th><input type="text" class="form-control" placeholder="Semester" disabled ></th>
                                 <th><input type="text" class="form-control" placeholder="Type" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="CDL" disabled ></th>
+                                <th><input type="text" class="form-control" placeholder="Teachers" disabled ></th>
                             </tr>
                         </thead>
                         <tbody>
                             <#list corsi as corso>
                             <tr>
                                 <td scope="row"><b>${corso.ID}</b></td>
-                                <td><a href="DetailsCorso?n=${corso.ID}">${corso.nome_en}</a></td>
-                                <td>${corso.CDL.nome_en}</td>
+                                <td><a href="DetailsCorso?n=${corso.ID}&lin=en">${corso.nome_en}</a></td>
                                 <td>${corso.SSD}</td>
                                 <td>${corso.cfu}</td>
                                 <td>${corso.lingua}</td>
                                 <td>${corso.semestre}</td>
                                 <td>${corso.tipologia}</td>
+                                <td><#list corso.CDL as cdl>
+                                    ${cdl.abbr_en}<#if cdl?has_next>,&nbsp&nbsp</#if>
+                                </#list></td>
+                                <td><#list corso.docenti as docenti>
+                                    ${docenti.cognome}<#if docenti?has_next>,&nbsp&nbsp</#if>
+                                </#list></td>
                             </tr>
                            </#list>
         

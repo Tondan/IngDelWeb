@@ -36,27 +36,26 @@ public class DetailsCorso extends BaseController {
             TemplateResult res = new TemplateResult(getServletContext());
             
             Corso corso = ((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
-            List<Docente> doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocentiCorso(corso);
-            List<Libro> lib=((IgwDataLayer)request.getAttribute("datalayer")).getLibriCorso(corso);
             
-            request.setAttribute("propedeudici",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiPrerequisiti(corso));
-            request.setAttribute("mutuati",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiMutuati(corso));
-            request.setAttribute("moduli",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiModulo(corso));
-            request.setAttribute("page_title", corso.getNome_it());
+            request.setAttribute("propedeudici",corso.getCorsiPrerequisiti());
+            request.setAttribute("mutuati",corso.getCorsiMutuati());
+            request.setAttribute("moduli",corso.getCorsiModulo());
             request.setAttribute("corso", corso);
-            request.setAttribute("docenti", doc);
-            request.setAttribute("libri", lib);
+            request.setAttribute("docenti", corso.getDocenti());
+            request.setAttribute("libri", corso.getLibri());
             request.setAttribute("servlet","DetailsCorso?n="+id+"&");
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
-                request.setAttribute("descrizione_it", ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_it(corso));
-                request.setAttribute("dublino_it", ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_it(corso));                
+                request.setAttribute("descrizione_it", corso.getDescrizione_it());
+                request.setAttribute("dublino_it", corso.getDublino_it());
+                request.setAttribute("page_title", corso.getNome_it());                
                 res.activate("course_details_4.ftl.html", request, response); 
             }
             else{
                 request.setAttribute("lingua","en");
-                request.setAttribute("descrizione_en", ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_en(corso));
-                request.setAttribute("dublino_en", ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_en(corso));
+                request.setAttribute("descrizione_en", corso.getDescrizione_en());
+                request.setAttribute("dublino_en", corso.getDublino_en());
+                request.setAttribute("page_title", corso.getNome_en());
                 res.activate("course_details_4_en.ftl.html", request, response);
             }
             
