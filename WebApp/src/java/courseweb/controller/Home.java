@@ -24,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -41,12 +42,6 @@ public class Home extends BaseController {
 
     private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
         try {
-           
-            if(request.getSession(false)!=null){
-            String a= (String) request.getSession(false).getAttribute("username");
-            request.setAttribute("nome",a);
-            
-            }else{
             
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("page_title", "Home");
@@ -72,6 +67,11 @@ public class Home extends BaseController {
                 }
             }
             
+            HttpSession session= request.getSession(false);
+            if(session!=null && request.isRequestedSessionIdValid()){
+            String a = (String) session.getAttribute("username");
+            request.setAttribute("nome",a);}
+            
             request.setAttribute("servlet","Home?");
             request.setAttribute("cdl",rcdl);
             request.setAttribute("cdlm",rcdlm);
@@ -84,7 +84,7 @@ public class Home extends BaseController {
                 res.activate("homepage_en.ftl.html", request, response);
             }
             
-            }
+            
             
         } catch (DataLayerException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
