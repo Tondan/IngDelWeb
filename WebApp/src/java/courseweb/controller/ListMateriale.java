@@ -19,6 +19,7 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -61,6 +62,11 @@ public class ListMateriale extends BaseController {
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("materiale", materiale);
             request.setAttribute("corso",corso);
+            
+            HttpSession session= request.getSession(false);
+            if(session!=null && request.isRequestedSessionIdValid()){
+            String a = (String) session.getAttribute("username");
+            request.setAttribute("nome",a);}
             
             //request.setAttribute("pesofile",pesi);
             

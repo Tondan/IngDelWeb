@@ -16,6 +16,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -44,6 +45,12 @@ public class DetailsCorso extends BaseController {
             request.setAttribute("docenti", corso.getDocenti());
             request.setAttribute("libri", corso.getLibri());
             request.setAttribute("servlet","DetailsCorso?n="+id+"&");
+            
+            HttpSession session= request.getSession(false);
+            if(session!=null && request.isRequestedSessionIdValid()){
+            String a = (String) session.getAttribute("username");
+            request.setAttribute("nome",a);}
+            
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 request.setAttribute("descrizione_it", corso.getDescrizione_it());

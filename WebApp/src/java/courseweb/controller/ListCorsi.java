@@ -14,6 +14,7 @@ import courseweb.model.classi.CDLImpl;
 import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.Docente;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -33,7 +34,10 @@ public class ListCorsi extends BaseController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             
-
+            HttpSession session= request.getSession(false);
+            if(session!=null && request.isRequestedSessionIdValid()){
+            String a = (String) session.getAttribute("username");
+            request.setAttribute("nome",a);}
             
             request.setAttribute("corsi", ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
             request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag());
