@@ -50,10 +50,10 @@ public class RegisterDocente extends BaseController {
     
     
     private void action_registra(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
-      
-        
-                   String nome= request.getParameter("nome");
-                   String cognome= request.getParameter("cognome");
+                try{
+                    
+                String nome= request.getParameter("nome");
+                String cognome= request.getParameter("cognome");
                    
                    
                    
@@ -62,13 +62,15 @@ public class RegisterDocente extends BaseController {
                 docente.setNome(nome);
                 docente.setCognome(cognome);
                 
-        try {
-            ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(docente);
-        } catch (DataLayerException ex) {
-            Logger.getLogger(RegisterDocente.class.getName()).log(Level.SEVERE, null, ex);
+        
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeDocenteA(docente);
+           
+            } catch (DataLayerException ex) {
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);
         }
                 
-         response.sendRedirect("Backoffice");
+        
     }
 
         
