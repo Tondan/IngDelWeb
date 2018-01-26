@@ -32,29 +32,41 @@ public class RegisterDocente extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua) throws IOException, ServletException, TemplateManagerException {
         HttpSession session= request.getSession(false);
         String a = (String) session.getAttribute("username");
         request.setAttribute("nome",a);
         TemplateResult res = new TemplateResult(getServletContext());
         request.setAttribute("page_title", "Backoffice");
-        res.activate("register_docente.ftl.html", request, response); 
+    
+        if(lingua.equals("it")||lingua.equals("")){
+                request.setAttribute("lingua","it");
+                res.activate("register_docente.ftl.html", request, response); 
+            }
+  
     }
     
     
-    @Override
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-
-       
+@Override
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
+            String lin;
+           
         try {
-                action_default(request, response);  
+            if(request.getParameter("lin")==null)
+                lin="it";
+            else
+                lin=request.getParameter("lin");
+            action_default(request, response,lin);
+
         } catch (IOException | TemplateManagerException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
 
         }
     }
-
+            
+            
     /**
      * Returns a short description of the servlet.
      *
