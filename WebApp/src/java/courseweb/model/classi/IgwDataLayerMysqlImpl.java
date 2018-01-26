@@ -90,8 +90,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             
             //insert
-            iDocente = connection.prepareStatement("INSERT INTO Docente (Nome,Cognome,Email) VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            uDocente =  connection.prepareStatement("UPDATE Docente Set Nome=?,Cognome=?,Email=? WHERE IDDocente=? ");
+            iDocente = connection.prepareStatement("INSERT INTO Docente (Nome,Cognome) VALUES(?,?)", Statement.RETURN_GENERATED_KEYS);
+            uDocente =  connection.prepareStatement("UPDATE Docente Set Nome=?,Cognome=? WHERE IDDocente=? ");
             dDocente = connection.prepareStatement("DELETE FROM Docente WHERE IDDocente=?");
             
             
@@ -936,13 +936,13 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 
                 uDocente.setString(1, docente.getNome());
                 uDocente.setString(2, docente.getCognome());
-                uDocente.setString(3, docente.getEmail());
+                
                 uDocente.executeUpdate();
                 
             } else { //insert
                 iDocente.setString(1, docente.getNome());
                 iDocente.setString(2, docente.getCognome());
-                iDocente.setString(3, docente.getEmail());
+                
                 
                 if (iDocente.executeUpdate() == 1) {
                     //per leggere la chiave generata dal database

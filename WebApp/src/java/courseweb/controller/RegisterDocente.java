@@ -13,6 +13,8 @@ import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,11 +49,48 @@ public class RegisterDocente extends BaseController {
     }
     
     
+    private void action_registra(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
+      
+        
+                   String nome= request.getParameter("nome");
+                   String cognome= request.getParameter("cognome");
+                   
+                   
+                   
+                Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).createDocente();
+                    
+                docente.setNome(nome);
+                docente.setCognome(cognome);
+                
+        try {
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(docente);
+        } catch (DataLayerException ex) {
+            Logger.getLogger(RegisterDocente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+         response.sendRedirect("Backoffice");
+    }
+
+        
+        
+        
+        
+        
+        
+    
+    
+    
 @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
             String lin;
-           
+             if (request.getParameter("registra") != null) {
+                try {
+                    action_registra(request, response);
+                } catch (IOException | TemplateManagerException ex) {
+                    Logger.getLogger(RegisterDocente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
         try {
             if(request.getParameter("lin")==null)
                 lin="it";
@@ -64,6 +103,7 @@ public class RegisterDocente extends BaseController {
             action_error(request, response);
 
         }
+    }
     }
             
             
