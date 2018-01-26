@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,7 +32,16 @@ public class ListDocenti extends BaseController {
             
             request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
             request.setAttribute("servlet","listdocenti?");
+<<<<<<< HEAD
             request.setAttribute("change","y");
+=======
+            
+            HttpSession session= request.getSession(false);
+            if(session!=null && request.isRequestedSessionIdValid()){
+            String a = (String) session.getAttribute("username");
+            request.setAttribute("nome",a);}
+            
+>>>>>>> origin/master
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Lista Docenti");
