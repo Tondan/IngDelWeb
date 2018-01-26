@@ -39,6 +39,7 @@ public class ListCorsi extends BaseController {
             request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag());
             request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
             request.setAttribute("servlet","listcorsi?");
+            request.setAttribute("change","y");
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Lista Corsi");

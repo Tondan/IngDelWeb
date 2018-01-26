@@ -42,6 +42,7 @@ public class DetailsDocente extends BaseController {
             request.setAttribute("docente", doc);
             request.setAttribute("docentecorsi", doc.getCorsi());
             request.setAttribute("servlet","dettaglidocente?k="+id+"&");
+            request.setAttribute("change","y");
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 res.activate("teacher_profile.ftl.html", request, response); 

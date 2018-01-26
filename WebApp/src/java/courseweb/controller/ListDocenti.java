@@ -31,6 +31,7 @@ public class ListDocenti extends BaseController {
             
             request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
             request.setAttribute("servlet","listdocenti?");
+            request.setAttribute("change","y");
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Lista Docenti");

@@ -43,6 +43,7 @@ public class DetailsCorso extends BaseController {
             request.setAttribute("corso", corso);
             request.setAttribute("docenti", corso.getDocenti());
             request.setAttribute("libri", corso.getLibri());
+            request.setAttribute("change","y");
             request.setAttribute("servlet","DetailsCorso?n="+id+"&");
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");

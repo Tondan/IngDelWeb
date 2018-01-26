@@ -65,6 +65,7 @@ public class ListMateriale extends BaseController {
             //request.setAttribute("pesofile",pesi);
             
             request.setAttribute("servlet","listmateriale?k="+id+"&");
+            request.setAttribute("change","y");
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("page_title", "Lista Materiale");
                 request.setAttribute("lingua","it"); 

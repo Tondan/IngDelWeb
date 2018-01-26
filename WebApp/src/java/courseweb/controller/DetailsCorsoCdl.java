@@ -37,6 +37,7 @@ public class DetailsCorsoCdl extends BaseController {
             request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
             request.setAttribute("corsi",Cdl.getCorsiInCdl());
             request.setAttribute("servlet","listcorsi?");
+            request.setAttribute("change","y");
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", Cdl.getNome_it());
