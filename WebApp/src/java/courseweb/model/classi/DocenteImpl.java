@@ -7,6 +7,8 @@ package courseweb.model.classi;
 import courseweb.model.interfacce.*;
 import courseweb.controller.data.DataLayerException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Toni & Tony
@@ -57,6 +59,7 @@ public class DocenteImpl implements Docente {
         this.pubblicazione=null;
         this.curriculum=null;
         this.ricevimento=null;
+        this.corsi=null;
         this.dirty=false;
     }
     
@@ -233,7 +236,12 @@ public class DocenteImpl implements Docente {
         pubblicazione = docente.getPubblicazione();
         curriculum = docente.getCurriculum();
         ricevimento = docente.getRicevimento();
-    
+        try{
+            corsi=docente.getCorsi();           
+        }   
+        catch (DataLayerException ex) {
+            Logger.getLogger(DocenteImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dirty = true;
     }
     
