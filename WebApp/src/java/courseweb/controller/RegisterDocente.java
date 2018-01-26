@@ -63,8 +63,9 @@ public class RegisterDocente extends BaseController {
                 docente.setCognome(cognome);
                 
         
-            ((IgwDataLayer)request.getAttribute("datalayer")).storeDocenteA(docente);
-           
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(docente);
+                response.sendRedirect("Backoffice");
+            
             } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
             action_error(request, response);
