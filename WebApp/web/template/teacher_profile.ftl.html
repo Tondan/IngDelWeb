@@ -34,14 +34,7 @@
                      <li>Ricevimento<strong class="pull-right">${docente.ricevimento}</strong></li>
                      <li>Curriculum<strong class="pull-right"><a href="download?k=${docente.curriculum}" target="top"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a></strong></li>
                  </ul>
-				<div id="divider"></div>
-				
-                <h4>Insegnamenti</h4>
-                    <ul>
-                        <#list docentecorsi as docentecorsi>
-                        <li><a href="DetailsCorso?n=${docentecorsi.ID}&lin=it">${docentecorsi.nome_it}</a></li>
-                        </#list>
-					 </ul>
+			
 				
 			  
 			</div><!-- End box-sidebar -->
@@ -78,10 +71,9 @@
 							   <table class="table table-striped">
 								 <thead>
 								   <tr>
-									 <th>Category</th>
-									 <th>Course name</th>
-									 <th>Lessons</th>
-									 <th>Rate</th>
+									 <th>Nome</th>
+									 <th>CDL</th>
+									
 								   </tr>
 								 </thead>
 								 <tbody>
@@ -91,8 +83,8 @@
                         			<td><a href="DetailsCorso?n=${docentecorsi.ID}&lin=it">${docentecorsi.nome_it}</a></td>
                         
 									 <td>${docentecorsi.nome_it}</td>
-									 <td>boh1</td>
-									 <td>boh2</td>
+									 <td></td>
+									 <td></td>
 								   </tr>
 								   </#list>
 								  
