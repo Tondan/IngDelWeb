@@ -38,16 +38,11 @@ public class DetailsCorsoCdl extends BaseController {
             request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
             request.setAttribute("corsi",Cdl.getCorsiInCdl());
             request.setAttribute("servlet","listcorsi?");
-<<<<<<< HEAD
-            request.setAttribute("change","y");
-=======
-            
+            request.setAttribute("change","y");     
             HttpSession session= request.getSession(false);
             if(session!=null && request.isRequestedSessionIdValid()){
             String a = (String) session.getAttribute("username");
             request.setAttribute("nome",a);}
-            
->>>>>>> origin/master
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", Cdl.getNome_it());

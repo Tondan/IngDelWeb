@@ -43,16 +43,11 @@ public class DetailsDocente extends BaseController {
             request.setAttribute("docente", doc);
             request.setAttribute("docentecorsi", doc.getCorsi());
             request.setAttribute("servlet","dettaglidocente?k="+id+"&");
-<<<<<<< HEAD
             request.setAttribute("change","y");
-=======
-            
             HttpSession session= request.getSession(false);
             if(session!=null && request.isRequestedSessionIdValid()){
             String a = (String) session.getAttribute("username");
             request.setAttribute("nome",a);}
-            
->>>>>>> origin/master
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 res.activate("teacher_profile.ftl.html", request, response); 
