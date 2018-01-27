@@ -9,6 +9,8 @@ import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.Gruppo;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Utente;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -101,6 +103,34 @@ public class UtenteImpl implements Utente{
     public void setDocente(int docente){
         this.docente=docente;
         this.dirty=true;
+    }
+
+    @Override
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    @Override
+    public void copyFrom(Utente utente) {
+        
+        id = utente.getID();
+        username = utente.getUsername();
+        password = utente.getPassword();
+        
+        try{
+           gruppo = utente.getGruppo();            
+        }   
+        catch (DataLayerException ex) {
+            Logger.getLogger(DocenteImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dirty = true;
+    }
+    
+
+
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
     }
 
 }

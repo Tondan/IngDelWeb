@@ -33,6 +33,12 @@ public interface Utente {
     void setPassword(String password);
     
     void setDocente(int docente);
+
+    boolean isDirty();
+    
+    void copyFrom(Utente utente);
+
+    void setDirty(boolean dirty);
     
     
 }

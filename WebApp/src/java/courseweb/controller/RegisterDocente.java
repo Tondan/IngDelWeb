@@ -8,11 +8,14 @@ import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.Dublino_it;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Libro;
+import courseweb.model.interfacce.Utente;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -49,21 +52,46 @@ public class RegisterDocente extends BaseController {
     }
     
     
-    private void action_registra(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
+    private void action_registraD(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
                 try{
                     
+                RandomString random = new RandomString();
+                
+                String password=random.nextString();
+
+                String username1=null ,username2=null;
+                
                 String nome= request.getParameter("nome");
                 String cognome= request.getParameter("cognome");
                    
-                   
-                   
+                  if(nome.length()>=3){
+                  username1=nome.toLowerCase().substring(1, 3);}
+                  else{
+                      username1=nome.toLowerCase();
+                    }
+                  
+                  if(cognome.length()>=3){
+                  username2=cognome.toLowerCase().substring(1, 3);
+                  }else{
+                      username2=nome.toLowerCase();
+                    }
+                  
+                  String username=username1.concat(username2);
+                  
                 Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).createDocente();
-                    
+                Utente utente=((IgwDataLayer)request.getAttribute("datalayer")).createUtente();
+                
                 docente.setNome(nome);
                 docente.setCognome(cognome);
                 
+                utente.setUsername(username);
+                utente.setPassword(password);
+                utente.setIDGruppo(2);
         
             ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(docente);
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeUtente(utente);
+            
+            
                 response.sendRedirect("Backoffice");
             
             } catch (DataLayerException ex) {
@@ -84,7 +112,7 @@ public class RegisterDocente extends BaseController {
             String lin;
              if (request.getParameter("registra") != null) {
                 try {
-                    action_registra(request, response);
+                    action_registraD(request, response);
                 } catch (IOException | TemplateManagerException ex) {
                     Logger.getLogger(RegisterDocente.class.getName()).log(Level.SEVERE, null, ex);
                 }

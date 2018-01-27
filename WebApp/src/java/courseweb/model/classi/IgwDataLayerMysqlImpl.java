@@ -41,8 +41,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
 
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login;
-    private PreparedStatement iDocente;
-    private PreparedStatement uDocente;
+    private PreparedStatement iDocente, iUtente;
+    private PreparedStatement uDocente, uUtente;
     private PreparedStatement dDocente;
     
     @Override
@@ -70,7 +70,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0 AND Anno=?");
             
             Login=connection.prepareStatement("SELECT * FROM Utente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=?;");
-
+            
+            
+            
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso");
             sCDL = connection.prepareStatement("SELECT IDCDL FROM CDL WHERE Anno=?");
@@ -94,6 +96,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             uDocente =  connection.prepareStatement("UPDATE Docente Set Nome=?,Cognome=? WHERE IDDocente=? ");
             dDocente = connection.prepareStatement("DELETE FROM Docente WHERE IDDocente=?");
             
+            iUtente = connection.prepareStatement("INSERT INTO Utente (Username,Password,Gruppo) VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            uUtente =  connection.prepareStatement("UPDATE Utente Set Username=?,Password=?,Gruppo=? WHERE IDUtente=?");
             
         } catch (SQLException ex) {
             throw new DataLayerException("Error initializing igw data layer", ex);
@@ -912,6 +916,26 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return result;
     }
 
+    
+    
+    @Override
+    public List<CDL> getCDLInCorso(Corso corso) throws DataLayerException {
+        List<CDL> result = new ArrayList();
+        try{
+            sCDLByCorso.setInt(1, corso.getID());
+            try (ResultSet rs=sCDLByCorso.executeQuery()){
+                while(rs.next())
+                    result.add(getCDL(rs.getInt("IDCDL")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load CDLInCorso by Corso",ex);
+        }
+        return result;
+    }
+    
+    
+    
+    
     @Override //LOGIN QUERY
     public Utente getUtenti(String username, String password) throws DataLayerException {
     try{
@@ -991,7 +1015,79 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         
     
     
+    @Override
+    public void storeUtente(Utente utente) throws DataLayerException {
+        int key = utente.getID();
+         try {
+            if (key > 0) { //update
+                //non facciamo nulla se l'oggetto non ha subito modifiche
+                //do not store the object if it was not modified
+                if (!utente.isDirty()) {
+                    return;
+                }
+                
+                uUtente.setString(1, utente.getUsername());
+                uUtente.setString(2, utente.getPassword());
+                
+                
+                
+                
+                
+                uUtente.executeUpdate();
+                
+            } else { //insert
+                iUtente.setString(1, utente.getUsername());
+                iUtente.setString(2, utente.getPassword());
+                iUtente.setInt(3, 2);
+                
+                
+                
+                
+                
+                if (iUtente.executeUpdate() == 1) {
+                    //per leggere la chiave generata dal database
+                    //per il record appena inserito, usiamo il metodo
+                    //getGeneratedKeys sullo statement.
+                    //to read the generated record key from the database
+                    //we use the getGeneratedKeys method on the same statement
+                    try (ResultSet keys = iUtente.getGeneratedKeys()) {
+                        //il valore restituito è un ResultSet con un record
+                        //per ciascuna chiave generata (uno solo nel nostro caso)
+                        //the returned value is a ResultSet with a distinct record for
+                        //each generated key (only one in our case)
+                        if (keys.next()) {
+                            //i campi del record sono le componenti della chiave
+                            //(nel nostro caso, un solo intero)
+                            //the record fields are the key componenets
+                            //(a single integer in our case)
+                            key = keys.getInt(1);
+                        }
+                    }
+                }
+            }
+            //restituiamo l'oggetto appena inserito RICARICATO
+            //dal database tramite le API del modello. In tal
+            //modo terremo conto di ogni modifica apportata
+            //durante la fase di inserimento
+            //we return the just-inserted object RELOADED from the
+            //database through our API. In this way, the resulting
+            //object will ambed any data correction performed by
+            //the DBMS
+            if (key > 0) {
+                utente.copyFrom(getUtente(key));
+            }
+            utente.setDirty(false);
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to store utente", ex);
+        }
+    }
+
     
+    
+    @Override
+    public void storeCorso(Corso corso) throws DataLayerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     @Override
@@ -1006,20 +1102,11 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         super.destroy();
     }
 
-    @Override
-    public List<CDL> getCDLInCorso(Corso corso) throws DataLayerException {
-        List<CDL> result = new ArrayList();
-        try{
-            sCDLByCorso.setInt(1, corso.getID());
-            try (ResultSet rs=sCDLByCorso.executeQuery()){
-                while(rs.next())
-                    result.add(getCDL(rs.getInt("IDCDL")));
-            }
-        }catch (SQLException ex){
-            throw new DataLayerException("Unable to load CDLInCorso by Corso",ex);
-        }
-        return result;
-    }
+
+
+    
+
+    
 }
 
 

@@ -130,6 +130,10 @@ public interface IgwDataLayer extends DataLayer {
     
     //store inizio
     public void storeDocente(Docente docente) throws DataLayerException;
+
+    public void storeCorso(Corso corso) throws DataLayerException;
+
+    public void storeUtente(Utente utente) throws DataLayerException;
     
     
 }
