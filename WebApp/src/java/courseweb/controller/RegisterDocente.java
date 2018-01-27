@@ -74,15 +74,7 @@ public class RegisterDocente extends BaseController {
         
     }
 
-        
-        
-        
-        
-        
-        
-    
-    
-    
+ 
 @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
