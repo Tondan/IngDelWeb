@@ -83,7 +83,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sCorsiByCDL=connection.prepareStatement("SELECT Corso FROM Corsi_CDL WHERE CDL=?");
             sUtentiByGruppo=connection.prepareStatement("SELECT IDUtente FROM Utente WHERE Gruppo=?");
             sServiziByGruppo=connection.prepareStatement("SELECT Servizio FROM Group_Services WHERE Gruppo=?");
-            sCorsiByDocente=connection.prepareStatement("SELECT Corso FROM Docenti_Corso WHERE Docente=?");
+            sCorsiByDocente=connection.prepareStatement("SELECT Corso FROM Docenti_Corso WHERE Docente=? AND Anno=?");
             sCorsiByLibro=connection.prepareStatement("SELECT Corso FROM Libri_Corso WHERE Libro=?");
             sGruppiByServizio=connection.prepareStatement("SELECT Gruppo FROM Group_Services WHERE Servizio=?");
             
@@ -756,8 +756,14 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     @Override
     public List<Corso> getCorsiDelDocente(Docente docente) throws DataLayerException {
         List<Corso> result = new ArrayList();
+        LocalDate date=LocalDate.now();
+        int month=date.getMonthValue();
+        int year=date.getYear();
+        if(month<=6)
+            year=year-1;
         try{
             sCorsiByDocente.setInt(1, docente.getIDDocente());
+            sCorsiByDocente.setInt(2, year);
             try (ResultSet rs=sCorsiByDocente.executeQuery()){
                 while(rs.next())
                     result.add(getCorso(rs.getInt("Corso")));
