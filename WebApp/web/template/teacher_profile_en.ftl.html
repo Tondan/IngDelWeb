@@ -32,41 +32,79 @@
                      <li>Receipt <strong class="pull-right">${docente.ricevimento}</strong></li>
                      <li>Curriculum <strong class="pull-right"><a href="download?k=${docente.curriculum}" target="top"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a></strong></li>
                  </ul>
-                <div id="divider"></div>
-                <h4>Teachings</h4>
-                    <ul class="legend_course">
-                        <#list docentecorsi as docentecorsi>
-                        <li><a href="DetailsCorso?n=${docentecorsi.ID}&lin=en">${docentecorsi.nome_en}</a></li>
-                        </#list>
-                     </ul>
+              
 			  
 			</div><!-- End box-sidebar -->
      </aside><!-- End aside -->
      
-     <div class="col-md-8">
+	 <div class="col-md-8">
 
-        <main class="main">
-               
-                        <input class="input" id="tab2" type="radio" name="tabs" checked>
-                        <label for="tab2">Research</label>
-                          
-                        <input class="input" id="tab3" type="radio" name="tabs">
-                        <label for="tab3">Publications</label>
-
-                        <section class="section" id="content2">
-                         ${docente.ricerche}
-                        </section>
-                          
-                        <section class="section" id="content3">
-                        ${docente.pubblicazione}
-                        </section>
-						   
-                       
-                    </main>
-     
-     			
-		
-	 </div><!-- End col-md-8--> 
+			<main class="main">
+				   
+							<input class="input" id="tab2" type="radio" name="tabs" checked>
+							<label for="tab2">Researches</label>
+							  
+							<input class="input" id="tab3" type="radio" name="tabs">
+							<label for="tab3">Publications</label>
+	
+							<input class="input" id="tab4" type="radio" name="tabs">
+							<label for="tab4">Active Courses</label>
+	
+							<section class="section" id="content2">
+							${docente.ricerche}
+							</section>
+							  
+							<section class="section" id="content3">
+							${docente.pubblicazione}
+							</section>
+							   
+							<section class="section" id="content4">
+							<div class="tab-pane fade in" id="courses">
+								<h3>Active courses</h3>
+								 <p></p>
+								 <div class="table-responsive">
+								   <table class="table table-striped">
+									 <thead>
+									   <tr>
+										 <th>Name</th>
+										 <th>SSD</th>
+										 <th>CFU</th>
+										 <th>Language</th>
+										 <th>Semester</th>
+										 <th>CDL</th>
+										 
+										 
+	
+										
+									   </tr>
+									 </thead>
+									 <tbody>
+									   
+										<#list docentecorsi as docentecorsi>
+										<tr>
+										<td><a href="DetailsCorso?n=${docentecorsi.ID}&lin=it">${docentecorsi.nome_en}</a></td>
+							
+										 <td>${docentecorsi.SSD}</td>
+										 <td>${docentecorsi.cfu}</td>
+										 <td>${docentecorsi.lingua}</td>
+										 <td>${docentecorsi.semestre}</td>
+											<td><#list docentecorsi.CDL as cdl>
+											${cdl.abbr_it}<#if cdl?has_next>,&nbsp&nbsp</#if>
+											   </#list></td>
+	
+									   </tr>
+									   </#list>
+									  
+									 </tbody>
+								   </table>
+								   </div>
+						</div><!-- End tab-pane -->
+						
+				   </div>   <!-- End content-->              
+				</section>
+	</main>
+		 
+	</div><!-- End col-md-8--> 
 	 
             
 		
