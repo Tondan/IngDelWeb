@@ -73,10 +73,12 @@
 								   <tr>
 									 <th>Nome</th>
 									 <th>SSD</th>
-									 <th>CDL</th>
 									 <th>CFU</th>
-									 <th>Semestre</th>
 									 <th>Lingua</th>
+									 <th>Semestre</th>
+									 <th>CDL</th>
+									 
+									 
 
 									
 								   </tr>
@@ -88,12 +90,13 @@
                         			<td><a href="DetailsCorso?n=${docentecorsi.ID}&lin=it">${docentecorsi.nome_it}</a></td>
                         
 									 <td>${docentecorsi.SSD}</td>
-									    <#list docentecorsi.CDL as cdl>
-                                    	<td>${cdl.abbr_it}<#if cdl?has_next>,&nbsp&nbsp</#if></td>
-                               			</#list>
 									 <td>${docentecorsi.cfu}</td>
-									 <td>${docentecorsi.semestre}</td>
 									 <td>${docentecorsi.lingua}</td>
+									 <td>${docentecorsi.semestre}</td>
+									    <td><#list docentecorsi.CDL as cdl>
+                                    	${cdl.abbr_it}<#if cdl?has_next>,&nbsp&nbsp</#if>
+                               			</#list></td>
+
 								   </tr>
 								   </#list>
 								  
