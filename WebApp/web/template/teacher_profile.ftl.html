@@ -87,12 +87,13 @@
 									<tr>
                         			<td><a href="DetailsCorso?n=${docentecorsi.ID}&lin=it">${docentecorsi.nome_it}</a></td>
                         
-									 <td>${docentecorsi.nome_it}</td>
 									 <td>${docentecorsi.SSD}</td>
-									 <td>${docentecorsi.}</td>
+									    <#list docentecorsi.CDL as cdl>
+                                    	<td>${cdl.abbr_it}<#if cdl?has_next>,&nbsp&nbsp</#if></td>
+                               			</#list>
 									 <td>${docentecorsi.cfu}</td>
-									 <td>${docentecorsi.Semestre}</td>
-									 <td>${docentecorsi.Lingua}</td>
+									 <td>${docentecorsi.semestre}</td>
+									 <td>${docentecorsi.lingua}</td>
 								   </tr>
 								   </#list>
 								  

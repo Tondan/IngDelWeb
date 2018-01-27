@@ -48,6 +48,7 @@ public class DetailsDocente extends BaseController {
             if(session!=null && request.isRequestedSessionIdValid()){
             String a = (String) session.getAttribute("username");
             request.setAttribute("nome",a);}
+
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 res.activate("teacher_profile.ftl.html", request, response); 
