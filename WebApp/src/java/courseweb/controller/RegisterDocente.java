@@ -65,13 +65,13 @@ public class RegisterDocente extends BaseController {
                 String cognome= request.getParameter("cognome");
                    
                   if(nome.length()>=3){
-                  username1=nome.toLowerCase().substring(1, 3);}
+                  username1=nome.toLowerCase().substring(0, 2);}
                   else{
                       username1=nome.toLowerCase();
                     }
                   
                   if(cognome.length()>=3){
-                  username2=cognome.toLowerCase().substring(1, 3);
+                  username2=cognome.toLowerCase().substring(0, 2);
                   }else{
                       username2=nome.toLowerCase();
                     }
@@ -90,7 +90,8 @@ public class RegisterDocente extends BaseController {
             ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(docente);
             
             int id=docente.getIDDocente();
-            utente.setDocente(id);
+            Docente doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
+            utente.setDocente(doc.getIDDocente());
             utente.setUsername(username);
             utente.setPassword(password);
             utente.setIDGruppo(2);
