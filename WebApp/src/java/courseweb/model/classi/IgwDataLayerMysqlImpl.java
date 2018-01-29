@@ -1039,8 +1039,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 
                 iUtente.setString(1, utente.getUsername());
                 iUtente.setString(2, utente.getPassword());
-                iUtente.setInt(3, 2);
                 iUtente.setInt(4, utente.getDocente());
+                iUtente.setInt(3, 2);
+                
                 
                 
                 
