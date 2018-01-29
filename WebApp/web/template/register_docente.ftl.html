@@ -1,73 +1,118 @@
 <section id="sub-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1 text-center">
-                    <h1>Backoffice</h1>
-                    <p class="lead"></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 text-center">
+                <h1>Backoffice</h1>
+                <p class="lead"></p>
+            </div>
+        </div>
+        <!-- End row -->
+    </div>
+    <!-- End container -->
+    <div class="divider_top"></div>
+</section>
+<!-- End sub-header -->
+
+<section id="main_content">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li>
+                <a href="Backoffice">Backoffice</a>
+            </li>
+            <li class="active">
+                <a href="RegisterDocente">Registrazione Docente</a>
+            </li>
+        </ol>
+
+
+
+
+
+        <div class="row">
+            <aside class="col-md-4">
+                <div class="box_style_1 profile">
+                    <h4>Funzioni</h4>
+                    <ul>
+                        <li>
+                            <a href="CreateCorso">Crea nuovo corso</a>
+                            </strong>
+                        </li>
+                        <li>
+                            <a href="RegisterDocente">Registra nuovo docente</a>
+                            </strong>
+                        </li>
+                    </ul>
                 </div>
-            </div><!-- End row -->
-        </div><!-- End container -->
-        <div class="divider_top"></div>
-        </section><!-- End sub-header -->
-        
-    <section id="main_content">
-        <div class="container">
-                <ol class="breadcrumb">
-                        <li><a href="Backoffice">Backoffice</a></li>
-                        <li class="active"><a href="RegisterDocente">Registrazione Docente</a></li>
-                      </ol>
+            </aside>
 
 
 
 
-                     
-            <div class="row">
-                    <aside class="col-md-4">
-                            <div class="box_style_1 profile">
-                                     <h4>Funzioni</h4>
-                                        <ul>
-                                        <li><a href="CreateCorso">Crea nuovo corso</a></strong></li>
-                                        <li><a href="RegisterDocente">Registra nuovo docente</a></strong></li>
-                                        </ul>
-                            </div>
-                    </aside>
-
-                    <div class="col-md-8 box_style_2">
+            <div class="col-md-8 box_style_2">
+                <span class="tape"></span>
+                <div class="row">
+                    <div class="col-md-12">
                         <h4>Registra un nuovo docente</h4>
-                            <form method="post" action="RegisterDocente">
-       
-                                <div class="form-group" style="margin-bottom:-1em">
-                                        <input type="text" class="form-control style_2" placeholder="Nome Docente" name="nome" required>
-                                        <span class="input-icon"><i class="icon-user"></i></span>   
-                                 </div>
-                                <div class="form-group">
-                                        <input type="password" class="form-control style_2" placeholder="Cognome Docente" style="margin-bottom:5px" name="cognome" id="pwd" required>
-                                        <input type="button" class="button_medium_outline" onclick="showHide()" id="eye" value="show password">
-                                        <span class="input-icon"><i class="icon-user"></i></span>
-                                        
-                                </div>   
 
-                                <input type="email" class="form-control style_2" placeholder="Email" style="margin-bottom:5px;" name="email">
-                                <input type="text" class="form-control style_2" placeholder="Ufficio" style="margin-bottom:5px;" name="ufficio">
-                                <input type="tel" class="form-control style_2" placeholder="Telefono" style="margin-bottom:5px;" name="telefono">
-                                <input type="text" class="form-control style_2" placeholder="Specializzazione" style="margin-bottom:5px;" name="specializzazione">
-                                <input type="text" class="form-control style_2" placeholder="Ricerche" style="margin-bottom:5px;" name="ricerche">
-                                <input type="text" class="form-control style_2" placeholder="Pubblicazioni" style="margin-bottom:5px;" name="pubblicazioni">
-                                <input type="text" class="form-control style_2" placeholder="Curriculum" style="margin-bottom:5px;" name="curriculum">
-                                <input type="text" class="form-control style_2" placeholder="Ricevimento" style="margin-bottom:5px;" name="ricevimento">
-
-
-
-                                <input type="submit" name="registra" value="Registra docente" class="button_fullwidth">
-                            </form>
-
-
-
-                            
-                                    
-                                 
-                                  
                     </div>
-            </div><!-- End row-->   
-        </div><!-- End container -->
-    </section><!-- End main_content-->
+                </div>
+                <div id="message-apply"></div>
+                <form method="post" action="RegisterDocente">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control style_2" placeholder="Nome Docente" name="nome" required>
+                                <span class="input-icon">
+                                    <i class="icon-user"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                    <input type="text" class="form-control style_2" placeholder="Cognome Docente" name="cognome" required>
+                                    <span class="input-icon">
+                                    <i class="icon-user"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                    <input type="email" class="form-control style_2" placeholder="Email" style="margin-bottom:5px;" name="email">
+                                    <span class="input-icon">
+                                    <i class="icon-email"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                    <input type="tel" class="form-control style_2" placeholder="Telefono" style="margin-bottom:5px;" name="telefono">
+                                    <span class="input-icon">
+                                    <i class="icon-phone"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="row">
+                    <h4>Pagina Ricerche</h4> 
+					<div class="col-md-12">
+                            <div class="form-group">
+                                <textarea rows="5" id="mytextarea" name="ricerche" class="form-control" placeholder="Additional message" style="height:150px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+
+                    <input type="submit" name="registra" value="Registra docente" class=" button_subscribe_green" id="submit-apply">
+
+                </form>
+            </div>
+            <!-- End row-->
+        </div>
+        <!-- End container -->
+</section>
+<!-- End main_content-->
