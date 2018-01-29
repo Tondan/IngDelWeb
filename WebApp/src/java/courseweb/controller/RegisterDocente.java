@@ -84,11 +84,17 @@ public class RegisterDocente extends BaseController {
                 docente.setNome(nome);
                 docente.setCognome(cognome);
                 
-                utente.setUsername(username);
-                utente.setPassword(password);
-                utente.setIDGruppo(2);
+                
+                
         
             ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(docente);
+            
+            int id=docente.getIDDocente();
+            utente.setDocente(id);
+            utente.setUsername(username);
+            utente.setPassword(password);
+            utente.setIDGruppo(2);
+            
             ((IgwDataLayer)request.getAttribute("datalayer")).storeUtente(utente);
             
             

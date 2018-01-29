@@ -118,7 +118,8 @@ public class UtenteImpl implements Utente{
         password = utente.getPassword();
         
         try{
-           gruppo = utente.getGruppo();            
+           gruppo = utente.getGruppo();
+           docente = utente.getDocente();
         }   
         catch (DataLayerException ex) {
             Logger.getLogger(DocenteImpl.class.getName()).log(Level.SEVERE, null, ex);
