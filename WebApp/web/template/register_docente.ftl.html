@@ -13,7 +13,8 @@
     <section id="main_content">
         <div class="container">
                 <ol class="breadcrumb">
-                        <li class="active"><a href="Backoffice?lin=it">Backoffice</a></li>
+                        <li><a href="Backoffice">Backoffice</a></li>
+                        <li class="active"><a href="RegisterDocente">Registrazione Docente</a></li>
                       </ol>
 
 
@@ -40,9 +41,23 @@
                                         <span class="input-icon"><i class="icon-user"></i></span>   
                                  </div>
                                 <div class="form-group">
-                                        <input type="text" class="form-control style_2" placeholder="Cognome Docente" style="margin-bottom:5px;" name="cognome" required>
+                                        <input type="password" class="form-control style_2" placeholder="Cognome Docente" style="margin-bottom:5px" name="cognome" id="pwd" required>
+                                        <input type="button" class="button_medium_outline" onclick="showHide()" id="eye" value="show password">
                                         <span class="input-icon"><i class="icon-user"></i></span>
+                                        
                                 </div>   
+
+                                <input type="email" class="form-control style_2" placeholder="Email" style="margin-bottom:5px;" name="email">
+                                <input type="text" class="form-control style_2" placeholder="Ufficio" style="margin-bottom:5px;" name="ufficio">
+                                <input type="tel" class="form-control style_2" placeholder="Telefono" style="margin-bottom:5px;" name="telefono">
+                                <input type="text" class="form-control style_2" placeholder="Specializzazione" style="margin-bottom:5px;" name="specializzazione">
+                                <input type="text" class="form-control style_2" placeholder="Ricerche" style="margin-bottom:5px;" name="ricerche">
+                                <input type="text" class="form-control style_2" placeholder="Pubblicazioni" style="margin-bottom:5px;" name="pubblicazioni">
+                                <input type="text" class="form-control style_2" placeholder="Curriculum" style="margin-bottom:5px;" name="curriculum">
+                                <input type="text" class="form-control style_2" placeholder="Ricevimento" style="margin-bottom:5px;" name="ricevimento">
+
+
+
                                 <input type="submit" name="registra" value="Registra docente" class="button_fullwidth">
                             </form>
 
