@@ -90,8 +90,8 @@ public class RegisterDocente extends BaseController {
             ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(docente);
             
             int id=docente.getIDDocente();
-            Docente doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
-            utente.setDocente(doc.getIDDocente());
+            
+            utente.setDocente(id);
             utente.setUsername(username);
             utente.setPassword(password);
             utente.setIDGruppo(2);
