@@ -61,8 +61,18 @@ public class RegisterDocente extends BaseController {
 
                 String username1=null ,username2=null;
                 
+                String immagine= request.getParameter("immagine");
                 String nome= request.getParameter("nome");
                 String cognome= request.getParameter("cognome");
+                String email= request.getParameter("email");
+                String ufficio= request.getParameter("ufficio");
+                String telefono= request.getParameter("telefono");
+                String specializzazione= request.getParameter("specializzazione");
+                String ricerche= request.getParameter("ricerche");
+                String pubblicazioni= request.getParameter("pubblicazioni");
+                String curriculum= request.getParameter("curriculum");
+                String ricevimento= request.getParameter("ricevimento");
+                
                    
                   if(nome.length()>=3){
                   username1=nome.toLowerCase().substring(0, 2);}
@@ -81,12 +91,21 @@ public class RegisterDocente extends BaseController {
                 Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).createDocente();
                 Utente utente=((IgwDataLayer)request.getAttribute("datalayer")).createUtente();
                 
+                docente.setImmagine(immagine);
                 docente.setNome(nome);
                 docente.setCognome(cognome);
+                docente.setEmail(email);
+                docente.setUfficio(ufficio);
+                docente.setTelefono(telefono);
+                docente.setSpecializzazione(specializzazione);
                 
+                docente.setRicerche(ricerche);
+                docente.setPubblicazioni(pubblicazioni);
                 
+                docente.setCurriculum(curriculum);
+                docente.setRicevimento(ricevimento);
+  
                 
-        
             ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(docente);
             
             int id=docente.getIDDocente();

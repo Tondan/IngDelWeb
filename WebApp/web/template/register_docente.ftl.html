@@ -57,6 +57,7 @@
                     </div>
                 </div>
                 <div id="message-apply"></div>
+
                 <form method="post" action="RegisterDocente">
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
@@ -95,19 +96,71 @@
                         </div>
                     </div>
 
-                    <hr>
                     <div class="row">
-                    <h4>Pagina Ricerche</h4> 
-					<div class="col-md-12">
+                        <div class="col-md-6 col-sm-6">
                             <div class="form-group">
-                                <textarea rows="5" id="mytextarea" name="ricerche" class="form-control" placeholder="Additional message" style="height:150px;"></textarea>
+                                    <input type="text" class="form-control style_2" placeholder="Ufficio" style="margin-bottom:5px;" name="ufficio">
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                    <input type="text" class="form-control style_2" placeholder="Specializzazione" style="margin-bottom:5px;" name="specializzazione">    
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                    <input type="text" class="form-control style_2" placeholder="Ricevimento" style="margin-bottom:5px;" name="ricevimento">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="row">
+                    <h4>Ricerche docente</h4> 
+					<div class="col-md-12">
+                            <div class="form-group">
+                                <textarea rows="5" id="mytextarea" name="ricerche" class="form-control tinymce" placeholder="Scrivi qui la tua pagina di ricerche" style="height:150px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <h4>Pubblicazioni docente</h4> 
+                        <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea rows="5"  name="pubblicazioni" class="form-control tinymce" placeholder="Scrivi qui la tua pagina di pubblicazioni" style="height:150px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    <hr>
+                    <div class="row">
+                    <h4>Upload curriculum</h4> 
+					<div class="col-md-12">
+                            <div class="form-group">
+                                <input type="file" name="curriculum"/>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     
 
+                    <div class="row">
+                    <h4>Upload Immagine</h4> 
+					<div class="col-md-12">
+                            <div class="form-group">
+                                <input type="file" name="immagine"/>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
 
-                    <input type="submit" name="registra" value="Registra docente" class=" button_subscribe_green" id="submit-apply">
+                    <input type="submit" name="registra" value="Registra docente" class="button_subscribe_green">
 
                 </form>
             </div>

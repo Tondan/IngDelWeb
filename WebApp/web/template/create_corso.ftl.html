@@ -33,19 +33,31 @@
                 </aside>
 
                 <div class="col-md-8 box_style_2">
-                    <h4>Crea un nuovo corso</h4>
-                        <form method="post" action="CreateCorso">
-   
-                            <div class="form-group" style="margin-bottom:-1em">
-                                    <input type="text" class="form-control style_2" placeholder="Nome Corso IT" name="nome_it" required>
-                                      
-                             </div>
-                            <div class="form-group">
-                                    <input type="text" class="form-control style_2" placeholder="Nome Corso EN" style="margin-bottom:5px;" name="nome_en" required>
-                                   
-                            </div>   
-                            <input type="submit" name="registra" value="Crea corso" class="button_fullwidth">
-                        </form>
+                    <span class="tape"></span>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Registra un nuovo docente</h4>
+                        </div>
+                    </div>
+                    <div id="message-apply"></div>
+                    <form method="post" action="CreateCorso" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control style_2" placeholder="Nome corso" name="nome" required>
+                                    <span class="input-icon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                </div>
+                            </div>
+                           
+
+                        </div>
+                        
+    
+                        <input type="submit" name="registra" value="Crea Corso" class=" button_subscribe_green" id="submit-apply">
+    
+                    </form>
 
 
 

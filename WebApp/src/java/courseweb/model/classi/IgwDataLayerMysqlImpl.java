@@ -72,7 +72,6 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             Login=connection.prepareStatement("SELECT * FROM Utente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=?;");
             
             
-            
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso");
             sCDL = connection.prepareStatement("SELECT IDCDL FROM CDL WHERE Anno=?");
@@ -92,7 +91,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             
             //insert
-            iDocente = connection.prepareStatement("INSERT INTO Docente (Nome,Cognome) VALUES(?,?)", Statement.RETURN_GENERATED_KEYS);
+            iDocente = connection.prepareStatement("INSERT INTO Docente (Immagine,Nome,Cognome,Email,Ufficio,Telefono,Specializzazione,Ricerche,Pubblicazioni,Curriculum,Ricevimento) VALUES(?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             uDocente =  connection.prepareStatement("UPDATE Docente Set Nome=?,Cognome=? WHERE IDDocente=? ");
             dDocente = connection.prepareStatement("DELETE FROM Docente WHERE IDDocente=?");
             
@@ -970,10 +969,19 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 uDocente.executeUpdate();
                 
             } else { //insert
-                iDocente.setString(1, docente.getNome());
-                iDocente.setString(2, docente.getCognome());
+                iDocente.setString(1, docente.getImmagine());
+                iDocente.setString(2, docente.getNome());
+                iDocente.setString(3, docente.getCognome());
+                iDocente.setString(4, docente.getEmail());
+                iDocente.setString(5, docente.getUfficio());
+                iDocente.setString(6, docente.getTelefono());
+                iDocente.setString(7, docente.getSpecializzazione());
+                iDocente.setString(8, docente.getRicerche());
+                iDocente.setString(9, docente.getPubblicazione());
+                iDocente.setString(10, docente.getCurriculum());
+                iDocente.setString(11, docente.getRicevimento());
                 
-                
+                      
                 if (iDocente.executeUpdate() == 1) {
                     //per leggere la chiave generata dal database
                     //per il record appena inserito, usiamo il metodo
@@ -1039,7 +1047,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 
                 iUtente.setString(1, utente.getUsername());
                 iUtente.setString(2, utente.getPassword());
-
+                
                 iUtente.setInt(4, 2);
                 iUtente.setInt(3, utente.getDocente());
 
@@ -1086,13 +1094,12 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         }
     }
 
-    
-    
-    @Override
+     @Override
     public void storeCorso(Corso corso) throws DataLayerException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+
     
     @Override
     public void destroy() {
@@ -1105,6 +1112,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         }
         super.destroy();
     }
+
+   
 
 
 

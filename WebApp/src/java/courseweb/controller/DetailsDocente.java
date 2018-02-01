@@ -3,22 +3,19 @@ package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
-import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
-import courseweb.view.StreamResult;
-import java.io.File;
-import java.net.URL;
-import java.net.URLConnection;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
+
 
 /**
  *
@@ -38,10 +35,26 @@ public class DetailsDocente extends BaseController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             Docente doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
-            request.setAttribute("page_title", doc.getNome() + " " + doc.getCognome() );
+            request.setAttribute("page_title", doc.getNome() + " " + doc.getCognome());
                     
             request.setAttribute("docente", doc);
             request.setAttribute("docentecorsi", doc.getCorsi());
+            
+            
+            String r=doc.getRicerche();
+            String p=doc.getPubblicazione();
+            
+      
+            
+            r = r.replaceAll("&lt;","<");
+            r = r.replaceAll("&gt;",">");
+
+   
+       
+            request.setAttribute("r",r);
+            
+            
+            
             request.setAttribute("servlet","dettaglidocente?k="+id+"&");
             request.setAttribute("change","y");
             HttpSession session= request.getSession(false);
