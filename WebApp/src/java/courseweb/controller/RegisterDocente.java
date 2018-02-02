@@ -1,33 +1,35 @@
 package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
-import courseweb.controller.security.SecurityLayer;
-import courseweb.model.interfacce.Corso;
-import courseweb.model.interfacce.Descrizione_it;
 import courseweb.model.interfacce.Docente;
-import courseweb.model.interfacce.Dublino_it;
 import courseweb.model.interfacce.IgwDataLayer;
-import courseweb.model.interfacce.Libro;
 import courseweb.model.interfacce.Utente;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
+import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
+
+@MultipartConfig
 
 /**
  *
  * @author Toni & Tony
  */
 public class RegisterDocente extends BaseController {
+
 
     private void action_error(HttpServletRequest request, HttpServletResponse response) {
         if (request.getAttribute("exception") != null) {
@@ -54,7 +56,22 @@ public class RegisterDocente extends BaseController {
     
     private void action_registraD(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
                 try{
+                
                     
+                    
+                Part filePart = request.getPart("curriculum"); //ho il file
+                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+                
+                
+                
+                File uploads = new File("/UploadFiles");
+                File file = new File(uploads, "somefilename.ext");
+
+               InputStream fileContent = filePart.getInputStream();
+               Files.copy(fileContent, file.toPath());
+                
+
+                
                 RandomString random = new RandomString();
                 
                 String password=random.nextString();
@@ -117,7 +134,7 @@ public class RegisterDocente extends BaseController {
             
             ((IgwDataLayer)request.getAttribute("datalayer")).storeUtente(utente);
             
-            
+                request.setAttribute("message", "Upload has been done successfully!");
                 response.sendRedirect("Backoffice");
             
             } catch (DataLayerException ex) {
@@ -168,5 +185,5 @@ public class RegisterDocente extends BaseController {
     public String getServletInfo() {
         return "Main Login servlet";
     }// </editor-fold>
-
+        
 }

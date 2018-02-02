@@ -1,6 +1,5 @@
 package courseweb.controller;
 
-
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.Docente;
@@ -9,12 +8,13 @@ import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-
+import javax.servlet.http.Part;
 
 
 /**
@@ -54,6 +54,9 @@ public class DetailsDocente extends BaseController {
             request.setAttribute("r",r);
             
             
+            Part filePart = request.getPart("curriculum"); // Retrieves <input type="file" name="file">
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+            InputStream fileContent = filePart.getInputStream();
             
             request.setAttribute("servlet","dettaglidocente?k="+id+"&");
             request.setAttribute("change","y");
@@ -94,13 +97,10 @@ public class DetailsDocente extends BaseController {
         } catch (NumberFormatException ex) {
             request.setAttribute("message", "Teacher key not specified");
             action_error(request, response);
-        } catch (IOException ex) {
+        } catch (IOException | TemplateManagerException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
                
-        } catch (TemplateManagerException ex) {
-            request.setAttribute("exception", ex);
-            action_error(request, response);
         }
     }
 
