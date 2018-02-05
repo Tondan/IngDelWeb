@@ -79,7 +79,11 @@ public class RegisterDocente extends BaseController {
 
                 String username1=null ,username2=null;
                 
-                String immagine= request.getParameter("immagine");
+                Part immagine=request.getPart("immagine");
+                String context=request.getServletContext().getRealPath("");
+                String imgPath=Upload.Up(context,immagine,"imgDocenti");
+                
+                //String immagine= request.getParameter("immagine");
                 String nome= request.getParameter("nome");
                 String cognome= request.getParameter("cognome");
                 String email= request.getParameter("email");
@@ -88,7 +92,10 @@ public class RegisterDocente extends BaseController {
                 String specializzazione= request.getParameter("specializzazione");
                 String ricerche= request.getParameter("ricerche");
                 String pubblicazioni= request.getParameter("pubblicazioni");
-                String curriculum= request.getParameter("curriculum");
+                
+                Part curriculum=request.getPart("curriculum");
+                String currPath=Upload.Up(context,curriculum,"curriculum");
+                //String curriculum= request.getParameter("curriculum");
                 String ricevimento= request.getParameter("ricevimento");
                 
                    
@@ -109,7 +116,7 @@ public class RegisterDocente extends BaseController {
                 Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).createDocente();
                 Utente utente=((IgwDataLayer)request.getAttribute("datalayer")).createUtente();
                 
-                docente.setImmagine(immagine);
+                docente.setImmagine(imgPath);
                 docente.setNome(nome);
                 docente.setCognome(cognome);
                 docente.setEmail(email);
@@ -120,7 +127,7 @@ public class RegisterDocente extends BaseController {
                 docente.setRicerche(ricerche);
                 docente.setPubblicazioni(pubblicazioni);
                 
-                docente.setCurriculum(curriculum);
+                docente.setCurriculum(currPath);
                 docente.setRicevimento(ricevimento);
   
                 
