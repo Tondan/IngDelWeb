@@ -58,7 +58,7 @@ public class RegisterDocente extends BaseController {
                 try{
                 
                     
-<<<<<<< HEAD
+
                     
                /* Part filePart = request.getPart("curriculum"); //ho il file
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
@@ -72,14 +72,6 @@ public class RegisterDocente extends BaseController {
                Files.copy(fileContent, file.toPath());
                 
 */
-=======
-                  
-                Part filePart = request.getPart("curriculum"); //ho il file
-                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-                InputStream fileContent = filePart.getInputStream();
-   
-
->>>>>>> origin/master
                 
                 RandomString random = new RandomString();
                 

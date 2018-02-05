@@ -40,14 +40,7 @@ public class DetailsDocente extends BaseController {
             request.setAttribute("docente", doc);
             request.setAttribute("docentecorsi", doc.getCorsi());
           
-            
-      
-            
-            
-            /*Part filePart = request.getPart("curriculum"); // Retrieves <input type="file" name="file">
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-            InputStream fileContent = filePart.getInputStream();*/
-            
+
             request.setAttribute("servlet","dettaglidocente?k="+id+"&");
             request.setAttribute("change","y");
             HttpSession session= request.getSession(false);

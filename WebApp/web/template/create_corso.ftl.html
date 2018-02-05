@@ -36,7 +36,7 @@
                     <span class="tape"></span>
                     <div class="row">
                         <div class="col-md-12">
-                            <h4>Registra un nuovo docente</h4>
+                            <h4>Crea un nuovo corso</h4>
                         </div>
                     </div>
                     <div id="message-apply"></div>
@@ -46,15 +46,96 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control style_2" placeholder="Nome corso" name="nome" required>
                                     <span class="input-icon">
-                                        <i class="icon-user"></i>
+                                        <i class="#"></i>
                                     </span>
                                 </div>
                             </div>
-                           
-
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                        <input type="text" class="form-control style_2" placeholder="Nome Corso EN" name="cognome" required>
+                                        <span class="input-icon">
+                                        <i class="#"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         
+
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control style_2" placeholder="SSD" name="ssd" required>
+                                    <span class="input-icon">
+                                        <i class="#"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                        <input type="text" class="form-control style_2" placeholder="Lingua" name="lingua" required>
+                                        <span class="input-icon">
+                                        <i class="#"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control style_2" placeholder="Semestre" name="semestre" required>
+                                    <span class="input-icon">
+                                        <i class="#"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                        <input type="text" class="form-control style_2" placeholder="Cfu" name="cfu" required>
+                                        <span class="input-icon">
+                                        <i class="#"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control style_2" placeholder="Tipologia" name="tipologia" required>
+                                    <span class="input-icon">
+                                        <i class="#"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                        </div>
     
+                        <hr>
+                        <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <h4>Associa un docente al corso</h4>
+                                            <div class="styled-select">
+                                                    <select class="form-control" name="docente_id" required>
+                                                <#list docenti as docente>
+                                                <option value="${docente.IDDocente}">${docente.nome} ${docente.cognome}</option>
+                                                </#list> 
+
+                                            </select>
+                                            </div>
+                                        </div>
+                                </div>
+                        </div>
+                        <hr>
+
+
+
+
                         <input type="submit" name="registra" value="Crea Corso" class=" button_subscribe_green" id="submit-apply">
     
                     </form>

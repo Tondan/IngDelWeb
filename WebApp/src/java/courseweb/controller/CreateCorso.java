@@ -35,16 +35,23 @@ public class CreateCorso extends BaseController {
     }
 
     private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua) throws IOException, ServletException, TemplateManagerException {
-        HttpSession session= request.getSession(false);
-        String a = (String) session.getAttribute("username");
-        request.setAttribute("nome",a);
-        TemplateResult res = new TemplateResult(getServletContext());
-        request.setAttribute("page_title", "Backoffice");
-    
-        if(lingua.equals("it")||lingua.equals("")){
+        try {
+            HttpSession session= request.getSession(false);
+            String a = (String) session.getAttribute("username");
+            request.setAttribute("nome",a);
+            TemplateResult res = new TemplateResult(getServletContext());
+            
+            request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
+            
+            request.setAttribute("page_title", "Backoffice");
+            
+            if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 res.activate("create_corso.ftl.html", request, response); 
             }
+        } catch (DataLayerException ex) {
+            Logger.getLogger(CreateCorso.class.getName()).log(Level.SEVERE, null, ex);
+        }
   
     }
     
