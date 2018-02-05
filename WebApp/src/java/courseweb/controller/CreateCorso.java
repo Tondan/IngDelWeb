@@ -44,7 +44,7 @@ public class CreateCorso extends BaseController {
             request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
             
             request.setAttribute("page_title", "Backoffice");
-            
+              
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 res.activate("create_corso.ftl.html", request, response); 
@@ -59,15 +59,30 @@ public class CreateCorso extends BaseController {
     private void action_crea(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
                 try{
                     
-                String nome_corso_it= request.getParameter("nome_it");
-                String nome_corso_en= request.getParameter("nome_en");
-                   
-                   
-                   
+               
+                            
+                String nome= request.getParameter("nome");
+                String nomeEN= request.getParameter("nome_en");
+                String ssd= request.getParameter("ssd");
+                String linguac= request.getParameter("linguac");
+                int semestre= Integer.parseInt(request.getParameter("semestre"));
+                int cfu=Integer.parseInt( request.getParameter("cfu"));
+                String tipologia= request.getParameter("tipologia");
+                
+                
+                
                 Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).createCorso();
                     
-                corso.setNome_it(nome_corso_it);
-                corso.setNome_en(nome_corso_en);
+                corso.setNome_it(nome);
+                corso.setNome_en(nomeEN);
+                corso.setSSD(ssd);
+                corso.setLingua(linguac);
+                corso.setSemestre(semestre);
+                corso.setCfu(cfu);
+                corso.setTipologia(tipologia.charAt(0));
+                
+                
+                
                 
         
             ((IgwDataLayer)request.getAttribute("datalayer")).storeCorso(corso);
