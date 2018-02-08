@@ -79,13 +79,19 @@ public class RegisterDocente extends BaseController {
 
                 String username1=null ,username2=null;
                 
-                Part immagine=request.getPart("immagine");
-                String context=request.getServletContext().getRealPath("");
-                String imgPath=Upload.Up(context,immagine,"imgDocenti");
-                
-                //String immagine= request.getParameter("immagine");
                 String nome= request.getParameter("nome");
                 String cognome= request.getParameter("cognome");
+                
+                String imgPath=null;
+                String fileName;
+                String context=request.getServletContext().getRealPath("");
+                Part immagine=request.getPart("immagine");
+                if(immagine.getSize()!=0){
+                    fileName=nome+cognome;
+                    imgPath=Upload.Up(context,immagine,"imgDocenti",fileName,false);
+                }
+                
+                //String immagine= request.getParameter("immagine");
                 String email= request.getParameter("email");
                 String ufficio= request.getParameter("ufficio");
                 String telefono= request.getParameter("telefono");
@@ -94,7 +100,11 @@ public class RegisterDocente extends BaseController {
                 String pubblicazioni= request.getParameter("pubblicazioni");
                 
                 Part curriculum=request.getPart("curriculum");
-                String currPath=Upload.Up(context,curriculum,"curriculum");
+                String currPath=null;
+                if(curriculum.getSize()!=0){
+                    fileName=nome+cognome;
+                    currPath=Upload.Up(context,curriculum,"curriculum",fileName,false);
+                }
                 //String curriculum= request.getParameter("curriculum");
                 String ricevimento= request.getParameter("ricevimento");
                 

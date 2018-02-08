@@ -8,6 +8,7 @@ package courseweb.controller;
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.http.Part;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  *
@@ -15,7 +16,7 @@ import javax.servlet.http.Part;
  */
 public class Upload {
     
-    protected static String Up(String context,Part part,String dir) throws IOException{
+    protected static String Up(String context,Part part,String dir,String name,boolean novo) throws IOException{
         //contructs path of the directory to save uploaded file
         String savePath=context+dir;
         //Creates the save directory if not exists
@@ -23,8 +24,23 @@ public class Upload {
         if(!saveDir.exists())
             saveDir.mkdir();
         
-        String fileName=extractFileName(part);
-        fileName=new File(fileName).getName();
+        String ext;
+        String fileName;
+ /*       String fileName=extractFileName(part);
+        fileName=name;*/
+        if(!novo){
+            ext=FilenameUtils.getExtension(extractFileName(part));
+            fileName=name+"."+ext;
+            int i=1;
+            while((new File(context+dir+File.separator+fileName)).exists()){
+                fileName=name+i+"."+ext;
+                i+=1;
+            }
+        }
+        else{
+            ext=FilenameUtils.getExtension(extractFileName(part));
+            fileName=name+"."+ext;
+        }
         part.write(savePath+File.separator+fileName);
         return dir+File.separator+fileName;
         
