@@ -124,10 +124,10 @@
                         <hr>
                         <div class="row">
                                 <div class="col-md-6 col-sm-6">
-                                        <div class="form-group">
+                                        <div>
                                             <h4>Associa i docenti al corso</h4>
                                             <div>
-                                                <select multiple="multiple" name="docenti" required>
+                                                <select id="special" multiple="multiple" name="docenti" required>
                                                 <#list docenti as docente>
                                                 <option value="${docente.IDDocente}">${docente.nome} ${docente.cognome}</option>
                                                 </#list> 
@@ -145,8 +145,6 @@
                         <input type="submit" name="crea" value="Crea Corso" class="button_subscribe_green" id="submit-apply">
     
                     </form>
-
-
 
                         
                                 
