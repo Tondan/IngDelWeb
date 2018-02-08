@@ -108,4 +108,10 @@ public interface Corso {
     void setMateriale(List<Materiale> materiale);
     
     void addMateriale(Materiale materiale);
+    
+    public void setDirty(boolean dirty);
+    
+    public boolean isDirty();
+    
+    public void copyFrom(Corso corso);
 }

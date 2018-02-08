@@ -88,7 +88,7 @@
                                 <div class="form-group">
                                     <div class="styled-select">
                                         <select class="form-control" name="semestre">
-                                            <option value="null" selected>Seleziona semestre corso...</option>
+                                            <option value="" selected>Seleziona semestre corso...</option>
                                             <option value="1">Primo Semestre</option>
                                             <option value="2">Secondo Semestre</option>
                                         </select>
@@ -110,8 +110,8 @@
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
                                         <div class="styled-select">
-                                                <select class="form-control" name="Tipologia">
-                                                    <option value="null" selected>Seleziona tipologia cfu...</option>
+                                                <select class="form-control" name="tipologia">
+                                                    <option value="n" selected>Seleziona tipologia cfu...</option>
                                                     <option value="A">A</option>
                                                     <option value="B">B</option>
                                                 </select>
@@ -127,7 +127,7 @@
                                         <div>
                                             <h4>Associa i docenti al corso</h4>
                                             <div>
-                                                <select id="special" multiple="multiple" name="docenti" required>
+                                                <select id="special" name="docenti" required multiple>
                                                 <#list docenti as docente>
                                                 <option value="${docente.IDDocente}">${docente.nome} ${docente.cognome}</option>
                                                 </#list> 

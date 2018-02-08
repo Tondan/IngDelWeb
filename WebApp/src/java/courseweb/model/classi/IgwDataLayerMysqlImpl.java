@@ -41,8 +41,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
 
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login;
-    private PreparedStatement iDocente, iUtente;
-    private PreparedStatement uDocente, uUtente;
+    private PreparedStatement iDocente, iUtente,iCorso;
+    private PreparedStatement uDocente, uUtente,uCorso;
     private PreparedStatement dDocente;
     
     @Override
@@ -98,6 +98,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             iUtente = connection.prepareStatement("INSERT INTO Utente (Username,Password,Docente,Gruppo) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             uUtente =  connection.prepareStatement("UPDATE Utente Set Username=?,Password=?,Gruppo=? WHERE IDUtente=?");
             
+            iCorso=connection.prepareStatement("INSERT INTO Corso (Nome_it,Nome_en,SSD,Lingua,Semestre,CFU,Anno,Tipologia) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            uCorso=connection.prepareStatement("UPDATE Corso SET Nome_it=? WHERE IDCorso=?");
+            
         } catch (SQLException ex) {
             throw new DataLayerException("Error initializing igw data layer", ex);
         }
@@ -152,7 +155,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             co.setSemestre(rs.getInt("Semestre"));
             co.setCfu(rs.getInt("CFU"));
             co.setAnno(rs.getInt("Anno"));
-            co.setTipologia(toUpperCase(rs.getString("Tipologia").charAt(0)));
+            if(rs.getString("Tipologia").length()!=0)
+                co.setTipologia(toUpperCase(rs.getString("Tipologia").charAt(0)));
             return co;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create Corso object form ResultSet", ex);
@@ -1096,7 +1100,70 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
 
      @Override
     public void storeCorso(Corso corso) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int key = corso.getID();
+         try {
+            if (key > 0) { //update
+                //non facciamo nulla se l'oggetto non ha subito modifiche
+                //do not store the object if it was not modified
+                if (!corso.isDirty()) {
+                    return;
+                }
+                
+                uCorso.setString(1, corso.getNome_it());
+                uCorso.setInt(2, corso.getID());
+                
+                uCorso.executeUpdate();
+                
+            } else { //insert
+                iCorso.setString(1, corso.getNome_it());
+                iCorso.setString(2, corso.getNome_en());
+                iCorso.setString(3, corso.getSSD());
+                iCorso.setString(4,corso.getLingua());
+                iCorso.setInt(5, corso.getSemestre());
+                iCorso.setInt(6, corso.getCfu());
+                iCorso.setInt(7, corso.getAnno());
+                if(!String.valueOf(corso.getTipologia()).equals("n"))
+                    iCorso.setString(8, String.valueOf(corso.getTipologia()));
+                else
+                    iCorso.setString(8,"");
+                
+                      
+                if (iCorso.executeUpdate() == 1) {
+                    //per leggere la chiave generata dal database
+                    //per il record appena inserito, usiamo il metodo
+                    //getGeneratedKeys sullo statement.
+                    //to read the generated record key from the database
+                    //we use the getGeneratedKeys method on the same statement
+                    try (ResultSet keys = iCorso.getGeneratedKeys()) {
+                        //il valore restituito è un ResultSet con un record
+                        //per ciascuna chiave generata (uno solo nel nostro caso)
+                        //the returned value is a ResultSet with a distinct record for
+                        //each generated key (only one in our case)
+                        if (keys.next()) {
+                            //i campi del record sono le componenti della chiave
+                            //(nel nostro caso, un solo intero)
+                            //the record fields are the key componenets
+                            //(a single integer in our case)
+                            key = keys.getInt(1);
+                        }
+                    }
+                }
+            }
+            //restituiamo l'oggetto appena inserito RICARICATO
+            //dal database tramite le API del modello. In tal
+            //modo terremo conto di ogni modifica apportata
+            //durante la fase di inserimento
+            //we return the just-inserted object RELOADED from the
+            //database through our API. In this way, the resulting
+            //object will ambed any data correction performed by
+            //the DBMS
+            if (key > 0) {
+                corso.copyFrom(getCorso(key));
+            }
+            corso.setDirty(false);
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to store docente", ex);
+        }
     }
     
 

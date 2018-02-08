@@ -7,6 +7,8 @@ package courseweb.model.classi;
 import courseweb.model.interfacce.*;
 import courseweb.controller.data.DataLayerException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Toni & Tony
@@ -363,5 +365,49 @@ public class CorsoImpl implements Corso{
     @Override
     public void addMateriale(Materiale materiale){
         this.materiale.add(materiale);
+    }
+    
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
+    
+    @Override
+    public boolean isDirty() {
+        return dirty;
+    }
+    
+    @Override
+    public void copyFrom(Corso corso) {
+        id=corso.getID();
+        nome_it=corso.getNome_it();
+        nome_en=corso.getNome_en();
+        ssd=corso.getSSD();
+        lingua=corso.getLingua();
+        semestre=corso.getSemestre();
+        cfu=corso.getCfu();
+        anno=corso.getAnno();
+        tipologia=corso.getTipologia();
+        
+        
+        
+        try{
+            cdl=corso.getCDL();
+            mutuati=corso.getCorsiMutuati();
+            prerequisiti=corso.getCorsiPrerequisiti();
+            modulo=corso.getCorsiModulo();
+            docenti=corso.getDocenti();
+            descrizione_it=corso.getDescrizione_it();
+            descrizione_en=corso.getDescrizione_en();
+            dublino_it=corso.getDublino_it();
+            dublino_en=corso.getDublino_en();
+            libri=corso.getLibri();
+            materiale=corso.getMateriale();
+            
+        }   
+        catch (DataLayerException ex) {
+            Logger.getLogger(DocenteImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dirty = true;
     }
 }

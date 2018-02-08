@@ -66,17 +66,20 @@ public class CreateCorso extends BaseController {
                 String nomeEN= request.getParameter("nome_en");
                 String ssd= request.getParameter("ssd");
                 String linguac= request.getParameter("linguac");
-                int semestre= Integer.parseInt(request.getParameter("semestre"));
-                int cfu=Integer.parseInt( request.getParameter("cfu"));
+                int semestre=0;
+                if(request.getParameter("semestre").length()!=0)
+                    semestre= Integer.parseInt(request.getParameter("semestre"));
+                int cfu=0;
+                if(request.getParameter("cfu").length()!=0)
+                    cfu=Integer.parseInt( request.getParameter("cfu"));
                 String tipologia= request.getParameter("tipologia");
                 
                 String[] docente=request.getParameterValues("docenti");
-                int a;
-                List<Docente> docenti=null;
+                List<Docente> docenti=new ArrayList();
                 
                 
                 
-                for(int i=0; i<docente.length; i++){
+                for(int i=0,a=0; i<docente.length; i++){
                    a=Integer.parseInt(docente[i]);
                    docenti.add(((IgwDataLayer)request.getAttribute("datalayer")).getDocente(a));  
                 }
