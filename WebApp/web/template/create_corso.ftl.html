@@ -126,8 +126,8 @@
                                 <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <h4>Associa i docenti al corso</h4>
-                                            <div class="styled-select">
-                                                    <select class="form-control" name="docenti" multiple="true" required>
+                                            <div>
+                                                    <select name="docenti" multiple="true" required>
                                                 <#list docenti as docente>
                                                 <option value="${docente.IDDocente}">${docente.nome} ${docente.cognome}</option>
                                                 </#list> 
