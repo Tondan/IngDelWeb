@@ -58,20 +58,6 @@ public class RegisterDocente extends BaseController {
                 try{
                 
                     
-
-                    
-               /* Part filePart = request.getPart("curriculum"); //ho il file
-                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-                
-                
-                
-                File uploads = new File("/UploadFiles");
-                File file = new File(uploads, "somefilename.ext");
-
-               InputStream fileContent = filePart.getInputStream();
-               Files.copy(fileContent, file.toPath());
-                
-*/
                 
                 RandomString random = new RandomString();
                 

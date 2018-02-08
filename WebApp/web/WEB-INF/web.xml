@@ -80,6 +80,10 @@
         <servlet-name>RegisterDocente</servlet-name>
         <servlet-class>courseweb.controller.RegisterDocente</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>courseweb.controller.Profile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
@@ -131,6 +135,10 @@
     <servlet-mapping>
         <servlet-name>RegisterDocente</servlet-name>
         <url-pattern>/RegisterDocente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/Profile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

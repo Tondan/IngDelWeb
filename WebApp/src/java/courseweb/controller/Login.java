@@ -35,7 +35,7 @@ public class Login extends BaseController {
 
     private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua) throws IOException, ServletException, TemplateManagerException {
         TemplateResult res = new TemplateResult(getServletContext());
-        request.setAttribute("servlet","login?");
+        request.setAttribute("servlet","Login?");
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
         
