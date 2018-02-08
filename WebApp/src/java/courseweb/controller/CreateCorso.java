@@ -61,8 +61,7 @@ public class CreateCorso extends BaseController {
     private void action_crea(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
                 try{
                     
-               
-                            
+                         
                 String nome= request.getParameter("nome");
                 String nomeEN= request.getParameter("nome_en");
                 String ssd= request.getParameter("ssd");
