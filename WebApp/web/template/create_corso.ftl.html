@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div id="message-apply"></div>
-                    <form method="post" action="CreateCorso" enctype="multipart/form-data">
+                    <form method="post" action="CreateCorso">
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
@@ -125,9 +125,9 @@
                         <div class="row">
                                 <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <h4>Associa un docente al corso</h4>
+                                            <h4>Associa i docenti al corso</h4>
                                             <div class="styled-select">
-                                                    <select class="form-control" name="docente_id" required>
+                                                    <select class="form-control" name="docenti" multiple="true" required>
                                                 <#list docenti as docente>
                                                 <option value="${docente.IDDocente}">${docente.nome} ${docente.cognome}</option>
                                                 </#list> 
@@ -142,7 +142,7 @@
 
 
 
-                        <input type="submit" name="crea" value="Crea Corso" class=" button_subscribe_green" id="submit-apply">
+                        <input type="submit" name="crea" value="Crea Corso" class="button_subscribe_green" id="submit-apply">
     
                     </form>
 

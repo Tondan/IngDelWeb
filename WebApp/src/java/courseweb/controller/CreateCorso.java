@@ -12,6 +12,8 @@ import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,6 +71,16 @@ public class CreateCorso extends BaseController {
                 int cfu=Integer.parseInt( request.getParameter("cfu"));
                 String tipologia= request.getParameter("tipologia");
                 
+                String[] docente=request.getParameterValues("docenti");
+                int a;
+                List<Docente> docenti=null;
+                
+                
+                
+                for(int i=0; i<docente.length; i++){
+                   a=Integer.parseInt(docente[i]);
+                   docenti.add(((IgwDataLayer)request.getAttribute("datalayer")).getDocente(a));  
+                }
                 
                 
                 Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).createCorso();
@@ -80,6 +92,8 @@ public class CreateCorso extends BaseController {
                 corso.setSemestre(semestre);
                 corso.setCfu(cfu);
                 corso.setTipologia(tipologia.charAt(0));
+                
+                corso.setDocenti(docenti);
                 
                 
                 
