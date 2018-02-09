@@ -29,6 +29,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -41,7 +42,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
 
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login;
-    private PreparedStatement iDocente, iUtente,iCorso;
+    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso;
     private PreparedStatement uDocente, uUtente,uCorso;
     private PreparedStatement dDocente;
     
@@ -100,6 +101,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             iCorso=connection.prepareStatement("INSERT INTO Corso (Nome_it,Nome_en,SSD,Lingua,Semestre,CFU,Anno,Tipologia) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             uCorso=connection.prepareStatement("UPDATE Corso SET Nome_it=? WHERE IDCorso=?");
+            iDocentiCorso=connection.prepareStatement("INSERT INTO Docenti_Corso(Corso,Docente) VALUES (?,?)");
             
         } catch (SQLException ex) {
             throw new DataLayerException("Error initializing igw data layer", ex);
@@ -1127,6 +1129,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 else
                     iCorso.setString(8,"");
                 
+                
                       
                 if (iCorso.executeUpdate() == 1) {
                     //per leggere la chiave generata dal database
@@ -1161,6 +1164,16 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 corso.copyFrom(getCorso(key));
             }
             corso.setDirty(false);
+                Iterator doc;
+            if(!corso.getDocenti().isEmpty()){
+                doc=corso.getDocenti().iterator();
+                Docente d = null;
+                while(doc.hasNext())
+                    d=(Docente)doc.next();
+                    iDocentiCorso.setInt(1, corso.getID());
+                    iDocentiCorso.setInt(2,d.getIDDocente());
+            }
+            
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to store docente", ex);
         }
