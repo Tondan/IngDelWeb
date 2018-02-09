@@ -94,6 +94,8 @@ public interface IgwDataLayer extends DataLayer {
     Log getLog(int IDLog) throws DataLayerException;
     
     public List<Corso> getCorsiMutuati(Corso corso) throws DataLayerException;
+    
+    public Corso getCorsoMutua(Corso corso) throws DataLayerException;
 
     public List<Corso> getCorsiPrerequisiti(Corso corso) throws DataLayerException;
 

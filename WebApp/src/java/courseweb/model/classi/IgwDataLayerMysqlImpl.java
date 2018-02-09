@@ -41,7 +41,7 @@ import javax.sql.DataSource;
 public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwDataLayer {
 
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
-    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login;
+    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso;
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso;
     private PreparedStatement uDocente, uUtente,uCorso;
     private PreparedStatement dDocente;
@@ -66,6 +66,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
             sCorsiByAnno=connection.prepareStatement("SELECT * FROM Corso WHERE Anno=?");
             sCDLByCorso=connection.prepareStatement("SELECT * FROM CDL,Corsi_CDL WHERE CDL.IDCDL=Corsi_CDL.CDL AND Corso=?");
+            sCorsoMutuaByCorso=connection.prepareStatement("SELECT * FROM Colleg_Corsi,Corso WHERE Other_Corso=IDCorso AND Other_Corso=? AND Tipo='Mutuato'");
            
             sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1 AND Anno=?");
             sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0 AND Anno=?");
@@ -640,6 +641,21 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return result;
     }
 
+    @Override
+    public Corso getCorsoMutua(Corso corso) throws DataLayerException{
+        try {
+            sCorsoMutuaByCorso.setInt(1,corso.getID());
+            try (ResultSet rs=sCorsoMutuaByCorso.executeQuery()) {
+                if(rs.next())
+                    return createCorso(rs);
+            }
+        }
+        catch (SQLException ex){
+            throw new DataLayerException("Unable to load Corso Che Mutua by Corso",ex);
+        }
+        return null;
+    }
+    
     @Override
     public List<Corso> getCorsiPrerequisiti(Corso corso) throws DataLayerException {
         List<Corso> result = new ArrayList();

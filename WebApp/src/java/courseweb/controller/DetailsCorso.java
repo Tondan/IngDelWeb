@@ -40,6 +40,7 @@ public class DetailsCorso extends BaseController {
             
             request.setAttribute("propedeudici",corso.getCorsiPrerequisiti());
             request.setAttribute("mutuati",corso.getCorsiMutuati());
+            request.setAttribute("mutuato",corso.getCorsoMutua());
             request.setAttribute("moduli",corso.getCorsiModulo());
             request.setAttribute("corso", corso);
             request.setAttribute("docenti", corso.getDocenti());

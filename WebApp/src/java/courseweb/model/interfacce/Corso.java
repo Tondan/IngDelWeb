@@ -61,6 +61,10 @@ public interface Corso {
     
     void setCorsiMutuati(List<Corso> mutuati);
     
+    Corso getCorsoMutua() throws DataLayerException;
+    
+    void setCorsoMutua(Corso mutua);
+    
     List<Corso> getCorsiPrerequisiti() throws DataLayerException;
     
     void setCorsiPrerequisiti(List<Corso> prerequisiti);

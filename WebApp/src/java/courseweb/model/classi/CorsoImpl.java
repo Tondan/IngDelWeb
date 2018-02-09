@@ -35,7 +35,12 @@ public class CorsoImpl implements Corso{
     
     private char tipologia;
     
+    
+    //assumiamo che un corso possa mutuare(sostituire) più corsi, e che lo stesso possa essere mutuato (sostituito) da un solo corso
     private List<Corso> mutuati;
+    
+    private Corso mutuato;
+    
     
     private List<Corso> prerequisiti;
     
@@ -73,6 +78,7 @@ public class CorsoImpl implements Corso{
         this.anno=0;
         this.tipologia=0;
         this.mutuati=null;
+        this.mutuato=null;
         this.prerequisiti=null;
         this.modulo=null;
         this.docenti=null;
@@ -213,6 +219,19 @@ public class CorsoImpl implements Corso{
     @Override
     public void setCorsiMutuati(List<Corso> mutuati){
         this.mutuati=mutuati;
+        this.dirty=true;
+    }
+    
+    @Override
+    public Corso getCorsoMutua() throws DataLayerException{
+        if(mutuato==null)
+            mutuato=ownerdatalayer.getCorsoMutua(this);
+        return mutuato;
+    }
+    
+    @Override
+    public void setCorsoMutua(Corso mutuato){
+        this.mutuato=mutuato;
         this.dirty=true;
     }
     

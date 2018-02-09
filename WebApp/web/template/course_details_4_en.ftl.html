@@ -49,9 +49,12 @@
 
 
 
-                    <#list mutuati as mutuato>
-                    <li><strong>Borrowed Courses:</strong> <#if mutuato.nome_en??>  ${mutuato.nome_en} </#if> </li>
-                    </#list>
+                    <#if mutuati?has_content>
+                        <li><strong>Borrowed Courses:</strong><#list mutuati as mutua> <#if mutua.nome_en??>  ${mutua.nome_en}<#if mutua?has_next>,&nbsp</#if></#if></#list> </li>
+                        
+                    <#else>
+                        <#if mutuato??><li><strong>Borrowed By:</strong> <#if mutuato.nome_en??>  ${mutuato.nome_en} </#if> </li></#if>
+                    </#if>
 
 
 

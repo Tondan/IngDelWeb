@@ -48,10 +48,13 @@
                     </#list>
 
 
-
-                    <#list mutuati as mutuato>
-                    <li><strong>Corsi mutuati:</strong> <#if mutuato.nome_it??>  ${mutuato.nome_it} </#if> </li>
-                    </#list>
+                    <#if mutuati?has_content>
+                        <li><strong>Corsi mutuati:</strong><#list mutuati as mutua> <#if mutua.nome_it??>  ${mutua.nome_it}<#if mutua?has_next>,&nbsp</#if></#if></#list> </li>
+                        
+                    <#else>
+                        <#if mutuato??><li><strong>Mutuato da:</strong> <#if mutuato.nome_it??>  ${mutuato.nome_it} </#if> </li></#if>
+                    </#if>
+                    
 
 
 
