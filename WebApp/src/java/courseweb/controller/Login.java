@@ -11,11 +11,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import courseweb.model.classi.CDLImpl;
-import courseweb.model.interfacce.Corso;
-import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.Utente;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,11 +52,16 @@ public class Login extends BaseController {
                     Utente utente;
                     utente = ((IgwDataLayer)request.getAttribute("datalayer")).getUtenti(username, password);
                     
+                    
                     int userid = utente.getID();
                     SecurityLayer.createSession(request, username, userid);
+                    
+                    if(utente.getDocente() != 0) {
+                        response.sendRedirect("BackofficeD");
+                    }
                     //se è stato trasmesso un URL di origine, torniamo a quell'indirizzo
                     //if an origin URL has been transmitted, return to it
-                    {
+                    else{
                         response.sendRedirect("Backoffice");
                     }
                 } catch (DataLayerException ex) {

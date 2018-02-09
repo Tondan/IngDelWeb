@@ -15,7 +15,8 @@
     <section id="main_content">
         <div class="container">
                 <ol class="breadcrumb">
-                        <li class="active"><a href="Backoffice?lin=it">Backoffice</a></li>
+                        <li><a href="Backoffice?lin=it">Backoffice</a></li>
+                        <li class="active"><a href="Corsianno?lin=it">Selezione del corso</a></li>
                       </ol>
 
             <div class="row">
@@ -53,15 +54,45 @@
                             </aside>
                     </aside>
 
-                    <#if message??>
-                    <h3>${message}</h3>
-                    </#if>
+              
 
 
                     
-
+                    <div class="col-md-8">
+                    <h3>Seleziona il corso interessato alla modifica</h3>
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h4 class="panel-title">
+                                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Corsi attivi anno corrente<i class="indicator icon-plus pull-right"></i></a>
+                                </h4>
+                              </div>
+                              <div id="collapseOne" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <#list corso as corso>
+                                  <li><a href="ModificaCorso?n=${corso.ID}&lin=it">${corso.nome_it} (${corso.anno?c})</a></li>
+                                    </#list>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Corsi anni precedenti<i class="indicator icon-plus pull-right"></i></a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                      <div class="panel-body">
+                                            <#list oldcorso?sort_by("anno") as oldcorso>
+                                            <li><a href="ModificaCorso?n=${oldcorso.ID}&lin=it">${oldcorso.nome_it} (${oldcorso.anno?c})</a></li>
+                                              </#list>
+                                      </div>
+                                    </div>
+                                  </div>
 
                     </div>
+                        </div>
+                    
             </div><!-- End row-->   
         </div><!-- End container -->
     </section><!-- End main_content-->

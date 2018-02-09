@@ -84,6 +84,18 @@
         <servlet-name>Profile</servlet-name>
         <servlet-class>courseweb.controller.Profile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Corsianno</servlet-name>
+        <servlet-class>courseweb.controller.Corsianno</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificaCorso</servlet-name>
+        <servlet-class>courseweb.controller.ModificaCorso</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BackofficeD</servlet-name>
+        <servlet-class>courseweb.controller.BackofficeD</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
@@ -139,6 +151,18 @@
     <servlet-mapping>
         <servlet-name>Profile</servlet-name>
         <url-pattern>/Profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Corsianno</servlet-name>
+        <url-pattern>/Corsianno</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificaCorso</servlet-name>
+        <url-pattern>/ModificaCorso</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BackofficeD</servlet-name>
+        <url-pattern>/BackofficeD</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

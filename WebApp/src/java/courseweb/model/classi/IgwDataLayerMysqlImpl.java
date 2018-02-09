@@ -51,6 +51,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         try {
             super.init();
             
+            //CARO BABBO NATALE VOGLIO UN LIST DI TUTTI GLI UTENTI E UN SELECT CORSI CDL BY ANNO, GRAZIE <3
+            
             sCDLByID=connection.prepareStatement("SELECT * FROM CDL WHERE IDCDL=?");
             sCorsoByID=connection.prepareStatement("SELECT * FROM Corso WHERE IDCorso=?");
             sDocenteByID=connection.prepareStatement("SELECT * FROM Docente WHERE IDDocente=?");
@@ -64,18 +66,21 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sUtenteByID=connection.prepareStatement("SELECT * FROM Utente WHERE IDUtente=?");
             sServizioByID=connection.prepareStatement("SELECT * FROM Servizio WHERE IDServizio=?");
             sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
-            sCorsiByAnno=connection.prepareStatement("SELECT * FROM Corso WHERE Anno=?");
+            sCorsiByAnno=connection.prepareStatement("SELECT * FROM Corso WHERE Anno=?");  /*LOOK*/
             sCDLByCorso=connection.prepareStatement("SELECT * FROM CDL,Corsi_CDL WHERE CDL.IDCDL=Corsi_CDL.CDL AND Corso=?");
             sCorsoMutuaByCorso=connection.prepareStatement("SELECT * FROM Colleg_Corsi,Corso WHERE Other_Corso=IDCorso AND Other_Corso=? AND Tipo='Mutuato'");
            
             sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1 AND Anno=?");
             sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0 AND Anno=?");
             
-            Login=connection.prepareStatement("SELECT * FROM Utente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=?;");
+            Login=connection.prepareStatement("SELECT * FROM Utente,Gruppo,Docente INNER JOIN Utente.gruppo=Gruppo.IDGruppo AND Utente.Docente=Docente.IDDocente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=? AND Gruppo.IDgruppo=?;");
             
+           PreparedStatement LoginD=connection.prepareStatement("SELECT * FROM Utente,Gruppo,Docente INNER JOIN Utente.gruppo=Gruppo.IDGruppo AND Utente.Docente=Docente.IDDocente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=? AND Gruppo.IDgruppo=?;");
+
+                        
             
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
-            sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso");
+            sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso WHERE Anno<?");   /*LOOK*/
             sCDL = connection.prepareStatement("SELECT IDCDL FROM CDL WHERE Anno=?");
             sCorsiMutuatiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo='Mutuato'");
             sCorsiPrerequisitiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo='Propedeudico'");
@@ -83,7 +88,11 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sDocentiByCorso=connection.prepareStatement("SELECT Docente FROM Docenti_Corso WHERE Corso=?");
             sLibriByCorso=connection.prepareStatement("SELECT Libro FROM Libri_Corso WHERE Corso=?");
             sMaterialeByCorso=connection.prepareStatement("SELECT IDMateriale FROM Materiale WHERE Corso=?");
-            sCorsiByCDL=connection.prepareStatement("SELECT Corso FROM Corsi_CDL WHERE CDL=?");
+            
+            sCorsiByCDL=connection.prepareStatement("SELECT Corso FROM Corsi_CDL WHERE CDL=?");   /*LOOK*/
+            
+         /*  sCorsiByCDLAnno=connection.prepareStatement("SELECT * FROM Corsi_CDL,Corsi WHERE CDL=? AND Corsi.Anno<?"); */
+            
             sUtentiByGruppo=connection.prepareStatement("SELECT IDUtente FROM Utente WHERE Gruppo=?");
             sServiziByGruppo=connection.prepareStatement("SELECT Servizio FROM Group_Services WHERE Gruppo=?");
             sCorsiByDocente=connection.prepareStatement("SELECT Corso FROM Docenti_Corso,Corso WHERE Docenti_Corso.Corso=Corso.IDCorso AND Docente=? AND Anno=?");
@@ -831,8 +840,14 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
 
     @Override
     public List<Corso> getCorso() throws DataLayerException {
-        List<Corso> result = new ArrayList();
+       List<Corso> result = new ArrayList();
+        LocalDate date=LocalDate.now();
+        int month=date.getMonthValue();
+        int year=date.getYear();
+        if(month<=6)
+            year=year-1;
         try{
+            sCorsi.setInt(1, year);
             try (ResultSet rs=sCorsi.executeQuery()){
                 while(rs.next())
                     result.add(getCorso(rs.getInt("IDCorso")));

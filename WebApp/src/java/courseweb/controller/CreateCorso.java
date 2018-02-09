@@ -1,19 +1,14 @@
 package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
-import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.Corso;
-import courseweb.model.interfacce.Descrizione_it;
 import courseweb.model.interfacce.Docente;
-import courseweb.model.interfacce.Dublino_it;
 import courseweb.model.interfacce.IgwDataLayer;
-import courseweb.model.interfacce.Libro;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

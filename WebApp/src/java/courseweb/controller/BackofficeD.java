@@ -2,6 +2,7 @@ package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Toni & Tony
  */
-public class Backoffice extends BaseController {
+public class BackofficeD extends BaseController {
     
 
     private void action_error(HttpServletRequest request, HttpServletResponse response) {
@@ -32,14 +33,15 @@ public class Backoffice extends BaseController {
 
     private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
         TemplateResult res = new TemplateResult(getServletContext());
-        request.setAttribute("servlet","Backend?");
+        request.setAttribute("servlet","Backoffice?");
             if(lingua.equals("it")||lingua.equals("")){
             try {
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
-                request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag());
-                request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
                 
+                
+                
+                request.setAttribute("docente",((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
                 
                 HttpSession s = request.getSession(false);
                 String a = (String) s.getAttribute("username");
@@ -49,7 +51,9 @@ public class Backoffice extends BaseController {
                 String b=request.getSession().getId();
                 request.setAttribute("session_id",b);
                 
-                res.activate("backoffice.ftl.html", request, response);
+                
+                
+                res.activate("backofficeD.ftl.html", request, response);
             } catch (DataLayerException ex) {
                 Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -62,6 +66,7 @@ public class Backoffice extends BaseController {
     @Override
      protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         String lin;
+        
         try{
             HttpSession s = SecurityLayer.checkSession(request);
             if (s != null) {
