@@ -1164,14 +1164,15 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 corso.copyFrom(getCorso(key));
             }
             corso.setDirty(false);
-                Iterator doc;
+            Iterator doc;
             if(!corso.getDocenti().isEmpty()){
                 doc=corso.getDocenti().iterator();
                 Docente d = null;
-                while(doc.hasNext())
+                while(doc.hasNext()){
                     d=(Docente)doc.next();
                     iDocentiCorso.setInt(1, corso.getID());
                     iDocentiCorso.setInt(2,d.getIDDocente());
+                }
             }
             
         } catch (SQLException ex) {
