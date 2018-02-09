@@ -16,7 +16,8 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class Upload {
     
-    protected static String Up(String context,Part part,String dir,String name,boolean novo) throws IOException{
+    /*Esegue l'upload di un file, conoscendo il contesto, la directory relativa dove salvare il file, il nuovo nome del file*/
+    protected static String Up(String context,Part part,String dir,String name) throws IOException{
         //contructs path of the directory to save uploaded file
         String savePath=context+dir;
         //Creates the save directory if not exists
@@ -28,7 +29,7 @@ public class Upload {
         String fileName;
  /*       String fileName=extractFileName(part);
         fileName=name;*/
-        if(!novo){
+       //if(!novo){
             ext=FilenameUtils.getExtension(extractFileName(part));
             fileName=name+"."+ext;
             int i=1;
@@ -36,11 +37,11 @@ public class Upload {
                 fileName=name+i+"."+ext;
                 i+=1;
             }
-        }
-        else{
+       // }
+    /*    else{
             ext=FilenameUtils.getExtension(extractFileName(part));
             fileName=name+"."+ext;
-        }
+        }*/
         part.write(savePath+File.separator+fileName);
         return dir+File.separator+fileName;
         

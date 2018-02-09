@@ -144,7 +144,7 @@
                     <h4>Upload curriculum</h4> 
 					<div class="col-md-12">
                             <div class="form-group">
-                                <input type="file" name="curriculum"/>
+                                <input type="file" name="curriculum" onchange="ValidateCurr(this)"/>
                             </div>
                         </div>
                     </div>
@@ -155,7 +155,7 @@
                     <h4>Upload Immagine</h4> 
 					<div class="col-md-12">
                             <div class="form-group">
-                                <input type="file" name="immagine"/>
+                                <input type="file" name="immagine" onchange="ValidateImg(this)"/>
                             </div>
                         </div>
                     </div>
@@ -170,3 +170,5 @@
         <!-- End container -->
 </section>
 <!-- End main_content-->
+
+<script src="js/validate.js"></script>
