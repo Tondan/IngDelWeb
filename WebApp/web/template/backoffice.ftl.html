@@ -24,28 +24,28 @@
                                      <h4>Funzioni</h4>
                                      
                                      <ul>
+                                        <li><a href="CreateCDL">Crea un nuovo corso di laurea</a></strong></li>
                                         <li><a href="CreateCorso">Crea nuovo corso</a></strong></li>
                                         <li><a href="RegisterDocente">Registra nuovo docente</a></strong></li>
+
                                      </ul> 
                             </div>
                         
 
                             <aside class="col-md-12">
                                 <div class="box_style_2">
-                                        <h4>Modifica corsi</h4>
+                                    
+                                        <h4>Seleziona anno da modificare</h4>
                                       
                                     <ul class="submenu-col">
+
                                         <li><a href="Corsianno">Vedi tutti i corsi</a></li>
-                                        <hr>
-                                        <h5>Corsi di laurea Triennale</h5>
-                                        <#list cdl?sort_by("nome_it") as cdl>
-                                        <li><a href="Corsianno?n=${cdl.IDCDL}">${cdl.nome_it}</a></li>
+                                        
+                                        <#list anno?sort_by("anno") as cdlanno>
+                                        <li><a href="#">Esplora i corsi del ${anno.anno?c}</a></li>
                                         </#list>
-                                        <hr>
-                                        <h5>Corsi di laurea Magistrale</h5>
-                                        <#list cdlm?sort_by("nome_it") as cdlm>
-                                        <li><a href="Corsianno?n=${cdlm.IDCDL}">${cdlm.nome_it}</a></li>
-                                        </#list>
+                                        
+
                                     </ul>
                                     
     
@@ -53,9 +53,7 @@
                             </aside>
                     </aside>
 
-                    <#if message??>
-                    <h3>${message}</h3>
-                    </#if>
+                   
 
 
                     

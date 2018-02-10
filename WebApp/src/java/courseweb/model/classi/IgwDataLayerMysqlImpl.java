@@ -28,8 +28,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -75,7 +73,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             Login=connection.prepareStatement("SELECT * FROM Utente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=?;");
             
-           PreparedStatement LoginD=connection.prepareStatement("SELECT * FROM Utente,Gruppo,Docente INNER JOIN Utente.gruppo=Gruppo.IDGruppo AND Utente.Docente=Docente.IDDocente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=? AND Gruppo.IDgruppo=?;");
+            PreparedStatement LoginD=connection.prepareStatement("SELECT * FROM Utente,Gruppo,Docente INNER JOIN Utente.gruppo=Gruppo.IDGruppo AND Utente.Docente=Docente.IDDocente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=? AND Gruppo.IDgruppo=?;");
 
                         
             
@@ -99,7 +97,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sCorsiByLibro=connection.prepareStatement("SELECT Corso FROM Libri_Corso WHERE Libro=?");
             sGruppiByServizio=connection.prepareStatement("SELECT Gruppo FROM Group_Services WHERE Servizio=?");
             
-            
+            PreparedStatement sCDLByAnno=connection.prepareStatement("SELECT * FROM CDL");
             
             //insert
             iDocente = connection.prepareStatement("INSERT INTO Docente (Immagine,Nome,Cognome,Email,Ufficio,Telefono,Specializzazione,Ricerche,Pubblicazioni,Curriculum,Ricevimento) VALUES(?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);

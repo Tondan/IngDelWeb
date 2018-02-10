@@ -37,9 +37,9 @@ public class Backoffice extends BaseController {
             try {
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
-                request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag());
-                request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
+               
                 
+                 request.setAttribute("anno",((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
                 
                 HttpSession s = request.getSession(false);
                 String a = (String) s.getAttribute("username");

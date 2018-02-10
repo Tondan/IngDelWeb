@@ -45,7 +45,7 @@ public class Corsianno extends BaseController {
                 request.setAttribute("corso",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
                 request.setAttribute("oldcorso",((IgwDataLayer)request.getAttribute("datalayer")).getCorso());
                 
-                
+                request.setAttribute("cdlanno",((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
                 
                 
                 HttpSession s = request.getSession(false);
