@@ -114,13 +114,14 @@ public class Corsianno extends BaseController {
                 
                 List<Corso> corso = ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdlNoAnno(cdl);
                 
-                Map<Integer, Corso> b= new HashMap();
+                Map<Integer, List<Corso>> b= new HashMap();
                 
                 
                 for(Corso corso1: corso){
                     int anno=corso1.getAnno();
-                    b.put(anno, corso1);
+ 
                     }
+                }
                 
                 request.setAttribute("corso",b);
                 request.setAttribute("cdl",cdl1);
