@@ -39,7 +39,8 @@ import javax.sql.DataSource;
 public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwDataLayer {
 
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
-    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso;
+    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno;
+    
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso;
     private PreparedStatement uDocente, uUtente,uCorso;
     private PreparedStatement dDocente;
@@ -75,7 +76,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             PreparedStatement LoginD=connection.prepareStatement("SELECT * FROM Utente,Gruppo,Docente INNER JOIN Utente.gruppo=Gruppo.IDGruppo AND Utente.Docente=Docente.IDDocente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=? AND Gruppo.IDgruppo=?;");
 
-                        
+            sCorsiByCDLNoAnno=connection.prepareStatement("SELECT Corso FROM Corsi_CDL,Corso WHERE Corso=IDCorso AND CDL=? ");       
             
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso WHERE Anno<?");   /*LOOK*/
@@ -101,7 +102,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             //insert
             iDocente = connection.prepareStatement("INSERT INTO Docente (Immagine,Nome,Cognome,Email,Ufficio,Telefono,Specializzazione,Ricerche,Pubblicazioni,Curriculum,Ricevimento) VALUES(?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            uDocente =  connection.prepareStatement("UPDATE Docente Set Nome=?,Cognome=? WHERE IDDocente=? ");
+            uDocente =  connection.prepareStatement("UPDATE Docente Set Nome=?,Cognome=? WHERE IDDocente=?");
             dDocente = connection.prepareStatement("DELETE FROM Docente WHERE IDDocente=?");
             
             iUtente = connection.prepareStatement("INSERT INTO Utente (Username,Password,Docente,Gruppo) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -761,6 +762,27 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         }
         return result;
     }
+    
+    
+     @Override
+    public List<Corso> getCorsiInCdlNoAnno(CDL cdl) throws DataLayerException {
+        List<Corso> result = new ArrayList();
+        try{
+            sCorsiByCDLNoAnno.setInt(1, cdl.getIDCDL());
+            
+            try (ResultSet rs=sCorsiByCDLNoAnno.executeQuery()){
+                while(rs.next())
+                    result.add(getCorso(rs.getInt("Corso")));
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load CorsiInCdl by CDL",ex);
+        }
+        return result;
+    }
+    
+    
+    
+    
     @Override
     public List<Utente> getUtentiInGruppo(Gruppo gruppo) throws DataLayerException {
         List<Utente> result = new ArrayList();
@@ -866,9 +888,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     public List<Corso> getCorsiByAnno() throws DataLayerException {
         List<Corso> result = new ArrayList();
         LocalDate date=LocalDate.now();
-        int month=date.getMonthValue();
-        int year=date.getYear();
-        if(month<=6)
+        int month = date.getMonthValue();
+        int year = date.getYear();
+        if(month <= 6)
             year=year-1;
         try{
             sCorsiByAnno.setInt(1, year);
@@ -930,6 +952,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return result;
     }
 
+    
     @Override
     public List<CDL> getCDLNoMag() throws DataLayerException {
         List<CDL> result = new ArrayList();
@@ -939,7 +962,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                     result.add(getCDL(rs.getInt("IDCDL")));
             }
         }catch (SQLException ex){
-            throw new DataLayerException("Unable to load sCDLByMagistrale",ex);
+            throw new DataLayerException("Unable to load sCDLTriennale",ex);
         }
         return result;
     }

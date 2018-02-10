@@ -1,101 +1,97 @@
-
-
 <section id="sub-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1 text-center">
-                    <h1>Backoffice</h1>
-                    <p class="lead"></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 text-center">
+                <h1>Backoffice</h1>
+                <p class="lead"></p>
+            </div>
+        </div>
+        <!-- End row -->
+    </div>
+    <!-- End container -->
+    <div class="divider_top"></div>
+</section>
+<!-- End sub-header -->
+
+<section id="main_content">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li>
+                <a href="Backoffice?lin=it">Backoffice</a>
+            </li>
+            <li class="active">
+                <a href="Corsianno?lin=it">Selezione del corso</a>
+            </li>
+        </ol>
+
+        <div class="row">
+            <aside class="col-md-4">
+                <div class="box_style_1 profile">
+                    <h4>Funzioni</h4>
+
+                    <ul>
+                        <li>
+                            <a href="CreateCorso">Crea nuovo corso</a>
+                            </strong>
+                        </li>
+                        <li>
+                            <a href="RegisterDocente">Registra nuovo docente</a>
+                            </strong>
+                        </li>
+                    </ul>
                 </div>
-            </div><!-- End row -->
-        </div><!-- End container -->
-        <div class="divider_top"></div>
-        </section><!-- End sub-header -->
-        
-    <section id="main_content">
-        <div class="container">
-                <ol class="breadcrumb">
-                        <li><a href="Backoffice?lin=it">Backoffice</a></li>
-                        <li class="active"><a href="Corsianno?lin=it">Selezione del corso</a></li>
-                      </ol>
-
-            <div class="row">
-                    <aside class="col-md-4">
-                            <div class="box_style_1 profile">
-                                     <h4>Funzioni</h4>
-                                     
-                                     <ul>
-                                        <li><a href="CreateCorso">Crea nuovo corso</a></strong></li>
-                                        <li><a href="RegisterDocente">Registra nuovo docente</a></strong></li>
-                                     </ul> 
-                            </div>
-                        
-
-                            <aside class="col-md-12">
-                                <div class="box_style_2">
-                                        <h4>Modifica corsi</h4>
-                                      
-                                    <ul class="submenu-col">
-                                        <li><a href="Corsianno">Vedi tutti i corsi</a></li>
-                                        <hr>
-                                        <h5>Corsi di laurea Triennale</h5>
-                                        <#list cdl?sort_by("nome_it") as cdl>
-                                        <li><a href="Corsianno?n=${cdl.IDCDL}">${cdl.nome_it}</a></li>
-                                        </#list>
-                                        <hr>
-                                        <h5>Corsi di laurea Magistrale</h5>
-                                        <#list cdlm?sort_by("nome_it") as cdlm>
-                                        <li><a href="Corsianno?n=${cdlm.IDCDL}">${cdlm.nome_it}</a></li>
-                                        </#list>
-                                    </ul>
-                                    
-    
-                                </div>
-                            </aside>
-                    </aside>
-
-              
 
 
-                    
-                    <div class="col-md-8">
-                    <h3>Seleziona il corso interessato alla modifica</h3>
-                        <div class="panel-group" id="accordion">
-                            <div class="panel panel-default">
-                              <div class="panel-heading">
-                                <h4 class="panel-title">
-                                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Corsi attivi anno corrente<i class="indicator icon-plus pull-right"></i></a>
-                                </h4>
-                              </div>
-                              <div id="collapseOne" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <#list corso as corso>
-                                  <li><a href="ModificaCorso?n=${corso.ID}&lin=it">${corso.nome_it} (${corso.anno?c})</a></li>
-                                    </#list>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                      <h4 class="panel-title">
-                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Corsi anni precedenti<i class="indicator icon-plus pull-right"></i></a>
-                                      </h4>
-                                    </div>
-                                    <div id="collapseTwo" class="panel-collapse collapse">
-                                      <div class="panel-body">
-                                            <#list oldcorso?sort_by("anno") as oldcorso>
-                                            <li><a href="ModificaCorso?n=${oldcorso.ID}&lin=it">${oldcorso.nome_it} (${oldcorso.anno?c})</a></li>
-                                              </#list>
-                                      </div>
-                                    </div>
-                                  </div>
+                <aside class="col-md-12">
+                    <div class="box_style_2">
+                        <h5> Seleziona il cdl interessato</h5>
+
+                        <#list cdl as cdl>
+                            <li>
+                                <a href="Corsianno?n=${cdl.IDCDL}">${cdl.nome_it}</a>
+                            </li>
+                        </#list>
+
+
 
                     </div>
+                </aside>
+            </aside>
+
+
+            <#if corso??>
+            <h3>Seleziona l'anno interessato alla modifica</h3>
+            <div class="panel-group" id="accordion">
+                <#assign x=1>
+
+                    <#list corso as anno,corso>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse${x}"> ${anno?c}
+                                        <i class="indicator icon-plus pull-right"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse${x}" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    
+                                    <li>
+                                        <a href="ModificaCorso?n=${corso.ID}&lin=it">${corso.nome_it}</a>
+                                    </li>
+                                    
+                                </div>
+                            </div>
+                            <#assign x++>
                         </div>
-                    
-            </div><!-- End row-->   
-        </div><!-- End container -->
-    </section><!-- End main_content-->
-        
-        
-        
+                    </#list>
+                    </#if>
+            </div>
+
+            </div>
+            <!-- End row-->
+        </div>
+        <!-- End container -->
+</section>
+<!-- End main_content-->

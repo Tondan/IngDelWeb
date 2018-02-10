@@ -129,6 +129,8 @@ public interface IgwDataLayer extends DataLayer {
     
     public List<CDL> getCDLInCorso(Corso corso) throws DataLayerException;
     
+    public List<Corso> getCorsiInCdlNoAnno(CDL cdl) throws DataLayerException;
+    
     
     //store inizio
     public void storeDocente(Docente docente) throws DataLayerException;
@@ -136,6 +138,7 @@ public interface IgwDataLayer extends DataLayer {
     public void storeCorso(Corso corso) throws DataLayerException;
 
     public void storeUtente(Utente utente) throws DataLayerException;
+    
     
     
 }

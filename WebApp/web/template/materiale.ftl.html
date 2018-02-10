@@ -47,7 +47,7 @@
             <#if lingua="it">
                 <div class="panel panel-info filterable add_bottom_45">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Materiale </h3>
+                        <h3 class="panel-title">Materiale</h3>
                     </div>
                     <table class="table table-responsive table-striped">
                         <thead>
@@ -60,13 +60,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             <#list materiale as materiale,peso>
                             
                             <tr>
-                        <th scope="row">${materiale.nome}</th>
-                                <td>${materiale.descrizione_it}</td>
-                                <td>${peso} KB</td>
-                                <td class="icon-download"><a href="download?k=${materiale.link}">Scarica Ora</a></td>
+                        <th scope="row"> ${materiale.nome}</th>
+                                <td> ${materiale.descrizione_it}</td>
+                                <td> ${peso} KB</td>
+                                <td class="icon-download"><a href="download?k=${materiale.link}"> Scarica Ora </a></td>
                             </tr>
                         </a>
                            </#list>

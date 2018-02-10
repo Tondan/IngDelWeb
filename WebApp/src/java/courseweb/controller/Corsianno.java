@@ -9,7 +9,11 @@ import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -40,12 +44,16 @@ public class Corsianno extends BaseController {
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
                 
-                request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag());
-                request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
-                request.setAttribute("corso",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
-                request.setAttribute("oldcorso",((IgwDataLayer)request.getAttribute("datalayer")).getCorso());
                 
-                request.setAttribute("cdlanno",((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
+                
+                List<CDL> cdl= ((IgwDataLayer)request.getAttribute("datalayer")).getCDL();
+                
+                request.setAttribute("cdl", cdl);
+                
+               
+                
+                
+               
                 
                 
                 HttpSession s = request.getSession(false);
@@ -98,16 +106,25 @@ public class Corsianno extends BaseController {
                 try {
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
-                CDL Cdl =((IgwDataLayer)request.getAttribute("datalayer")).getCDL(id);
-                request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag());
-                request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
                 
-                List<Corso> corso = Cdl.getCorsiInCdl();
+                List<CDL> cdl1= ((IgwDataLayer)request.getAttribute("datalayer")).getCDL();
                 
+                CDL cdl =((IgwDataLayer)request.getAttribute("datalayer")).getCDL(id);
                 
                 
-                request.setAttribute("corso", corso);
-                request.setAttribute("oldcorso", corso);
+                List<Corso> corso = ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdlNoAnno(cdl);
+                
+                Map<Integer, Corso> b= new HashMap();
+                
+                
+                for(Corso corso1: corso){
+                    int anno=corso1.getAnno();
+                    b.put(anno, corso1);
+                    }
+                
+                request.setAttribute("corso",b);
+                request.setAttribute("cdl",cdl1);
+                
                 
                 HttpSession s = request.getSession(false);
                 String a = (String) s.getAttribute("username");
