@@ -11,7 +11,6 @@ import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -25,6 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Toni & Tony
  */
+
 public class Corsianno extends BaseController {
     
 
@@ -50,10 +50,6 @@ public class Corsianno extends BaseController {
                 
                 request.setAttribute("cdl", cdl);
                 
-               
-                
-                
-               
                 
                 
                 HttpSession s = request.getSession(false);
@@ -125,13 +121,14 @@ public class Corsianno extends BaseController {
                         b.put(anno,c);
                     }
                     else{
+                        c=new ArrayList();
                         c.add(corso1);
                         b.put(anno,c);
                     
                     }
  
                     }
-                }
+                
                 
                 request.setAttribute("corso",b);
                 request.setAttribute("cdl",cdl1);

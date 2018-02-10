@@ -21,16 +21,37 @@
 
 
                  
-        <div class="row">
-                <aside class="col-md-4">
-                        <div class="box_style_1 profile">
-                                 <h4>Funzioni</h4>
-                                    <ul>
-                                    <li><a href="CreateCorso">Crea nuovo corso</a></strong></li>
-                                    <li><a href="RegisterDocente">Registra nuovo docente</a></strong></li>
-                                    </ul>
-                        </div>
-                </aside>
+                  <div class="row">
+                        <aside class="col-md-4">
+                            <div class="box_style_1 profile">
+                                <h4>Funzioni creazione</h4>
+            
+                                <ul>
+                                    <li>
+                                        <a href="CreateCDL">Crea un nuovo corso di laurea</a>
+                                        </strong>
+                                    </li>
+                                    <li>
+                                        <a href="CreateCorso">Crea nuovo corso</a>
+                                        </strong>
+                                    </li>
+                                    <li>
+                                        <a href="RegisterDocente">Registra nuovo docente</a>
+                                        </strong>
+                                    </li>
+                                </ul>
+            
+                                <h4>Funzioni modifica</h4>
+                                <ul>
+                                    <li>
+                                        <a href="Corsianno">Modifica corsi</a>
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+            
+                        </aside>
+                    
 
                 <div class="col-md-8 box_style_2">
                     <span class="tape"></span>
@@ -127,7 +148,7 @@
                                         <div>
                                             <h4>Associa i docenti al corso</h4>
                                             <div>
-                                                <select id="special" name="docenti" required multiple>
+                                                <select id="special1" name="docenti" required multiple>
                                                 <#list docenti as docente>
                                                 <option value="${docente.IDDocente}">${docente.nome} ${docente.cognome}</option>
                                                 </#list> 
@@ -136,9 +157,23 @@
                                             </div>
                                         </div>
                                 </div>
+                        
+                                    <div class="col-md-6 col-sm-6">
+                                        <div>
+                                            <h4>Associa i cdl al corso</h4>
+                                            <div>
+
+                                                <select id="special2" name="cdl" required multiple>
+                                                <#list cdl as cdl>
+                                                <option value="${cdl.IDCDL}">${cdl.nome_it}</option>
+                                                </#list> 
+
+                                            </select>
+                                            </div>
+                                        </div>
+                                </div>
                         </div>
                         <hr>
-
 
 
 

@@ -39,7 +39,8 @@ public class CreateCorso extends BaseController {
             TemplateResult res = new TemplateResult(getServletContext());
             
             request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
-            
+             request.setAttribute("cdl", ((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
+             
             request.setAttribute("page_title", "Backoffice");
               
             if(lingua.equals("it")||lingua.equals("")){

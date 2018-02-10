@@ -96,6 +96,10 @@
         <servlet-name>BackofficeD</servlet-name>
         <servlet-class>courseweb.controller.BackofficeD</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateCDL</servlet-name>
+        <servlet-class>courseweb.controller.CreateCDL</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
@@ -163,6 +167,10 @@
     <servlet-mapping>
         <servlet-name>BackofficeD</servlet-name>
         <url-pattern>/BackofficeD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateCDL</servlet-name>
+        <url-pattern>/CreateCDL</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
