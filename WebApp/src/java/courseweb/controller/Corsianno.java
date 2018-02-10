@@ -116,9 +116,19 @@ public class Corsianno extends BaseController {
                 
                 Map<Integer, List<Corso>> b= new HashMap();
                 
-                
+                List<Corso> c=new ArrayList();
                 for(Corso corso1: corso){
                     int anno=corso1.getAnno();
+                    if(b.containsKey(anno)){
+                        c=b.get(anno);
+                        c.add(corso1);
+                        b.put(anno,c);
+                    }
+                    else{
+                        c.add(corso1);
+                        b.put(anno,c);
+                    
+                    }
  
                     }
                 }
