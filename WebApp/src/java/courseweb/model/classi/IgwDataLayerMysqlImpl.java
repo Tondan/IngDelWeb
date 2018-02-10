@@ -73,7 +73,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1 AND Anno=?");
             sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0 AND Anno=?");
             
-            Login=connection.prepareStatement("SELECT * FROM Utente,Gruppo,Docente INNER JOIN Utente.gruppo=Gruppo.IDGruppo AND Utente.Docente=Docente.IDDocente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=? AND Gruppo.IDgruppo=?;");
+            Login=connection.prepareStatement("SELECT * FROM Utente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=?;");
             
            PreparedStatement LoginD=connection.prepareStatement("SELECT * FROM Utente,Gruppo,Docente INNER JOIN Utente.gruppo=Gruppo.IDGruppo AND Utente.Docente=Docente.IDDocente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=? AND Gruppo.IDgruppo=?;");
 
