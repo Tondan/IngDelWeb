@@ -53,8 +53,8 @@
                         </ul>
                     </div>
     
-                </aside>
-            </div>
+                
+            
 
 
                 <aside class="col-md-12">
@@ -91,11 +91,11 @@
                             </div>
                             <div id="collapse${x}" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    
+                                    <#list corso as corso>
                                     <li>
                                         <a href="ModificaCorso?n=${corso.ID}&lin=it">${corso.nome_it}</a>
                                     </li>
-                                    
+                                    </#list>
                                 </div>
                             </div>
                             <#assign x++>
