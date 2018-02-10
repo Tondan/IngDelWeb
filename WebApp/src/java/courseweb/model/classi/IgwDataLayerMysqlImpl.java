@@ -70,8 +70,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sCDLByCorso=connection.prepareStatement("SELECT * FROM CDL,Corsi_CDL WHERE CDL.IDCDL=Corsi_CDL.CDL AND Corso=?");
             sCorsoMutuaByCorso=connection.prepareStatement("SELECT * FROM Colleg_Corsi,Corso WHERE Other_Corso=IDCorso AND Other_Corso=? AND Tipo='Mutuato'");
            
-            sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1 AND Anno=?");
-            sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0 AND Anno=?");
+            sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1");
+            sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0");
             
             Login=connection.prepareStatement("SELECT * FROM Utente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=?;");
             
@@ -89,7 +89,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sLibriByCorso=connection.prepareStatement("SELECT Libro FROM Libri_Corso WHERE Corso=?");
             sMaterialeByCorso=connection.prepareStatement("SELECT IDMateriale FROM Materiale WHERE Corso=?");
             
-            sCorsiByCDL=connection.prepareStatement("SELECT Corso FROM Corsi_CDL WHERE CDL=?");   /*LOOK*/
+            sCorsiByCDL=connection.prepareStatement("SELECT Corso FROM Corsi_CDL,Corso WHERE Corso=IDCorso AND CDL=? AND Anno=?");   /*LOOK*/
             
          /*  sCorsiByCDLAnno=connection.prepareStatement("SELECT * FROM Corsi_CDL,Corsi WHERE CDL=? AND Corsi.Anno<?"); */
             
@@ -746,8 +746,14 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     @Override
     public List<Corso> getCorsiInCdl(CDL cdl) throws DataLayerException {
         List<Corso> result = new ArrayList();
+        LocalDate date=LocalDate.now();
+        int month=date.getMonthValue();
+        int year=date.getYear();
+        if(month<=6)
+            year=year-1;
         try{
             sCorsiByCDL.setInt(1, cdl.getIDCDL());
+            sCorsiByCDL.setInt(2,year);
             try (ResultSet rs=sCorsiByCDL.executeQuery()){
                 while(rs.next())
                     result.add(getCorso(rs.getInt("Corso")));
@@ -915,13 +921,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     @Override
     public List<CDL> getCDLMag() throws DataLayerException {
         List<CDL> result = new ArrayList();
-        LocalDate date=LocalDate.now();
-        int month=date.getMonthValue();
-        int year=date.getYear();
-        if(month<=6)
-            year=year-1;
         try{
-            sCdlByMagistrale.setInt(1, year);
             try (ResultSet rs=sCdlByMagistrale.executeQuery()){
                 while(rs.next())
                     result.add(getCDL(rs.getInt("IDCDL")));
@@ -935,13 +935,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     @Override
     public List<CDL> getCDLNoMag() throws DataLayerException {
         List<CDL> result = new ArrayList();
-        LocalDate date=LocalDate.now();
-        int month=date.getMonthValue();
-        int year=date.getYear();
-        if(month<=6)
-            year=year-1;
         try{
-            sCdlByTriennale.setInt(1, year);
             try (ResultSet rs=sCdlByTriennale.executeQuery()){
                 while(rs.next())
                     result.add(getCDL(rs.getInt("IDCDL")));
