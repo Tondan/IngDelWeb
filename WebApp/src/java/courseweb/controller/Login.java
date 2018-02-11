@@ -4,6 +4,7 @@ package courseweb.controller;
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Servizio;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
@@ -12,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import courseweb.model.interfacce.Utente;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -55,14 +57,19 @@ public class Login extends BaseController {
                     
                     int userid = utente.getID();
                     SecurityLayer.createSession(request, username, userid);
-                    
-                    if(utente.getDocente() != 0) {
-                        response.sendRedirect("BackofficeD");
+                    List<Servizio> servizi=utente.getGruppo().getServizi();
+                    for(Servizio s:servizi)
+                        if(s.getScript().equals("BackofficeD")) {
+                            response.sendRedirect("BackofficeD");
                     }
                     //se è stato trasmesso un URL di origine, torniamo a quell'indirizzo
                     //if an origin URL has been transmitted, return to it
-                    else{
+                    else if(s.getScript().equals("Backoffice")){
                         response.sendRedirect("Backoffice");
+                    }
+                    else{
+                        request.setAttribute("exception", new Exception("Login vuoto"));
+                        action_error(request, response);
                     }
                 } catch (DataLayerException ex) {
                     Logger.getLogger(Login.class.getName()).log(Level.SEVERE, "Login errato", ex);

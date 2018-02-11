@@ -72,7 +72,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1");
             sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0");
             
-            Login=connection.prepareStatement("SELECT * FROM Utente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=?;");
+            Login=connection.prepareStatement("SELECT * FROM Utente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=?");
             
             PreparedStatement LoginD=connection.prepareStatement("SELECT * FROM Utente,Gruppo,Docente INNER JOIN Utente.gruppo=Gruppo.IDGruppo AND Utente.Docente=Docente.IDDocente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=? AND Gruppo.IDgruppo=?;");
 
@@ -358,8 +358,6 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             de.setIDGruppo(rs.getInt("IDGruppo")); 
             de.setNome(rs.getString("Nome"));
-            de.setIDUtenti(rs.getInt("Utente"));
-            de.setIDServizi(rs.getInt("Servizio"));
             return de;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create Gruppo object form ResultSet", ex);
@@ -402,7 +400,6 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             de.setIDServizio(rs.getInt("IDServizio")); 
             de.setScript(rs.getString("Script"));
             de.setDescrizione(rs.getString("Descrizione"));  
-            de.setIDGruppo(rs.getInt("Gruppo"));
             return de;
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to create Servizio object form ResultSet", ex);
