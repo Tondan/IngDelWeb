@@ -2,7 +2,6 @@ package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
-import courseweb.model.interfacce.CDL;
 import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
@@ -49,6 +48,9 @@ public class ModificaCorso extends BaseController {
                 request.setAttribute("docente", corso.getDocenti());
                 request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
                 
+                 
+                request.setAttribute("cdl", corso.getCDL());
+                request.setAttribute("cdl1", ((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
                 
                 
                 HttpSession s = request.getSession(false);

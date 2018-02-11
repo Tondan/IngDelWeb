@@ -23,16 +23,34 @@
     
     
                      
-            <div class="row">
-                    <aside class="col-md-4">
+                      <div class="row">
+                        <aside class="col-md-4">
                             <div class="box_style_1 profile">
-                                     <h4>Funzioni</h4>
-                                        <ul>
-                                        <li><a href="CreateCorso">Crea nuovo corso</a></strong></li>
-                                        <li><a href="RegisterDocente">Registra nuovo docente</a></strong></li>
-                                        </ul>
-                            </div>
-                    </aside>
+                                <h4>Funzioni creazione</h4>
+            
+                                <ul>
+                                    <li>
+                                        <a href="CreateCDL">Crea un nuovo corso di laurea</a>
+                                        </strong>
+                                    </li>
+                                    <li>
+                                        <a href="CreateCorso">Crea nuovo corso</a>
+                                        </strong>
+                                    </li>
+                                    <li>
+                                        <a href="RegisterDocente">Registra nuovo docente</a>
+                                        </strong>
+                                    </li>
+                                </ul>
+            
+                                <h4>Funzioni modifica</h4>
+                                <ul>
+                                    <li>
+                                        <a href="Corsianno">Modifica corsi</a>
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </aside>
     
 
                     
@@ -135,7 +153,7 @@
                                     </div>
                                                     <div class="col-md-6 col-sm-6">
                                                     <h4>Associa altri docenti al corso</h4>
-                                                    <select id="special" name="docenti" required multiple>
+                                                    <select id="special1" name="docenti" multiple>
                                                     <#list docenti as docenti>
                                                     <option value="${docenti.IDDocente}">${docenti.nome} ${docenti.cognome}</option>
                                                     </#list> 
@@ -147,7 +165,26 @@
                             
                             <hr>
     
-    
+                            
+                            <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                                    <h5>Cdl associati</h5>
+                                                    <#list cdl as cdl>
+                                                    <li>${cdl.nome_it}</li>
+                                                    </#list> 
+                                    </div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                    <h4>Modifica il cdl corso</h4>
+                                                    <select id="special2" name="cdl" multiple>
+                                                    <#list cdl1 as cdl1>
+                                                    <option value="${cdl1.IDCDL}">${cdl1.nome_it}</option>
+                                                    </#list> 
+                                                    </select>
+
+                                                    </div>
+                                            </div>
+                                    
+                            <hr>
     
     
                             <input type="submit" name="modifica" value="Aggiorna Corso" class="button_subscribe_green" id="submit-apply">

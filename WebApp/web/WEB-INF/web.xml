@@ -100,6 +100,10 @@
         <servlet-name>CreateCDL</servlet-name>
         <servlet-class>courseweb.controller.CreateCDL</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateCorsoD</servlet-name>
+        <servlet-class>courseweb.controller.CreateCorsoD</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
@@ -171,6 +175,10 @@
     <servlet-mapping>
         <servlet-name>CreateCDL</servlet-name>
         <url-pattern>/CreateCDL</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateCorsoD</servlet-name>
+        <url-pattern>/CreateCorsoD</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

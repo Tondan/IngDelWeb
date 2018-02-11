@@ -1,9 +1,6 @@
 package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
-import courseweb.model.interfacce.Docente;
-import courseweb.model.interfacce.IgwDataLayer;
-import courseweb.model.interfacce.Utente;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
@@ -11,12 +8,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
 
 
 
@@ -57,85 +52,39 @@ public class CreateCDL extends BaseController {
                 try{
                 
                     
-                
-                RandomString random = new RandomString();
-                
-                String password=random.nextString();
-
-                String username1=null ,username2=null;
+                String username1;
                 
                 String nome= request.getParameter("nome");
-                String cognome= request.getParameter("cognome");
+                String nomeen= request.getParameter("nomeen");
+                
                 
                 String imgPath=null;
                 String fileName;
                 String context=request.getServletContext().getRealPath("");
                 Part immagine=request.getPart("immagine");
                 if(immagine.getSize()!=0){
-                    fileName=nome+cognome;
+                    fileName=nome;
                     imgPath=Upload.Up(context,immagine,"imgDocenti",fileName);
                 }
                 
-                //String immagine= request.getParameter("immagine");
-                String email= request.getParameter("email");
-                String ufficio= request.getParameter("ufficio");
-                String telefono= request.getParameter("telefono");
-                String specializzazione= request.getParameter("specializzazione");
-                String ricerche= request.getParameter("ricerche");
-                String pubblicazioni= request.getParameter("pubblicazioni");
                 
-                Part curriculum=request.getPart("curriculum");
-                String currPath=null;
-                if(curriculum.getSize()!=0){
-                    fileName=nome+cognome;
-                    currPath=Upload.Up(context,curriculum,"curriculum",fileName);
-                }
-                //String curriculum= request.getParameter("curriculum");
-                String ricevimento= request.getParameter("ricevimento");
                 
+                
+                
+                
+                   //fai abbbreviazione italiano ed inglese nello stesso modo circa ahah
                    
-                  if(nome.length()>=3){
+                  if(nome.length()>=3){ 
                   username1=nome.toLowerCase().substring(0, 2);}
                   else{
                       username1=nome.toLowerCase();
                     }
                   
-                  if(cognome.length()>=3){
-                  username2=cognome.toLowerCase().substring(0, 2);
-                  }else{
-                      username2=nome.toLowerCase();
-                    }
                   
-                  String username=username1.concat(username2);
                   
-                Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).createDocente();
-                Utente utente=((IgwDataLayer)request.getAttribute("datalayer")).createUtente();
                 
-                docente.setImmagine(imgPath);
-                docente.setNome(nome);
-                docente.setCognome(cognome);
-                docente.setEmail(email);
-                docente.setUfficio(ufficio);
-                docente.setTelefono(telefono);
-                docente.setSpecializzazione(specializzazione);
-                
-                docente.setRicerche(ricerche);
-                docente.setPubblicazioni(pubblicazioni);
-                
-                docente.setCurriculum(currPath);
-                docente.setRicevimento(ricevimento);
-  
-                
-            ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(docente);
             
-            int id=docente.getIDDocente();
             
-            utente.setDocente(id);
-            utente.setUsername(username);
-            utente.setPassword(password);
-            utente.setIDGruppo(2);
-            
-            ((IgwDataLayer)request.getAttribute("datalayer")).storeUtente(utente);
             
                 request.setAttribute("message", "Upload has been done successfully!");
                 response.sendRedirect("Backoffice");
@@ -156,7 +105,7 @@ public class CreateCDL extends BaseController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
             String lin;
-             if (request.getParameter("registra") != null) {
+             if (request.getParameter("crea") != null) {
                 try {
                     action_creaCDL(request, response);
                 } catch (IOException | TemplateManagerException ex) {
