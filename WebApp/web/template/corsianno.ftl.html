@@ -60,10 +60,17 @@
                 <aside class="col-md-12">
                     <div class="box_style_2">
                         <h5> Seleziona il cdl interessato</h5>
-
+                        <h6> Cdl triennali</h6>
                         <#list cdl as cdl>
                             <li>
                                 <a href="Corsianno?n=${cdl.IDCDL}">${cdl.nome_it}</a>
+                            </li>
+                        </#list>
+
+                            <h6>Cdl magistrali</h6>
+                        <#list cdlm as cdlm>
+                            <li>
+                                <a href="Corsianno?n=${cdlm.IDCDL}">${cdlm.nome_it}</a>
                             </li>
                         </#list>
 

@@ -46,9 +46,11 @@ public class Corsianno extends BaseController {
                 
                 
                 
-                List<CDL> cdl= ((IgwDataLayer)request.getAttribute("datalayer")).getCDL();
+                List<CDL> cdl= ((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag();
+                List<CDL> cdlm= ((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag();
                 
                 request.setAttribute("cdl", cdl);
+                request.setAttribute("cdlm", cdlm);
                 
                 
                 
@@ -103,7 +105,9 @@ public class Corsianno extends BaseController {
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
                 
-                List<CDL> cdl1= ((IgwDataLayer)request.getAttribute("datalayer")).getCDL();
+                
+                List<CDL> cdl1= ((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag();
+                List<CDL> cdlm= ((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag();
                 
                 CDL cdl =((IgwDataLayer)request.getAttribute("datalayer")).getCDL(id);
                 
@@ -132,7 +136,7 @@ public class Corsianno extends BaseController {
                 
                 request.setAttribute("corso",b);
                 request.setAttribute("cdl",cdl1);
-                
+                request.setAttribute("cdlm",cdlm);
                 
                 HttpSession s = request.getSession(false);
                 String a = (String) s.getAttribute("username");
