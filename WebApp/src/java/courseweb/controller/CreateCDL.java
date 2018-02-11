@@ -49,50 +49,26 @@ public class CreateCDL extends BaseController {
     
     
     private void action_creaCDL(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
-                try{
-                
-                    
-                String username1;
-                
-                String nome= request.getParameter("nome");
-                String nomeen= request.getParameter("nomeen");
-                
-                
-                String imgPath=null;
-                String fileName;
-                String context=request.getServletContext().getRealPath("");
-                Part immagine=request.getPart("immagine");
-                if(immagine.getSize()!=0){
-                    fileName=nome;
-                    imgPath=Upload.Up(context,immagine,"imgDocenti",fileName);
-                }
-                
-                
-                
-                
-                
-                
-                   //fai abbbreviazione italiano ed inglese nello stesso modo circa ahah
-                   
-                  if(nome.length()>=3){ 
-                  username1=nome.toLowerCase().substring(0, 2);}
-                  else{
-                      username1=nome.toLowerCase();
-                    }
-                  
-                  
-                  
-                
-            
-            
-            
-                request.setAttribute("message", "Upload has been done successfully!");
-                response.sendRedirect("Backoffice");
-            
-            } catch (DataLayerException ex) {
-            request.setAttribute("message", "Data access exception: " + ex.getMessage());
-            action_error(request, response);
+        String username1;
+        String nome= request.getParameter("nome");
+        String nomeen= request.getParameter("nomeen");
+        String imgPath=null;
+        String fileName;
+        String context=request.getServletContext().getRealPath("");
+        Part immagine=request.getPart("immagine");
+        if(immagine.getSize()!=0){
+            fileName=nome;
+            imgPath=Upload.Up(context,immagine,"imgDocenti",fileName);
         }
+        //fai abbbreviazione italiano ed inglese nello stesso modo circa ahah
+        
+        if(nome.length()>=3){
+            username1=nome.toLowerCase().substring(0, 2);}
+        else{
+            username1=nome.toLowerCase();
+        }
+        request.setAttribute("message", "Upload has been done successfully!");
+        response.sendRedirect("Backoffice");
                 
         
     }
