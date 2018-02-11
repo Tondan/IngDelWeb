@@ -53,7 +53,9 @@ public class Login extends BaseController {
                 try {
                     Utente utente;
                     utente = ((IgwDataLayer)request.getAttribute("datalayer")).getUtenti(username, password);
-                    
+                        if(utente!=null){
+ 
+                        
                     
                     int userid = utente.getID();
                     SecurityLayer.createSession(request, username, userid);
@@ -71,9 +73,13 @@ public class Login extends BaseController {
                         request.setAttribute("exception", new Exception("Login vuoto"));
                         action_error(request, response);
                     }
+                        }
+                        else
+                            response.sendRedirect("Login");
                 } catch (DataLayerException ex) {
                     Logger.getLogger(Login.class.getName()).log(Level.SEVERE, "Login errato", ex);
                 }
+                
             } else {
                 request.setAttribute("exception", new Exception("Login vuoto"));
                 action_error(request, response);
