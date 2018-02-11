@@ -20,6 +20,10 @@
         <param-name>view.data.author</param-name>
         <param-value>Toni e Tony</param-value>
     </context-param>
+        <context-param>
+        <param-name>view.error_template</param-name>
+        <param-value>error.ftl.html</param-value>
+    </context-param>   
     <context-param>
         <param-name>view.data.homepage_url</param-name>
         <param-value>homepage</param-value>
