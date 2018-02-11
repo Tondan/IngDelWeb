@@ -76,7 +76,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             PreparedStatement LoginD=connection.prepareStatement("SELECT * FROM Utente,Gruppo,Docente INNER JOIN Utente.gruppo=Gruppo.IDGruppo AND Utente.Docente=Docente.IDDocente WHERE BINARY Utente.Username=? AND BINARY Utente.Password=? AND Gruppo.IDgruppo=?;");
 
-            sCorsiByCDLNoAnno=connection.prepareStatement("SELECT Corso FROM Corsi_CDL,Corso WHERE Corso=IDCorso AND CDL=? ");       
+            sCorsiByCDLNoAnno=connection.prepareStatement("SELECT Corso FROM Corsi_CDL,Corso WHERE Corso=IDCorso AND CDL=? ORDER BY Anno DESC");       
             
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso WHERE Anno<?");   /*LOOK*/

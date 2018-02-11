@@ -11,6 +11,7 @@ import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -114,7 +115,7 @@ public class Corsianno extends BaseController {
                 
                 List<Corso> corso = ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdlNoAnno(cdl);
                 
-                Map<Integer, List<Corso>> b= new HashMap();
+                Map<Integer, List<Corso>> b= new LinkedHashMap();
                 
                 List<Corso> c=new ArrayList();
                 for(Corso corso1: corso){
