@@ -1,5 +1,5 @@
 // WIZARD  ===============================================================================
-jQuery(function($) {
+	jQuery(function($) {
 				// Basic wizard with validation
 				$("#survey_container").wizard({
 					stepsWrapper: "#wrapped",

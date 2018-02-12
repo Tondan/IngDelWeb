@@ -11,7 +11,7 @@ Copyright (c) 2011 Kyle Florence
 Dual licensed under the MIT and GPLv2 licenses.
 */
 
-(function( $, undefined ) {
+	(function( $, undefined ) {
 
 var excludesFilter,
 	count = 0,
