@@ -65,7 +65,10 @@ public class CreateCorsoD extends BaseController {
      protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         String lin;
         try{
-           
+           HttpSession s = SecurityLayer.checkSession(request);
+            String username=(String)s.getAttribute("username");
+            try {
+                if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"CreateCorsoD")) {
                 if(request.getParameter("lin")==null){
                 lin="it";}
                 else{
@@ -73,7 +76,13 @@ public class CreateCorsoD extends BaseController {
             }
                 
                 action_default(request, response, lin);
-            
+            }else {
+                    SecurityLayer.disposeSession(request);
+                    response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
+                }
+            } catch (DataLayerException ex) {
+                Logger.getLogger(CreateCorsoD.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         } catch (IOException ex) {
             request.setAttribute("exception", ex);

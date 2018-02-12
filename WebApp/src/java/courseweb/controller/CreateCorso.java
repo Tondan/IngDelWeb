@@ -1,6 +1,7 @@
 package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
+import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
@@ -8,6 +9,7 @@ import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -114,11 +116,16 @@ public class CreateCorso extends BaseController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
             String lin;
+            try{
+            HttpSession s = SecurityLayer.checkSession(request);
+            String username=(String)s.getAttribute("username");
+            try {
+                if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"CreateCorso")) {
              if (request.getParameter("crea") != null) {
                 try {
                     action_crea(request, response);
                 } catch (IOException | TemplateManagerException ex) {
-                    Logger.getLogger(RegisterDocente.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CreateCorso.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
         try {
@@ -134,6 +141,17 @@ public class CreateCorso extends BaseController {
 
         }
     }
+           }else {
+                    SecurityLayer.disposeSession(request);
+                    response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8")); 
+                }
+            } catch (DataLayerException ex) {
+                Logger.getLogger(CreateCorso.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+        }
     }
             
             

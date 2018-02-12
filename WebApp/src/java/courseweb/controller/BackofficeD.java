@@ -69,7 +69,9 @@ public class BackofficeD extends BaseController {
         
         try{
             HttpSession s = SecurityLayer.checkSession(request);
-            if (s != null) {
+            String username=(String)s.getAttribute("username");
+            try {
+                if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"BackofficeD")) {
                 if(request.getParameter("lin")==null){
                 lin="it";}
                 else{
@@ -82,6 +84,7 @@ public class BackofficeD extends BaseController {
                 //if this page cannot be accessed as anonymous user, redirect to the login page
                 //notare come passiamo alla servlet di login la nostra URL come referrer
                 //note how we pass to the login servlet our URL as the referrer
+                SecurityLayer.disposeSession(request);
                 response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
                 //...oppure dichiariamo che è richiesta la login, ma lasciamo all'utente la scelta
                 //...or declare that a login is required and let the user choose
@@ -90,6 +93,9 @@ public class BackofficeD extends BaseController {
                 //...or output an error message
                 //request.setAttribute("exception", new Exception("Access not allowed"));
                 //action_error(request, response);
+            }
+            } catch (DataLayerException ex) {
+                Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (IOException ex) {
             request.setAttribute("exception", ex);

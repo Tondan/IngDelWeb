@@ -9,6 +9,7 @@ import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -71,13 +72,17 @@ public class Corsianno extends BaseController {
     
 @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-            String lin;
-           
+        String lin;
+        try{
+            HttpSession s = SecurityLayer.checkSession(request);
+            String username=(String)s.getAttribute("username");   
         try {
+            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"Corsianno")) {
             if(request.getParameter("lin")==null){
                 lin="it";}
             else{
-                lin=request.getParameter("lin");}
+                lin=request.getParameter("lin");
+            }
             
             if (request.getParameter("n") != null) {
             int n;
@@ -86,6 +91,14 @@ public class Corsianno extends BaseController {
             }
             else {
                 action_default(request, response,lin);
+            }
+            }
+            else {
+                SecurityLayer.disposeSession(request);
+                    response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
+            }
+            } catch (DataLayerException ex) {
+                Logger.getLogger(Corsianno.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (IOException | TemplateManagerException ex) {
