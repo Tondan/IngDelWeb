@@ -1,10 +1,14 @@
 package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
+import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -81,26 +85,42 @@ public class CreateCDL extends BaseController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
             String lin;
-             if (request.getParameter("crea") != null) {
+            HttpSession s = SecurityLayer.checkSession(request);
+            String username=(String)s.getAttribute("username");
                 try {
-                    action_creaCDL(request, response);
-                } catch (IOException | TemplateManagerException ex) {
-                    Logger.getLogger(RegisterDocente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-        try {
-            if(request.getParameter("lin")==null)
-                lin="it";
-            else
-                lin=request.getParameter("lin");
-            action_default(request, response,lin);
-
-        } catch (IOException | TemplateManagerException ex) {
-            request.setAttribute("exception", ex);
-            action_error(request, response);
+                    if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"CreateCDL")) {
+                 if (request.getParameter("crea") != null) {
+                    try {
+                        action_creaCDL(request, response);
+                    } catch (IOException | TemplateManagerException ex) {
+                        Logger.getLogger(CreateCDL.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                try {
+                if(request.getParameter("lin")==null)
+                    lin="it";
+                else
+                    lin=request.getParameter("lin");
+                action_default(request, response,lin);
+                
+            } catch (IOException | TemplateManagerException ex) {
+                request.setAttribute("exception", ex);
+                action_error(request, response);
 
         }
     }
+           }else {
+                    SecurityLayer.disposeSession(request);
+                    try {
+                        response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
+                    } catch (IOException ex) {
+                        Logger.getLogger(CreateCDL.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } catch (DataLayerException ex) {
+                Logger.getLogger(CreateCDL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
     }
             
             

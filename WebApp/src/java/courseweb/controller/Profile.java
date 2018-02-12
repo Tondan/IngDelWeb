@@ -1,11 +1,13 @@
 package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
+import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -69,23 +71,39 @@ public class Profile extends BaseController {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
-            String lin;
-             if (request.getParameter("profilo") != null) {
-                 action_modifica(request, response);
-            } else {
-        try {
-            if(request.getParameter("lin")==null)
-                lin="it";
-            else
-                lin=request.getParameter("lin");
-            action_default(request, response,lin);
+        String lin;
+        try{
+            HttpSession s = SecurityLayer.checkSession(request);
+            String username=(String)s.getAttribute("username");
+            try {
+                if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"Profile")) {
+                if (request.getParameter("profilo") != null) {
+                    action_modifica(request, response);
+               } else {
+                   try {
+                       if(request.getParameter("lin")==null)
+                           lin="it";
+                       else
+                           lin=request.getParameter("lin");
+                       action_default(request, response,lin);
 
-        } catch (IOException | TemplateManagerException ex) {
+                   } catch (IOException | TemplateManagerException ex) {
+                       request.setAttribute("exception", ex);
+                       action_error(request, response);
+
+                   }
+               }
+            }else {
+                SecurityLayer.disposeSession(request);
+                    response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
+            }
+            } catch (DataLayerException ex) {
+                Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
-
         }
-    }
     }
 
     /**

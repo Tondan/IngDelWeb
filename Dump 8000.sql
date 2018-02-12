@@ -347,7 +347,7 @@ CREATE TABLE `group_services` (
 
 LOCK TABLES `group_services` WRITE;
 /*!40000 ALTER TABLE `group_services` DISABLE KEYS */;
-INSERT INTO `group_services` VALUES (1,1),(2,2);
+INSERT INTO `group_services` VALUES (1,1),(2,2),(1,3),(1,4),(2,5),(1,6),(1,7),(1,8),(1,9);
 /*!40000 ALTER TABLE `group_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -501,7 +501,7 @@ CREATE TABLE `servizio` (
   `Descrizione` text,
   PRIMARY KEY (`IDServizio`),
   UNIQUE KEY `Script_UNIQUE` (`Script`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -510,7 +510,7 @@ CREATE TABLE `servizio` (
 
 LOCK TABLES `servizio` WRITE;
 /*!40000 ALTER TABLE `servizio` DISABLE KEYS */;
-INSERT INTO `servizio` VALUES (1,'Backoffice',NULL),(2,'BackofficeD',NULL);
+INSERT INTO `servizio` VALUES (1,'Backoffice',NULL),(2,'BackofficeD',NULL),(3,'CreateCorso',NULL),(4,'CreateCDL',NULL),(5,'CreateCorsoD',NULL),(6,'ModificaCorso',NULL),(7,'RegisterDocente',NULL),(8,'Profile',NULL),(9,'Corsianno',NULL);
 /*!40000 ALTER TABLE `servizio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -644,4 +644,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-12 10:55:36
+-- Dump completed on 2018-02-12 13:00:19
