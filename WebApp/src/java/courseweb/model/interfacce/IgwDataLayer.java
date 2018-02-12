@@ -131,6 +131,7 @@ public interface IgwDataLayer extends DataLayer {
     
     public List<Corso> getCorsiInCdlNoAnno(CDL cdl) throws DataLayerException;
     
+    public boolean getAccessUtente(String username,String script) throws DataLayerException;
     
     //store inizio
     public void storeDocente(Docente docente) throws DataLayerException;

@@ -29,6 +29,8 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
@@ -39,7 +41,7 @@ import javax.sql.DataSource;
 public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwDataLayer {
 
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
-    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno;
+    private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno,sAccess;
     
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso;
     private PreparedStatement uDocente, uUtente,uCorso;
@@ -99,6 +101,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sGruppiByServizio=connection.prepareStatement("SELECT Gruppo FROM Group_Services WHERE Servizio=?");
             
             PreparedStatement sCDLByAnno=connection.prepareStatement("SELECT * FROM CDL");
+            
+            sAccess=connection.prepareStatement("SELECT Script FROM Servizio,Utente,Group_Services WHERE Utente.Gruppo=Group_Services.Gruppo AND Servizio.IDServizio=Group_Services.Servizio AND Script=? AND Utente.Username=?");
             
             //insert
             iDocente = connection.prepareStatement("INSERT INTO Docente (Immagine,Nome,Cognome,Email,Ufficio,Telefono,Specializzazione,Ricerche,Pubblicazioni,Curriculum,Ricevimento) VALUES(?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -999,6 +1003,22 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         return null;
     }
 
+    @Override
+    public boolean getAccessUtente(String username,String script) throws DataLayerException{
+            try {
+                sAccess.setString(1, script);
+                sAccess.setString(2, username);
+                    try (ResultSet rs=sAccess.executeQuery()){
+                        if(rs.next())
+                            return true;
+                        return false;
+                    }
+            } catch (SQLException ex) {
+                Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return false;
+    }
+    
     
     
     @Override
