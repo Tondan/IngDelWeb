@@ -2,6 +2,7 @@ package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.CDL;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
@@ -16,9 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.servlet.annotation.MultipartConfig;
 
 
-
+@MultipartConfig
 /**
  *
  * @author Toni & Tony
@@ -53,24 +55,41 @@ public class CreateCDL extends BaseController {
     
     
     private void action_creaCDL(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
-        String username1;
         String nome= request.getParameter("nome");
-        String nomeen= request.getParameter("nomeen");
+        String nomeen= request.getParameter("nome_en");
+        String abbr_it=request.getParameter("abbr_it");
+        String abbr_en=request.getParameter("abbr_en");
+        int cfu=0;
+        if(request.getParameter("cfu").length()!=0)
+            cfu=Integer.parseInt( request.getParameter("cfu"));
+        String mag=request.getParameter("mag");
+        int magistrale=0;
+        if(mag!=null)
+            magistrale=1;
+        String descrizione_it=request.getParameter("descrizione_it");
+        String descrizione_en=request.getParameter("descrizione_en");
         String imgPath=null;
         String fileName;
         String context=request.getServletContext().getRealPath("");
         Part immagine=request.getPart("immagine");
         if(immagine.getSize()!=0){
             fileName=nome;
-            imgPath=Upload.Up(context,immagine,"imgDocenti",fileName);
+            imgPath=Upload.Up(context,immagine,"imgCDL",fileName);
         }
-        //fai abbbreviazione italiano ed inglese nello stesso modo circa ahah
         
-        if(nome.length()>=3){
-            username1=nome.toLowerCase().substring(0, 2);}
-        else{
-            username1=nome.toLowerCase();
-        }
+        CDL cdl=((IgwDataLayer)request.getAttribute("datalayer")).createCDL();
+        cdl.setNome_it(nome);
+        cdl.setNome_en(nomeen);
+        cdl.setAbbr_it(abbr_it);
+        cdl.setAbbr_en(abbr_en);
+        cdl.setCfu(cfu);
+        cdl.setMagistrale(magistrale);
+        cdl.setDescrizione_it(descrizione_it);
+        cdl.setDescrizione_en(descrizione_en);
+        cdl.setImmagine(imgPath);
+        
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeCDL(cdl);
+        
         request.setAttribute("message", "Upload has been done successfully!");
         response.sendRedirect("Backoffice");
                 
