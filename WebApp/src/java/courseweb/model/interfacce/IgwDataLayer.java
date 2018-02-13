@@ -139,6 +139,10 @@ public interface IgwDataLayer extends DataLayer {
     public void storeCorso(Corso corso) throws DataLayerException;
 
     public void storeUtente(Utente utente) throws DataLayerException;
+
+    public void storeCDL(CDL cdl);
+
+    public boolean existUtente(String username);
     
     
     

@@ -43,9 +43,10 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno,sAccess;
     
-    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso;
+    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL;
     private PreparedStatement uDocente, uUtente,uCorso;
     private PreparedStatement dDocente;
+    private PreparedStatement checkUtente;
     
     @Override
     public void init() throws DataLayerException {
@@ -104,6 +105,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             sAccess=connection.prepareStatement("SELECT Script FROM Servizio,Utente,Group_Services WHERE Utente.Gruppo=Group_Services.Gruppo AND Servizio.IDServizio=Group_Services.Servizio AND Script=? AND Utente.Username=?");
             
+            checkUtente=connection.prepareStatement("SELECT * FROM Utente WHERE Username=?");
+            
             //insert
             iDocente = connection.prepareStatement("INSERT INTO Docente (Immagine,Nome,Cognome,Email,Ufficio,Telefono,Specializzazione,Ricerche,Pubblicazioni,Curriculum,Ricevimento) VALUES(?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             uDocente =  connection.prepareStatement("UPDATE Docente Set Nome=?,Cognome=? WHERE IDDocente=?");
@@ -115,6 +118,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             iCorso=connection.prepareStatement("INSERT INTO Corso (Nome_it,Nome_en,SSD,Lingua,Semestre,CFU,Anno,Tipologia) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             uCorso=connection.prepareStatement("UPDATE Corso SET Nome_it=? WHERE IDCorso=?");
             iDocentiCorso=connection.prepareStatement("INSERT INTO Docenti_Corso(Corso,Docente) VALUES (?,?)");
+            
+            iCDL=connection.prepareStatement("INSERT INTO CDL(Nome_it,Nome_en,Anno,CFU,Magistrale,Immagine,Descrizione_it,Descrizione_en,Abbr_it,Abbr_en) VALUES (?,?,?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             
         } catch (SQLException ex) {
             throw new DataLayerException("Error initializing igw data layer", ex);
@@ -1117,7 +1122,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 iUtente.setString(1, utente.getUsername());
                 iUtente.setString(2, utente.getPassword());
                 
-                iUtente.setInt(4, 2);
+                iUtente.setInt(4, utente.getGruppo().getIDGruppo());
                 iUtente.setInt(3, utente.getDocente());
 
                 
@@ -1264,14 +1269,101 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         super.destroy();
     }
 
-   
+    @Override
+    public void storeCDL(CDL cdl) {
+        int key = cdl.getIDCDL();
+         try {
+            if (key > 0) { //update
+                //non facciamo nulla se l'oggetto non ha subito modifiche
+                //do not store the object if it was not modified
+                if (!cdl.isDirty()) {
+                    return;
+                }
+                
+            /*    uUtente.setString(1, utente.getUsername());
+                uUtente.setString(2, utente.getPassword());
+                
+                
+                
+                
+                
+                uUtente.executeUpdate();
+                */
+            } else { //insert
+                
+               iCDL.setString(1, cdl.getNome_it());
+               iCDL.setString(2, cdl.getNome_en());
+               iCDL.setInt(3, LocalDate.now().getYear());
+               iCDL.setInt(4, cdl.getCfu());
+               iCDL.setInt(5, cdl.getMagistrale());
+               iCDL.setString(6, cdl.getImmagine());
+               iCDL.setString(7, cdl.getDescrizione_it());
+               iCDL.setString(8, cdl.getDescrizione_en());
+               iCDL.setString(9, cdl.getAbbr_it());
+               iCDL.setString(10, cdl.getAbbr_en());
+                
+                
+                
+                
+                
+                if (iCDL.executeUpdate() == 1) {
+                    //per leggere la chiave generata dal database
+                    //per il record appena inserito, usiamo il metodo
+                    //getGeneratedKeys sullo statement.
+                    //to read the generated record key from the database
+                    //we use the getGeneratedKeys method on the same statement
+                    try (ResultSet keys = iCDL.getGeneratedKeys()) {
+                        //il valore restituito è un ResultSet con un record
+                        //per ciascuna chiave generata (uno solo nel nostro caso)
+                        //the returned value is a ResultSet with a distinct record for
+                        //each generated key (only one in our case)
+                        if (keys.next()) {
+                            //i campi del record sono le componenti della chiave
+                            //(nel nostro caso, un solo intero)
+                            //the record fields are the key componenets
+                            //(a single integer in our case)
+                            key = keys.getInt(1);
+                        }
+                    }
+                }
+            }
+            //restituiamo l'oggetto appena inserito RICARICATO
+            //dal database tramite le API del modello. In tal
+            //modo terremo conto di ogni modifica apportata
+            //durante la fase di inserimento
+            //we return the just-inserted object RELOADED from the
+            //database through our API. In this way, the resulting
+            //object will ambed any data correction performed by
+            //the DBMS
+            if (key > 0) {
+                try {
+                    cdl.copyFrom(getCDL(key));
+                } catch (DataLayerException ex) {
+                    Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            cdl.setDirty(false);
+        } catch (SQLException ex) {
+            try {
+                throw new DataLayerException("Unable to store CDL", ex);
+            } catch (DataLayerException ex1) {
+                Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+    }
 
-
-
-    
-
-    
+    @Override
+    public boolean existUtente(String username) {
+        try{
+            checkUtente.setString(1, username);
+            try (ResultSet rs=checkUtente.executeQuery()){
+                if(rs.next())
+                    return true;
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }
-
-
   

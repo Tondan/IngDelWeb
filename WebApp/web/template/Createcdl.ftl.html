@@ -62,14 +62,15 @@
                 <span class="tape"></span>
                 <div class="row">
                     <div class="col-md-12">
-                        <h4>Crea un nuovo corso di laurea</h4>
+                        <h4>Crea Un Nuovo Corso Di laurea</h4>
                     </div>
                 </div>
                 <div id="message-apply"></div>
-                <form method="post" action="CreateCorso">
+                <form method="post" action="CreateCDL" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
+                            <h5>Nome CDL</h5>
+                            <div class="form-group"> 
                                 <input type="text" class="form-control style_2" placeholder="Nome corso di laurea" name="nome" required>
                                 <span class="input-icon">
                                     <i class="#"></i>
@@ -77,8 +78,30 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
+                            <h5>Nome CDL EN</h5>
                             <div class="form-group">
                                 <input type="text" class="form-control style_2" placeholder="Nome corso di laurea EN" name="nome_en">
+                                <span class="input-icon">
+                                    <i class="#"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <h5>Nome CDL Abbreviato</h5>
+                            <div class="form-group">
+                                <input type="text" class="form-control style_2" placeholder="Nome abbreviato" name="abbr_it" required>
+                                <span class="input-icon">
+                                    <i class="#"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                          <h5>Nome CDL Abbreviato EN</h5>
+                            <div class="form-group">
+                                <input type="text" class="form-control style_2" placeholder="Nome abbreviato EN" name="abbr_en">
                                 <span class="input-icon">
                                     <i class="#"></i>
                                 </span>
@@ -90,6 +113,7 @@
 
                     <div class="row">
                             <div class="col-md-6 col-sm-6">
+                                <h5>CFU Del CDL</h5>
                                     <div class="form-group">
                                         <input type="number" class="form-control style_2" placeholder="Cfu totali" name="cfu" min=1>
                                         <span class="input-icon">
@@ -101,10 +125,14 @@
                         <div class="col-md-6 col-sm-6">
                             
                                 <h5>Corso Magistrale?</h5>
-                                <ul class="data-list floated clearfix">
-                                    <li><input name="magistrale" type="radio" class="required check_radio" id="s" value="0"><label for="s">NO</label></li>
-                                    <li><input name="magistrale" type="radio" class="required check_radio" id="n" value="1"><label for="n">SI</label></li>
-                                </ul>
+                                <label class="switch-light switch-ios">
+                                    <input type="checkbox" name="mag" class="required fix_ie8" value="yes">
+                                    <span>
+                                        <span class="ie8_hide">No</span>
+                                        <span>Si</span>
+                                    </span>
+                                    <a></a>
+                                </label>
 						
                             
                         </div>
@@ -113,8 +141,8 @@
 
 
                     <div class="row">
-                        <h4>Descrizione corso di laurea in italiano</h4>
                         <div class="col-md-12">
+                            <h4>Descrizione CDL In Italiano</h4>
                             <div class="form-group">
                                 <textarea rows="5" id="mytextarea" name="descrizione_it" class="form-control tinymce" placeholder="Scrivi qui la descrizione"
                                     style="height:150px;"></textarea>
@@ -124,8 +152,8 @@
                     <hr>
 
                     <div class="row">
-                        <h4>Descrizione corso di laurea in inglese</h4>
                         <div class="col-md-12">
+                            <h4>Descrizione CDL In Inglese</h4>
                             <div class="form-group">
                                 <textarea rows="5" id="mytextarea" name="descrizione_en" class="form-control tinymce" placeholder="Write here your description"
                                     style="height:150px;"></textarea>
@@ -138,10 +166,10 @@
 
                     <hr>
                     <div class="row">
-                        <h4>Upload immagine</h4>
                         <div class="col-md-12">
+                            <h4>Upload Immagine</h4>
                             <div class="form-group">
-                                <input type="file" name="immagine" onchange="ValidateCurr(this)" />
+                                <input type="file" name="immagine" onchange="ValidateImg(this)" />
                             </div>
                         </div>
                     </div>

@@ -62,4 +62,10 @@ public interface CDL {
     void setCorsiInCdl(List<Corso> corsi);
     
     void addCorsoInCdl(Corso corso);
+
+    public boolean isDirty();
+    
+    public void copyFrom(CDL cdl);
+    
+    public void setDirty(boolean dirty);
 }

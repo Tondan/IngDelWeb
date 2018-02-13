@@ -9,6 +9,8 @@ import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.*;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -197,5 +199,41 @@ public class CDLImpl implements CDL{
     public void setDescrizione_en(String descrizione_en) {
        this.descrizione_en = descrizione_en;
        this.dirty=true;
+    }
+    
+    @Override
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    @Override
+    public void copyFrom(CDL cdl) {
+        
+        id_cdl = cdl.getIDCDL();
+        nome_it = cdl.getNome_it();
+        nome_en = cdl.getNome_en();
+        abbr_it=cdl.getAbbr_it();
+        abbr_en=cdl.getAbbr_en();
+        anno=cdl.getAnno();
+        cfu=cdl.getCfu();
+        magistrale=cdl.getMagistrale();
+        immagine=cdl.getImmagine();
+        descrizione_it=cdl.getDescrizione_it();
+        descrizione_en=cdl.getDescrizione_en();
+        
+        try{
+           corsi = cdl.getCorsiInCdl();
+        }   
+        catch (DataLayerException ex) {
+            Logger.getLogger(DocenteImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dirty = true;
+    }
+    
+
+
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
     }
 }

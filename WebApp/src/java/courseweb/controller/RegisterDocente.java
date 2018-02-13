@@ -106,6 +106,11 @@ public class RegisterDocente extends BaseController {
                     }
                   
                   String username=username1.concat(username2);
+                  int x=1;
+                  while(((IgwDataLayer)request.getAttribute("datalayer")).existUtente(username)){
+                      username+=x;
+                      x++;
+                  }
                   
                 Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).createDocente();
                 Utente utente=((IgwDataLayer)request.getAttribute("datalayer")).createUtente();
