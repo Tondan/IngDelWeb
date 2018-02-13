@@ -43,7 +43,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno,sAccess;
     
-    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL;
+    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso;
     private PreparedStatement uDocente, uUtente,uCorso;
     private PreparedStatement dDocente;
     private PreparedStatement checkUtente;
@@ -83,7 +83,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             sDocenti=connection.prepareStatement("SELECT IDDocente FROM Docente");
             sCorsi=connection.prepareStatement("SELECT IDCorso FROM Corso WHERE Anno<?");   /*LOOK*/
-            sCDL = connection.prepareStatement("SELECT IDCDL FROM CDL WHERE Anno=?");
+            sCDL = connection.prepareStatement("SELECT IDCDL FROM CDL");
             sCorsiMutuatiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo='Mutuato'");
             sCorsiPrerequisitiByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo='Propedeudico'");
             sCorsiModuloByCorso=connection.prepareStatement("SELECT Other_Corso FROM Colleg_Corsi WHERE This_Corso=? AND Tipo='Modulo'");
@@ -118,6 +118,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             iCorso=connection.prepareStatement("INSERT INTO Corso (Nome_it,Nome_en,SSD,Lingua,Semestre,CFU,Anno,Tipologia) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             uCorso=connection.prepareStatement("UPDATE Corso SET Nome_it=? WHERE IDCorso=?");
             iDocentiCorso=connection.prepareStatement("INSERT INTO Docenti_Corso(Corso,Docente) VALUES (?,?)");
+            iCDLCorso=connection.prepareStatement("INSERT INTO Corsi_CDL(Corso,CDL) VALUES(?,?)");
             
             iCDL=connection.prepareStatement("INSERT INTO CDL(Nome_it,Nome_en,Anno,CFU,Magistrale,Immagine,Descrizione_it,Descrizione_en,Abbr_it,Abbr_en) VALUES (?,?,?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             
@@ -926,14 +927,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     
     @Override
     public List<CDL> getCDL() throws DataLayerException {
-        List<CDL> result = new ArrayList();
-        LocalDate date=LocalDate.now();
-        int month=date.getMonthValue();
-        int year=date.getYear();
-        if(month<=6)
-            year=year-1;    
+        List<CDL> result = new ArrayList();    
         try{
-            sCDL.setInt(1,year);
             try (ResultSet rs=sCDL.executeQuery()){
                 while(rs.next())
                     result.add(getCDL(rs.getInt("IDCDL")));
@@ -1191,7 +1186,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 iCorso.setString(4,corso.getLingua());
                 iCorso.setInt(5, corso.getSemestre());
                 iCorso.setInt(6, corso.getCfu());
-                iCorso.setInt(7, corso.getAnno());
+                iCorso.setInt(7, LocalDate.now().getYear());
                 if(!String.valueOf(corso.getTipologia()).equals("n"))
                     iCorso.setString(8, String.valueOf(corso.getTipologia()));
                 else
@@ -1236,6 +1231,12 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 iDocentiCorso.executeUpdate();
             }
             
+            for(CDL cdl : corso.getCDL()){
+                iCDLCorso.setInt(1, key);
+                iCDLCorso.setInt(2, cdl.getIDCDL());
+                iCDLCorso.executeUpdate();
+            }
+            
                 corso.copyFrom(getCorso(key));
             }
             corso.setDirty(false);
@@ -1251,7 +1252,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             }*/
             
         } catch (SQLException ex) {
-            throw new DataLayerException("Unable to store docente", ex);
+            throw new DataLayerException("Unable to store Corso", ex);
         }
     }
     
