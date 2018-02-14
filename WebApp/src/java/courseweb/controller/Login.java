@@ -60,7 +60,7 @@ public class Login extends BaseController {
                     int userid = utente.getID();
                     SecurityLayer.createSession(request, username, userid);
                     List<Servizio> servizi=utente.getGruppo().getServizi();
-                    for(Servizio s:servizi)
+                    for(Servizio s:servizi){
                         if(s.getScript().equals("BackofficeD")) {
                             response.sendRedirect("BackofficeD");
                     }
@@ -69,9 +69,6 @@ public class Login extends BaseController {
                     else if(s.getScript().equals("Backoffice")){
                         response.sendRedirect("Backoffice");
                     }
-                    else{
-                        request.setAttribute("exception", new Exception("Login vuoto"));
-                        action_error(request, response);
                     }
                         }
                         else
