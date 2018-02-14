@@ -68,7 +68,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h4>Registra un nuovo docente</h4>
-
+                        
                     </div>
                 </div>
                 <div id="message-apply"></div>
@@ -76,16 +76,18 @@
                 <form method="post" action="RegisterDocente" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
+                                <h5>Nome del docente</h5>
                             <div class="form-group">
-                                <input type="text" class="form-control style_2 required form-control" placeholder="Nome Docente" name="nome" required>
+                                <input type="text" class="form-control style_2 required form-control" id="nome" placeholder="Nome" name="nome" required>
                                 <span class="input-icon">
                                     <i class="icon-user"></i>
                                 </span>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
+                            <h5>Cognome del docente</h5>
                             <div class="form-group">
-                                    <input type="text" class="form-control style_2" placeholder="Cognome Docente" name="cognome" required>
+                                    <input type="text" class="form-control style_2" placeholder="Cognome" name="cognome" required>
                                     <span class="input-icon">
                                     <i class="icon-user"></i>
                                 </span>
@@ -95,6 +97,7 @@
                     
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
+                            <h5>Email - Optional</h5>
                             <div class="form-group">
                                     <input type="email" class="form-control style_2" placeholder="Email" style="margin-bottom:5px;" name="email">
                                     <span class="input-icon">
@@ -103,8 +106,9 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
+                              <h5>Telefono - Optional</h5>
                             <div class="form-group">
-                                    <input type="tel" class="form-control style_2" placeholder="Telefono" style="margin-bottom:5px;" name="telefono">
+                                    <input type="tel" class="form-control style_2" placeholder="Numero Telefonico" style="margin-bottom:5px;" name="telefono">
                                     <span class="input-icon">
                                     <i class="icon-phone"></i>
                                 </span>
@@ -114,12 +118,14 @@
 
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
+                                <h5>Uffico -Optional</h5>
                             <div class="form-group">
-                                    <input type="text" class="form-control style_2" placeholder="Ufficio" style="margin-bottom:5px;" name="ufficio">
+                                    <input type="text" class="form-control style_2" placeholder="Ufficio n&#186" style="margin-bottom:5px;" name="ufficio">
                                 
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
+                                <h5>Specializzazione - Optional</h5>
                             <div class="form-group">
                                     <input type="text" class="form-control style_2" placeholder="Specializzazione" style="margin-bottom:5px;" name="specializzazione">    
                             </div>
@@ -128,15 +134,16 @@
 
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
+                                <h5>Ricevimento - Optional</h5>
                             <div class="form-group">
-                                    <input type="text" class="form-control style_2" placeholder="Ricevimento" style="margin-bottom:5px;" name="ricevimento">
+                                    <input type="text" class="form-control style_2" placeholder="Giorno  Ora inizio&#247Ora Fine" style="margin-bottom:5px;" name="ricevimento">
                             </div>
                         </div>
                     </div>
 
                     <hr>
                     <div class="row">
-                    <h4>Ricerche docente</h4> 
+                    <h4>Ricerche docente - Optional</h4> 
 					<div class="col-md-12">
                             <div class="form-group">
                                 <textarea rows="5" id="mytextarea" name="ricerche" class="form-control tinymce" placeholder="Scrivi qui la tua pagina di ricerche" style="height:150px;"></textarea>
@@ -145,7 +152,7 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <h4>Pubblicazioni docente</h4> 
+                        <h4>Pubblicazioni docente - Optional</h4> 
                         <div class="col-md-12">
                                 <div class="form-group">
                                     <textarea rows="5"  name="pubblicazioni" class="form-control tinymce" placeholder="Scrivi qui la tua pagina di pubblicazioni" style="height:150px;"></textarea>
@@ -156,7 +163,7 @@
 
                     <hr>
                     <div class="row">
-                    <h4>Upload curriculum</h4> 
+                    <h4>Upload curriculum - Optional</h4> 
 					<div class="col-md-12">
                             <div class="form-group">
                                 <input type="file" name="curriculum" onchange="ValidateCurr(this)"/>
@@ -167,7 +174,7 @@
                     
 
                     <div class="row">
-                    <h4>Upload Immagine</h4> 
+                    <h4>Upload Immagine - Optional</h4> 
 					<div class="col-md-12">
                             <div class="form-group">
                                 <input type="file" name="immagine" onchange="ValidateImg(this)"/>

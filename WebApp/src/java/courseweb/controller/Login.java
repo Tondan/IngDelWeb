@@ -67,7 +67,7 @@ public class Login extends BaseController {
                     //se è stato trasmesso un URL di origine, torniamo a quell'indirizzo
                     //if an origin URL has been transmitted, return to it
                     else if(s.getScript().equals("Backoffice")){
-                        response.sendRedirect("Backoffice");
+                        response.sendRedirect("Backoffice");                   
                     }
                     }
                         }

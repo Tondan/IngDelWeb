@@ -67,6 +67,7 @@
                 </div>
                 <div id="message-apply"></div>
                 <form method="post" action="CreateCDL" enctype="multipart/form-data">
+
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <h5>Nome CDL</h5>
@@ -80,7 +81,7 @@
                         <div class="col-md-6 col-sm-6">
                             <h5>Nome CDL EN</h5>
                             <div class="form-group">
-                                <input type="text" class="form-control style_2" placeholder="Nome corso di laurea EN" name="nome_en">
+                                <input type="text" class="form-control style_2" placeholder="Nome corso di laurea EN" name="nome_en" required>
                                 <span class="input-icon">
                                     <i class="#"></i>
                                 </span>
@@ -90,18 +91,18 @@
                     
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
-                            <h5>Nome CDL Abbreviato</h5>
+                            <h5>Sigla corso di laurea IT</h5>
                             <div class="form-group">
-                                <input type="text" class="form-control style_2" placeholder="Nome abbreviato" name="abbr_it" required>
+                                <input type="text" class="form-control style_2" placeholder="Sigla  IT" name="abbr_it" required>
                                 <span class="input-icon">
                                     <i class="#"></i>
                                 </span>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
-                          <h5>Nome CDL Abbreviato EN</h5>
+                          <h5>Sigla corso di laurea EN</h5>
                             <div class="form-group">
-                                <input type="text" class="form-control style_2" placeholder="Nome abbreviato EN" name="abbr_en">
+                                <input type="text" class="form-control style_2" placeholder="Sigla  EN" name="abbr_en" required>
                                 <span class="input-icon">
                                     <i class="#"></i>
                                 </span>
@@ -113,9 +114,9 @@
 
                     <div class="row">
                             <div class="col-md-6 col-sm-6">
-                                <h5>CFU Del CDL</h5>
+                                <h5>Cfu corso di laurea</h5>
                                     <div class="form-group">
-                                        <input type="number" class="form-control style_2" placeholder="Cfu totali" name="cfu" min=1>
+                                        <input type="number" class="form-control style_2" placeholder="Cfu" name="cfu" min=1>
                                         <span class="input-icon">
                                             <i class="#"></i>
                                         </span>
@@ -142,7 +143,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h4>Descrizione CDL In Italiano</h4>
+                            <h4>Descrizione CDL In Italiano - Optional</h4>
                             <div class="form-group">
                                 <textarea rows="5" id="mytextarea" name="descrizione_it" class="form-control tinymce" placeholder="Scrivi qui la descrizione"
                                     style="height:150px;"></textarea>
@@ -153,7 +154,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h4>Descrizione CDL In Inglese</h4>
+                            <h4>Descrizione CDL In Inglese - Optional</h4>
                             <div class="form-group">
                                 <textarea rows="5" id="mytextarea" name="descrizione_en" class="form-control tinymce" placeholder="Write here your description"
                                     style="height:150px;"></textarea>
@@ -167,7 +168,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <h4>Upload Immagine</h4>
+                            <h4>Upload Immagine - Optional</h4>
                             <div class="form-group">
                                 <input type="file" name="immagine" onchange="ValidateImg(this)" />
                             </div>

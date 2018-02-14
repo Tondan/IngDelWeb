@@ -173,3 +173,43 @@ a.lnbar{
     width: 30%;
     height: 30%;
 }
+
+
+
+
+
+
+/*Responsive Styles*/
+@media screen and (max-width : 760px){
+  /*Make dropdown links appear inline*/
+  ul {
+      position: static;
+      display: none;
+  }
+  /*Create vertical spacing*/
+  li {
+      margin-bottom: 1px;
+  }
+  /*Make all menu links full width*/
+  ul li, li a {
+      width: 100%;
+  }
+}
+
+
+/*Style 'show menu' label button and hide it by default*/
+.show-menu {
+  color: #fff;
+  background: #19c589;
+  text-align: center;
+  padding: 10px 0;
+  display: none;
+}
+/*Hide checkbox*/
+input[type=checkbox]{
+  display: none;
+}
+/*Show menu when invisible checkbox is checked*/
+input[type=checkbox]:checked ~ #menu{
+  display: block;
+}

@@ -24,11 +24,11 @@
         <link href="css/superfish.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="fontello/css/fontello.css" rel="stylesheet">
-        <link href="css/my.css" rel="stylesheet">
+        
         <link href="css/multiple-select.css" rel="stylesheet">
-
-        <link href="prova.css" rel="stylesheet">
-        <!-- Toggle Switch -->
+        <link href="css/my.css" rel="stylesheet">
+        
+    <!-- Toggle Switch -->
     <link rel="stylesheet" href="css/jquery.switch.css">
     <link href="check_radio/skins/square/aero.css" rel="stylesheet">
 
@@ -42,10 +42,11 @@
             <div class="row" >
             <div class="col-md-2 col-sm-2 col-xs-2">
                 <a href="Home" id="logo">Learn</a>
+
             </div>
 
             <div class="col-md-10 col-sm-10 col-xs-10">
-                   
+                    
                     <#if nome??>
                     <ul class="pull-right user_panel">
                         <li class="dropdown">
@@ -65,25 +66,28 @@
                    </#if>
                    </div>
 
-
+                   
                    
 
                 </div>
             </div>
-    </div>
-    </div>
+    
+    
     </header><!-- End header -->
     
 
 <!--inizio nav-->
-    <nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                   
-                <div id="mobnav-btn"></div>
-                
-                <ul class="sf-menu">
+<nav>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                        
+                        
+                    <ul class="sf-menu" id="menu">
+                            <label for="show-menu" class="show-menu">Show Menu</label>
+                            <input type="checkbox" id="show-menu" role="button">       
+                        
                     <#if lingua=="it">
                         <li><a href="Home?lin=it">Home</a></li>
                         <li><a href="listcorsi?lin=it">Corsi</a></li>
@@ -105,6 +109,7 @@
                     </div>
                     </#if>
               </ul> 
+            
             </div>
         </div><!-- End row -->
     </div><!-- End container -->
@@ -235,7 +240,7 @@
         <script src="js/my.js"></script>
         <script src="js/validate.js"></script>
 
-        <script src="js/prova.js"></script>
+        
 
         <!--Tinimce plugin-->
         <script src="path/to/tinymce/js/tinymce.min.js"></script>
@@ -274,3 +279,6 @@ tinymce.init({
 
   </body>
 </html>
+
+                    
+                    
