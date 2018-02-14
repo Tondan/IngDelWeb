@@ -10,7 +10,7 @@
     </context-param>
     <context-param>
         <param-name>view.debug</param-name>
-        <param-value>true</param-value>
+        <param-value>false</param-value>
     </context-param>
     <context-param>
         <param-name>view.template_directory</param-name>
@@ -31,6 +31,10 @@
     <context-param>
         <param-name>view.encoding</param-name>
         <param-value>ISO-8859-1</param-value>
+    </context-param>
+    <context-param>
+        <param-name>upload.location</param-name>
+        <param-value>D:\Desktop\Uni\Ing. Web\CourseWeb\IngDelWeb\WebApp\web\</param-value>
     </context-param>
     <servlet>
         <servlet-name>ListCorsi</servlet-name>
