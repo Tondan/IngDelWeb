@@ -175,7 +175,7 @@ a.lnbar{
 
 
 input[type='checkbox']{
-  display: none;
+  visibility: hidden;
 }
 
 
