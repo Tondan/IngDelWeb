@@ -7,6 +7,8 @@ package courseweb.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import javax.servlet.http.Part;
 import org.apache.commons.io.FilenameUtils;
 
@@ -33,8 +35,10 @@ public class Upload {
             ext=FilenameUtils.getExtension(extractFileName(part));
             fileName=name+"."+ext;
             int i=1;
-            while((new File(context+dir+File.separator+fileName)).exists()){
+            File file=new File(context+dir+File.separator+fileName);
+            while(file.exists()){
                 fileName=name+i+"."+ext;
+                file=new File(context+dir+File.separator+fileName);
                 i+=1;
             }
        // }
@@ -42,7 +46,10 @@ public class Upload {
             ext=FilenameUtils.getExtension(extractFileName(part));
             fileName=name+"."+ext;
         }*/
-        part.write(savePath+File.separator+fileName);
+        try(InputStream input=part.getInputStream()){
+            Files.copy(input, file.toPath());
+        }
+        //part.write(savePath+File.separator+fileName);
         return dir+File.separator+fileName;
         
     }

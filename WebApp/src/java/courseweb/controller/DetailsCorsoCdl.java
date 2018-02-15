@@ -38,7 +38,8 @@ public class DetailsCorsoCdl extends BaseController {
             request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
             request.setAttribute("corsi",Cdl.getCorsiInCdl());
             request.setAttribute("servlet","listcorsi?");
-            request.setAttribute("change","y");     
+            request.setAttribute("change","y");
+            
             HttpSession session= request.getSession(false);
             if(session!=null && request.isRequestedSessionIdValid()){
             String a = (String) session.getAttribute("username");

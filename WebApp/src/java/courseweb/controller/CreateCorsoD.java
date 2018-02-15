@@ -38,6 +38,8 @@ public class CreateCorsoD extends BaseController {
             try {
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
+                String doc = null;
+                request.setAttribute("doc", doc);
                 
                 
                 
