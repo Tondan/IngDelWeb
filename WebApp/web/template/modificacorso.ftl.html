@@ -153,16 +153,18 @@
                             <hr>
                             <div class="row">
                                     <div class="col-md-6 col-sm-6">
+                                            <#assign seq=[]>
                                                     <h5>Docenti associati</h5>
                                                     <#list docente?sort_by("nome") as docente>
+                                                    <#assign seq=seq+[docente.IDDocente]>
                                                     <li>${docente.nome} ${docente.cognome}</li>
                                                     </#list> 
                                     </div>
                                                     <div class="col-md-6 col-sm-6">
                                                     <h4>Cambia Docenti Associati</h4>
-                                                    <select id="special1" name="docenti" multiple>
+                                                    <select id="special1" name="docenti" multiple autocomplete="off">
                                                     <#list docenti?sort_by("nome") as docenti>
-                                                    <option value="${docenti.IDDocente}">${docenti.nome} ${docenti.cognome}</option>
+                                                    <option value="${docenti.IDDocente}" <#if seq?seq_contains(docenti.IDDocente)>selected</#if>>${docenti.nome} ${docenti.cognome}</option>
                                                     </#list> 
                                                     </select>
 
@@ -175,16 +177,18 @@
                             
                             <div class="row">
                                     <div class="col-md-6 col-sm-6">
+                                        <#assign seq=[]>
                                                     <h5>Cdl associati</h5>
                                                     <#list cdl?sort_by("nome_it") as cdl>
+                                                    <#assign seq=seq+[cdl.IDCDL]>
                                                     <li>${cdl.nome_it}</li>
                                                     </#list> 
                                     </div>
                                                     <div class="col-md-6 col-sm-6">
                                                     <h4>Modifica il cdl corso</h4>
-                                                    <select id="special2" name="cdl" multiple>
+                                                    <select id="special2" name="cdl" multiple autocomplete="off">
                                                     <#list cdl1?sort_by("nome_it") as cdl1>
-                                                    <option value="${cdl1.IDCDL}">${cdl1.nome_it}</option>
+                                                    <option value="${cdl1.IDCDL}" <#if seq?seq_contains(cdl1.IDCDL)>selected</#if>>${cdl1.nome_it}</option>
                                                     </#list> 
                                                     </select>
 
