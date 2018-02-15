@@ -193,6 +193,15 @@
                         </#list>
                      </ul>
            </div>
+
+           <div class="box_style_1">
+            <h4>Corsi di laurea correlati</h4>
+            <ul class="legend_course">
+                <#list cdl as cdl>
+                <li>${cdl.nome_it} <#if cdl.magistrale==1> (Magistrale) </#if> </li>
+                </#list>
+             </ul>
+   </div>
        	 	
            
             <#if descrizione_it.homepage?? || descrizione_it.forum?? || descrizione_it.risorse_Ext??>   

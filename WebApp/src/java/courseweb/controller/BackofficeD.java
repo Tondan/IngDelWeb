@@ -41,18 +41,18 @@ public class BackofficeD extends BaseController {
                 
                 
                 
-                request.setAttribute("docente",((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
+
                 
                 HttpSession s = request.getSession(false);
                 String a = (String) s.getAttribute("username");
                 request.setAttribute("nome",a);
                 
-                
                 String b=request.getSession().getId();
                 request.setAttribute("session_id",b);
                 
-                
-                
+                int docente=(int) s.getAttribute("userid");
+                request.setAttribute("docente",((IgwDataLayer)request.getAttribute("datalayer")).getDocente(docente));
+
                 res.activate("backofficeD.ftl.html", request, response);
             } catch (DataLayerException ex) {
                 Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, null, ex);

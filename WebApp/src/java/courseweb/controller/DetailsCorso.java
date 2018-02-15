@@ -47,6 +47,7 @@ public class DetailsCorso extends BaseController {
             request.setAttribute("libri", corso.getLibri());
             request.setAttribute("change","y");
             request.setAttribute("servlet","DetailsCorso?n="+id+"&");
+            request.setAttribute("cdl",((IgwDataLayer)request.getAttribute("datalayer")).getCDLInCorso(corso));
             
             HttpSession session= request.getSession(false);
             if(session!=null && request.isRequestedSessionIdValid()){
