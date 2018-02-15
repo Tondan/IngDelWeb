@@ -68,7 +68,7 @@ public class RegisterDocente extends BaseController {
                 
                 String imgPath=null;
                 String fileName;
-                String context=request.getServletContext().getInitParameter("upload.location");
+                String context=request.getServletContext().getRealPath("");
                 Part immagine=request.getPart("immagine");
                 if(immagine.getSize()!=0){
                     fileName=nome+cognome;
