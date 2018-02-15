@@ -107,14 +107,13 @@ label:hover {
 /* Piccole modifiche */
 
 .list_ok li{
-
   font-size: 16px;
-
 }
 
 
 #ricerca {
     position: relative;
+    float: right;
     top:-20px;
     width: 120px;
     box-sizing: border-box;
@@ -180,17 +179,10 @@ a.lnbar{
 
 /*MEDIA QUERY*/
 @media only screen and (max-width : 640px) {
-
-	
-	
-
 	nav ul, nav:active ul{ 
 		display: none;
 			}
-
-
 	nav:hover ul {
-
 		display: block;
-
-	}
+  }
+}

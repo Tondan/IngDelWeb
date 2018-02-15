@@ -15,21 +15,31 @@
 </section><!-- End sub-header -->
 
 <section id="main_content">
-
+		
 <div class="container">
+
+		
 
 <ol class="breadcrumb">
   <li><a href="Home?lin=it">Home</a></li>
   <li class="active">Lista Docenti</li>
 </ol>
-      
-    <input id="ricerca" class="pull-right col-md-9" type="text" name="search" placeholder="Cerca...">
-    
+	 
+
+	
+	<div class="divider"></div>
+
+	<div class="row">
+	<div class="col-md-12">
+			<input id="ricerca" type="text" name="search" placeholder="Cerca..."/> 
+	</div> 
+	</div>
        <div id="table" class="row">
-           
-           <br class="col-md-12">
-           <#list docenti as docente>
-                    	<div  class="col-md-6 col-sm-6">
+			
+
+		   <#list docenti as docente>
+		   
+                    	<div class="col-md-6 col-sm-6">
                         	<div class="box_style_3">
                             	<p><img id="img-docente" src="${docente.immagine}" alt="Teacher" class="img-circle styled"></p>
                                 <h4 class="p-title">${docente.nome} ${docente.cognome} <br> <small>${docente.specializzazione}</small></h4>
