@@ -88,10 +88,8 @@
                 <div class="col-md-12">
                         
                         
-                    <ul class="sf-menu" id="menu">
-                            <label for="show-menu" class="show-menu">Show Menu</label>
-                            <input type="checkbox" id="show-menu" role="button">       
-                        
+                    <ul class="sf-menu">
+                    
                     <#if lingua=="it">
                         <li><a href="Home?lin=it">Home</a></li>
                         <li><a href="listcorsi?lin=it">Corsi</a></li>
@@ -129,10 +127,6 @@
                     <h3>${defaults.author}</h3>
                     <div id="message-newsletter">
                     </div>
-                    <form method="post" action="assets/newsletter.php" name="newsletter" id="newsletter" class="form-inline">
-                        <input name="email_newsletter" id="email_newsletter" type="email" value="" placeholder="Your Email" class="form-control">
-                        <button id="submit-newsletter" class=" button_outline"> Subscribe</button>
-                    </form>
                 </div>
             </div>
         </div>
