@@ -22,7 +22,7 @@
           <li class="active">Courses List</li>
         </ol>
         
-        <div class="row" id="rowgrande">
+        <div class="row">
         
         <aside class="col-lg-3 col-md-4 col-sm-4">
             <div class="box_style_1">
@@ -63,7 +63,7 @@
                     <table class="table table-responsive table-striped">
                         <thead>
                             <tr class="filters">
-                                <th><input type="text" class="form-control" placeholder="ID" disabled ></th>
+                                
                                 <th><input type="text" class="form-control" placeholder="Name" disabled></th>
                                 <th><input type="text" class="form-control" placeholder="SSD" disabled ></th>
                                 <th><input type="text" class="form-control" placeholder="CFU" disabled ></th>
@@ -77,7 +77,7 @@
                         <tbody>
                             <#list corsi?sort_by("nome_en") as corso>
                             <tr>
-                                <td scope="row"><b>${corso.ID}</b></td>
+                                
                                 <td><a href="DetailsCorso?n=${corso.ID}&lin=en">${corso.nome_en}</a></td>
                                 <td>${corso.SSD}</td>
                                 <td>${corso.cfu}</td>

@@ -65,7 +65,7 @@
                         <form method="post" action="CreateCorso">
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
-
+                                    <h5>Nome Del Corso</h5>
                                     <div class="form-group">
                                         <input type="text" class="form-control style_2" value="${corso.nome_it}" name="nome">
                                         <span class="input-icon">
@@ -74,6 +74,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6">
+                                    <h5>Nome Del Corso EN</h5>
                                     <div class="form-group">
                                             <input type="text" class="form-control style_2" value="${corso.nome_en}" name="nome_en">
                                             <span class="input-icon">
@@ -87,6 +88,7 @@
     
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
+                                    <h5>SSD</h5>
                                     <div class="form-group">
                                         <input type="text" class="form-control style_2" value="${corso.SSD}" name="ssd">
                                         <span class="input-icon">
@@ -95,6 +97,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6">
+                                    <h5>Lingua Del Corso</h5>
                                     <div class="form-group">
                                             <input type="text" class="form-control style_2" value="${corso.lingua}" name="linguac">
                                             <span class="input-icon">
@@ -108,6 +111,7 @@
     
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
+                                    <h5>Semestre</h5>
                                     <div class="form-group">
                                         <div class="styled-select">
                                             <select class="form-control" name="semestre">
@@ -119,6 +123,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6">
+                                    <h5>CFU del Corso</h5>
                                     <div class="form-group">
                                             <input type="number" class="form-control style_2" placeholder="${corso.cfu}" name="cfu" min=1>
                                             <span class="input-icon">
@@ -131,6 +136,7 @@
     
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
+                                    <h5>Tipologia Dei Crediti</h5>
                                     <div class="form-group">
                                             <div class="styled-select">
                                                     <select class="form-control" name="tipologia">
@@ -148,14 +154,14 @@
                             <div class="row">
                                     <div class="col-md-6 col-sm-6">
                                                     <h5>Docenti associati</h5>
-                                                    <#list docente as docente>
+                                                    <#list docente?sort_by("nome") as docente>
                                                     <li>${docente.nome} ${docente.cognome}</li>
                                                     </#list> 
                                     </div>
                                                     <div class="col-md-6 col-sm-6">
-                                                    <h4>Associa altri docenti al corso</h4>
+                                                    <h4>Cambia Docenti Associati</h4>
                                                     <select id="special1" name="docenti" multiple>
-                                                    <#list docenti as docenti>
+                                                    <#list docenti?sort_by("nome") as docenti>
                                                     <option value="${docenti.IDDocente}">${docenti.nome} ${docenti.cognome}</option>
                                                     </#list> 
                                                     </select>
@@ -170,14 +176,14 @@
                             <div class="row">
                                     <div class="col-md-6 col-sm-6">
                                                     <h5>Cdl associati</h5>
-                                                    <#list cdl as cdl>
+                                                    <#list cdl?sort_by("nome_it") as cdl>
                                                     <li>${cdl.nome_it}</li>
                                                     </#list> 
                                     </div>
                                                     <div class="col-md-6 col-sm-6">
                                                     <h4>Modifica il cdl corso</h4>
                                                     <select id="special2" name="cdl" multiple>
-                                                    <#list cdl1 as cdl1>
+                                                    <#list cdl1?sort_by("nome_it") as cdl1>
                                                     <option value="${cdl1.IDCDL}">${cdl1.nome_it}</option>
                                                     </#list> 
                                                     </select>
