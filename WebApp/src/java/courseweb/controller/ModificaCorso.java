@@ -160,10 +160,8 @@ public class ModificaCorso extends BaseController {
                     corso.setCfu(cfu);
                 if(corso.getTipologia()!=tipologia.charAt(0))
                     corso.setTipologia(tipologia.charAt(0));
-                if(corso.getDocenti().equals(docenti))
-                    corso.setDocenti(docenti);
-                if(corso.getCDL().equals(cdl))
-                    corso.setCDLInCorso(cdl);
+                corso.setDocenti(docenti);
+                corso.setCDLInCorso(cdl);
                 
                 
                 
