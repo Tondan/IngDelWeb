@@ -2,13 +2,17 @@ package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.CDL;
 import courseweb.model.interfacce.Corso;
+import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -109,8 +113,69 @@ public class ModificaCorso extends BaseController {
 }
 
 
-    private void action_modifica(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void action_modifica(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try{
+                    
+                int key=Integer.parseInt(request.getParameter("key"));
+                String nome= request.getParameter("nome");
+                String nomeEN= request.getParameter("nome_en");
+                String ssd= request.getParameter("ssd");
+                String linguac= request.getParameter("linguac");
+                int semestre=0;
+                if(request.getParameter("semestre").length()!=0)
+                    semestre= Integer.parseInt(request.getParameter("semestre"));
+                int cfu=0;
+                if(request.getParameter("cfu").length()!=0)
+                    cfu=Integer.parseInt( request.getParameter("cfu"));
+                String tipologia= request.getParameter("tipologia");
+                
+                String[] docente=request.getParameterValues("docenti");
+                List<Docente> docenti=new ArrayList();
+                
+                for(int i=0,a=0; i<docente.length; i++){
+                   a=Integer.parseInt(docente[i]);
+                   docenti.add(((IgwDataLayer)request.getAttribute("datalayer")).getDocente(a));  
+                }
+                
+                String[] c=request.getParameterValues("cdl");
+                List<CDL> cdl=new ArrayList();
+                for(int i=0,a=0; i<c.length; i++){
+                   a=Integer.parseInt(c[i]);
+                   cdl.add(((IgwDataLayer)request.getAttribute("datalayer")).getCDL(a));  
+                }
+                
+                Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).getCorso(key);
+                
+                if(!corso.getNome_it().equals(nome))
+                    corso.setNome_it(nome);
+                if(!corso.getNome_en().equals(nomeEN))
+                    corso.setNome_en(nomeEN);
+                if(!corso.getSSD().equals(ssd))
+                    corso.setSSD(ssd);
+                if(!corso.getLingua().equals(linguac))
+                    corso.setLingua(linguac);
+                if(corso.getSemestre()!=semestre)
+                    corso.setSemestre(semestre);
+                if(corso.getCfu()!=cfu)
+                    corso.setCfu(cfu);
+                if(corso.getTipologia()!=tipologia.charAt(0))
+                    corso.setTipologia(tipologia.charAt(0));
+                if(corso.getDocenti().equals(docenti))
+                    corso.setDocenti(docenti);
+                if(corso.getCDL().equals(cdl))
+                    corso.setCDLInCorso(cdl);
+                
+                
+                
+                
+        
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeCorso(corso);
+                response.sendRedirect("Backoffice");
+            
+            } catch (DataLayerException ex) {
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);
+        }
     }
 
    

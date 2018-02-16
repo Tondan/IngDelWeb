@@ -45,7 +45,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso;
     private PreparedStatement uDocente, uUtente,uCorso;
-    private PreparedStatement dDocente;
+    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso;
     private PreparedStatement checkUtente;
     
     @Override
@@ -116,11 +116,15 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             uUtente =  connection.prepareStatement("UPDATE Utente Set Username=?,Password=?,Gruppo=? WHERE IDUtente=?");
             
             iCorso=connection.prepareStatement("INSERT INTO Corso (Nome_it,Nome_en,SSD,Lingua,Semestre,CFU,Anno,Tipologia) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
-            uCorso=connection.prepareStatement("UPDATE Corso SET Nome_it=? WHERE IDCorso=?");
+            uCorso=connection.prepareStatement("UPDATE Corso SET Nome_it=?,Nome_en=?,SSD=?,Lingua=?,Semestre=?,CFU=?,Tipologia=? WHERE IDCorso=?");
             iDocentiCorso=connection.prepareStatement("INSERT INTO Docenti_Corso(Corso,Docente) VALUES (?,?)");
             iCDLCorso=connection.prepareStatement("INSERT INTO Corsi_CDL(Corso,CDL) VALUES(?,?)");
             
             iCDL=connection.prepareStatement("INSERT INTO CDL(Nome_it,Nome_en,Anno,CFU,Magistrale,Immagine,Descrizione_it,Descrizione_en,Abbr_it,Abbr_en) VALUES (?,?,?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            
+            
+            dDocentiCorso=connection.prepareStatement("DELETE FROM Docenti_Corso WHERE Corso=? AND Docente=?");
+            dCDLCorso=connection.prepareStatement("DELETE FROM Corsi_CDL WHERE Corso=? AND CDL=?");
             
         } catch (SQLException ex) {
             throw new DataLayerException("Error initializing igw data layer", ex);
@@ -755,7 +759,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         LocalDate date=LocalDate.now();
         int month=date.getMonthValue();
         int year=date.getYear();
-        if(month<=6)
+        if(month<=8)
             year=year-1;
         try{
             sCorsiByCDL.setInt(1, cdl.getIDCDL());
@@ -826,7 +830,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         LocalDate date=LocalDate.now();
         int month=date.getMonthValue();
         int year=date.getYear();
-        if(month<=6)
+        if(month<=8)
             year=year-1;
         try{
             sCorsiByDocente.setInt(1, docente.getIDDocente());
@@ -877,7 +881,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         LocalDate date=LocalDate.now();
         int month=date.getMonthValue();
         int year=date.getYear();
-        if(month<=6)
+        if(month<=8)
             year=year-1;
         try{
             sCorsi.setInt(1, year);
@@ -897,7 +901,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         LocalDate date=LocalDate.now();
         int month = date.getMonthValue();
         int year = date.getYear();
-        if(month <= 6)
+        if(month <= 8)
             year=year-1;
         try{
             sCorsiByAnno.setInt(1, year);
@@ -1175,10 +1179,50 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 }
                 
                 uCorso.setString(1, corso.getNome_it());
-                uCorso.setInt(2, corso.getID());
+                uCorso.setString(2, corso.getNome_en());
+                uCorso.setString(3, corso.getSSD());
+                uCorso.setString(4, corso.getLingua());
+                uCorso.setInt(5,corso.getSemestre());
+                uCorso.setInt(6, corso.getCfu());
+                if(!String.valueOf(corso.getTipologia()).equals("n"))
+                    uCorso.setString(7, String.valueOf(corso.getTipologia()));
+                else
+                    uCorso.setString(7,"");
+                uCorso.setInt(8,corso.getID());
                 
-                uCorso.executeUpdate();
+                if(uCorso.executeUpdate()==1){
+                    List<Docente> docx=getDocentiCorso(corso);
+                    for(Docente doc:docx)   //implementare equals oppure qui doppio cisco sulle liste
+                        if(!corso.getDocenti().contains(doc)){
+                            dDocentiCorso.setInt(1, corso.getID());
+                            dDocentiCorso.setInt(2, doc.getIDDocente());
+                            dDocentiCorso.executeUpdate();
+                            docx.remove(doc);
+                        }
+                    for(Docente doc:corso.getDocenti())
+                        if(!docx.contains(doc)){
+                            iDocentiCorso.setInt(1, corso.getID());
+                            iDocentiCorso.setInt(2, doc.getIDDocente());
+                            iDocentiCorso.executeUpdate();
+                        }
+                    List<CDL> cdl=getCDLInCorso(corso);
+                    for(CDL cd:cdl)
+                        if(!corso.getCDL().contains(cd)){
+                           dCDLCorso.setInt(1, corso.getID());
+                           dCDLCorso.setInt(2,cd.getIDCDL());
+                           dCDLCorso.executeUpdate();
+                           cdl.remove(cd);
+                        }
+                    for(CDL cd:corso.getCDL())
+                        if(!cdl.contains(cd)){
+                            iCDLCorso.setInt(1, corso.getID());
+                            iCDLCorso.setInt(2, cd.getIDCDL());
+                            iCDLCorso.executeUpdate();
+                        }
+                    corso.copyFrom(corso);
                 
+                corso.setDirty(false);
+                }
             } else { //insert
                 iCorso.setString(1, corso.getNome_it());
                 iCorso.setString(2, corso.getNome_en());
@@ -1186,7 +1230,13 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 iCorso.setString(4,corso.getLingua());
                 iCorso.setInt(5, corso.getSemestre());
                 iCorso.setInt(6, corso.getCfu());
-                iCorso.setInt(7, LocalDate.now().getYear());
+                LocalDate date=LocalDate.now();
+                int month=date.getMonthValue();
+                int year=date.getYear();
+                if(month>=9||month<=1)
+                    if(corso.getSemestre()!=1)
+                        year=year-1;
+                iCorso.setInt(7, year);
                 if(!String.valueOf(corso.getTipologia()).equals("n"))
                     iCorso.setString(8, String.valueOf(corso.getTipologia()));
                 else
@@ -1214,7 +1264,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                         }
                     }
                 }
-            }
+            
             //restituiamo l'oggetto appena inserito RICARICATO
             //dal database tramite le API del modello. In tal
             //modo terremo conto di ogni modifica apportata
@@ -1240,6 +1290,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 corso.copyFrom(getCorso(key));
             }
             corso.setDirty(false);
+            }
             /*Iterator doc;
             if(!corso.getDocenti().isEmpty()){
                 doc=corso.getDocenti().iterator();

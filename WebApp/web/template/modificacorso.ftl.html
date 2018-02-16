@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div id="message-apply"></div>
-                        <form method="post" action="CreateCorso">
+                        <form method="post" action="ModificaCorso">
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
                                     <h5>Nome Del Corso</h5>
@@ -115,9 +115,17 @@
                                     <div class="form-group">
                                         <div class="styled-select">
                                             <select class="form-control" name="semestre">
-                                                <option value="${corso.semestre}" selected>${corso.semestre} (valore di default)</option>
-                                                <option value="1">Primo Semestre</option>
+                                                <#if corso.semestre==1>
+                                                <option value="1" selected>Primo Semestre</option>
                                                 <option value="2">Secondo Semestre</option>
+                                                <#elseif corso.semestre==2>
+                                                <option value="1">Primo Semestre</option>
+                                                <option value="2" selected>Secondo Semestre</option>
+                                                <#else>
+                                                <option value="" selected>Seleziona semestre corso...</option>
+                                                <option value="1">Primo Semestre</option>
+                                                <option value="2" selected>Secondo Semestre</option>
+                                                </#if>
                                             </select>
                                         </div>
                                     </div>
@@ -140,9 +148,17 @@
                                     <div class="form-group">
                                             <div class="styled-select">
                                                     <select class="form-control" name="tipologia">
-                                                        <option value="${corso.tipologia}" selected>${corso.tipologia} (valore di default)</option>
+                                                        <#if corso.tipologia=='A'>
+                                                        <option value="A" selected>A</option>
+                                                        <option value="B">B</option>
+                                                        <#elseif corso.tipologia=='B'>
+                                                        <option value="A">A</option>
+                                                        <option value="B" selected>B</option>
+                                                        <#else>
+                                                        <option value="n" selected>Seleziona tipologia cfu...</option>
                                                         <option value="A">A</option>
                                                         <option value="B">B</option>
+                                                        </#if>
                                                     </select>
                                                 </div>
                                     </div>
@@ -197,7 +213,7 @@
                                     
                             <hr>
     
-    
+                            <input type='hidden' name='key' value='${corso.ID}'>
                             <input type="submit" name="modifica" value="Aggiorna Corso" class="button_subscribe_green" id="submit-apply">
         
                         </form>

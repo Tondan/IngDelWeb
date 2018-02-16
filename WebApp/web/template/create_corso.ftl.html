@@ -155,7 +155,7 @@
                                         <div>
                                             <h4>Associa i docenti al corso</h4>
                                             <div>
-                                                <select id="special1" name="docenti" required multiple>
+                                                <select id="special1" name="docenti" multiple>
                                                 <#list docenti?sort_by("nome") as docente>
                                                 <option value="${docente.IDDocente}">${docente.nome} ${docente.cognome}</option>
                                                 </#list> 

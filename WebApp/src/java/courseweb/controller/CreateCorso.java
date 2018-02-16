@@ -75,18 +75,18 @@ public class CreateCorso extends BaseController {
                 
                 String[] docente=request.getParameterValues("docenti");
                 List<Docente> docenti=new ArrayList();
-                
-                for(int i=0,a=0; i<docente.length; i++){
-                   a=Integer.parseInt(docente[i]);
-                   docenti.add(((IgwDataLayer)request.getAttribute("datalayer")).getDocente(a));  
-                }
+                if(!docenti.isEmpty())
+                    for(int i=0,a=0; i<docente.length; i++){
+                       a=Integer.parseInt(docente[i]);
+                       docenti.add(((IgwDataLayer)request.getAttribute("datalayer")).getDocente(a));  
+                    }
                 
                 String[] c=request.getParameterValues("cdl");
                 List<CDL> cdl=new ArrayList();
-                for(int i=0,a=0; i<c.length; i++){
-                   a=Integer.parseInt(c[i]);
-                   cdl.add(((IgwDataLayer)request.getAttribute("datalayer")).getCDL(a));  
-                }
+                    for(int i=0,a=0; i<c.length; i++){
+                       a=Integer.parseInt(c[i]);
+                       cdl.add(((IgwDataLayer)request.getAttribute("datalayer")).getCDL(a));  
+                    }
                 
                 Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).createCorso();
                     
