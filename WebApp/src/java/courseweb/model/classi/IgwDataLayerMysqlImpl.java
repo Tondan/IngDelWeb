@@ -1193,7 +1193,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 if(uCorso.executeUpdate()==1){
                     List<Docente> docx=getDocentiCorso(corso);
                     for(Docente doc:docx)   //implementare equals oppure qui doppio cisco sulle liste
-                        if(!corso.getDocenti().contains(doc)){
+                        if(!corso.getDocenti().contains(doc)){                                                                                                              
                             dDocentiCorso.setInt(1, corso.getID());
                             dDocentiCorso.setInt(2, doc.getIDDocente());
                             dDocentiCorso.executeUpdate();

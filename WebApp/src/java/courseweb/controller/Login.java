@@ -16,6 +16,7 @@ import courseweb.model.interfacce.Utente;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -48,6 +49,7 @@ public class Login extends BaseController {
             String password = request.getParameter("password");
             
             
+            
              if (!username.isEmpty() && !password.isEmpty()){
                 
                 try {
@@ -58,10 +60,17 @@ public class Login extends BaseController {
                         
                     
                     int userid = utente.getID();
-                    SecurityLayer.createSession(request, username, userid);
+                    HttpSession sessione = SecurityLayer.createSession(request, username, userid);
+                    
+                     if(utente.getDocente()!=0){
+                               sessione.setAttribute("docente", true);
+                               utente.getDocente();
+                     }
+                    
                     List<Servizio> servizi=utente.getGruppo().getServizi();
                     for(Servizio s:servizi){
                         if(s.getScript().equals("BackofficeD")) {
+                            
                             response.sendRedirect("BackofficeD");
                     }
                     //se è stato trasmesso un URL di origine, torniamo a quell'indirizzo

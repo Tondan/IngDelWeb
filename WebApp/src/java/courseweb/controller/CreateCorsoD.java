@@ -2,6 +2,7 @@ package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
@@ -9,6 +10,7 @@ import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -31,27 +33,24 @@ public class CreateCorsoD extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua) throws IOException, ServletException, TemplateManagerException {
         TemplateResult res = new TemplateResult(getServletContext());
         request.setAttribute("servlet","CreateCorsoD?");
             if(lingua.equals("it")||lingua.equals("")){
             try {
+                
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
-                String doc = null;
-                request.setAttribute("doc", doc);
-                
-                
-                
-                request.setAttribute("docente",((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
-                
+ 
                 HttpSession s = request.getSession(false);
                 String a = (String) s.getAttribute("username");
                 request.setAttribute("nome",a);
                 
+                int id=(int) s.getAttribute("id");
                 
+                Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
                 
-                
+                List<Corso> corso=((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente);
                 
                 res.activate("create_corsoD.ftl.html", request, response);
             } catch (DataLayerException ex) {

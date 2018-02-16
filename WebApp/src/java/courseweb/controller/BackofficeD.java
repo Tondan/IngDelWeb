@@ -2,6 +2,7 @@ package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
@@ -9,6 +10,7 @@ import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -50,8 +52,15 @@ public class BackofficeD extends BaseController {
                 String b=request.getSession().getId();
                 request.setAttribute("session_id",b);
                 
-                int docente=(int) s.getAttribute("userid");
-                request.setAttribute("docente",((IgwDataLayer)request.getAttribute("datalayer")).getDocente(docente));
+                int id=(int) s.getAttribute("id");
+                
+                Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
+                
+                List<Corso> corso=((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente);
+                request.setAttribute("corso", corso);
+                request.setAttribute("docente", docente);
+                
+                
 
                 res.activate("backofficeD.ftl.html", request, response);
             } catch (DataLayerException ex) {
