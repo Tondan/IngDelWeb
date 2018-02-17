@@ -1,3 +1,4 @@
+
 <section id="sub-header">
 <div class="container">
 	<div class="row">
@@ -14,25 +15,31 @@
 </section><!-- End sub-header -->
 
 <section id="main_content">
-
+		
 <div class="container">
 
+		
+
 <ol class="breadcrumb">
-  <li><a href="Home?lin=en">Home</a></li>
+  <li><a href="Home?lin=it">Home</a></li>
   <li class="active">Teachers List</li>
 </ol>
-      
-<div class="divider"></div>
+	 
 
-<div class="row">
-<div class="col-md-12">
-		<input id="ricerca" type="text" name="search" placeholder="Cerca..."/> 
-</div> 
-</div>
-           
-           
-           <#list docenti as docente>
-                    	<div  class="col-md-6 col-sm-6">
+	
+	<div class="divider"></div>
+
+	<div class="row">
+	<div class="col-md-12">
+			<input id="ricerca" type="text" name="search" placeholder="Search..."/> 
+	</div> 
+	</div>
+       <div id="table" class="row">
+			
+
+		   <#list docenti as docente>
+		   
+                    	<div class="col-md-6 col-sm-6">
                         	<div class="box_style_3">
                             	<p><img id="img-docente" src="${docente.immagine}" alt="Teacher" class="img-circle styled"></p>
                                 <h4 class="p-title">${docente.nome} ${docente.cognome} <br> <small>${docente.specializzazione}</small></h4>

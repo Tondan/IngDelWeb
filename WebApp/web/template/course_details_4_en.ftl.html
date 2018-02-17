@@ -16,7 +16,7 @@
                 <ul class="list_ok">
                     <li><strong>SSD:</strong> &nbsp;${corso.SSD}</li>
                     <li><strong>CDL:</strong>&nbsp;<#list corso.CDL as cdl>
-                                    ${cdl.abbr_en}<#if cdl?has_next>,&nbsp;</#if>
+                                    <#if cdl.abbr_en?trim?has_content>${cdl.abbr_en}<#else>${cdl.abbr_it}</#if><#if cdl?has_next>,&nbsp;</#if>
                                 </#list></li>
                     <li><strong>Language:</strong>&nbsp;  ${corso.lingua}</li>
                     <li><strong>Semester:</strong>&nbsp;  ${corso.semestre}</li>
@@ -27,12 +27,12 @@
 
             <div class="col-md-4">
                 <h2>Prerequisites</h2>
-                <span>${descrizione_en.prerequisiti}</span>
+                <span><#if descrizione_en.prerequisiti?trim?has_content> ${descrizione_en.prerequisiti} <#else> ${descrizione_it.prerequisiti} </#if></span>
             </div>
 
            <div class="col-md-4">
             <h2>Objectives</h2>
-            <span>${descrizione_en.obiettivi}</span>
+            <span><#if descrizione_en.obiettivi?trim?has_content> ${descrizione_en.obiettivi} <#else> ${descrizione_it.obiettivi} </#if></span>
        </div>
 
         	       
@@ -44,22 +44,22 @@
 
 
                     <#list propedeudici as propedeudico>
-                    <li><strong>Preparatory Courses:</strong> <#if propedeudico.nome_en??>  ${propedeudico.nome_en} </#if> </li>
+                    <li><strong>Preparatory Courses:</strong> <strong><a href="DetailsCorso?n=${propedeudico.ID}&lin=en" id="dc"><#if propedeudico.nome_en?trim?has_content>  ${propedeudico.nome_en} <#else> ${propedeudico.nome_it} </#if></a></strong> </li>
                     </#list>
 
 
 
                     <#if mutuati?has_content>
-                        <li><strong>Borrowed Courses:</strong><#list mutuati as mutua> <#if mutua.nome_en??>  ${mutua.nome_en}<#if mutua?has_next>,&nbsp</#if></#if></#list> </li>
+                        <li><strong>Borrowed Courses:</strong><#list mutuati as mutua> <strong><a href="DetailsCorso?n=${mutua.ID}&lin=en" id="dc"> <#if mutua.nome_en?trim?has_content>  ${mutua.nome_en} <#if mutua?has_next>,&nbsp</#if> <#else> ${mutua.nome_it} <#if mutua?has_next>,&nbsp</#if></#if></a></strong></#list> </li>
                         
                     <#else>
-                        <#if mutuato??><li><strong>Borrowed By:</strong> <#if mutuato.nome_en??>  ${mutuato.nome_en} </#if> </li></#if>
+                        <#if mutuato??><li><strong>Borrowed By:</strong> <strong><a href="DetailsCorso?n=${mutuato.ID}&lin=en" id="dc"><#if mutuato.nome_en?trim?has_content>  ${mutuato.nome_en} <#else> ${mutuato.nome_it}</#if></a></strong> </#if></li>
                     </#if>
 
 
 
                     <#list moduli as modulo>
-                    <li><strong>Module Courses:</strong> <#if modulo.nome_en??>  ${modulo.nome_en} </#if> </li>
+                    <li><strong>Module Courses:</strong> <strong><a href="DetailsCorso?n=${modulo.ID}&lin=en"><#if modulo.nome_en?trim?has_content>  ${modulo.nome_en} <#else> ${modulo.nome_it} </#if></a></strong> </li>
                     </#list>
 
                    
@@ -82,7 +82,7 @@
   <ol class="breadcrumb">
       <li><a href="Home?lin=en">Home</a></li>
       <li><a href="listcorsi?lin=en">Courses List</a></li>
-      <li class="active">${corso.nome_en}</li>
+      <li class="active"><#if corso.nome_en?trim?has_content> ${corso.nome_en} <#else> ${corso.nome_it} </#if></li>
     </ol>
 
 	 
@@ -93,7 +93,7 @@
 
             <section>
                 <h3>Syllabus</h3>
-                 ${descrizione_en.sillabo}
+                 <#if descrizione_en.sillabo?trim?has_content> ${descrizione_en.sillabo} <#else> ${descrizione_it.sillabo} </#if>
             </section>
 
 
@@ -122,31 +122,30 @@
             
 
             <section class="section" id="content1">
-                 ${dublino_en.knowledge}
+                 <#if dublino_en.knowledge?trim?has_content> ${dublino_en.knowledge} <#else> ${dublino_it.knowledge} </#if>
             </section>
               
             <section class="section" id="content2">
-                 ${dublino_en.application}
+                 <#if dublino_en.application?trim?has_content> ${dublino_en.application} <#else> ${dublino_it.application} </#if>
             </section>
               
             <section class="section" id="content3">
-                 ${dublino_en.evaluation}
+                 <#if dublino_en.evaluation?trim?has_content> ${dublino_en.evaluation} <#else> ${dublino_it.evaluation} </#if>
             </section>
               
             <section class="section" id="content4">
-                ${dublino_en.communication}
+                <#if dublino_en.communication?trim?has_content> ${dublino_en.communication} <#else> ${dublino_it.communication} </#if>
             </section>
               
             <section class="section" id="content5">
-                 ${dublino_en.lifelong}
+                 <#if dublino_en.lifelong?trim?has_content> ${dublino_en.lifelong} <#else> ${dublino_it.lifelong} </#if>
             </section>
-        
-        </main>
+    </main>
         
         <span class="basso">
                 <h3>Note</h3>
     
-                ${descrizione_en.note}
+                <#if descrizione_en.note?trim?has_content> ${descrizione_en.note} <#else> ${descrizione_it.note} </#if>
             
             
             
@@ -196,14 +195,14 @@
            </div>
        	 	
            
-            <#if descrizione_en.homepage?? || descrizione_en.forum?? || descrizione_en.risorse_Ext??>   
+            <#if descrizione_it.homepage?trim?has_content || descrizione_it.forum?trim?has_content || descrizione_it.risorse_Ext?trim?has_content || descrizione_en.homepage?trim?has_content || descrizione_en.forum?trim?has_content || descrizione_en.risorse_Ext?trim?has_content>      
                 
            <div class="box_style_1">
                     <h4>External Links</h4>
                     <ul class="list_1">
-                          <#if descrizione_en.homepage??><li><a href="${descrizione_en.homepage}">Homepage</a></li></#if>
-                          <#if descrizione_en.forum??><li><a href="${descrizione_en.forum}">Forum</a></li></#if>
-                          <#if descrizione_en.risorse_Ext??><li><a href="${descrizione_en.risorse_Ext}">External Resources</a></li></#if>
+                          <#if descrizione_en.homepage?trim?has_content><li><a href="${descrizione_en.homepage}">Homepage</a></li><#elseif descrizione_it.homepage?trim?has_content><li><a href="${descrizione_it.homepage}">Homepage</a></li></#if>
+                          <#if descrizione_en.forum?trim?has_content><li><a href="${descrizione_en.forum}">Forum</a></li><#elseif descrizione_it.forum?trim?has_content><li><a href="${descrizione_it.forum}">Forum</a></li></#if>
+                          <#if descrizione_en.risorse_Ext?trim?has_content><li><a href="${descrizione_en.risorse_Ext}">External Resources</a></li><#elseif descrizione_it.risorse_Ext?trim?has_content><li><a href="${descrizione_it.risorse_Ext}">External Resources</a></li></#if>
                      </ul>
            </div>
             

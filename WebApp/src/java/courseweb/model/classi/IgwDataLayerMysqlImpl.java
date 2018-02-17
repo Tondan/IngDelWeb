@@ -70,7 +70,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
             sCorsiByAnno=connection.prepareStatement("SELECT * FROM Corso WHERE Anno=?");  /*LOOK*/
             sCDLByCorso=connection.prepareStatement("SELECT * FROM CDL,Corsi_CDL WHERE CDL.IDCDL=Corsi_CDL.CDL AND Corso=?");
-            sCorsoMutuaByCorso=connection.prepareStatement("SELECT * FROM Colleg_Corsi,Corso WHERE Other_Corso=IDCorso AND Other_Corso=? AND Tipo='Mutuato'");
+            sCorsoMutuaByCorso=connection.prepareStatement("SELECT * FROM Colleg_Corsi,Corso WHERE This_Corso=IDCorso AND Other_Corso=? AND Tipo='Mutuato'");
            
             sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1");
             sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0");

@@ -345,13 +345,13 @@
             <div class="col-item">
                 <div class="photo">
                     <a href="DetailsCorsoCdl?n=${cdl.IDCDL}&lin=it"><img src="${cdl.immagine}"/></a>
-                    <div class="cat_row">${cdl.nome_it}<span class="pull-right"><i class="fas fa-university"></i></span></div>
+                    <div class="cat_row"><#if cdl.nome_it?trim?has_content>${cdl.nome_it}<#else>${cdl.nome_en}</#if><span class="pull-right"><i class="fas fa-university"></i></span></div>
                 </div>
                 <div class="info">
                     <div class="row">
                         <div class="course_info col-md-12 col-sm-12">
                             <h5></h5>
-                            <p>${cdl.descrizione_it}</p>
+                            <p><#if cdl.descrizione_it?trim?has_content>${cdl.descrizione_it}<#else>${cdl.descrizione_en}</#if></p>
 
                         <div class="price pull-right">${cdl.cfu} CFU</div>
                         </div>
@@ -388,13 +388,13 @@
             <div class="col-item">
                 <div class="photo">
                     <a href="DetailsCorsoCdl?n=${cdlm.IDCDL}&lin=it"><img src="${cdlm.immagine}"/></a>
-                    <div class="cat_row">${cdlm.nome_it}<span class="pull-right"><i class="fas fa-university"></i></span></div>
+                    <div class="cat_row"><#if cdlm.nome_it?trim?has_content>${cdlm.nome_it}<#else>${cdlm.nome_en}</#if><span class="pull-right"><i class="fas fa-university"></i></span></div>
                 </div>
                 <div class="info">
                     <div class="row">
                         <div class="course_info col-md-12 col-sm-12">
                             <h5></h5>
-                            <p>${cdlm.descrizione_it}</p>
+                            <p><#if cdlm.descrizione_it?trim?has_content>${cdlm.descrizione_it}<#else>${cdlm.descrizione_en}</#if></p>
 
                         <div class="price pull-right">${cdlm.cfu} CFU</div>
                         </div>

@@ -21,12 +21,12 @@
           <#if lingua=="it">
             <li><a href="Home">Home</a></li>
             <li><a href="listcorsi">Lista Corsi</a></li>
-            <li><a href="DetailsCorso?n=${corso.ID}">${corso.nome_it}</a></li>
+            <li><a href="DetailsCorso?n=${corso.ID}"><#if corso.nome_it?trim?has_content>${corso.nome_it}<#else>${corso.nome_en}</#if></a></li>
             <li class="active">Materiale</li>
           <#else>
             <li><a href="Home?lin=en">Home</a></li>
             <li><a href="listcorsi?lin=en">Courses List</a></li>
-            <li><a href="DetailsCorso?n=${corso.ID}&lin=en">${corso.nome_en}</a></li>
+            <li><a href="DetailsCorso?n=${corso.ID}&lin=en"><#if corso.nome_en?trim?has_content>${corso.nome_en}<#else>${corso.nome_it}</#if></a></li>
             <li class="active">Materiale</li>
           </#if>
         </ol>
@@ -65,7 +65,7 @@
                             
                             <tr>
                         <th scope="row"> ${materiale.nome}</th>
-                                <td> ${materiale.descrizione_it}</td>
+                                <td> <#if materiale.descrizione_it?trim?has_content> ${materiale.descrizione_it} <#else> ${materiale.descrizione_en} </#if></td>
                                 <td> ${peso} KB</td>
                                 <td class="icon-download"><a href="download?k=${materiale.link}"> Scarica Ora </a></td>
                             </tr>
@@ -98,9 +98,9 @@
                         
                             <tr>
                         <th scope="row">${materiale.nome}</th>
-                                <td>${materiale.descrizione_en}</td>
+                                <td><#if materiale.descrizione_en?trim?has_content> ${materiale.descrizione_en} <#else> ${materiale.descrizione_it} </#if></td>
                                 <td>${peso} KB</td>
-                                <td class="icon-download"><a href="download?k=${materiale.link}">Scarica Ora</a></td>
+                                <td class="icon-download"><a href="download?k=${materiale.link}">Download Now</a></td>
                             </tr>
                         </a>
                            </#list>

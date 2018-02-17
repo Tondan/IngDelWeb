@@ -188,3 +188,11 @@ input[type='checkbox']{
 		display: block;
   }
 }
+
+#dc{
+    color:#00FFFFFF
+}
+
+#dc:hover{
+    color:#007bff
+}

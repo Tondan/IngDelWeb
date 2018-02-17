@@ -53,19 +53,29 @@ public class DetailsCorso extends BaseController {
             if(session!=null && request.isRequestedSessionIdValid()){
             String a = (String) session.getAttribute("username");
             request.setAttribute("nome",a);}
+            request.setAttribute("descrizione_it", corso.getDescrizione_it());
+            request.setAttribute("dublino_it", corso.getDublino_it());
+            request.setAttribute("descrizione_en", corso.getDescrizione_en());
+            request.setAttribute("dublino_en", corso.getDublino_en());
             
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
-                request.setAttribute("descrizione_it", corso.getDescrizione_it());
-                request.setAttribute("dublino_it", corso.getDublino_it());
-                request.setAttribute("page_title", corso.getNome_it());                
+                String title;
+                if(corso.getNome_it().trim().isEmpty())
+                    title=corso.getNome_en();
+                else
+                    title=corso.getNome_it();
+                request.setAttribute("page_title", title);                
                 res.activate("course_details_4.ftl.html", request, response); 
             }
             else{
                 request.setAttribute("lingua","en");
-                request.setAttribute("descrizione_en", corso.getDescrizione_en());
-                request.setAttribute("dublino_en", corso.getDublino_en());
-                request.setAttribute("page_title", corso.getNome_en());
+                String title;
+                if(corso.getNome_en().trim().isEmpty())
+                    title=corso.getNome_it();
+                else
+                    title=corso.getNome_en();
+                request.setAttribute("page_title", title);
                 res.activate("course_details_4_en.ftl.html", request, response);
             }
             

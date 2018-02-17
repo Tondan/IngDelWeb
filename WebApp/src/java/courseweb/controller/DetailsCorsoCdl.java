@@ -46,14 +46,24 @@ public class DetailsCorsoCdl extends BaseController {
             request.setAttribute("nome",a);}
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
-                request.setAttribute("page_title", Cdl.getNome_it());
-                request.setAttribute("info", Cdl.getNome_it());
+                String info;
+                if(Cdl.getNome_it().trim().isEmpty())
+                    info=Cdl.getNome_en();
+                else
+                    info=Cdl.getNome_it();
+                request.setAttribute("info", info);
+                request.setAttribute("page_title", info);
                 res.activate("courses_list+.ftl.html", request, response); 
             }
             else{
                 request.setAttribute("lingua","en");
-                request.setAttribute("page_title", Cdl.getNome_en());
-                request.setAttribute("info", Cdl.getNome_en());
+                String info;
+                if(Cdl.getNome_en().trim().isEmpty())
+                    info=Cdl.getNome_it();
+                else
+                    info=Cdl.getNome_en();
+                request.setAttribute("info", info);
+                request.setAttribute("page_title", info);
                 res.activate("courses_list_en+.ftl.html", request, response);
             }
         } catch (DataLayerException ex) {

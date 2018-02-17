@@ -33,13 +33,13 @@
                 <br>
                 <h4>Corsi di laurea Triennale</h4>
                 <#list cdl?sort_by("nome_it") as cdl>
-                <li><a href="DetailsCorsoCdl?n=${cdl.IDCDL}&lin=it">${cdl.nome_it}</a></li>
+                <li><a href="DetailsCorsoCdl?n=${cdl.IDCDL}&lin=it"><#if cdl.nome_it?trim?has_content>${cdl.nome_it}<#else>${cdl.nome_en}</#if></a></li>
                 </#list>
 
                 
                 <h4>Corsi di laurea Magistrale</h4>
                 <#list cdlm?sort_by("nome_it") as cdlm>
-                <li><a href="DetailsCorsoCdl?n=${cdlm.IDCDL}&lin=it">${cdlm.nome_it}</a></li>
+                <li><a href="DetailsCorsoCdl?n=${cdlm.IDCDL}&lin=it"><#if cdlm.nome_it?trim?has_content>${cdlm.nome_it}<#else>${cdlm.nome_en}</#if></a></li>
                 </#list>
 
             </ul>
@@ -78,14 +78,14 @@
                             <#list corsi?sort_by("nome_it") as corso>
                             <tr>
                                
-                                <td><a href="DetailsCorso?n=${corso.ID}&lin=it">${corso.nome_it}</a></td>
+                                <td><a href="DetailsCorso?n=${corso.ID}&lin=it"><#if corso.nome_it?trim?has_content>${corso.nome_it}<#else>${corso.nome_en}</#if></a></td>
                                 <td>${corso.SSD}</td>
                                 <td>${corso.cfu}</td>
                                 <td>${corso.lingua}</td>
                                 <td>${corso.semestre}</td>
                                 <td>${corso.tipologia}</td>
                                 <td><#list corso.CDL as cdl>
-                                    ${cdl.abbr_it}<#if cdl?has_next>,&nbsp&nbsp</#if>
+                                    <#if cdl.abbr_it?trim?has_content>${cdl.abbr_it}<#else>${cdl.abbr_en}</#if><#if cdl?has_next>,&nbsp&nbsp</#if>
                                 </#list></td>
                                 <td><#list corso.docenti as docenti>
                                     ${docenti.cognome}<#if docenti?has_next>,&nbsp&nbsp</#if>
