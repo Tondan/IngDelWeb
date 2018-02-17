@@ -21,7 +21,7 @@
                     <li><strong>Language:</strong>&nbsp;  ${corso.lingua}</li>
                     <li><strong>Semester:</strong>&nbsp;  ${corso.semestre}</li>
                     <li><strong>CFU (e tipo):</strong>&nbsp;  ${corso.cfu} / ${corso.tipologia}</li>
-                    <li><strong>Year:</strong>&nbsp; ${corso.anno?c}</li>
+                    <li><strong>Year:</strong>&nbsp; ${corso.anno?c}/${(corso.anno+1)?c}</li>
                 </ul>
             </div>
 
@@ -91,7 +91,7 @@
 <div class="row">
     <div class="col-md-8">
 
-            <section>
+            <section id="space">
                 <h3>Syllabus</h3>
                  <#if descrizione_en.sillabo?trim?has_content> ${descrizione_en.sillabo} <#else> ${descrizione_it.sillabo} </#if>
             </section>
@@ -103,7 +103,7 @@
 
 
         <h3>Dublin Descriptors</h3>
-        <main class="main">
+        <main class="main" id="space">
 
             <input class="input" id="tab1" type="radio" name="tabs" checked>
             <label for="tab1">Knowledge</label>
@@ -142,19 +142,22 @@
             </section>
     </main>
         
-        <span class="basso">
+        <section id="space">
                 <h3>Note</h3>
     
                 <#if descrizione_en.note?trim?has_content> ${descrizione_en.note} <#else> ${descrizione_it.note} </#if>
             
-            
-            
-            
-            
-            
-            </span>
+            </section>
 
-
+        <#if precedenti??>
+        <section id="space">
+            <h3>Course Page Updates</h3>
+            <#list precedenti?sort_by("anno") as precedenti>
+            <li><a href="DetailsCorso?n=${precedenti.ID}&lin=en&new=${nn}"> A.A. ${precedenti.anno?c}/${(precedenti.anno+1)?c} </a></li>
+            </#list>
+            <#if nn!=corso.ID> <li><a href="DetailsCorso?n=${nn}&lin=en"> Current Informations </a></li> </#if>
+        </section>
+      </#if>
 
 
     </div><!-- End col-md-8-->   	
