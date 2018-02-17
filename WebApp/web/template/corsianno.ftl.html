@@ -63,14 +63,14 @@
                         <h6> Cdl triennali</h6>
                         <#list cdl as cdl>
                             <li>
-                                <a href="Corsianno?n=${cdl.IDCDL}">${cdl.nome_it}</a>
+                                <a href="Corsianno?n=${cdl.IDCDL}"><#if cdl.nome_it?trim?has_content>${cdl.nome_it}<#else>${cdl.nome_en} </#if></a>
                             </li>
                         </#list>
 
                             <h6>Cdl magistrali</h6>
                         <#list cdlm as cdlm>
                             <li>
-                                <a href="Corsianno?n=${cdlm.IDCDL}">${cdlm.nome_it}</a>
+                                <a href="Corsianno?n=${cdlm.IDCDL}"><#if cdlm.nome_it?trim?has_content>${cdlm.nome_it}<#else>${cdlm.nome_en}</#if></a>
                             </li>
                         </#list>
 
@@ -100,7 +100,7 @@
                                 <div class="panel-body">
                                     <#list corso as corso>
                                     <li>
-                                        <a href="ModificaCorso?n=${corso.ID}&lin=it">${corso.nome_it}</a>
+                                        <a href="ModificaCorso?n=${corso.ID}&lin=it"><#if corso.nome_it?trim?has_content>${corso.nome_it}<#else>${corso.nome_en}</#if></a>
                                     </li>
                                     </#list>
                                 </div>

@@ -15,7 +15,7 @@
                 <ol class="breadcrumb">
                         <li ><a href="Backoffice">Backoffice</a></li>
                         <li><a href="Corsianno?lin=it">Selezione del corso</a></li>
-                        <li class="active"><a href="ModificaCorso">Modifica Corso ${corso.nome_it} </a></li>
+                        <li class="active"><a href="ModificaCorso">Modifica Corso <#if corso.nome_it?trim?has_content>${corso.nome_it}<#else>${corso.nome_en}</#if> </a></li>
 
                       </ol>
     
@@ -58,7 +58,7 @@
                         <span class="tape"></span>
                         <div class="row">
                             <div class="col-md-12">
-                                <h4>Modifica il corso di ${corso.nome_it}</h4>
+                                <h4>Modifica il corso di <#if corso.nome_it?trim?has_content>${corso.nome_it}<#else>${corso.nome_en}</#if></h4>
                             </div>
                         </div>
                         <div id="message-apply"></div>
@@ -204,7 +204,7 @@
                                                     <h4>Modifica il cdl corso</h4>
                                                     <select id="special2" name="cdl" multiple autocomplete="off">
                                                     <#list cdl1?sort_by("nome_it") as cdl1>
-                                                    <option value="${cdl1.IDCDL}" <#if seq?seq_contains(cdl1.IDCDL)>selected</#if>>${cdl1.nome_it}</option>
+                                                    <option value="${cdl1.IDCDL}" <#if seq?seq_contains(cdl1.IDCDL)>selected</#if>><#if cdl1.nome_it?trim?has_content>${cdl1.nome_it}<#else>${cdl1.nome_en}</#if></option>
                                                     </#list> 
                                                     </select>
 

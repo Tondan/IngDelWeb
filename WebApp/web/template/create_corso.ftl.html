@@ -172,7 +172,7 @@
 
                                                 <select id="special2" name="cdl" required id="req" multiple>
                                                 <#list cdl?sort_by("nome_it") as cdl>
-                                                <option value="${cdl.IDCDL}">${cdl.nome_it}</option>
+                                                <option value="${cdl.IDCDL}"><#if cdl.nome_it?trim?has_content>${cdl.nome_it}<#else>${cdl.nome_en}</#if></option>
                                                 </#list> 
 
                                             </select>
