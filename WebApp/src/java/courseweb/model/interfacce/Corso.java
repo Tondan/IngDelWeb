@@ -118,4 +118,12 @@ public interface Corso {
     public boolean isDirty();
     
     public void copyFrom(Corso corso);
+    
+    public int getOldID();
+    
+    public void setOldID(int id);
+    
+    public List<Corso> getAnniPrecedenti() throws DataLayerException;
+    
+    public void setAnniPrecedenti(List<Corso> corso);
 }

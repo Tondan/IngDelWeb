@@ -58,6 +58,15 @@ public class DetailsCorso extends BaseController {
             request.setAttribute("descrizione_en", corso.getDescrizione_en());
             request.setAttribute("dublino_en", corso.getDublino_en());
             
+            if(request.getParameter("new")!=null){
+                int n=SecurityLayer.checkNumeric(request.getParameter("new"));
+                request.setAttribute("precedenti", ((IgwDataLayer)request.getAttribute("datalayer")).getCorso(n).getAnniPrecedenti());
+                request.setAttribute("nn", n);
+            }
+            else{
+                request.setAttribute("nn", corso.getID());
+                request.setAttribute("precedenti", corso.getAnniPrecedenti());
+            }
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 String title;

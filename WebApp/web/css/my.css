@@ -196,3 +196,7 @@ input[type='checkbox']{
 #dc:hover{
     color:#007bff
 }
+
+#space{
+    margin-bottom: 40px;
+}

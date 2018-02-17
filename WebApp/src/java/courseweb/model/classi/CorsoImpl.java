@@ -35,6 +35,10 @@ public class CorsoImpl implements Corso{
     
     private char tipologia;
     
+    private int oldID;
+    
+    private List<Corso> precedenti;
+    
     
     //assumiamo che un corso possa mutuare(sostituire) più corsi, e che lo stesso possa essere mutuato (sostituito) da un solo corso
     private List<Corso> mutuati;
@@ -89,6 +93,8 @@ public class CorsoImpl implements Corso{
         this.libri=null;
         this.materiale=null;
         this.dirty=false;
+        this.oldID=0;
+        this.precedenti=null;
     }  
     
     @Override
@@ -428,5 +434,29 @@ public class CorsoImpl implements Corso{
             Logger.getLogger(DocenteImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dirty = true;
+    }
+    
+    @Override
+    public int getOldID(){
+        return this.oldID;
+    }
+    
+    @Override
+    public void setOldID(int id){
+        this.oldID=id;
+        this.dirty=true;
+    }
+    
+    @Override
+    public List<Corso> getAnniPrecedenti() throws DataLayerException{
+        if(precedenti==null && oldID>0)
+            precedenti=ownerdatalayer.getAnniPrecedenti(this);
+        return precedenti;
+    }
+    
+    @Override
+    public void setAnniPrecedenti(List<Corso> precedenti){
+        this.precedenti=precedenti;
+        this.dirty=true;
     }
 }
