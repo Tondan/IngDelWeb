@@ -53,7 +53,7 @@
 							<section class="section" id="content2">
                                                         <#noautoesc>
 							${docente.ricerche}
-							<#noautoesc>
+							</#noautoesc>
                                                         </section>
 							  
 							<section class="section" id="content3">
@@ -85,14 +85,14 @@
 									   
 										<#list docentecorsi as docentecorsi>
 										<tr>
-										<td><a href="DetailsCorso?n=${docentecorsi.ID}&lin=it">${docentecorsi.nome_en}</a></td>
+										<td><a href="DetailsCorso?n=${docentecorsi.ID}&lin=en"><#if docentecorsi.nome_en?trim?has_content> ${docentecorsi.nome_en} <#else> ${docentecorso.nome_it} </#if></a></td>
 							
 										 <td>${docentecorsi.SSD}</td>
 										 <td>${docentecorsi.cfu}</td>
 										 <td>${docentecorsi.lingua}</td>
 										 <td>${docentecorsi.semestre}</td>
 											<td><#list docentecorsi.CDL as cdl>
-											${cdl.abbr_it}<#if cdl?has_next>,&nbsp&nbsp</#if>
+											<#if cdl.abbr_en?trim?has_content>${cdl.abbr_en}<#else>${cdl.abbr_it}</#if><#if cdl?has_next>,&nbsp&nbsp</#if>
 											   </#list></td>
 	
 									   </tr>

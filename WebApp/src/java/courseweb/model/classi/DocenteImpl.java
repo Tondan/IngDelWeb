@@ -252,5 +252,11 @@ public class DocenteImpl implements Docente {
         this.dirty = dirty;
     }
     
+    public static boolean contains(List<Docente> list,Docente docente){
+        for(Docente doc:list)
+            if(doc.getIDDocente()==docente.getIDDocente())
+                return true;
+        return false;
+    }
    
 }

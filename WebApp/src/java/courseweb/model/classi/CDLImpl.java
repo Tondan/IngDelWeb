@@ -236,4 +236,11 @@ public class CDLImpl implements CDL{
     public void setDirty(boolean dirty) {
         this.dirty = dirty;
     }
+    
+    public static boolean contains(List<CDL> list,CDL cdl){
+        for(CDL cd:list)
+            if(cd.getIDCDL()==cdl.getIDCDL())
+                return true;
+        return false;
+    }
 }

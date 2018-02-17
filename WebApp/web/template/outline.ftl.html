@@ -280,7 +280,15 @@
                 
             });
         </script>
-
+        
+        <script src="https://unpkg.com/jquery-grouprequired@2.0.6/dist/jquery.grouprequired.min.js"></script>
+        <script>
+            $( function() {
+	$( 'input[id=req]' ).groupRequired( {
+		errorMessage: 'Compilare il campo italiano o il campo inglese'
+	} );
+    } );
+        </script>
   </body>
 </html>
 

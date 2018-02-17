@@ -70,7 +70,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sLogByID=connection.prepareStatement("SELECT * FROM Log WHERE IDLog=?");
             sCorsiByAnno=connection.prepareStatement("SELECT * FROM Corso WHERE Anno=?");  /*LOOK*/
             sCDLByCorso=connection.prepareStatement("SELECT * FROM CDL,Corsi_CDL WHERE CDL.IDCDL=Corsi_CDL.CDL AND Corso=?");
-            sCorsoMutuaByCorso=connection.prepareStatement("SELECT * FROM Colleg_Corsi,Corso WHERE Other_Corso=IDCorso AND Other_Corso=? AND Tipo='Mutuato'");
+            sCorsoMutuaByCorso=connection.prepareStatement("SELECT * FROM Colleg_Corsi,Corso WHERE This_Corso=IDCorso AND Other_Corso=? AND Tipo='Mutuato'");
            
             sCdlByMagistrale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=1");
             sCdlByTriennale = connection.prepareStatement("SELECT * FROM CDL WHERE Magistrale=0");
@@ -1192,7 +1192,40 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 
                 if(uCorso.executeUpdate()==1){
                     List<Docente> docx=getDocentiCorso(corso);
-                    for(Docente doc:docx)   //implementare equals oppure qui doppio cisco sulle liste
+                    List<Docente> doci=corso.getDocenti();
+                    for(Docente doc:docx)
+                        if(!DocenteImpl.contains(corso.getDocenti(), doc)){
+                            dDocentiCorso.setInt(1, corso.getID());
+                            dDocentiCorso.setInt(2, doc.getIDDocente());
+                            dDocentiCorso.executeUpdate();
+                        }
+                        else{
+                            doci.remove(doc);
+                        }
+                    for(Docente doc:doci){
+                        iDocentiCorso.setInt(1, corso.getID());
+                        iDocentiCorso.setInt(2, doc.getIDDocente());
+                        iDocentiCorso.executeUpdate();
+                    }
+                    
+                    List<CDL> cdlx=getCDLInCorso(corso);
+                    List<CDL> cdli=corso.getCDL();
+                    for(CDL cdl:cdlx)
+                        if(!CDLImpl.contains(corso.getCDL(), cdl)){
+                            dCDLCorso.setInt(1, corso.getID());
+                            dCDLCorso.setInt(2, cdl.getIDCDL());
+                            dCDLCorso.executeUpdate();
+                        }
+                        else{
+                            cdli.remove(cdl);
+                        }
+                    for(CDL cdl:cdli){
+                        iCDLCorso.setInt(1, corso.getID());
+                        iCDLCorso.setInt(2, cdl.getIDCDL());
+                        iCDLCorso.executeUpdate();
+                    }
+                    /*
+                    for(Docente doc:docx) 
                         if(!corso.getDocenti().contains(doc)){                                                                                                              
                             dDocentiCorso.setInt(1, corso.getID());
                             dDocentiCorso.setInt(2, doc.getIDDocente());
@@ -1218,7 +1251,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                             iCDLCorso.setInt(1, corso.getID());
                             iCDLCorso.setInt(2, cd.getIDCDL());
                             iCDLCorso.executeUpdate();
-                        }
+                        }*/
                     corso.copyFrom(corso);
                 
                 corso.setDirty(false);

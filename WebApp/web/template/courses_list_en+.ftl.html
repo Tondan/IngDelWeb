@@ -33,13 +33,13 @@
                 <br>
                 <h4>Bachelor's Degree Courses</h4>
                 <#list cdl?sort_by("nome_en") as cdl>
-                <li><a href="DetailsCorsoCdl?n=${cdl.IDCDL}&lin=en">${cdl.nome_en}</a></li>
+                <li><a href="DetailsCorsoCdl?n=${cdl.IDCDL}&lin=en"><#if cdl.nome_en?trim?has_content>${cdl.nome_en}<#else>${cdl.nome_it}</#if></a></li>
                 </#list>
 
                 
                 <h4>Master's Degree Courses</h4>
                 <#list cdlm?sort_by("nome_en") as cdlm>
-                <li><a href="DetailsCorsoCdl?n=${cdlm.IDCDL}&lin=en">${cdlm.nome_en}</a></li>
+                <li><a href="DetailsCorsoCdl?n=${cdlm.IDCDL}&lin=en"><#if cdlm.nome_en?trim?has_content>${cdlm.nome_en}<#else>${cdlm.nome_it}</#if></a></li>
                 </#list>
 
             </ul>
@@ -78,14 +78,14 @@
                             <#list corsi?sort_by("nome_en") as corso>
                             <tr>
                                 
-                                <td><a href="DetailsCorso?n=${corso.ID}&lin=en">${corso.nome_en}</a></td>
+                                <td><a href="DetailsCorso?n=${corso.ID}&lin=en"><#if corso.nome_en?trim?has_content>${corso.nome_en}<#else>${corso.nome_it}</#if></a></td>
                                 <td>${corso.SSD}</td>
                                 <td>${corso.cfu}</td>
                                 <td>${corso.lingua}</td>
                                 <td>${corso.semestre}</td>
                                 <td>${corso.tipologia}</td>
                                 <td><#list corso.CDL as cdl>
-                                    ${cdl.abbr_en}<#if cdl?has_next>,&nbsp&nbsp</#if>
+                                    <#if cdl.abbr_en?trim?has_content>${cdl.abbr_en}<#else>${cdl.abbr_it}</#if><#if cdl?has_next>,&nbsp&nbsp</#if>
                                 </#list></td>
                                 <td><#list corso.docenti as docenti>
                                     ${docenti.cognome}<#if docenti?has_next>,&nbsp&nbsp</#if>
