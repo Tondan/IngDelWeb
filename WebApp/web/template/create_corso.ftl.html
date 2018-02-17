@@ -66,16 +66,16 @@
                             <div class="col-md-6 col-sm-6">
                                 <h5>Nome Del Corso</h5>
                                 <div class="form-group">
-                                    <input type="text" class="form-control style_2" placeholder="Nome Corso" name="nome" required>
+                                    <input type="text" class="form-control style_2" placeholder="Nome Corso" name="nome" id="req" required>
                                     <span class="input-icon">
                                         <i class="#"></i>
                                     </span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
-                                <h5>Nome Del Corso EN - Optional</h5>
+                                <h5>Nome Del Corso EN</h5>
                                 <div class="form-group">
-                                        <input type="text" class="form-control style_2" placeholder="Nome Corso EN" name="nome_en">
+                                        <input type="text" class="form-control style_2" placeholder="Nome Corso EN" name="nome_en" id="req" required>
                                         <span class="input-icon">
                                         <i class="#"></i>
                                     </span>
@@ -170,7 +170,7 @@
                                             <h4>Associa i cdl al corso</h4>
                                             <div>
 
-                                                <select id="special2" name="cdl" required multiple>
+                                                <select id="special2" name="cdl" required id="req" multiple>
                                                 <#list cdl?sort_by("nome_it") as cdl>
                                                 <option value="${cdl.IDCDL}">${cdl.nome_it}</option>
                                                 </#list> 
