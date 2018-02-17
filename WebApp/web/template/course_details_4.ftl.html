@@ -154,7 +154,7 @@
         </section>
         
        
-        
+        <#if precedenti??>
         <section id="space">
             <h3>Versioni Pagina Corso</h3>
             <#list precedenti?sort_by("anno") as precedenti>
@@ -162,7 +162,7 @@
             </#list>
             <#if nn!=corso.ID> <li><a href="DetailsCorso?n=${nn}&lin=it"> Informazioni correnti </a></li> </#if>
         </section>
-      
+      </#if>
     </div><!-- End col-md-8-->   	
 
 

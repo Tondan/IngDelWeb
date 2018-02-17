@@ -64,8 +64,10 @@ public class DetailsCorso extends BaseController {
                 request.setAttribute("nn", n);
             }
             else{
-                request.setAttribute("nn", corso.getID());
-                request.setAttribute("precedenti", corso.getAnniPrecedenti());
+                if(corso.getAnniPrecedenti()!=null){
+                    request.setAttribute("precedenti", corso.getAnniPrecedenti());
+                    request.setAttribute("nn", corso.getID());
+                }
             }
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
