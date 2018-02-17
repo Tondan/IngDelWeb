@@ -1,107 +1,207 @@
 <section id="wizard_bg">
-<div class="container">
-<!-- Start Survey container -->
-<div id="survey_container">
+
+	<div class="container">
 
 
-	<div id="top-wizard">
-		<strong>Progress</strong>
-		<div id="progressbar"></div>
-		<div class="shadow"></div>
-	</div><!-- end top-wizard -->
-    
-	<form name="example-1" id="wrapped" action="#" method="post" autocomplete="off">
-		<div id="middle-wizard">
-			<div class="step">
-				<div class="row">
-					<h3 class="col-md-10">Enter your personal info</h3>
-                    <p class="col-md-12">Lorem ipsum dolor sit amet, quidam semper duo ea. Modo menandri molestiae ad pri, ut nec falli consetetur.<br> Call the admission departement for support <strong>+0034 9423444</strong></p>
-					<div class="col-md-6">
-						<ul class="data-list">
-							<li><div class="form-group"><input type="text" name="firstname" class="required form-control" placeholder="First name"><span class="input-icon"><i class="icon-user"></i></span></div></li>
-							<li><div class="form-group"><input type="text" name="lastname" class="required form-control" placeholder="Last name"><span class="input-icon"><i class="icon-user"></i></span></div></li>
-							<li><div class="form-group"><input type="email" name="email" class="required form-control" placeholder="Your Email"><span class="input-icon"><i class="icon-email"></i></span></div></li>
-						</ul>
-					</div><!-- end col-md-6 -->
-                    
-					<div class="col-md-6">
-                   
-                        
-						<ul class="data-list" style="margin:0; padding:0;">
-                            <li><div class="form-group"><input type="text" name="phone2" class="required form-control" placeholder="Your phone number"><span class="input-icon"><i class="icon-phone"></i></span></div></li>
-							<li><div class="styled-select">
-								<select class="form-control required" name="country">
-									<option value="" selected>Select your country</option>
-									<option value="Europe">Europe</option>
-									<option value="Asia">Asia</option>
-									<option value="North America">North America</option>
-									<option value="South America">South America</option>
-								</select>
+		<!-- Start Survey container -->
+		<div id="survey_container">
+
+
+			<div id="top-wizard">
+				<strong>Progress</strong>
+				<div id="progressbar"></div>
+				<div class="shadow"></div>
+			</div>
+			<!-- end top-wizard -->
+
+			<form name="example-1" id="wrapped" action="CreateCorsoD" method="post" autocomplete="off">
+				<div id="middle-wizard">
+
+					<div class="step">
+						<div class="row">
+							<h3 class="col-md-10">
+								Corso di ${corso.nome_it} (${docente.nome} ${docente.cognome})
+							</h3>
+
+
+							<p class="col-md-12">Prego inserisca le informazioni del suo corso</p>
+							<div class="col-md-6">
+								<ul class="data-list">
+									<input type="hidden" value="${corso.ID}" />
+									<li>
+										<h5>Nome corso IT</h5>
+										<div class="form-group">
+											<input type="text" name="nomeit" class="required form-control" value="${corso.nome_it}">
+											<span class="input-icon">
+												<i class="icon-user"></i>
+											</span>
+										</div>
+									</li>
+									<li>
+											<h5>Nome corso EN</h5>
+										<div class="form-group">
+											<input type="text" name="nomeen" class="required form-control" value="${corso.nome_en}">
+											<span class="input-icon">
+												<i class="icon-user"></i>
+											</span>
+										</div>
+									</li>
+									<li>
+										<h5>SSD</h5>
+										<div class="form-group">
+											<input type="text" name="ssd" class="required form-control" value="${corso.SSD}">
+											<span class="input-icon">
+												<i class=""></i>
+											</span>
+										</div>
+									</li>
+								</ul>
 							</div>
-							</li>
-                        </ul>
-						<ul class="data-list floated clearfix">
-							<li id="age"><input type="text" name="age" class="required form-control" placeholder="Age"></li>
-							<li><input name="gender" type="radio" class="required check_radio" value="Male"><label class="label_gender"> Male</label></li>
-							<li><input name="gender" type="radio" class="required check_radio" value="Female"><label class="label_gender"> Female</label></li>
-						</ul>
-                        
-					</div><!-- end col-md-6 -->
-				</div><!-- end row -->
-                
-				<div class="row">
-					<div class="col-md-4 col-md-offset-4">
-						<ul class="data-list" id="terms">
-							<li>
-                            <strong>Do you accept <a href="#" data-toggle="modal" data-target="#terms-txt">terms and conditions</a> ?</strong>
-                           <label class="switch-light switch-ios">
-                                    <input type="checkbox" name="terms" class="required fix_ie8" value="yes">
-                                    <span>
-                                        <span class="ie8_hide">No</span>
-                                        <span>Yes</span>
-                                    </span>
-                                    <a></a>
-                                </label>
-							</li>
-						</ul>
-					</div>
-				</div>
-                
-			</div><!-- end step-->
-            
-			<div class="step row">
-				<div class="col-md-12">
-                    
-                    
-                    CIAOOOOOOOOOOOO
-				</div>
-			</div><!-- end step -->
-            
-                        
-			<div class="submit step" id="complete">
-                    	<i class="icon-check"></i>
-						<h3>Abbiamo finito!</h3>
-						<button type="submit" name="process" class="submit">Completa la registrazione</button>
-			</div><!-- end submit step -->
-            
-		</div><!-- end middle-wizard -->
-        
-		<div id="bottom-wizard">
-			<button type="button" name="backward" class="backward">Backward</button>
-			<button type="button" name="forward" class="forward">Forward </button>
-		</div><!-- end bottom-wizard -->
-	</form>
+							<!-- end col-md-6 -->
+
+							<div class="col-md-6">
+
+								<ul class="data-list" style="margin:0; padding:0;">
+									<li>
+										<h5>Lingua</h5>
+										<div class="form-group">
+											<input type="text" name="lingua" class="required form-control" value="${corso.lingua}">
+											<span class="input-icon">
+												<i class=""></i>
+											</span>
+										</div>
+									</li>
+									<li>
+										<h5>Semestre corso</h5>
+											<div class="styled-select">
+													<select class="required form-control" name="semestre">
+														<#if corso.semestre==1>
+														<option value="1" selected>Primo Semestre</option>
+														<option value="2">Secondo Semestre</option>
+														<#elseif corso.semestre==2>
+														<option value="1">Primo Semestre</option>
+														<option value="2" selected>Secondo Semestre</option>
+														<#else>
+														<option value="" selected>Seleziona semestre corso...</option>
+														<option value="1">Primo Semestre</option>
+														<option value="2" selected>Secondo Semestre</option>
+														</#if>
+													</select>
+												</div>
+										</li>
+								</ul>
+
+								
+									
+                                    <h5>CFU del Corso</h5>
+                                    <div class="form-group">
+                                            <input type="number" class="required form-control style_2" value="${corso.cfu}" name="cfu" min=1>
+                                            <span class="input-icon">
+                                            <i class="#"></i>
+                                        </span>
+                                    
+                                
+
+							</div>
+							<!-- end col-md-6 -->
+						</div>
+						<!-- end row -->
+
+						<div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <h5>Tipologia Dei Crediti</h5>
+                                    <div class="form-group">
+                                            <div class="styled-select">
+                                                    <select class="required form-control" name="tipologia">
+                                                        <#if corso.tipologia=='A'>
+                                                        <option value="A" selected>A</option>
+                                                        <option value="B">B</option>
+                                                        <#elseif corso.tipologia=='B'>
+                                                        <option value="A">A</option>
+                                                        <option value="B" selected>B</option>
+                                                        <#else>
+                                                        <option value="n" selected>Seleziona tipologia cfu...</option>
+                                                        <option value="A">A</option>
+                                                        <option value="B">B</option>
+                                                        </#if>
+                                                    </select>
+                                                </div>
+                                    </div>
+                                </div>
+                                
+							</div>
+							
+
+							<hr>
     
-</div><!-- end Survey container -->
-
-</div>
-</section><!-- end section main container -->
+                            <input type='hidden' name='key' value='${corso.ID}'>
 
 
+						</div>
+					</div>
+					<!-- end step-->
+
+				
+
+
+					<div class="step row">
+							<div class="col-md-12">
+								<p>Inserisci informazioni supplementari sul corso</p>
+								
+								
+							</div>
+					</div>
+
+
+					<div class="step row">
+							<div class="col-md-12">
+								<p>Inserisci informazioni supplementari sul corso EN</p>
+								
+								
+							</div>
+					</div>
+
+					<div class="step row">
+							<div class="col-md-12">
+								<p>Inserisci i descrittori di dublino</p>
+	
+								
+							</div>
+						</div>
+
+
+						<div class="step row">
+								<div class="col-md-12">
+									<p>Inserisci i descrittori di dublino EN</p>
+		
+									
+								</div>
+							</div>
+						<!-- end step -->
 
 
 
 
+					<div class="submit step" id="complete">
+						<i class="icon-check"></i>
+						<h3>Abbiamo concluso</h3>
+						<button type="submit" name="process" class="submit">Completi la registrazione del suo corso</button>
+					</div>
+					<!-- end submit step -->
 
+				</div>
+				<!-- end middle-wizard -->
 
+				<div id="bottom-wizard">
+					<button type="button" name="backward" class="backward">Backward</button>
+					<button type="button" name="forward" class="forward">Forward </button>
+				</div>
+				<!-- end bottom-wizard -->
+			</form>
 
+		</div>
+		<!-- end Survey container -->
+
+	</div>
+</section>
+<!-- end section main container -->

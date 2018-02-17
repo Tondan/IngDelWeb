@@ -133,7 +133,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <h5>CFU del Corso</h5>
                                     <div class="form-group">
-                                            <input type="number" class="form-control style_2" placeholder="${corso.cfu}" name="cfu" min=1>
+                                            <input type="number" class="form-control style_2" value="${corso.cfu}" name="cfu" min=1>
                                             <span class="input-icon">
                                             <i class="#"></i>
                                         </span>
@@ -209,13 +209,13 @@
                                                     </select>
 
                                                     </div>
-                                            </div>
+                                    </div>
                                     
                             <hr>
     
                             <input type='hidden' name='key' value='${corso.ID}'>
                             <input type="submit" name="modifica" value="Aggiorna Corso" class="button_subscribe_green" id="submit-apply">
-        
+                            <input type="submit" name="cancella" value="Cancella Corso" class="button_subscribe_green" style="float:right" id="submit-apply">
                         </form>
     
                             

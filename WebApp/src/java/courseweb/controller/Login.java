@@ -62,9 +62,10 @@ public class Login extends BaseController {
                     int userid = utente.getID();
                     HttpSession sessione = SecurityLayer.createSession(request, username, userid);
                     
-                     if(utente.getDocente()!=0){
+                    if(utente.getDocente()!=0){
                                sessione.setAttribute("docente", true);
-                               utente.getDocente();
+                               sessione.setAttribute("docenteid", utente.getDocente());
+                               
                      }
                     
                     List<Servizio> servizi=utente.getGruppo().getServizi();

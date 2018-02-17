@@ -33,7 +33,7 @@ public class CreateCorsoD extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua, int n) throws IOException, ServletException, TemplateManagerException {
         TemplateResult res = new TemplateResult(getServletContext());
         request.setAttribute("servlet","CreateCorsoD?");
             if(lingua.equals("it")||lingua.equals("")){
@@ -46,15 +46,18 @@ public class CreateCorsoD extends BaseController {
                 String a = (String) s.getAttribute("username");
                 request.setAttribute("nome",a);
                 
-                int id=(int) s.getAttribute("id");
+                int id=(int) s.getAttribute("docenteid");
                 
                 Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
                 
-                List<Corso> corso=((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente);
+                Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).getCorso(n);
+                
+                request.setAttribute("docente", docente);
+                request.setAttribute("corso", corso);
                 
                 res.activate("create_corsoD.ftl.html", request, response);
             } catch (DataLayerException ex) {
-                Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, "ciao", ex);
             }
        
 
@@ -63,34 +66,40 @@ public class CreateCorsoD extends BaseController {
 
  
     @Override
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        String lin;
-        try{
-           HttpSession s = SecurityLayer.checkSession(request);
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+            String lin;
+            int n = SecurityLayer.checkNumeric(request.getParameter("n"));
+            try{
+            HttpSession s = SecurityLayer.checkSession(request);
             String username=(String)s.getAttribute("username");
             try {
                 if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"CreateCorsoD")) {
-                if(request.getParameter("lin")==null){
-                lin="it";}
-                else{
+             if (request.getParameter("crea") != null) {
+                 action_crea(request, response);
+            } else {
+        try {
+            if(request.getParameter("lin")==null)
+                lin="it";
+            else
                 lin=request.getParameter("lin");
-            }
-                
-                action_default(request, response, lin);
-            }else {
+            action_default(request, response,lin, n);
+
+        } catch (IOException | TemplateManagerException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+
+        }
+    }
+           }else {
                     SecurityLayer.disposeSession(request);
-                    response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
+                    response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8")); 
                 }
             } catch (DataLayerException ex) {
-                Logger.getLogger(CreateCorsoD.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CreateCorso.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         } catch (IOException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
-        
-        } catch (TemplateManagerException ex) {
-            Logger.getLogger(CreateCorsoD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -103,5 +112,9 @@ public class CreateCorsoD extends BaseController {
     public String getServletInfo() {
         return "Main Login servlet";
     }// </editor-fold>
+
+    private void action_crea(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

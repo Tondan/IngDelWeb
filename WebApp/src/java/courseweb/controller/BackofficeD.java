@@ -52,7 +52,7 @@ public class BackofficeD extends BaseController {
                 String b=request.getSession().getId();
                 request.setAttribute("session_id",b);
                 
-                int id=(int) s.getAttribute("id");
+                int id=(int) s.getAttribute("docenteid");
                 
                 Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
                 
@@ -60,7 +60,7 @@ public class BackofficeD extends BaseController {
                 request.setAttribute("corso", corso);
                 request.setAttribute("docente", docente);
                 
-                
+               
 
                 res.activate("backofficeD.ftl.html", request, response);
             } catch (DataLayerException ex) {

@@ -56,7 +56,9 @@ public class Profile extends BaseController {
                 String a = (String) session.getAttribute("username");
                 request.setAttribute("nome",a);
                 
-                request.setAttribute("utente", ((IgwDataLayer)request.getAttribute("datalayer")).getUtente(0));
+                int id = (int) session.getAttribute("userid");
+                
+                request.setAttribute("utente", ((IgwDataLayer)request.getAttribute("datalayer")).getUtente(id));
                 
                 res.activate("profile.ftl.html", request, response);
             } catch (DataLayerException ex) {

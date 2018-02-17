@@ -25,10 +25,13 @@
                 <aside class="col-md-4">
                     <div class="box_style_1 profile">
                         <h4>Funzioni creazione</h4>
-    
+                        
                         <ul>
-                            <li><a href="CreateCorsoD"> Crea corso di...</a></li>
+                            <#list corso as corso>
+                            <li><a href="CreateCorsoD?n=${corso.ID}"> ${corso.nome_it} </a></li>
+                            </#list>
                         </ul>
+                        
                     </div>
     
                 </aside>
