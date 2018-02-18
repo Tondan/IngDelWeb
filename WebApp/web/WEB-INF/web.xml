@@ -10,7 +10,7 @@
     </context-param>
     <context-param>
         <param-name>view.debug</param-name>
-        <param-value>false</param-value>
+        <param-value>true</param-value>
     </context-param>
     <context-param>
         <param-name>view.template_directory</param-name>
@@ -112,6 +112,14 @@
         <servlet-name>Log</servlet-name>
         <servlet-class>courseweb.controller.Log</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Change</servlet-name>
+        <servlet-class>courseweb.controller.Change</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Change</servlet-name>
+        <url-pattern>/change</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
