@@ -219,7 +219,7 @@ input[type='checkbox'] {
   nav:active ul {
     display: none;
   }
-  nav:hover ul {
+  nav:after ul {
     display: block;
   }
 }

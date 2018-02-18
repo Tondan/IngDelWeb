@@ -101,7 +101,10 @@ public class ModificaDocente extends BaseController {
             try {
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
+                
+                
                 request.setAttribute("docente",((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id));
+             
                 request.setAttribute("docenti",((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
                
     
@@ -109,6 +112,9 @@ public class ModificaDocente extends BaseController {
                 String a = (String) s.getAttribute("username");
                 request.setAttribute("nome",a);
                 
+
+                
+               // request.setAttribute("utente",((IgwDataLayer)request.getAttribute("datalayer")).getUtenteD());   //query nuova dato iddocente prendi idutente nella tabella utenti
                 
                 res.activate("modificadocente.ftl.html", request, response);
             } catch (DataLayerException ex) {
