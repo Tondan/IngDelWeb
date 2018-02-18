@@ -76,12 +76,12 @@ label:hover {
 }
 
 label[for*='1']:before {
-  content: '\f044';
+  content: '\f19c';
   font-family: FontAwesome;
 }
 
 label[for*='2']:before {
-  content: '\f19c';
+  content: '\f044';
   font-family: FontAwesome;
 }
 
@@ -111,7 +111,7 @@ label[for*='7']:before {
 }
 
 label[for*='8']:before {
-  content: '\f1b3';
+  content:"\f002";
   font-family: FontAwesome;
 }
 
@@ -123,7 +123,7 @@ label[for*='8']:before {
 #tab6:checked~#content6
 #tab7:checked~#content7
 #tab8:checked~#content8{
-  display: block;
+  display:block;
 }
 
 @media screen and (max-width: 650px) {
