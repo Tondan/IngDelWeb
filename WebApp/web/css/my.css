@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
-
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -36,15 +37,14 @@ p {
   display: none;
 }
 
-
 #img-piccola {
-    width: 68px;
-    height: 68px;
+  width: 68px;
+  height: 68px;
 }
 
-#flag{
+#flag {
   width: 35px;
-    height: 23px;
+  height: 23px;
 }
 
 label {
@@ -63,25 +63,66 @@ label:before {
   margin-right: 10px;
 }
 
-
-
 label:hover {
   color: #888;
   cursor: pointer;
 }
 
-.input:checked + label {
+.input:checked+label {
   color: #555;
   border: 1px solid #ddd;
   border-top: 2px solid orange;
   border-bottom: 1px solid #fff;
 }
 
-#tab1:checked ~ #content1,
-#tab2:checked ~ #content2,
-#tab3:checked ~ #content3,
-#tab4:checked ~ #content4,
-#tab5:checked ~ #content5 {
+label[for*='1']:before {
+  content: '\f044';
+  font-family: FontAwesome;
+}
+
+label[for*='2']:before {
+  content: '\f19c';
+  font-family: FontAwesome;
+}
+
+label[for*='3']:before {
+  content: '\f24e';
+  font-family: FontAwesome;
+}
+
+label[for*='4']:before {
+  content: '\f0ac';
+  font-family: FontAwesome;
+}
+
+label[for*='5']:before {
+  content: '\f126';
+  font-family: FontAwesome;
+}
+
+label[for*='6']:before {
+  content: '\f1b3';
+  font-family: FontAwesome;
+}
+
+label[for*='7']:before {
+  content: '\f1cb';
+  font-family: FontAwesome;
+}
+
+label[for*='8']:before {
+  content: '\f1b3';
+  font-family: FontAwesome;
+}
+
+#tab1:checked~#content1,
+#tab2:checked~#content2,
+#tab3:checked~#content3,
+#tab4:checked~#content4,
+#tab5:checked~#content5
+#tab6:checked~#content6
+#tab7:checked~#content7
+#tab8:checked~#content8{
   display: block;
 }
 
@@ -101,102 +142,96 @@ label:hover {
   }
 }
 
-
-
-
 /* Piccole modifiche */
 
-.list_ok li{
+.list_ok li {
   font-size: 16px;
 }
 
-
 #ricerca {
-    position: relative;
-    float: right;
-    top:-20px;
-    width: 120px;
-    box-sizing: border-box;
-    border: 2px solid #1dd7b2;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: white;
-    background-position: 10px 10px; 
-    background-repeat: no-repeat;
-    padding: 10px 20px 12px 40px;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
-    margin-bottom: 2em;
+  position: relative;
+  float: right;
+  top: -20px;
+  width: 120px;
+  box-sizing: border-box;
+  border: 2px solid #1dd7b2;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding: 10px 20px 12px 40px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  margin-bottom: 2em;
 }
 
-
 #ricerca:focus {
-    width: 50%;
-
+  width: 50%;
 }
 
 /*link*/
+
 a.lnbar:visited,
-a.lnbar:link{
+a.lnbar:link {
   color: #fff;
 }
 
-a.lnbar:hover{
-    color: #1dd7b2;
-} 
-
-a.lnbar{
-  outline:none;
+a.lnbar:hover {
+  color: #1dd7b2;
 }
 
-#divider{
+a.lnbar {
+  outline: none;
+}
+
+#divider {
   padding: 1em;
 }
 
-#tipocorso{
-  font-size:16px;
+#tipocorso {
+  font-size: 16px;
 }
 
-#rowgrande{
-    margin-left: -50px;
-    margin-right: -50px;
+#rowgrande {
+  margin-left: -50px;
+  margin-right: -50px;
 }
 
-.basso{
+.basso {
   position: inherit;
-  top:20em;
+  top: 20em;
 }
 
-
-#img-docente{
-    width: 30%;
-    height: 30%;
+#img-docente {
+  width: 30%;
+  height: 30%;
 }
 
-
-input[type='checkbox']{
+input[type='checkbox'] {
   visibility: hidden;
 }
 
-
 /*MEDIA QUERY*/
-@media only screen and (max-width : 640px) {
-	nav ul, nav:active ul{ 
-		display: none;
-			}
-	nav:hover ul {
-		display: block;
+
+@media only screen and (max-width: 640px) {
+  nav ul,
+  nav:active ul {
+    display: none;
+  }
+  nav:hover ul {
+    display: block;
   }
 }
 
-#dc{
-    color:#00FFFFFF
+#dc {
+  color: #00FFFFFF
 }
 
-#dc:hover{
-    color:#007bff
+#dc:hover {
+  color: #007bff
 }
 
-#space{
-    margin-bottom: 40px;
+#space {
+  margin-bottom: 40px;
 }
