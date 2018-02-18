@@ -1,4 +1,4 @@
-
+<#noautoesc>
 
 <section id="sub-header" >
   	<div class="container">
@@ -21,7 +21,7 @@
                     <li><strong>Lingua:</strong>&nbsp;  ${corso.lingua}</li>
                     <li><strong>Semestre:</strong>&nbsp;  ${corso.semestre}</li>
                     <li><strong>CFU (e tipo):</strong>&nbsp;  ${corso.cfu} / ${corso.tipologia}</li>
-                    <li><strong>Anno:</strong>&nbsp; ${corso.anno?c}/${(corso.anno+1)?c}</li>
+                    <li><strong>Anno Accademico:</strong>&nbsp; ${corso.anno?c}/${(corso.anno+1)?c}</li>
                 </ul>
             </div>
 
@@ -221,3 +221,4 @@
   </div><!-- End container -->
   </section>
 
+</#noautoesc>
