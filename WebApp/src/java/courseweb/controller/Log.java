@@ -1,86 +1,87 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package courseweb.controller;
 
+import courseweb.controller.data.DataLayerException;
+import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.view.FailureResult;
+import courseweb.view.TemplateManagerException;
+import courseweb.view.TemplateResult;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Tony
+ * @author Toni & Tony
  */
-public class Log extends HttpServlet {
+public class Log extends BaseController {
+    
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Log</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Log at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+    private void action_error(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getAttribute("exception") != null) {
+            (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("exception"), request, response);
+        } else {
+            (new FailureResult(getServletContext())).activate((String) request.getAttribute("message"), request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua) throws IOException, ServletException, TemplateManagerException {
+        TemplateResult res = new TemplateResult(getServletContext());
+        request.setAttribute("servlet","ModificaCorso?");
+            if(lingua.equals("it")||lingua.equals("")){
+                request.setAttribute("lingua","it");
+                request.setAttribute("page_title", "Backoffice");
+                request.setAttribute("log",((IgwDataLayer)request.getAttribute("datalayer")).getLog());
+                HttpSession s = request.getSession(false);
+                String a = (String) s.getAttribute("username");
+                request.setAttribute("nome",a);
+                res.activate("modificacorso.ftl.html", request, response);
+       
+
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
     }
+    
+@Override
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+            String lin;
+            try{
+            HttpSession s = SecurityLayer.checkSession(request);
+            String username=(String)s.getAttribute("username");
+            try {
+                if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"ModificaCorso")) {
+                    
+                    
+                try {
+                    if(request.getParameter("lin")==null)
+                        lin="it";
+                    else{
+                        lin=request.getParameter("lin");
+             
+                    action_default(request, response, lin);
+                    }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+                } catch (TemplateManagerException ex) {
+                    request.setAttribute("exception", ex);
+                    action_error(request, response);
 
+                }
+            
+                }else {
+                    SecurityLayer.disposeSession(request);
+                    response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
+                }
+                } catch (DataLayerException ex) {
+                Logger.getLogger(ModificaCorso.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            } catch (IOException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+            }
 }
+}
+ 

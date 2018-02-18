@@ -238,17 +238,26 @@
         <script>new UISearch( document.getElementById( 'sb-search' ) );</script>
         <script src="js/my.js"></script>
         <script src="js/validate.js"></script>
+        <script src="js/addInput.js"></script>
+
 
         
 
-        <!--Tinimce plugin-->
+        <!--Tinymce plugin-->
         <script src="path/to/tinymce/js/tinymce.min.js"></script>
         <script src="path/to/tinymce/js/jquery.tinymce.min.js"></script>
 
   
 
-
-
+        <script type="text/javascript">
+            tinymce.init({
+              selector: '.tinymce1',
+              theme: 'modern',
+              width: 700,
+              content_css: 'css/style.css',
+              
+            });
+            </script>
 
 <script type="text/javascript">
     tinyMCE.init({
