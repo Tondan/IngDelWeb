@@ -61,7 +61,7 @@ public class ModificaDocente extends BaseController {
             HttpSession s = SecurityLayer.checkSession(request);
             String username=(String)s.getAttribute("username");   
         try {
-            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"Corsianno")) {
+            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"ModificaDocente")) {
             if(request.getParameter("lin")==null){
                 lin="it";}
             else{
