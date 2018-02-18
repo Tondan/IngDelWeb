@@ -145,5 +145,7 @@ public interface IgwDataLayer extends DataLayer {
     public boolean existUtente(String username);
     
     public List<Corso> getAnniPrecedenti(Corso corso) throws DataLayerException;
+
+    public List<Log> getLog();
     
 }
