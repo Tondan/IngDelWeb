@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +43,7 @@ public class Change extends BaseController {
         String[] c=request.getParameterValues("result[]");
         int a=0;
         JSONObject cdl=new JSONObject();
-        /*int i;
+        int i;
         for(i=0; i<c.length;i++){
             if(!c[i].trim().isEmpty())
                 a=Integer.parseInt(c[i]);
@@ -54,8 +55,41 @@ public class Change extends BaseController {
             } catch (DataLayerException ex) {
                 Logger.getLogger(Change.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }*/
+        }
+        
         cdl.put("len", 5);
+        
+        /*try {
+        request.setCharacterEncoding("utf8");
+    } catch (UnsupportedEncodingException ex) {
+        Logger.getLogger(Change.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        response.setContentType("application/json");
+        String[] c=request.getParameterValues("result[]");
+        int a=0;
+        JSONObject cdl=new JSONObject();
+        List<Corso> corsi=new ArrayList();
+        int i;
+        try{
+        for(i=0; i<c.length;i++){
+            if(!c[i].trim().isEmpty())
+                a=Integer.parseInt(c[i]);
+            CDL cd=((IgwDataLayer)request.getAttribute("datalayer")).getCDL(a);
+            corsi.addAll(((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdl(cd));
+        }
+        } catch (DataLayerException ex) {
+                Logger.getLogger(Change.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cdl=new JSONObject(corsi);
+            
+        Iterator itr=corsi.iterator();
+        int len=0;
+        while(itr.hasNext()){
+            itr.next();
+            len++;
+        }
+        cdl.put("len",len);*/
+        
         /*List<Corso> corso=new ArrayList();
         int a=0;
         for(int i=0; i<c.length;i++){

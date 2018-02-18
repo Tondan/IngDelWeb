@@ -120,7 +120,6 @@
         <servlet-name>ModificaDocente</servlet-name>
         <servlet-class>courseweb.controller.ModificaDocente</servlet-class>
     </servlet>
-<<<<<<< HEAD
     <servlet>
         <servlet-name>Change</servlet-name>
         <servlet-class>courseweb.controller.Change</servlet-class>
@@ -129,8 +128,6 @@
         <servlet-name>Change</servlet-name>
         <url-pattern>/change</url-pattern>
     </servlet-mapping>
-=======
->>>>>>> origin/master
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
