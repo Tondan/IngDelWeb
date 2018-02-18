@@ -46,7 +46,12 @@ public class DetailsDocente extends BaseController {
             HttpSession session= request.getSession(false);
             if(session!=null && request.isRequestedSessionIdValid()){
             String a = (String) session.getAttribute("username");
-            request.setAttribute("nome",a);}
+            request.setAttribute("nome",a);
+            boolean doc1 = (boolean) session.getAttribute("docente");
+            if(doc1==true){
+            int id1=(int) session.getAttribute("docenteid");
+            request.setAttribute("docente",id1);}
+            }
 
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");

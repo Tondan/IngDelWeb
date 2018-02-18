@@ -52,7 +52,13 @@ public class DetailsCorso extends BaseController {
             HttpSession session= request.getSession(false);
             if(session!=null && request.isRequestedSessionIdValid()){
             String a = (String) session.getAttribute("username");
-            request.setAttribute("nome",a);}
+            request.setAttribute("nome",a);
+            boolean doc = (boolean) session.getAttribute("docente");
+            if(doc==true){
+            int id1=(int) session.getAttribute("docenteid");
+            request.setAttribute("docente",id1);}
+            }
+            
             request.setAttribute("descrizione_it", corso.getDescrizione_it());
             request.setAttribute("dublino_it", corso.getDublino_it());
             request.setAttribute("descrizione_en", corso.getDescrizione_en());

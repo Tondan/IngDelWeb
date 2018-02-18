@@ -67,10 +67,16 @@ public class Home extends BaseController {
                 }
             }
             
+            
             HttpSession session= request.getSession(false);
             if(session!=null && request.isRequestedSessionIdValid()){
             String a = (String) session.getAttribute("username");
-            request.setAttribute("nome",a);}
+            request.setAttribute("nome",a);
+            boolean doc = (boolean) session.getAttribute("docente");
+            if(doc==true){
+            int id=(int) session.getAttribute("docenteid");
+            request.setAttribute("docente",id);}
+            }
             request.setAttribute("change","y");
             request.setAttribute("servlet","Home?");
             request.setAttribute("cdl",rcdl);
