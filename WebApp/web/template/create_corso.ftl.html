@@ -188,6 +188,53 @@
 
 
                     <div class="row">
+                            <div class="col-md-4 col-sm-4">
+                                <div>
+                                    <h4>Corsi mutuati</h4>
+                                    <div>
+                                        <select class="special" name="mutuati" multiple>
+                                            <#list corsi as corsi>
+                                                <option value="${corsi.ID}">${corsi.nome_it}</option>
+                                            </#list>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4 col-sm-4">
+                                    <div>
+                                        <h4>Corsi propedeudici</h4>
+                                        <div>
+                                            <select class="special" name="propedeudici" multiple>
+                                                <#list corsi as corsi>
+                                                    <option value="${corsi.ID}">${corsi.nome_it}</option>
+                                                </#list>
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-4">
+                                        <div>
+                                            <h4>Corsi moduli</h4>
+                                            <div>
+                                                <select class="special" name="moduli" multiple>
+                                                    <#list corsi as corsi>
+                                                        <option value="${corsi.ID}">${corsi.nome_it}</option>
+                                                    </#list>
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                 
+
+                        </div>
+                        <hr>
+
+                    <div class="row">
 
                         <div class="panel-group" id="accordion">
 
@@ -419,41 +466,18 @@
                                             <h4>Indicazioni libri</h4>
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6">
-                                                    <h5>Prerequisiti Del Corso EN</h5>
+                                                    <h5>Autore</h5>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control style_2" placeholder="Prerequisiti EN" name="prerequisitien">
+                                                        <input type="text" class="form-control style_2" placeholder="Autore" name="autore">
                                                         <span class="input-icon">
                                                             <i class="#"></i>
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <h5>Obiettivi Del Corso EN</h5>
+                                                    <h5>Titolo libro</h5>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control style_2" placeholder="Obiettivi EN" name="obiettivien">
-                                                        <span class="input-icon">
-                                                            <i class="#"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-    
-    
-    
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h5>Modalit&#224 D'Esame Del Corso EN</h5>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control style_2" placeholder="Modalit&#224 d'esame EN" name="modesameen">
-                                                        <span class="input-icon">
-                                                            <i class="#"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h5>Modalit&#224 Di Insegnamento Del Corso EN</h5>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control style_2" placeholder="Modalit&#224 d'esame EN" name="modinsen">
+                                                        <input type="text" class="form-control style_2" placeholder="Titolo" name="titolo">
                                                         <span class="input-icon">
                                                             <i class="#"></i>
                                                         </span>
@@ -465,18 +489,41 @@
     
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6">
-                                                    <h5>Sillabo EN</h5>
+                                                    <h5>Volume libro</h5>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control style_2" placeholder="Sillabo del corso EN" name="sillaboen">
+                                                        <input type="number" class="form-control style_2" placeholder="Volume" name="volume">
                                                         <span class="input-icon">
                                                             <i class="#"></i>
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <h5>Note extra EN</h5>
+                                                    <h5>Anno pubblicazione</h5>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control style_2" placeholder="Note extra EN" name="noteen">
+                                                        <input type="text" class="form-control style_2" placeholder="Anno" name="anno">
+                                                        <span class="input-icon">
+                                                            <i class="#"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+    
+    
+                                            <div class="row"> 
+                                                <div class="col-md-6 col-sm-6">
+                                                    <h5>Editore</h5>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control style_2" placeholder="Editore" name="editore">
+                                                        <span class="input-icon">
+                                                            <i class="#"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <h5>Link</h5>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control style_2" placeholder="Link" name="link">
                                                         <span class="input-icon">
                                                             <i class="#"></i>
                                                         </span>
@@ -491,6 +538,192 @@
     
                             </div>
                         </div>
+
+
+
+                        <div class="row">
+
+                                <div class="panel-group" id="accordion">
+        
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse4">Sillabo - Optional
+                                                    <i class="indicator icon-plus pull-right"></i>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse4" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <h4></h4>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <h5>Prerequisiti Del Corso EN</h5>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control style_2" placeholder="Prerequisiti EN" name="prerequisitien">
+                                                            <span class="input-icon">
+                                                                <i class="#"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <h5>Obiettivi Del Corso EN</h5>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control style_2" placeholder="Obiettivi EN" name="obiettivien">
+                                                            <span class="input-icon">
+                                                                <i class="#"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+        
+        
+        
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <h5>Modalit&#224 D'Esame Del Corso EN</h5>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control style_2" placeholder="Modalit&#224 d'esame EN" name="modesameen">
+                                                            <span class="input-icon">
+                                                                <i class="#"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <h5>Modalit&#224 Di Insegnamento Del Corso EN</h5>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control style_2" placeholder="Modalit&#224 d'esame EN" name="modinsen">
+                                                            <span class="input-icon">
+                                                                <i class="#"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+        
+        
+        
+                                                <div class="row"> 
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <h5>Sillabo EN</h5>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control style_2" placeholder="Sillabo del corso EN" name="sillaboen">
+                                                            <span class="input-icon">
+                                                                <i class="#"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <h5>Note extra EN</h5>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control style_2" placeholder="Note extra EN" name="noteen">
+                                                            <span class="input-icon">
+                                                                <i class="#"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+        
+                                            </div>
+                                        </div>
+        
+                                    </div>
+        
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="row">
+
+                                    <div class="panel-group" id="accordion">
+            
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse5">Sillabo - Optional
+                                                        <i class="indicator icon-plus pull-right"></i>
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse5" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <h4></h4>
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Prerequisiti Del Corso EN</h5>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control style_2" placeholder="Prerequisiti EN" name="prerequisitien">
+                                                                <span class="input-icon">
+                                                                    <i class="#"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Obiettivi Del Corso EN</h5>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control style_2" placeholder="Obiettivi EN" name="obiettivien">
+                                                                <span class="input-icon">
+                                                                    <i class="#"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+            
+            
+            
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Modalit&#224 D'Esame Del Corso EN</h5>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control style_2" placeholder="Modalit&#224 d'esame EN" name="modesameen">
+                                                                <span class="input-icon">
+                                                                    <i class="#"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Modalit&#224 Di Insegnamento Del Corso EN</h5>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control style_2" placeholder="Modalit&#224 d'esame EN" name="modinsen">
+                                                                <span class="input-icon">
+                                                                    <i class="#"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+            
+            
+            
+                                                    <div class="row"> 
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Sillabo EN</h5>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control style_2" placeholder="Sillabo del corso EN" name="sillaboen">
+                                                                <span class="input-icon">
+                                                                    <i class="#"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Note extra EN</h5>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control style_2" placeholder="Note extra EN" name="noteen">
+                                                                <span class="input-icon">
+                                                                    <i class="#"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+            
+                                                </div>
+                                            </div>
+            
+                                        </div>
+            
+                                    </div>
+                                </div>
 
                     <input type="submit" name="crea" value="Crea Corso" class="button_subscribe_green" id="submit-apply">
 

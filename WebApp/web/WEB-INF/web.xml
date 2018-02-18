@@ -10,7 +10,7 @@
     </context-param>
     <context-param>
         <param-name>view.debug</param-name>
-        <param-value>true</param-value>
+        <param-value>false</param-value>
     </context-param>
     <context-param>
         <param-name>view.template_directory</param-name>
@@ -20,7 +20,7 @@
         <param-name>view.data.author</param-name>
         <param-value>Toni e Tony</param-value>
     </context-param>
-<!--        <context-param>
+    <!--        <context-param>
         <param-name>view.error_template</param-name>
         <param-value>error.ftl.html</param-value>
     </context-param>   -->
@@ -108,6 +108,10 @@
         <servlet-name>CreateCorsoD</servlet-name>
         <servlet-class>courseweb.controller.CreateCorsoD</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Log</servlet-name>
+        <servlet-class>courseweb.controller.Log</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>
@@ -183,6 +187,10 @@
     <servlet-mapping>
         <servlet-name>CreateCorsoD</servlet-name>
         <url-pattern>/CreateCorsoD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Log</servlet-name>
+        <url-pattern>/Log</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

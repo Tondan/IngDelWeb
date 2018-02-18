@@ -42,8 +42,12 @@ public class CreateCorso extends BaseController {
             TemplateResult res = new TemplateResult(getServletContext());
             
             request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
-             request.setAttribute("cdl", ((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
+            request.setAttribute("cdl", ((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
+            
+            
              
+            request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
+            
             request.setAttribute("page_title", "Backoffice");
               
             if(lingua.equals("it")||lingua.equals("")){
@@ -119,8 +123,7 @@ public class CreateCorso extends BaseController {
 
     
 @Override
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             String lin;
             try{
             HttpSession s = SecurityLayer.checkSession(request);

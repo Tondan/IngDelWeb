@@ -58,7 +58,7 @@
                                         <li><a href="BackofficeD"><i class="icon-cog"></i>Backoffice area</a></li>
                                         <#else>
                                         <li><a href="Backoffice"><i class="icon-cog"></i>Backoffice area</a></li>
-                                        <li><a href="#"><i class=""></i>Log</a></li>
+                                        <li><a href="Log"><i class=""></i>Log</a></li>
                                         </#if>
                                         <li class="divider"></li>
                                         <li><a href="Logout"><i class="icon-off"></i>Logout</a></li>
@@ -271,6 +271,14 @@
             
         });
     </script>
+    <script>
+            $(".special").multipleSelect({
+                placeholder: "Seleziona i corsi",
+                width: 200,
+                filter: true,
+                
+            });
+        </script>
     <script>
             $("#special2").multipleSelect({
                 placeholder: "Seleziona i cdl",
