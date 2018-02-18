@@ -113,6 +113,14 @@
         <servlet-class>courseweb.controller.Log</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ModificaCDL</servlet-name>
+        <servlet-class>courseweb.controller.ModificaCDL</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificaDocente</servlet-name>
+        <servlet-class>courseweb.controller.ModificaDocente</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Change</servlet-name>
         <servlet-class>courseweb.controller.Change</servlet-class>
     </servlet>
@@ -199,6 +207,14 @@
     <servlet-mapping>
         <servlet-name>Log</servlet-name>
         <url-pattern>/Log</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificaCDL</servlet-name>
+        <url-pattern>/ModificaCDL</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificaDocente</servlet-name>
+        <url-pattern>/ModificaDocente</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

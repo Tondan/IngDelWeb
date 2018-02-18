@@ -219,7 +219,7 @@ input[type='checkbox'] {
   nav:active ul {
     display: none;
   }
-  nav:hover ul {
+  nav:after ul {
     display: block;
   }
 }
@@ -234,4 +234,12 @@ input[type='checkbox'] {
 
 #space {
   margin-bottom: 40px;
+}
+
+
+#img-docente1{
+  
+  width:10%; 
+  height: auto;
+
 }

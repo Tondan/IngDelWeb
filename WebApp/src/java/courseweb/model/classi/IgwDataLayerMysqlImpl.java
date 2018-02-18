@@ -1034,9 +1034,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 sAccess.setString(1, script);
                 sAccess.setString(2, username);
                     try (ResultSet rs=sAccess.executeQuery()){
-                        if(rs.next())
-                            return true;
-                        return false;
+                        return rs.next();
                     }
             } catch (SQLException ex) {
                 Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -1470,6 +1468,11 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    @Override
+    public List<Log> getLog() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
   
