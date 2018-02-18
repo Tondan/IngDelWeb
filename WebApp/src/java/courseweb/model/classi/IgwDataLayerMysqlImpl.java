@@ -180,6 +180,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             co.setSemestre(rs.getInt("Semestre"));
             co.setCfu(rs.getInt("CFU"));
             co.setAnno(rs.getInt("Anno"));
+            co.setOldID(rs.getInt("OldID"));
             if(rs.getString("Tipologia").length()!=0)
                 co.setTipologia(toUpperCase(rs.getString("Tipologia").charAt(0)));
             return co;
@@ -990,6 +991,26 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     }
     
     
+    @Override
+    public List<Corso> getAnniPrecedenti(Corso corso) throws DataLayerException{
+        List<Corso> result=new ArrayList();
+        Corso tmp;
+        try{
+            sCorsoByID.setInt(1,corso.getOldID());
+            try(ResultSet rs=sCorsoByID.executeQuery()){
+                if(rs.next()){
+                    tmp=createCorso(rs);
+                    result.add(tmp);
+                    if(tmp.getOldID()>0)
+                        result.addAll(getAnniPrecedenti(tmp));
+                }
+            }
+        }catch (SQLException ex){
+            throw new DataLayerException("Unable to load Corsi Anni Precedenti",ex);
+        }
+        return result;
+    }
+                    
     
     
     @Override //LOGIN QUERY
