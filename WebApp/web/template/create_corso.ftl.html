@@ -671,31 +671,55 @@
                     </div>
                 </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <h4>Upload Materiali - Optional</h4>
-                    <div class="form-group">
-                            <div id="dynamicInput">
+            
+                    <div class="row">
+                            <!--LIBRI-->
+        
+                            <div class="panel-group" id="accordion">
+        
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse7">Materiali - Optional
+                                                <i class="indicator icon-plus pull-right"></i>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse7" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="col-md-6">
+                                                <h5>Upload materiale</h5>
+                                                <input type="file" name="linkm" id="attento" multiple onchange="ValidateCurr(this)"/>
+                                            </div> 
+                                            <div id="idMyModal"></div>
 
-                        <input type="text" class="form-control style_2" placeholder="nome" name="nomem[]">      
 
-                        <input type="file" name="linkm[]" onchange="ValidateCurr(this)"/> 
 
-                        </div>
-                        <input type="button" value="+" onClick="addInput('dynamicInputArco');", id="aggiungi"><br>
+                                            <div class="col-md-12">
+                        <h5>Descrizione materiale IT</h5>
+                        <textarea rows="5" name="descrizioneitm[]" class="tinymce1"></textarea>.
+                        <h5>Descrizione materiale EN</h5>
+                        <textarea rows="5" name="descrizioneenm[]" class="tinymce1"></textarea>
+                                            
+  
+                                        <input type="button" value="MODALE" onclick="doModal();">
+                                    </div>
 
                        <!-- Attr: <input type="text" name="myInputs[]" pattern="[A-Za-z]+[0-9]*+[A-Za-z]*" title="Primo carattere lettera[a-z], simboli non consentiti"> 
                         Valore min:<input type="text" name="myInputsMin[]">
-                        Valori max:<input type="text" name="myInputsMax[]">
-                        <input type="button" value="+" onClick="addInput('dynamicInput')">-->
+                        Valori max:<input type="text" name="myInputsMax[]">-->
 
 
-                        
-                                
-                                
+                                        </div>    
                     </div>
                 </div>
+
             </div>
+
+        </div>
+              
+                                
+            
             <hr>
 
             <input type="submit" name="crea" value="Crea Corso" class="button_subscribe_green" id="submit-apply">
@@ -713,3 +737,5 @@
     <!-- End container -->
 </section>
 <!-- End main_content-->
+
+

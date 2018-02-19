@@ -145,6 +145,21 @@
     </main>
         
         
+
+
+    <section id="space">
+            <h3>Modalit&#224 d'esame</h3>
+
+            <#if descrizione_it.mod_Esame?trim?has_content> ${descrizione_it.mod_Esame} <#else> ${descrizione_en.mod_Esame} </#if>
+            
+        </section>
+
+        <section id="space">
+                <h3>Modalit&#224 d'insegnamento</h3>
+    
+                <#if descrizione_it.mod_Insegnamento?trim?has_content> ${descrizione_it.mod_Insegnamento} <#else> ${descrizione_en.mod_Insegnamento} </#if>
+                
+            </section>
         
         <section id="space">
             <h3>Note</h3>
