@@ -299,7 +299,7 @@
                                             <div class="col-md-6 col-sm-6">
                                                 <h5>Sillabo</h5>
                                                 <div class="form-group">
-                                                    <textarea rows="5" name="Sillabo" class="tinymce1"></textarea>
+                                                    <textarea rows="5" name="sillabo" class="tinymce1"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -307,7 +307,7 @@
                                             <div class="col-md-6 col-sm-6">
                                                 <h5>Note extra</h5>
                                                 <div class="form-group">
-                                                    <textarea rows="5" name="Note extra" class="tinymce1"></textarea>
+                                                    <textarea rows="5" name="note" class="tinymce1"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -418,7 +418,7 @@
                                             <div class="col-md-6 col-sm-6">
                                                 <h5>Sillabo EN</h5>
                                                 <div class="form-group">
-                                                    <textarea rows="5" name="Sillaboen" class="tinymce1"></textarea>
+                                                    <textarea rows="5" name="sillaboen" class="tinymce1"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -426,7 +426,7 @@
                                             <div class="col-md-6 col-sm-6">
                                                 <h5>Note extra EN</h5>
                                                 <div class="form-group">
-                                                    <textarea rows="5" name="Noteextraen" class="tinymce1"></textarea>
+                                                    <textarea rows="5" name="noteen" class="tinymce1"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -440,97 +440,6 @@
 
                     </div>
 
-
-                    <div class="row">
-                        <!--LIBRI-->
-
-                        <div class="panel-group" id="accordion">
-
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Libri consigliati - Optional
-                                            <i class="indicator icon-plus pull-right"></i>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse3" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <h4>Indicazioni libri</h4>
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6">
-                                                <h5>Autore</h5>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control style_2" placeholder="Autore" name="autore">
-                                                    <span class="input-icon">
-                                                        <i class="#"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-6">
-                                                <h5>Titolo libro</h5>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control style_2" placeholder="Titolo" name="titolo">
-                                                    <span class="input-icon">
-                                                        <i class="#"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6">
-                                                <h5>Volume libro</h5>
-                                                <div class="form-group">
-                                                    <input type="number" class="form-control style_2" placeholder="Volume" name="volume">
-                                                    <span class="input-icon">
-                                                        <i class="#"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-6">
-                                                <h5>Anno pubblicazione</h5>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control style_2" placeholder="Anno" name="anno">
-                                                    <span class="input-icon">
-                                                        <i class="#"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6">
-                                                <h5>Editore</h5>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control style_2" placeholder="Editore" name="editore">
-                                                    <span class="input-icon">
-                                                        <i class="#"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-6">
-                                                <h5>Link</h5>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control style_2" placeholder="Link" name="link">
-                                                    <span class="input-icon">
-                                                        <i class="#"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
 
 
 
@@ -675,12 +584,102 @@
             
             <hr>
 
+            <div class="row">
+                    <!--LIBRI-->
+
+                    <div class="panel-group" id="accordion">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Libri consigliati - Optional
+                                        <i class="indicator icon-plus pull-right"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse3" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <h4>Indicazioni libri</h4>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <h5>Autore</h5>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control style_2" placeholder="Autore" name="autore">
+                                                <span class="input-icon">
+                                                    <i class="#"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <h5>Titolo libro</h5>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control style_2" placeholder="Titolo" name="titolo">
+                                                <span class="input-icon">
+                                                    <i class="#"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <h5>Volume libro</h5>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control style_2" placeholder="Volume" name="volume">
+                                                <span class="input-icon">
+                                                    <i class="#"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <h5>Anno pubblicazione</h5>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control style_2" placeholder="Anno" name="anno">
+                                                <span class="input-icon">
+                                                    <i class="#"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <h5>Editore</h5>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control style_2" placeholder="Editore" name="editore">
+                                                <span class="input-icon">
+                                                    <i class="#"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <h5>Link</h5>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control style_2" placeholder="Link" name="link">
+                                                <span class="input-icon">
+                                                    <i class="#"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
 
             <div class="row">
                 <div class="col-md-12">
                     <h4>Upload Materiali - Optional</h4>
                     <div class="form-group">
-                        <input type="file" name="materiale" onchange="ValidateCurr(this)" />
+                        <input type="file" name="materiale" multiple onchange="ValidateCurr(this)" />
                     </div>
                 </div>
             </div>

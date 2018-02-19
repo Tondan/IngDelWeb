@@ -4,6 +4,8 @@ import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.CDL;
 import courseweb.model.interfacce.Corso;
+import courseweb.model.interfacce.Descrizione_en;
+import courseweb.model.interfacce.Descrizione_it;
 import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
@@ -93,7 +95,7 @@ public class CreateCorso extends BaseController {
                     }
                 
                 Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).createCorso();
-                    
+ 
                 corso.setNome_it(nome);
                 corso.setNome_en(nomeEN);
                 corso.setSSD(ssd);
@@ -106,10 +108,83 @@ public class CreateCorso extends BaseController {
                 corso.setCDLInCorso(cdl);
                 
                 
-                
+             //Sezione descrizione it
+                String prerequisiti= request.getParameter("prerequisiti");
+                String obiettivi= request.getParameter("obiettivi");
+                String mod_esame= request.getParameter("modesa");
+                String mod_insegnamento= request.getParameter("modins");
+                String sillabo= request.getParameter("sillabo");
+                String note= request.getParameter("note");
+                String homepage= request.getParameter("homepage");
+                String forum= request.getParameter("forum");
+                String risorse_ext= request.getParameter("risorse");
+ 
+                Descrizione_it descrizioneit=((IgwDataLayer)request.getAttribute("datalayer")).createDescrizione_it();
+                        
+                descrizioneit.setCorso(corso);
+                descrizioneit.setPrerequisiti(prerequisiti);
+                descrizioneit.setObiettivi(obiettivi);
+                descrizioneit.setMod_Esame(mod_esame);
+                descrizioneit.setMod_Insegnamento(mod_insegnamento);
+                descrizioneit.setSillabo(sillabo);
+                descrizioneit.setNote(note);
+                descrizioneit.setHomepage(homepage);
+                descrizioneit.setForum(forum);
+                descrizioneit.setRisorse_Ext(risorse_ext);
                 
         
+                
+                //Sezione descrizione EN
+                String prerequisitien= request.getParameter("prerequisitien");
+                String obiettivien= request.getParameter("obiettivien");
+                String mod_esameen= request.getParameter("modesaen");
+                String mod_insegnamentoen= request.getParameter("modinsen");
+                String sillaboen= request.getParameter("sillaboen");
+                String noteen= request.getParameter("noteen");
+                String homepageen= request.getParameter("homepageen");
+                String forumen= request.getParameter("forumen");
+                String risorse_exten= request.getParameter("risorseen");
+ 
+                Descrizione_en descrizioneen=((IgwDataLayer)request.getAttribute("datalayer")).createDescrizione_en();
+                        
+                descrizioneen.setCorso(corso);
+                descrizioneen.setPrerequisiti(prerequisitien);
+                descrizioneen.setObiettivi(obiettivien);
+                descrizioneen.setMod_Esame(mod_esameen);
+                descrizioneen.setMod_Insegnamento(mod_insegnamentoen);
+                descrizioneen.setSillabo(sillaboen);
+                descrizioneen.setNote(noteen);
+                descrizioneen.setHomepage(homepageen);
+                descrizioneen.setForum(forumen);
+                descrizioneen.setRisorse_Ext(risorse_exten);
+                
+                
+                //DUBLINO IT
+                String prerequisitien= request.getParameter("prerequisitien");
+                String obiettivien= request.getParameter("obiettivien");
+                String mod_esameen= request.getParameter("modesaen");
+                String mod_insegnamentoen= request.getParameter("modinsen");
+                String sillaboen= request.getParameter("sillaboen");
+                String noteen= request.getParameter("noteen");
+                String homepageen= request.getParameter("homepageen");
+                String forumen= request.getParameter("forumen");
+                String risorse_exten= request.getParameter("risorseen");
+ 
+                Descrizione_en descrizioneen=((IgwDataLayer)request.getAttribute("datalayer")).createDescrizione_en();
+                        
+                descrizioneen.setCorso(corso);
+                descrizioneen.setPrerequisiti(prerequisitien);
+                descrizioneen.setObiettivi(obiettivien);
+                descrizioneen.setMod_Esame(mod_esameen);
+                descrizioneen.setMod_Insegnamento(mod_insegnamentoen);
+                
+                
+                
+                
+                
+            //partenza store
             ((IgwDataLayer)request.getAttribute("datalayer")).storeCorso(corso);
+            
                 response.sendRedirect("Backoffice");
             
             } catch (DataLayerException ex) {
