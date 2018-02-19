@@ -32,8 +32,13 @@ public interface Materiale {
     
     String getDescrizione_en();
     
+    void setIDCorso(int id_corso);
+    
     void setDescrizione_en(String descrizione_en);
     
     public Corso getCorso() throws DataLayerException;
+    
+    
+    
     
 }

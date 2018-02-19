@@ -1,5 +1,5 @@
 var counter = 1;
-var limit = 10;
+var limit = 5;
 
 function addInput(divName){
      if (counter == limit){
@@ -8,7 +8,6 @@ function addInput(divName){
     
      else {
           var newdiv = document.createElement('div');
-          var newdivArco = document.createElement('divArco');
          
           newdiv.innerHTML = "Attr" + (counter + 1) + ":<input type='text' name='myInputs[]'>" + "Val min" + (counter + 1) +":<input type='text' name='myInputsMin[]'>" + "Val max" + 
               (counter + 1) +":<input type='text' name='myInputsMax[]'>"

@@ -108,9 +108,12 @@ public class MaterialeImpl implements Materiale{
         this.dirty=true;
     }
 
-    void setIDCorso(int id_corso) {
+    
+    @Override
+    public void setIDCorso(int id_corso) {
         this.id_corso=id_corso;
     }
+
 
         
 }

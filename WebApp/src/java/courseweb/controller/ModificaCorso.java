@@ -71,6 +71,7 @@ public class ModificaCorso extends BaseController {
                 }
                 request.setAttribute("corsicdl", corsicdl);
                 
+                
                 request.setAttribute("docente", corso.getDocenti());
                 request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
                 
@@ -78,10 +79,10 @@ public class ModificaCorso extends BaseController {
                 request.setAttribute("cdl", corso.getCDL());
                 request.setAttribute("cdl1", ((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
                 
-                Descrizione_it descrizioneit= ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_it(corso);
-                Descrizione_en descrizioneen= ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_en(corso);
-                Dublino_it dublinoit= ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_it(corso);
-                Dublino_en dublinoen= ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_en(corso);
+                Descrizione_it descrizioneit= (corso.getDescrizione_it());
+                Descrizione_en descrizioneen= (corso.getDescrizione_en());
+                Dublino_it dublinoit= (corso.getDublino_it());
+                Dublino_en dublinoen= (corso.getDublino_en());
                 
  
                 request.setAttribute("descrizioneit", descrizioneit);
@@ -89,11 +90,11 @@ public class ModificaCorso extends BaseController {
                 request.setAttribute("dublinoit",dublinoit);
                 request.setAttribute("dublinoen",dublinoen);
                
-                List<Libro> libri=((IgwDataLayer)request.getAttribute("datalayer")).getLibriCorso(corso);
-                List<Materiale> materiali=((IgwDataLayer)request.getAttribute("datalayer")).getMaterialeCorso(id);
+                List<Libro> libri=(corso.getLibri());
+                List<Materiale> materiali=(corso.getMateriale());
                 
                 request.setAttribute("materiali",materiali);
-                request.setAttribute("libri",libri);
+                request.setAttribute("libro",libri);
                 
                 
                 

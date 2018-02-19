@@ -7,7 +7,11 @@ import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.Descrizione_en;
 import courseweb.model.interfacce.Descrizione_it;
 import courseweb.model.interfacce.Docente;
+import courseweb.model.interfacce.Dublino_en;
+import courseweb.model.interfacce.Dublino_it;
 import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Libro;
+import courseweb.model.interfacce.Materiale;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
@@ -159,29 +163,81 @@ public class CreateCorso extends BaseController {
                 descrizioneen.setRisorse_Ext(risorse_exten);
                 
                 
+                
                 //DUBLINO IT
-                String prerequisitien= request.getParameter("prerequisitien");
-                String obiettivien= request.getParameter("obiettivien");
-                String mod_esameen= request.getParameter("modesaen");
-                String mod_insegnamentoen= request.getParameter("modinsen");
-                String sillaboen= request.getParameter("sillaboen");
-                String noteen= request.getParameter("noteen");
-                String homepageen= request.getParameter("homepageen");
-                String forumen= request.getParameter("forumen");
-                String risorse_exten= request.getParameter("risorseen");
- 
-                Descrizione_en descrizioneen=((IgwDataLayer)request.getAttribute("datalayer")).createDescrizione_en();
-                        
-                descrizioneen.setCorso(corso);
-                descrizioneen.setPrerequisiti(prerequisitien);
-                descrizioneen.setObiettivi(obiettivien);
-                descrizioneen.setMod_Esame(mod_esameen);
-                descrizioneen.setMod_Insegnamento(mod_insegnamentoen);
+                String knowledge = request.getParameter("knowledge");
+                String application  = request.getParameter("application");
+                String evaluation = request.getParameter("evaluation");
+                String communication = request.getParameter("communication");
+                String lifelong = request.getParameter("lifelong");
+                
+                Dublino_it dublinoit=((IgwDataLayer)request.getAttribute("datalayer")).createDublino_it();
+                
+                dublinoit.setCorso(corso);
+                dublinoit.setKnowledge(knowledge);
+                dublinoit.setApplication(application);
+                dublinoit.setEvaluation(evaluation);
+                dublinoit.setCommunication(communication);
+                dublinoit.setLifelong(lifelong);
+                
+                //Dublinoen
+                
+                String knowledgeen = request.getParameter("knowledgeen");
+                String applicationen  = request.getParameter("applicationen");
+                String evaluationen = request.getParameter("evaluationen");
+                String communicationen = request.getParameter("communicationen");
+                String lifelongen = request.getParameter("lifelongen");
+                
+                Dublino_en dublinoen=((IgwDataLayer)request.getAttribute("datalayer")).createDublino_en();
+                
+                dublinoen.setCorso(corso);
+                dublinoen.setKnowledge(knowledgeen);
+                dublinoen.setApplication(applicationen);
+                dublinoen.setEvaluation(evaluationen);
+                dublinoen.setCommunication(communicationen);
+                dublinoen.setLifelong(lifelongen);
+                
+                //LIBRI
+                
+                String autore = request.getParameter("autore");
+                String titolo = request.getParameter("titolo");
+                int volume = Integer.parseInt(request.getParameter("autore"));
+                int anno = Integer.parseInt(request.getParameter("anno"));
+                String editore = request.getParameter("editore");
+                String link = request.getParameter("link");
+                
+                
+                Libro libro=((IgwDataLayer)request.getAttribute("datalayer")).createLibro();
+                
+                
+                libro.setAutore(autore);
+                libro.setTitolo(titolo);
+                libro.setVolume(volume);
+                libro.setAnno(anno);
+                libro.setEditore(editore);
+                libro.setLink(link);
                 
                 
                 
+                //materiale
+                
+                String nomem = request.getParameter("nome");
+                String linkm = request.getParameter("linkm");
+                String descrizionematerialeit = request.getParameter("descrizionematerialeit");
+                String descrizionematerialeen = request.getParameter("descrizionematerialeen");
                 
                 
+                Materiale materiale = ((IgwDataLayer)request.getAttribute("datalayer")).createMateriale();
+                
+                materiale.setIDCorso(corso.getID()); //check
+                materiale.setNome(nomem);
+                materiale.setLink(linkm);
+                materiale.setDescrizione_it(descrizionematerialeit);
+                materiale.setDescrizione_en(descrizionematerialeen);
+                    
+                    
+                 
+                    
             //partenza store
             ((IgwDataLayer)request.getAttribute("datalayer")).storeCorso(corso);
             
