@@ -109,7 +109,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             //insert
             iDocente = connection.prepareStatement("INSERT INTO Docente (Immagine,Nome,Cognome,Email,Ufficio,Telefono,Specializzazione,Ricerche,Pubblicazioni,Curriculum,Ricevimento) VALUES(?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            uDocente =  connection.prepareStatement("UPDATE Docente Set Nome=?,Cognome=? WHERE IDDocente=?");
+            uDocente =  connection.prepareStatement("UPDATE Docente SET Nome=?,Cognome=?,Immagine=?,Email=?,Ufficio=?,Telefono=?,Specializzazione=?,Ricerche=?,Pubblicazioni=?,Curriculum=?,Ricevimento=? WHERE IDDocente=?");
             dDocente = connection.prepareStatement("DELETE FROM Docente WHERE IDDocente=?");
             
             iUtente = connection.prepareStatement("INSERT INTO Utente (Username,Password,Docente,Gruppo) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -117,8 +117,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             iCorso=connection.prepareStatement("INSERT INTO Corso (Nome_it,Nome_en,SSD,Lingua,Semestre,CFU,Anno,Tipologia) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             uCorso=connection.prepareStatement("UPDATE Corso SET Nome_it=?,Nome_en=?,SSD=?,Lingua=?,Semestre=?,CFU=?,Tipologia=? WHERE IDCorso=?");
-            iDocentiCorso=connection.prepareStatement("INSERT INTO Docenti_Corso(Corso,Docente) VALUES (?,?)");
-            iCDLCorso=connection.prepareStatement("INSERT INTO Corsi_CDL(Corso,CDL) VALUES(?,?)");
+            iDocentiCorso=connection.prepareStatement("REPLACE INTO Docenti_Corso(Corso,Docente) VALUES (?,?)");
+            iCDLCorso=connection.prepareStatement("REPLACE INTO Corsi_CDL(Corso,CDL) VALUES(?,?)");
             
             iCDL=connection.prepareStatement("INSERT INTO CDL(Nome_it,Nome_en,Anno,CFU,Magistrale,Immagine,Descrizione_it,Descrizione_en,Abbr_it,Abbr_en) VALUES (?,?,?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             
@@ -1057,6 +1057,17 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 
                 uDocente.setString(1, docente.getNome());
                 uDocente.setString(2, docente.getCognome());
+                uDocente.setString(3, docente.getImmagine());
+                uDocente.setString(4, docente.getEmail());
+                uDocente.setString(5, docente.getUfficio());
+                uDocente.setString(6, docente.getTelefono());
+                uDocente.setString(7, docente.getSpecializzazione());
+                uDocente.setString(8, docente.getRicerche());
+                uDocente.setString(9, docente.getPubblicazione());
+                uDocente.setString(10, docente.getCurriculum());
+                uDocente.setString(11, docente.getRicevimento());
+                uDocente.setInt(12, docente.getIDDocente());
+                
                 
                 uDocente.executeUpdate();
                 
@@ -1218,9 +1229,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                             dDocentiCorso.setInt(2, doc.getIDDocente());
                             dDocentiCorso.executeUpdate();
                         }
-                        else{
+                        /*else{
                             doci.remove(doc);
-                        }
+                        }*/
                     for(Docente doc:doci){
                         iDocentiCorso.setInt(1, corso.getID());
                         iDocentiCorso.setInt(2, doc.getIDDocente());
@@ -1235,9 +1246,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                             dCDLCorso.setInt(2, cdl.getIDCDL());
                             dCDLCorso.executeUpdate();
                         }
-                        else{
+                        /*else{
                             cdli.remove(cdl);
-                        }
+                        }*/
                     for(CDL cdl:cdli){
                         iCDLCorso.setInt(1, corso.getID());
                         iCDLCorso.setInt(2, cdl.getIDCDL());

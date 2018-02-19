@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
+import javax.servlet.annotation.MultipartConfig;
+@MultipartConfig
 /**
  *
  * @author Toni & Tony
@@ -84,7 +85,6 @@ public class ModificaDocente extends BaseController {
                     currPath=Upload.Up(context,curriculum,"curriculum",fileName,currPath);
                 }
                 String ricevimento= request.getParameter("ricevimento");
-                String password=request.getParameter("password");
                 
                 if(!doc.getNome().equals(nome))
                     doc.setNome(nome);
@@ -104,9 +104,18 @@ public class ModificaDocente extends BaseController {
                     doc.setPubblicazioni(pubblicazioni);
                 if(!doc.getRicevimento().equals(ricevimento))
                     doc.setRicevimento(ricevimento);
+                if(!doc.getImmagine().equals(imgPath))
+                    doc.setImmagine(imgPath);
+                if(!doc.getCurriculum().equals(currPath))
+                    doc.setCurriculum(currPath);
                 
+                ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(doc);
+                response.sendRedirect("BackOffice");
                 
-            
+        } catch (DataLayerException ex) {
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);
+        }    
             
     }    
     
@@ -133,7 +142,7 @@ public class ModificaDocente extends BaseController {
             action_seldocente(request, response, n, lin);
             }
             if(request.getParameter("cancella")!=null)
-                action_cancella(request,response);
+                //action_cancella(request,response);
             if(request.getParameter("modifica")!=null)
                 action_modifica(request,response);
             action_default(request, response,lin);
@@ -171,10 +180,6 @@ public class ModificaDocente extends BaseController {
                 HttpSession s = request.getSession(false);
                 String a = (String) s.getAttribute("username");
                 request.setAttribute("nome",a);
-                
-
-                
-                request.setAttribute("utente",((IgwDataLayer)request.getAttribute("datalayer")).getUtenteD());   //query nuova dato iddocente prendi idutente nella tabella utenti
                 
                 res.activate("modificadocente.ftl.html", request, response);
             } catch (DataLayerException ex) {
