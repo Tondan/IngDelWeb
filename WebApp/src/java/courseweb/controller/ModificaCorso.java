@@ -18,7 +18,9 @@ import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -53,8 +55,21 @@ public class ModificaCorso extends BaseController {
                 request.setAttribute("cdlm",((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag());
                 
                 
+                
                 Corso corso = ((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
                 request.setAttribute("corso", corso);
+                request.setAttribute("propedeudici",corso.getCorsiPrerequisiti());
+                request.setAttribute("mutuati",corso.getCorsiMutuati());
+                request.setAttribute("moduli",corso.getCorsiModulo());
+                request.setAttribute("corsi", ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
+                
+                Map<Integer,String> corsicdl=new HashMap();
+                for(CDL cdl:corso.getCDL()){
+                    for(Corso cs:((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdl(cdl)){
+                        corsicdl.put(cs.getID(), cs.getNome_it());
+                    }
+                }
+                request.setAttribute("corsicdl", corsicdl);
                 
                 request.setAttribute("docente", corso.getDocenti());
                 request.setAttribute("docenti", ((IgwDataLayer)request.getAttribute("datalayer")).getDocente());

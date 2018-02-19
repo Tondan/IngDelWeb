@@ -23,7 +23,7 @@
 				<a href="Corsianno?lin=it">Selezione del corso</a>
 			</li>
 			<li class="active">
-				<a href="ModificaCorso">Modifica Corso
+				<a href="ModificaCorso?n=${corso.ID}&lin=it">Modifica Corso
 					<#if corso.nome_it?trim?has_content>${corso.nome_it}
 						<#else>${corso.nome_en}</#if>
 				</a>
@@ -222,7 +222,7 @@
 						</div>
 						<div class="col-md-6 col-sm-6">
 							<h4>Modifica il cdl corso</h4>
-							<select id="special2" name="cdl" multiple autocomplete="off">
+                                                        <select id="special2" name="cdl" required multiple autocomplete="off" onchange="CheckSelect(document.getElementsByName('cdl')[0])">
 								<#list cdl1?sort_by( "nome_it") as cdl1>
 									<option value="${cdl1.IDCDL}" <#if seq?seq_contains(cdl1.IDCDL)>selected</#if>>
 										<#if cdl1.nome_it?trim?has_content>${cdl1.nome_it}
@@ -233,7 +233,65 @@
 
 						</div>
 					</div>
+                                        <hr>
+                                        
+                                        <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div>
+                                <h4>Corsi mutuati</h4>
+                                <div>
+                                    <select id="special-cazzafà" name="mutuati" multiple autocomplete="off">
+                                        <#assign seq=[]>
+                                            <#list mutuati as corsi>
+						<#assign seq=seq+[corsi.ID]>
+                                            </#list>
+                                        <#list corsi as corsi>
+                                            <option value="${corsi.ID}" <#if seq?seq_contains(corsi.ID)>selected</#if>>${corsi.nome_it}</option>
+                                        </#list>
 
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-4">
+                            <div>
+                                <h4>Corsi Propedeudici</h4>
+                                <div class="cacca">
+                                    <select class="chzn-select" name="propedeudici" id="special-cazzafò" multiple autocomplete="off">
+                                        <#assign seq=[]>
+                                            <#list propedeudici as corsi>
+						<#assign seq=seq+[corsi.ID]>
+                                            </#list>
+                                        <#list corsicdl as id,nome>
+                                            <option value="${id}"<#if seq?seq_contains(id)>selected</#if>>${nome}</option>
+                                        </#list>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-4">
+                            <div>
+                                <h4>Corsi Modulo</h4>
+                                <div class="cacca">
+                                    <select class="chzn-select" name="modulo" id="special-cazzafò" multiple autocomplete="off">
+                                        <#assign seq=[]>
+                                            <#list modulo as corsi>
+						<#assign seq=seq+[corsi.ID]>
+                                            </#list>
+                                        <#list corsicdl as id,nome>
+                                            <option value="${id}"<#if seq?seq_contains(id)>selected</#if>>${nome}</option>
+                                        </#list>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
 					<hr>
 
 

@@ -12,7 +12,7 @@ function CheckSelect(select){
       result.push(opt.value);
     }
   }
-  if(result>0){
+  if(result.length>0){
   
     $.ajax({
                 url : 'change', // Your Servlet mapping or JSP(not suggested)

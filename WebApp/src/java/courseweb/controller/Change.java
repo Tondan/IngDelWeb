@@ -14,8 +14,12 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -40,14 +44,15 @@ public class Change extends BaseController {
         response.setContentType("html");
         String[] c=request.getParameterValues("result[]");
         int a=0;
-        List<Corso> corsi=new ArrayList();
+        Map<Integer,String> corsi=new HashMap();
         int i;
         try{
         for(i=0; i<c.length;i++){
             if(!c[i].trim().isEmpty())
                 a=Integer.parseInt(c[i]);
             CDL cd=((IgwDataLayer)request.getAttribute("datalayer")).getCDL(a);
-            corsi.addAll(((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdl(cd));
+            for(Corso corso:((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdl(cd))
+                corsi.put(corso.getID(), corso.getNome_it());
         }
         } catch (DataLayerException ex) {
                 Logger.getLogger(Change.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,8 +63,8 @@ public class Change extends BaseController {
     try {
         PrintWriter out = response.getWriter();
         out.write("<select class='chzn-select' name='modulo' id='special-cazzafà' multiple>");
-        for(Corso corso:corsi){
-            out.write("<option value='"+corso.getID()+"'>"+corso.getNome_it()+"</option>");
+        for(int key:corsi.keySet()){
+            out.write("<option value='"+key+"'>"+corsi.get(key)+"</option>");
         }
         out.write("</select>");
     } catch (IOException ex) {
