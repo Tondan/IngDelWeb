@@ -714,7 +714,7 @@
     $.fn.multipleSelect.defaults = {
         name: '',
         isOpen: false,
-        placeholder: 'Seleziona i tuoi corsi',
+        placeholder: 'Seleziona i corsi',
         selectAll: true,
         selectAllDelimiter: ['[', ']'],
         minimumCountSelected: 3,
