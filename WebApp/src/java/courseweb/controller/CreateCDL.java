@@ -74,7 +74,7 @@ public class CreateCDL extends BaseController {
         Part immagine=request.getPart("immagine");
         if(immagine.getSize()!=0){
             fileName=nome;
-            imgPath=Upload.Up(context,immagine,"imgCDL",fileName);
+            imgPath=Upload.Up(context,immagine,"imgCDL",fileName,null);
         }
         
         CDL cdl=((IgwDataLayer)request.getAttribute("datalayer")).createCDL();

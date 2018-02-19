@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import javax.servlet.http.Part;
 import org.apache.commons.io.FilenameUtils;
 
@@ -19,9 +20,12 @@ import org.apache.commons.io.FilenameUtils;
 public class Upload {
     
     /*Esegue l'upload di un file, conoscendo il contesto, la directory relativa dove salvare il file, il nuovo nome del file*/
-    protected static String Up(String context,Part part,String dir,String name) throws IOException{
+    protected static String Up(String context,Part part,String dir,String name,String old) throws IOException{
         File cn=new File(context);
         context=cn.getParentFile().getParent()+File.separator+"web\\";
+        
+        if(old!=null)
+            Files.delete(Paths.get(context+old));
         //contructs path of the directory to save uploaded file
         String savePath=context+dir;
         //Creates the save directory if not exists
@@ -66,5 +70,6 @@ public class Upload {
         }
         return "";
     }
+    
     
 }

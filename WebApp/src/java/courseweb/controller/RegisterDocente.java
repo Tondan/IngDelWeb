@@ -72,7 +72,7 @@ public class RegisterDocente extends BaseController {
                 Part immagine=request.getPart("immagine");
                 if(immagine.getSize()!=0){
                     fileName=nome+cognome;
-                    imgPath=Upload.Up(context,immagine,"imgDocenti",fileName);
+                    imgPath=Upload.Up(context,immagine,"imgDocenti",fileName,null);
                 }
                 
                 //String immagine= request.getParameter("immagine");
@@ -87,7 +87,7 @@ public class RegisterDocente extends BaseController {
                 String currPath=null;
                 if(curriculum.getSize()!=0){
                     fileName=nome+cognome;
-                    currPath=Upload.Up(context,curriculum,"curriculum",fileName);
+                    currPath=Upload.Up(context,curriculum,"curriculum",fileName,null);
                 }
                 //String curriculum= request.getParameter("curriculum");
                 String ricevimento= request.getParameter("ricevimento");
