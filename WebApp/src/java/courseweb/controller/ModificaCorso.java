@@ -4,8 +4,14 @@ import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.CDL;
 import courseweb.model.interfacce.Corso;
+import courseweb.model.interfacce.Descrizione_en;
+import courseweb.model.interfacce.Descrizione_it;
 import courseweb.model.interfacce.Docente;
+import courseweb.model.interfacce.Dublino_en;
+import courseweb.model.interfacce.Dublino_it;
 import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Libro;
+import courseweb.model.interfacce.Materiale;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
@@ -56,6 +62,24 @@ public class ModificaCorso extends BaseController {
                  
                 request.setAttribute("cdl", corso.getCDL());
                 request.setAttribute("cdl1", ((IgwDataLayer)request.getAttribute("datalayer")).getCDL());
+                
+                Descrizione_it descrizioneit= ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_it(corso);
+                Descrizione_en descrizioneen= ((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_en(corso);
+                Dublino_it dublinoit= ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_it(corso);
+                Dublino_en dublinoen= ((IgwDataLayer)request.getAttribute("datalayer")).getDublino_en(corso);
+                
+ 
+                request.setAttribute("descrizioneit", descrizioneit);
+                request.setAttribute("descrizioneen", descrizioneen);
+                request.setAttribute("dublinoit",dublinoit);
+                request.setAttribute("dublinoen",dublinoen);
+               
+                List<Libro> libri=((IgwDataLayer)request.getAttribute("datalayer")).getLibriCorso(corso);
+                List<Materiale> materiali=((IgwDataLayer)request.getAttribute("datalayer")).getMaterialeCorso(id);
+                
+                request.setAttribute("materiali",materiali);
+                request.setAttribute("libri",libri);
+                
                 
                 
                 HttpSession s = request.getSession(false);
@@ -144,8 +168,10 @@ public class ModificaCorso extends BaseController {
                    cdl.add(((IgwDataLayer)request.getAttribute("datalayer")).getCDL(a));  
                 }
                 
+
                 Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).getCorso(key);
                 
+
                 if(!corso.getNome_it().equals(nome))
                     corso.setNome_it(nome);
                 if(!corso.getNome_en().equals(nomeEN))
@@ -164,9 +190,20 @@ public class ModificaCorso extends BaseController {
                 corso.setCDLInCorso(cdl);
                 
                 
+                //DESCRIZIONE
+                Descrizione_it descrizioneit=((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_it(corso);
                 
+                String prerequisiti= request.getParameter("prerequisiti");
+                String obiettivi= request.getParameter("obiettivi");
+                String mod_esame= request.getParameter("modesa");
+                String mod_insegnamento= request.getParameter("modins");
+                String sillabo= request.getParameter("sillabo");
+                String note= request.getParameter("note");
+                String homepage= request.getParameter("homepage");
+                String forum= request.getParameter("forum");
+                String risorse_ext= request.getParameter("risorse");
                 
-        
+            
             ((IgwDataLayer)request.getAttribute("datalayer")).storeCorso(corso);
                 response.sendRedirect("Backoffice");
             
