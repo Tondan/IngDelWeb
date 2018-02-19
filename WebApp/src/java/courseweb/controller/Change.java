@@ -34,7 +34,7 @@ public class Change extends BaseController {
    
 @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-    try {
+    /*try {
         request.setCharacterEncoding("utf8");
     } catch (UnsupportedEncodingException ex) {
         Logger.getLogger(Change.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,7 +57,7 @@ public class Change extends BaseController {
             }
         }
         
-        cdl.put("len", 5);
+        cdl.put("len", 5);*/
         
         /*try {
         request.setCharacterEncoding("utf8");
@@ -80,14 +80,17 @@ public class Change extends BaseController {
         } catch (DataLayerException ex) {
                 Logger.getLogger(Change.class.getName()).log(Level.SEVERE, null, ex);
         }
-        cdl=new JSONObject(corsi);
+        
             
-        Iterator itr=corsi.iterator();
+        
         int len=0;
-        while(itr.hasNext()){
-            itr.next();
+        for(Corso corso:corsi){
+            String id=new JSONObject().put("id", corso.getID()).toString();
+            String nome=new JSONObject().put("nome", corso.getNome_it()).toString();
+            cdl.put("cdl",new JSONObject().put("id", id).put("nome", nome).toString());
             len++;
         }
+        
         cdl.put("len",len);*/
         
         /*List<Corso> corso=new ArrayList();
@@ -102,10 +105,36 @@ public class Change extends BaseController {
                 Logger.getLogger(Change.class.getName()).log(Level.SEVERE, null, ex);
             }
         }*/
+        try{
+        request.setCharacterEncoding("utf8");
+    } catch (UnsupportedEncodingException ex) {
+        Logger.getLogger(Change.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        response.setContentType("html");
+        String[] c=request.getParameterValues("result[]");
+        int a=0;
+        List<Corso> corsi=new ArrayList();
+        int i;
+        try{
+        for(i=0; i<c.length;i++){
+            if(!c[i].trim().isEmpty())
+                a=Integer.parseInt(c[i]);
+            CDL cd=((IgwDataLayer)request.getAttribute("datalayer")).getCDL(a);
+            corsi.addAll(((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdl(cd));
+        }
+        } catch (DataLayerException ex) {
+                Logger.getLogger(Change.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         
     try {
         PrintWriter out = response.getWriter();
-        out.write(cdl.toString());
+        out.write("<select class='chzn-select' name='modulo' id='special-cazzafà' multiple>");
+        for(Corso corso:corsi){
+            out.write("<option value='"+corso.getID()+"'>"+corso.getNome_it()+"</option>");
+        }
+        out.write("</select>");
     } catch (IOException ex) {
         Logger.getLogger(Change.class.getName()).log(Level.SEVERE, null, ex);
     }
