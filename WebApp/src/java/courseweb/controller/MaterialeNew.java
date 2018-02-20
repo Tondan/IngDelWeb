@@ -2,7 +2,6 @@ package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
-import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
@@ -36,7 +35,7 @@ public class MaterialeNew extends BaseController {
     
     private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
         TemplateResult res = new TemplateResult(getServletContext());
-        request.setAttribute("servlet","MaterialeUp?");
+        request.setAttribute("servlet","MaterialeNew?");
             if(lingua.equals("it")||lingua.equals("")){
             try {
                 request.setAttribute("lingua","it");
@@ -68,7 +67,7 @@ public class MaterialeNew extends BaseController {
             HttpSession s = SecurityLayer.checkSession(request);
             String username=(String)s.getAttribute("username");   
         try {
-            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"ModificaDocente")) {
+            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"MaterialeNew")) {
             if(request.getParameter("lin")==null){
                 lin="it";}
             else{
