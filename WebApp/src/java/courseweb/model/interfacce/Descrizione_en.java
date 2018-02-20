@@ -54,4 +54,10 @@ public interface Descrizione_en {
     String getRisorse_Ext();
     
     void setRisorse_Ext(String risorse);
+    
+    public void setDirty(boolean dirty);
+    
+    public boolean isDirty();
+    
+    public void copyFrom(Descrizione_en descrizione);
 }

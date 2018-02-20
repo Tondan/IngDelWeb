@@ -142,7 +142,7 @@ public class CreateCorso extends BaseController {
                 
                 
              //Sezione descrizione it
-/*                String prerequisiti= request.getParameter("prerequisiti");
+                String prerequisiti= request.getParameter("prerequisiti");
                 String obiettivi= request.getParameter("obiettivi");
                 String mod_esame= request.getParameter("modesa");
                 String mod_insegnamento= request.getParameter("modins");
@@ -226,49 +226,13 @@ public class CreateCorso extends BaseController {
                 dublinoen.setCommunication(communicationen);
                 dublinoen.setLifelong(lifelongen);
                 
-                //LIBRI
-                
-                String autore = request.getParameter("autore");
-                String titolo = request.getParameter("titolo");
-                int volume = Integer.parseInt(request.getParameter("autore"));
-                int anno = Integer.parseInt(request.getParameter("anno"));
-                String editore = request.getParameter("editore");
-                String link = request.getParameter("link");
-                
-                
-                Libro libro=((IgwDataLayer)request.getAttribute("datalayer")).createLibro();
-                
-                
-                libro.setAutore(autore);
-                libro.setTitolo(titolo);
-                libro.setVolume(volume);
-                libro.setAnno(anno);
-                libro.setEditore(editore);
-                libro.setLink(link);
-                
-                
-                
-                //materiale
-                
-                String nomem = request.getParameter("nome");
-                String linkm = request.getParameter("linkm");
-                String descrizionematerialeit = request.getParameter("descrizionematerialeit");
-                String descrizionematerialeen = request.getParameter("descrizionematerialeen");
-                
-                
-                Materiale materiale = ((IgwDataLayer)request.getAttribute("datalayer")).createMateriale();
-                
-                materiale.setIDCorso(corso.getID()); //check
-                materiale.setNome(nomem);
-                materiale.setLink(linkm);
-                materiale.setDescrizione_it(descrizionematerialeit);
-                materiale.setDescrizione_en(descrizionematerialeen);
-                    
-                    
-                 */
                     
             //partenza store
             ((IgwDataLayer)request.getAttribute("datalayer")).storeCorso(corso);
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeDescrizione_it(descrizioneit);
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeDescrizione_en(descrizioneen);
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeDublino_it(dublinoit);
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeDublino_en(dublinoen);
             
                 response.sendRedirect("Backoffice");
             

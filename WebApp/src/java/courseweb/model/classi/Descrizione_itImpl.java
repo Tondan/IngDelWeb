@@ -6,6 +6,8 @@
 package courseweb.model.classi;
 import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -175,5 +177,37 @@ public class Descrizione_itImpl implements Descrizione_it{
     public void setRisorse_Ext(String risorse) {
         this.risorse_ext=risorse;
         this.dirty=true;
+    }
+    
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
+    
+    @Override
+    public boolean isDirty() {
+        return dirty;
+    }
+    
+    @Override
+    public void copyFrom(Descrizione_it descrizione) {
+        prerequisiti=descrizione.getPrerequisiti();
+        obiettivi=descrizione.getObiettivi();
+        mod_esame=descrizione.getMod_Esame();
+        mod_insegnamento=descrizione.getMod_Insegnamento();
+        sillabo=descrizione.getSillabo();
+        note=descrizione.getNote();
+        homepage=descrizione.getHomepage();
+        forum=descrizione.getForum();
+        risorse_ext=descrizione.getRisorse_Ext();
+        
+        try{
+            corso=descrizione.getCorso();
+            id_corso=descrizione.getCorso().getID();
+        }   
+        catch (DataLayerException ex) {
+            Logger.getLogger(DocenteImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dirty = true;
     }
 }

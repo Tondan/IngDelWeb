@@ -1,6 +1,8 @@
 package courseweb.model.classi;
 import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -54,7 +56,7 @@ public class Dublino_itImpl implements Dublino_it{
     @Override
     public void setCorso(Corso corso) {
         this.corso=corso;
-        this.dirty=false;
+        this.dirty=true;
     }
 
     @Override
@@ -65,7 +67,7 @@ public class Dublino_itImpl implements Dublino_it{
     @Override
     public void setKnowledge(String knowledge) {
         this.knowledge=knowledge;
-        this.dirty=false;
+        this.dirty=true;
     }
 
     @Override
@@ -76,7 +78,7 @@ public class Dublino_itImpl implements Dublino_it{
     @Override
     public void setApplication(String application) {
         this.application=application;
-        this.dirty=false;
+        this.dirty=true;
     }
 
     @Override
@@ -87,7 +89,7 @@ public class Dublino_itImpl implements Dublino_it{
     @Override
     public void setEvaluation(String evaluation) {
        this.evaluation=evaluation;
-       this.dirty=false;
+       this.dirty=true;
     }
 
     @Override
@@ -98,7 +100,7 @@ public class Dublino_itImpl implements Dublino_it{
     @Override
     public void setCommunication(String communication) {
         this.communication=communication;
-        this.dirty=false;
+        this.dirty=true;
     }
 
     @Override
@@ -109,10 +111,36 @@ public class Dublino_itImpl implements Dublino_it{
     @Override
     public void setLifelong(String lifelong) {
         this.lifelong=lifelong;
-        this.dirty=false;
+        this.dirty=true;
     }
 
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
     
+    @Override
+    public boolean isDirty() {
+        return dirty;
+    }
+    
+    @Override
+    public void copyFrom(Dublino_it dublino) {
+        knowledge=dublino.getKnowledge();
+        application=dublino.getApplication();
+        evaluation=dublino.getEvaluation();
+        communication=dublino.getCommunication();
+        lifelong=dublino.getLifelong();
+        
+        try{
+            corso=dublino.getCorso();
+            id_corso=dublino.getCorso().getID();
+        }   
+        catch (DataLayerException ex) {
+            Logger.getLogger(DocenteImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dirty = true;
+    }
     
    
 }

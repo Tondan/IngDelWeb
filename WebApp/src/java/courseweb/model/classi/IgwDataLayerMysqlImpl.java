@@ -43,7 +43,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno,sAccess;
     
-    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso;
+    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en;
     private PreparedStatement uDocente, uUtente,uCorso;
     private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso;
     private PreparedStatement checkUtente;
@@ -124,6 +124,10 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             iCDL=connection.prepareStatement("INSERT INTO CDL(Nome_it,Nome_en,Anno,CFU,Magistrale,Immagine,Descrizione_it,Descrizione_en,Abbr_it,Abbr_en) VALUES (?,?,?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             
+            iDescrizione_it=connection.prepareStatement("REPLACE INTO Descrizione_it(Corso,Prerequisiti,Obiettivi,Mod_Esame,Mod_Insegnamento,Sillabo,Note,Homepage,Forum,Risorse_Ext) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            iDescrizione_en=connection.prepareStatement("REPLACE INTO Descrizione_en(Corso,Prerequisiti,Obiettivi,Mod_Esame,Mod_Insegnamento,Sillabo,Note,Homepage,Forum,Risorse_Ext) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            iDublino_it=connection.prepareStatement("REPLACE INTO Dublino_it(Corso,Knowledge,Application,Evaluation,Communication,Lifelong) VALUES(?,?,?,?,?,?)");
+            iDublino_en=connection.prepareStatement("REPLACE INTO Dublino_en(Corso,Knowledge,Application,Evaluation,Communication,Lifelong) VALUES(?,?,?,?,?,?)");
             
             dDocentiCorso=connection.prepareStatement("DELETE FROM Docenti_Corso WHERE Corso=? AND Docente=?");
             dCDLCorso=connection.prepareStatement("DELETE FROM Corsi_CDL WHERE Corso=? AND CDL=?");
@@ -1506,6 +1510,37 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             }
         }
     }
+    
+    
+    @Override
+    public void storeDescrizione_it(Descrizione_it descrizione) throws DataLayerException{
+         try {
+                if (!descrizione.isDirty()) {
+                    return;
+                }
+               iDescrizione_it.setInt(1, descrizione.getCorso().getID());
+               iDescrizione_it.setString(2, descrizione.getPrerequisiti());
+               iDescrizione_it.setString(3, descrizione.getObiettivi());
+               iDescrizione_it.setString(4, descrizione.getMod_Esame());
+               iDescrizione_it.setString(5, descrizione.getMod_Insegnamento());
+               iDescrizione_it.setString(6, descrizione.getSillabo());
+               iDescrizione_it.setString(7, descrizione.getNote()); 
+               iDescrizione_it.setString(8, descrizione.getHomepage());
+               iDescrizione_it.setString(9, descrizione.getForum());
+               iDescrizione_it.setString(10, descrizione.getRisorse_Ext());
+                
+                
+                if (iDescrizione_it.executeUpdate() == 1) {
+                    try {
+                    descrizione.copyFrom(getDescrizione_it(descrizione.getCorso()));
+                    } catch (DataLayerException ex) {
+                        Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+         } catch (SQLException ex) {
+            Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Override
     public boolean existUtente(String username) {
@@ -1525,5 +1560,90 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     public List<Log> getLog() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void storeDescrizione_en(Descrizione_en descrizione) throws DataLayerException {
+        try {
+                if (!descrizione.isDirty()) {
+                    return;
+                }
+               iDescrizione_en.setInt(1, descrizione.getCorso().getID());
+               iDescrizione_en.setString(2, descrizione.getPrerequisiti());
+               iDescrizione_en.setString(3, descrizione.getObiettivi());
+               iDescrizione_en.setString(4, descrizione.getMod_Esame());
+               iDescrizione_en.setString(5, descrizione.getMod_Insegnamento());
+               iDescrizione_en.setString(6, descrizione.getSillabo());
+               iDescrizione_en.setString(7, descrizione.getNote()); 
+               iDescrizione_en.setString(8, descrizione.getHomepage());
+               iDescrizione_en.setString(9, descrizione.getForum());
+               iDescrizione_en.setString(10, descrizione.getRisorse_Ext());
+                
+                
+                if (iDescrizione_en.executeUpdate() == 1) {
+                    try {
+                    descrizione.copyFrom(getDescrizione_en(descrizione.getCorso()));
+                    } catch (DataLayerException ex) {
+                        Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+         } catch (SQLException ex) {
+            Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+
+    @Override
+    public void storeDublino_it(Dublino_it dublino) throws DataLayerException {
+        try {
+                if (!dublino.isDirty()) {
+                    return;
+                }
+               iDublino_it.setInt(1, dublino.getCorso().getID());
+               iDublino_it.setString(2, dublino.getKnowledge());
+               iDublino_it.setString(3, dublino.getApplication());
+               iDublino_it.setString(4, dublino.getEvaluation());
+               iDublino_it.setString(5, dublino.getCommunication());
+               iDublino_it.setString(6, dublino.getLifelong());
+                
+                
+                if (iDublino_it.executeUpdate() == 1) {
+                    try {
+                    dublino.copyFrom(getDublino_it(dublino.getCorso()));
+                    } catch (DataLayerException ex) {
+                        Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+         } catch (SQLException ex) {
+            Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void storeDublino_en(Dublino_en dublino) throws DataLayerException {
+        try {
+                if (!dublino.isDirty()) {
+                    return;
+                }
+               iDublino_en.setInt(1, dublino.getCorso().getID());
+               iDublino_en.setString(2, dublino.getKnowledge());
+               iDublino_en.setString(3, dublino.getApplication());
+               iDublino_en.setString(4, dublino.getEvaluation());
+               iDublino_en.setString(5, dublino.getCommunication());
+               iDublino_en.setString(6, dublino.getLifelong());
+                
+                
+                if (iDublino_en.executeUpdate() == 1) {
+                    try {
+                    dublino.copyFrom(getDublino_en(dublino.getCorso()));
+                    } catch (DataLayerException ex) {
+                        Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+         } catch (SQLException ex) {
+            Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
 }
   

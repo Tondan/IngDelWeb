@@ -148,4 +148,13 @@ public interface IgwDataLayer extends DataLayer {
 
     public List<Log> getLog();
     
+    public void storeDescrizione_it(Descrizione_it descrizione) throws DataLayerException;
+    
+    public void storeDescrizione_en(Descrizione_en descrizione) throws DataLayerException;
+    
+    public void storeDublino_it(Dublino_it dublino) throws DataLayerException;
+    
+    public void storeDublino_en(Dublino_en dublino) throws DataLayerException;
+    
+    
 }

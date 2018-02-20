@@ -39,4 +39,9 @@ public interface Dublino_it {
     
     void setLifelong(String lifelong);
     
+    public void setDirty(boolean dirty);
+    
+    public boolean isDirty();
+    
+    public void copyFrom(Dublino_it dublino);
 }
