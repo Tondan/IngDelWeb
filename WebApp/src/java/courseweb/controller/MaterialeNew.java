@@ -42,13 +42,14 @@ public class MaterialeNew extends BaseController {
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
                 
-                request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
+                request.setAttribute("corso",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
+                
 
                 HttpSession s = request.getSession(false);
                 String a = (String) s.getAttribute("username");
                 request.setAttribute("nome",a);
                  
-                res.activate("materialenew.ftl.html", request, response);
+                res.activate("Materialenew.ftl.html", request, response);
             } catch (DataLayerException ex) {
                 Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, "CIAOOOO", ex);
             }
@@ -74,11 +75,6 @@ public class MaterialeNew extends BaseController {
                 lin=request.getParameter("lin");
             }
       
-            if (request.getParameter("n") != null) {
-            int n;
-            n = SecurityLayer.checkNumeric(request.getParameter("n"));
-            action_selcorso(request, response, n, lin);
-            }
             action_default(request, response,lin);
             }
             else {
@@ -96,32 +92,4 @@ public class MaterialeNew extends BaseController {
         }
     }
 
-    private void action_selcorso(HttpServletRequest request, HttpServletResponse response,int id ,String lin) throws IOException, TemplateManagerException {
-        
-        TemplateResult res = new TemplateResult(getServletContext());
-        request.setAttribute("servlet","MaterialeUp?");
-            if(lin.equals("it")||lin.equals("")){
-            try {
-                request.setAttribute("lingua","it");
-                request.setAttribute("page_title", "Backoffice");
-                
-                request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
-                
-                Corso corso = ((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
-                request.setAttribute("materiale" , corso.getMateriale());
-                
-                
-                
-               
-            } catch (DataLayerException ex) {
-                Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, "CIAOOOO", ex);
-            }
-       
-
-    }
-    }
-    
-
 }
-
- 
