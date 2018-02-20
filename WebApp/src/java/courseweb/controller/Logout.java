@@ -7,11 +7,8 @@ package courseweb.controller;
 
 import courseweb.controller.security.SecurityLayer;
 import courseweb.view.FailureResult;
-import courseweb.view.TemplateManagerException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

@@ -1902,8 +1902,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             dCorso.setInt(1, id);
             dCorso.executeUpdate();
-        
-            Upload.delete();
+       
             
         }catch(SQLException ex){
             
