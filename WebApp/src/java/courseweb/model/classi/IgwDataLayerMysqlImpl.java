@@ -445,8 +445,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     public Log createLog(ResultSet rs) throws DataLayerException {
         try {
             Log de = new LogImpl(this);
-            
-            de.setIDLog(rs.getInt("IDUtente")); 
+            de.setIDLog(rs.getInt("IDLog")); 
             de.setData(rs.getTimestamp("Data"));
             de.setDescrizione(rs.getString("Descrizione"));
             de.setIDUtente(rs.getInt("Utente"));  
