@@ -3,7 +3,7 @@
 $("#attento").on("change", function(){  
     var fileCount = this.files.length;
 
-
+/*
 if(fileCount>5){
 alert("troppe immissioni");}
 else{
@@ -15,6 +15,28 @@ else{
     }
 
 }
+*/
+
+var input = document.getElementById('filesToUpload');
+var list = document.getElementById('fileList');
+
+//empty list for now...
+while (list.hasChildNodes()) {
+	list.removeChild(ul.firstChild);
+}
+
+//for every file...
+for (var x = 0; x < input.files.length; x++) {
+	//add to list
+	var li = document.createElement('li');
+	li.innerHTML = 'File ' + (x + 1) + ':  ' + input.files[x].name;
+	list.append(li);
+}
+
+}
+
+
+
 
 /*
 var BstrapModal = function (title, body, buttons) {
@@ -71,9 +93,9 @@ var BstrapModal = function (title, body, buttons) {
 
 });
 
-*/
 
-/*
+
+
 var counter = 1;
 var limit = 5;
 
@@ -99,4 +121,3 @@ function addInput(divName){
      }
 }
 */
-

@@ -689,9 +689,9 @@
                                         <div class="panel-body">
                                             <div class="col-md-6">
                                                 <h5>Upload materiale</h5>
-                                                <input type="file" name="linkm" id="attento" multiple onchange="ValidateCurr(this)"/>
+                                                <input name="filesToUpload[]" id="filesToUpload" type="file" multiple onchange="ValidateCurr(this)"/>
                                             </div> 
-                                            <div id="idMyModal"></div>
+                                            
 
 
 
@@ -702,7 +702,7 @@
                         <textarea rows="5" name="descrizioneenm[]" class="tinymce1"></textarea>
                                             
   
-                                        <input type="button" value="MODALE" onclick="doModal();">
+                                    
                                     </div>
 
                        <!-- Attr: <input type="text" name="myInputs[]" pattern="[A-Za-z]+[0-9]*+[A-Za-z]*" title="Primo carattere lettera[a-z], simboli non consentiti"> 

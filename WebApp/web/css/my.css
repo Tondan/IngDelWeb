@@ -214,7 +214,7 @@ input[type='checkbox'] {
 
 /*MEDIA QUERY*/
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 766px) {
 
 .sf-menu {
   width: 100%!important;
