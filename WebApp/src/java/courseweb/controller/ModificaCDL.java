@@ -3,8 +3,6 @@ package courseweb.controller;
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.CDL;
-import courseweb.model.interfacce.Corso;
-import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
@@ -12,8 +10,6 @@ import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -22,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import courseweb.model.interfacce.Log;
 
 @MultipartConfig
 /**
@@ -186,9 +183,9 @@ public class ModificaCDL extends BaseController {
         int id1 = (int) session.getAttribute("userid");
         //int id = (int) session.getAttribute("docenteid");
         
-        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
         log.setIDUtente(id1);
-        log.setDescrizione("Ha modificato il cdl"+ nome);
+        log.setDescrizione("Ha modificato il cdl"+""+ nome);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         log.setData(timestamp);
         ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
@@ -200,6 +197,18 @@ public class ModificaCDL extends BaseController {
         CDL cdl=((IgwDataLayer)request.getAttribute("datalayer")).getCDL(id);
         String context=request.getServletContext().getRealPath("");
         Upload.delete(context, cdl.getImmagine());
+        String nomelog=cdl.getNome_it();
+       HttpSession session= request.getSession(false);
+        int id1 = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id1);
+        log.setDescrizione("Ha cancellato il cdl"+""+ nomelog);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
         ((IgwDataLayer)request.getAttribute("datalayer")).deleteCDL(cdl);
     }
     
