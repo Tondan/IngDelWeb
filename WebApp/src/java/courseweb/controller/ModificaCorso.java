@@ -342,11 +342,6 @@ public class ModificaCorso extends BaseController {
                 if(!dublinoen.getLifelong().equals(lifelongen))
                     dublinoen.setLifelong(lifelongen);
                 
-                
-                List<Materiale> mat=corso.getMateriale();
-                String context=request.getServletContext().getRealPath("");
-                for(Materiale materiale:mat)
-                    Upload.delete(context,materiale.getLink());
             
             ((IgwDataLayer)request.getAttribute("datalayer")).storeCorso(corso);
             ((IgwDataLayer)request.getAttribute("datalayer")).storeDescrizione_it(descrizioneit);
@@ -378,6 +373,11 @@ public class ModificaCorso extends BaseController {
         int id=Integer.parseInt(request.getParameter("key"));
         Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
         ((IgwDataLayer)request.getAttribute("datalayer")).deleteCorso(corso);
+        
+        List<Materiale> mat=corso.getMateriale();
+        String context=request.getServletContext().getRealPath("");
+            for(Materiale materiale:mat)
+                Upload.delete(context,materiale.getLink());
         
         HttpSession session= request.getSession(false);
         int id1 = (int) session.getAttribute("userid");
