@@ -38,7 +38,11 @@ public interface Materiale {
     
     public Corso getCorso() throws DataLayerException;
     
+    public void setDirty(boolean dirty);
     
+    public boolean isDirty();
+    
+    public void copyFrom(Materiale materiale);
     
     
 }

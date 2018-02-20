@@ -3,6 +3,7 @@ package courseweb.controller;
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Materiale;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
@@ -11,9 +12,13 @@ import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
+@MultipartConfig
 
 
 /**
@@ -56,6 +61,28 @@ public class MaterialeNew extends BaseController {
 
     }
     }
+    
+    public void action_crea(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, DataLayerException {
+        String nome=request.getParameter("nomem");
+        String descrizioneit=request.getParameter("descrizioneitm");
+        String descrizioneen=request.getParameter("descrizioneenm");
+        int id=Integer.parseInt(request.getParameter("corso"));
+        String filePath=null;
+        String fileName;
+        String context=request.getServletContext().getRealPath("");
+        Part file=request.getPart("linkm");
+        if(file.getSize()!=0){
+            fileName=nome;
+            filePath=Upload.Up(context,file,"Materiale",fileName,null);
+        }
+        Materiale materiale=((IgwDataLayer)request.getAttribute("datalayer")).createMateriale();
+        materiale.setIDCorso(id);
+        materiale.setDescrizione_it(descrizioneit);
+        materiale.setDescrizione_en(descrizioneen);
+        materiale.setNome(nome);
+        materiale.setLink(filePath);
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeMateriale(materiale);
+    }
      
     
     
@@ -73,7 +100,8 @@ public class MaterialeNew extends BaseController {
             else{
                 lin=request.getParameter("lin");
             }
-      
+            if(request.getParameter("crea")!=null)
+                action_crea(request,response);
             action_default(request, response,lin);
             }
             else {

@@ -43,7 +43,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno,sAccess;
     
-    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en;
+    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en,iMateriale;
     private PreparedStatement uDocente, uUtente,uCorso;
     private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso;
     private PreparedStatement checkUtente;
@@ -128,6 +128,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             iDescrizione_en=connection.prepareStatement("REPLACE INTO Descrizione_en(Corso,Prerequisiti,Obiettivi,Mod_Esame,Mod_Insegnamento,Sillabo,Note,Homepage,Forum,Risorse_Ext) VALUES(?,?,?,?,?,?,?,?,?,?)");
             iDublino_it=connection.prepareStatement("REPLACE INTO Dublino_it(Corso,Knowledge,Application,Evaluation,Communication,Lifelong) VALUES(?,?,?,?,?,?)");
             iDublino_en=connection.prepareStatement("REPLACE INTO Dublino_en(Corso,Knowledge,Application,Evaluation,Communication,Lifelong) VALUES(?,?,?,?,?,?)");
+            iMateriale=connection.prepareStatement("INSERT INTO Materiale(Corso,Nome,Link,Descrizione_it,Descrizione_en) VALUES(?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             
             dDocentiCorso=connection.prepareStatement("DELETE FROM Docenti_Corso WHERE Corso=? AND Docente=?");
             dCDLCorso=connection.prepareStatement("DELETE FROM Corsi_CDL WHERE Corso=? AND CDL=?");
@@ -1641,6 +1642,80 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 }
          } catch (SQLException ex) {
             Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void storeMateriale(Materiale materiale) throws DataLayerException {
+        int key = materiale.getID();
+         try {
+            if (key > 0) { //update
+                //non facciamo nulla se l'oggetto non ha subito modifiche
+                //do not store the object if it was not modified
+                if (!materiale.isDirty()) {
+                    return;
+                }
+                
+            /*    uUtente.setString(1, utente.getUsername());
+                uUtente.setString(2, utente.getPassword());
+                
+                
+                
+                
+                
+                uUtente.executeUpdate();
+                */
+            } else { //insert
+                
+               iMateriale.setInt(1, materiale.getCorso().getID());
+               iMateriale.setString(2, materiale.getNome());
+               iMateriale.setString(3, materiale.getLink());
+               iMateriale.setString(4, materiale.getDescrizione_it());
+               iMateriale.setString(5, materiale.getDescrizione_en());
+                
+                if (iMateriale.executeUpdate() == 1) {
+                    //per leggere la chiave generata dal database
+                    //per il record appena inserito, usiamo il metodo
+                    //getGeneratedKeys sullo statement.
+                    //to read the generated record key from the database
+                    //we use the getGeneratedKeys method on the same statement
+                    try (ResultSet keys = iMateriale.getGeneratedKeys()) {
+                        //il valore restituito è un ResultSet con un record
+                        //per ciascuna chiave generata (uno solo nel nostro caso)
+                        //the returned value is a ResultSet with a distinct record for
+                        //each generated key (only one in our case)
+                        if (keys.next()) {
+                            //i campi del record sono le componenti della chiave
+                            //(nel nostro caso, un solo intero)
+                            //the record fields are the key componenets
+                            //(a single integer in our case)
+                            key = keys.getInt(1);
+                        }
+                    }
+                }
+            }
+            //restituiamo l'oggetto appena inserito RICARICATO
+            //dal database tramite le API del modello. In tal
+            //modo terremo conto di ogni modifica apportata
+            //durante la fase di inserimento
+            //we return the just-inserted object RELOADED from the
+            //database through our API. In this way, the resulting
+            //object will ambed any data correction performed by
+            //the DBMS
+            if (key > 0) {
+                try {
+                    materiale.copyFrom(getMateriale(key));
+                } catch (DataLayerException ex) {
+                    Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            materiale.setDirty(false);
+        } catch (SQLException ex) {
+            try {
+                throw new DataLayerException("Unable to store Materiale", ex);
+            } catch (DataLayerException ex1) {
+                Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex1);
+            }
         }
     }
 

@@ -9,6 +9,8 @@ import courseweb.controller.data.DataLayerException;
 import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Materiale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -114,6 +116,33 @@ public class MaterialeImpl implements Materiale{
         this.id_corso=id_corso;
     }
 
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
 
+    @Override
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    @Override
+    public void copyFrom(Materiale materiale) {
+        id=materiale.getID();
+        nome=materiale.getNome();
+        link=materiale.getLink();
+        descrizione_it=materiale.getDescrizione_it();
+        descrizione_en=materiale.getDescrizione_en();
+        
+        try{
+            corso=materiale.getCorso();
+        }   
+        catch (DataLayerException ex) {
+            Logger.getLogger(DocenteImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dirty = true;
+    }
+
+    
         
 }
