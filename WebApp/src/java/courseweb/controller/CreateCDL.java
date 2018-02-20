@@ -73,7 +73,7 @@ public class CreateCDL extends BaseController {
             magistrale=1;
         String descrizione_it=request.getParameter("descrizione_it");
         String descrizione_en=request.getParameter("descrizione_en");
-        String imgPath=null;
+        String imgPath="";
         String fileName;
         String context=request.getServletContext().getRealPath("");
         Part immagine=request.getPart("immagine");

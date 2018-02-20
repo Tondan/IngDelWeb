@@ -149,8 +149,8 @@ public class ModificaDocente extends BaseController {
                 lin=request.getParameter("lin");
             }
             
-           // if(request.getParameter("cancella")!=null)
-                //action_cancella(request,response);
+            if(request.getParameter("cancella")!=null)
+                action_elimina(request,response);
             if(request.getParameter("modifica")!=null){
                 action_modifica(request,response);}
             
@@ -198,6 +198,12 @@ public class ModificaDocente extends BaseController {
     }
     }
     
+    private void action_elimina(HttpServletRequest request, HttpServletResponse response) throws IOException,DataLayerException {
+        int id=Integer.parseInt(request.getParameter("id"));
+        Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
+        ((IgwDataLayer)request.getAttribute("datalayer")).deleteDocente(docente);
+        
+    }
 
 }
 

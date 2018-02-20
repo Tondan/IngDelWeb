@@ -166,5 +166,7 @@ public interface IgwDataLayer extends DataLayer {
     public void storeLog(Log log) throws DataLayerException;
     
     public void deleteCDL(CDL cdl) throws DataLayerException;
+
+    public void deleteDocente(Docente docente) throws DataLayerException;
   
 }
