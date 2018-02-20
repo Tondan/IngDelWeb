@@ -37,7 +37,7 @@ public class Log extends BaseController {
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
                 
-                request.setAttribute("log",((IgwDataLayer)request.getAttribute("datalayer")).getLog());
+                //request.setAttribute("log",((IgwDataLayer)request.getAttribute("datalayer")).getLog());
                 
                 
                 HttpSession s = request.getSession(false);
@@ -51,41 +51,40 @@ public class Log extends BaseController {
     }
     
 @Override
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-            String lin;
-            try{
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
+        String lin;
+        try{
             HttpSession s = SecurityLayer.checkSession(request);
             String username=(String)s.getAttribute("username");
             try {
-                if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"Log")) {
-                    
-                    
-                try {
-                    if(request.getParameter("lin")==null)
-                        lin="it";
-                    else{
-                        lin=request.getParameter("lin");
-                        action_default(request, response, lin);
-                    }
+                if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"Profile")) {
+                
+                 try {
+                       if(request.getParameter("lin")==null)
+                           lin="it";
+                       else
+                           lin=request.getParameter("lin");
+                       action_default(request, response,lin);
 
-                } catch (TemplateManagerException ex) {
-                    request.setAttribute("exception", ex);
-                    action_error(request, response);
+                   } catch (IOException | TemplateManagerException ex) {
+                       request.setAttribute("exception", ex);
+                       action_error(request, response);
 
-                }
-            
-                }else {
-                    SecurityLayer.disposeSession(request);
+                   
+               }
+            }else {
+                SecurityLayer.disposeSession(request);
                     response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
-                }
-                } catch (DataLayerException ex) {
-                Logger.getLogger(ModificaCorso.class.getName()).log(Level.SEVERE, null, ex);
             }
-            } catch (IOException ex) {
+            } catch (DataLayerException ex) {
+                Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException ex) {
             request.setAttribute("exception", ex);
             action_error(request, response);
-            }
-}
+        }
+    }
     
 }
  

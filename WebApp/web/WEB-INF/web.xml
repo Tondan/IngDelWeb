@@ -144,6 +144,10 @@
         <servlet-name>CreateAdmin</servlet-name>
         <servlet-class>courseweb.controller.CreateAdmin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MaterialeNewD</servlet-name>
+        <servlet-class>courseweb.controller.MaterialeNewD</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Change</servlet-name>
         <url-pattern>/change</url-pattern>
@@ -263,6 +267,10 @@
     <servlet-mapping>
         <servlet-name>CreateAdmin</servlet-name>
         <url-pattern>/CreateAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MaterialeNewD</servlet-name>
+        <url-pattern>/MaterialeNewD</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -28,6 +28,47 @@
         <div class="row">
                 <aside class="col-md-4">
                         <div class="box_style_1 profile">
+                            <#if docente??>
+                            <h4>Corsi Assegnati</h4>
+
+                    <ul>
+                        <#list corso as corso>
+                            <li>
+                                <a href="CreateCorsoD?n=${corso.ID}"> ${corso.nome_it} </a>
+                            </li>
+                        </#list>
+                    </ul>
+
+                    <h4>Aggiunta documenti</h4>
+                    <ul>
+                        <li>
+                            <a href="MaterialeNewD"> Aggiungi materiale utile </a>
+                        </li>
+                        <li>
+                            <a href="MaterialeUpD"> Aggiungi libri al corso </a>
+                        </li>
+                    </ul>
+
+                    <h4>Gestione documenti</h4>
+                    <ul>
+                        <li>
+                            <a href="MaterialeUpD"> Gestisci Materiale Inserito</a>
+                        </li>
+                        <li>
+                            <a href="LibroUpD"> Gestisci Libri Inserito</a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+
+
+
+
+
+
+
+                            <#else>
                             <h4>Funzioni creazione</h4>
         
                             <ul>
@@ -53,7 +94,7 @@
         
                         </div>
                     </aside>
-
+                    </#if>
 
 
 
@@ -148,4 +189,3 @@
 </section>
 <!-- End main_content-->
 
-<!-- pattern="[A-Za-z]+[0-9]*+[A-Za-z]*" title="Primo carattere lettera[a-z]-->

@@ -1,61 +1,84 @@
 <section id="sub-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1 text-center">
-                    <h1>Backoffice</h1>
-                    <p class="lead"></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 text-center">
+                <h1>Backoffice</h1>
+                <p class="lead"></p>
+            </div>
+        </div>
+        <!-- End row -->
+    </div>
+    <!-- End container -->
+    <div class="divider_top"></div>
+</section>
+<!-- End sub-header -->
+
+<section id="main_content">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="active">
+                <a href="BackofficeD?lin=it">Backoffice</a>
+            </li>
+        </ol>
+
+        <div class="row">
+            <aside class="col-md-4">
+                <div class="box_style_1 profile">
+                    <h4>Corsi Assegnati</h4>
+
+                    <ul>
+                        <#list corso as corso>
+                            <li>
+                                <a href="CreateCorsoD?n=${corso.ID}"> ${corso.nome_it} </a>
+                            </li>
+                        </#list>
+                    </ul>
+
+                    <h4>Aggiunta documenti</h4>
+                    <ul>
+                        <li>
+                            <a href="MaterialeNewD"> Aggiungi materiale utile </a>
+                        </li>
+                        <li>
+                            <a href="MaterialeUpD"> Aggiungi libri al corso </a>
+                        </li>
+                    </ul>
+
+                    <h4>Gestione documenti</h4>
+                    <ul>
+                        <li>
+                            <a href="MaterialeUpD"> Gestisci Materiale Inserito</a>
+                        </li>
+                        <li>
+                            <a href="LibroUpD"> Gestisci Libri Inserito</a>
+                        </li>
+                    </ul>
+
                 </div>
-            </div>
-            <!-- End row -->
-        </div>
-        <!-- End container -->
-        <div class="divider_top"></div>
-    </section>
-    <!-- End sub-header -->
-    
-    <section id="main_content">
-        <div class="container">
-            <ol class="breadcrumb">
-                <li class="active">
-                    <a href="BackofficeD?lin=it">Backoffice</a>
-                </li>
-            </ol>
-    
-            <div class="row">
-                <aside class="col-md-4">
-                    <div class="box_style_1 profile">
-                        <h4>Corsi Assegnati</h4>
-                        
-                        <ul>
-                            <#list corso as corso>
-                            <li><a href="CreateCorsoD?n=${corso.ID}"> ${corso.nome_it} </a></li>
-                            </#list>
-                        </ul>
-                        
-                    </div>
-    
-                </aside>
-            </div>
 
-            <div class="row">
+            </aside>
+        
 
-                <div class="col-md-8">
-                    <#if message??>
-                    <p><strong>${message}</strong></p>
-                    </#if>
+        
+
+            <div class="col-md-8">
+                <#if message??>
+                    <p>
+                        <strong>${message}</strong>
+                    </p>
+                </#if>
 
 
 
-            </div>
-            </div>
+     
 
 
 
 
 
-        </div>
-        <!-- End row-->
-        </div>
-        <!-- End container -->
-    </section>
-    <!-- End main_content-->
+    </div>
+    <!-- End row-->
+    </div>
+    <!-- End container -->
+</section>
+<!-- End main_content-->

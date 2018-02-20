@@ -67,8 +67,8 @@ public class Login extends BaseController {
                     if(utente.getDocente()!=0){
                                sessione.setAttribute("docente", true);
                                sessione.setAttribute("docenteid", utente.getDocente());
-                               
-                     }
+                               }
+                    
                     else sessione.setAttribute("docente", false);
                     
                     List<Servizio> servizi=utente.getGruppo().getServizi();
