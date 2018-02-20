@@ -44,7 +44,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno,sAccess;
     
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en,iMateriale,iLibro,iLibri_Corso;
-    private PreparedStatement uDocente, uUtente,uCorso;
+    private PreparedStatement uDocente, uUtente,uCorso,uCDL;
     private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso;
     private PreparedStatement checkUtente,sLog;
     
@@ -137,6 +137,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             dDocentiCorso=connection.prepareStatement("DELETE FROM Docenti_Corso WHERE Corso=? AND Docente=?");
             dCDLCorso=connection.prepareStatement("DELETE FROM Corsi_CDL WHERE Corso=? AND CDL=?");
             dColleg_Corso=connection.prepareStatement("DELETE FROM Colleg_Corsi WHERE This_Corso=? AND Other_Corso=?");
+            
+            uCDL=connection.prepareStatement("UPDATE CDL SET Nome_it=?,Nome_en=?,CFU=?,Magistrale=?,Immagine=?,Descrizione_it=?,Descrizione_en=?,Abbr_it=?,Abbr_en=? WHERE IDCDL=?");
             
         } catch (SQLException ex) {
             throw new DataLayerException("Error initializing igw data layer", ex);
@@ -1438,16 +1440,18 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 if (!cdl.isDirty()) {
                     return;
                 }
-                
-            /*    uUtente.setString(1, utente.getUsername());
-                uUtente.setString(2, utente.getPassword());
-                
-                
-                
-                
-                
-                uUtente.executeUpdate();
-                */
+                uCDL.setString(1, cdl.getNome_it());
+                uCDL.setString(2, cdl.getNome_en());
+                uCDL.setInt(3, cdl.getCfu());
+                uCDL.setInt(4, cdl.getMagistrale());
+                uCDL.setString(5, cdl.getImmagine());
+                uCDL.setString(6, cdl.getDescrizione_it());
+                uCDL.setString(7, cdl.getDescrizione_en());
+                uCDL.setString(8, cdl.getAbbr_it());
+                uCDL.setString(9, cdl.getAbbr_en());
+                uCDL.setInt(10, cdl.getIDCDL());
+                uCDL.executeUpdate();
+            
             } else { //insert
                 
                iCDL.setString(1, cdl.getNome_it());

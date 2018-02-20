@@ -16,10 +16,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
+@MultipartConfig
 /**
  *
  * @author Toni & Tony
@@ -76,6 +79,11 @@ public class ModificaCDL extends BaseController {
                 lin=request.getParameter("lin");
             }
             
+            if(request.getParameter("modifica")!=null)
+                action_modifica(request,response);
+            if(request.getAttribute("cancella")!=null)
+                action_elimina(request,response);
+            
             if (request.getParameter("n") != null) {
             int n;
             n = SecurityLayer.checkNumeric(request.getParameter("n"));
@@ -129,7 +137,59 @@ public class ModificaCDL extends BaseController {
     }
     }
     
-
+    public void action_modifica(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException,DataLayerException{
+        String nome=request.getParameter("nome");
+        String nome_en=request.getParameter("nome_en");
+        String abbr_it=request.getParameter("abbr_it");
+        String abbr_en=request.getParameter("abbr_en");
+        int cfu=0;
+        if(request.getParameter("cfu")!=null)
+            cfu=Integer.parseInt(request.getParameter("cfu"));
+        int magistrale=0;
+        if(request.getParameter("mag")!=null)
+            magistrale=1;
+        String descrizione_it=request.getParameter("descrizione_it");
+        String descrizione_en=request.getParameter("descrizione_en");
+        int id=Integer.parseInt(request.getParameter("id"));
+        CDL cdl=((IgwDataLayer)request.getAttribute("datalayer")).getCDL(id);
+        String imgPath=cdl.getImmagine();
+        String fileName;
+        String context=request.getServletContext().getRealPath("");
+        Part immagine=request.getPart("immagine");
+        if(immagine.getSize()!=0){
+            fileName=nome;
+            imgPath=Upload.Up(context,immagine,"imgCDL",fileName,imgPath);
+        }
+        if(!cdl.getNome_it().equals(nome))
+            cdl.setNome_it(nome);
+        if(!cdl.getNome_en().equals(nome_en))
+            cdl.setNome_en(nome_en);
+        if(!cdl.getAbbr_it().equals(abbr_it))
+            cdl.setAbbr_it(abbr_it);
+        if(!cdl.getAbbr_en().equals(abbr_en))
+            cdl.setAbbr_en(abbr_en);
+        if(cdl.getCfu()!=cfu)
+            cdl.setCfu(cfu);
+        if(cdl.getMagistrale()!=magistrale)
+            cdl.setMagistrale(magistrale);
+        if(!cdl.getDescrizione_it().equals(descrizione_it))
+            cdl.setDescrizione_it(descrizione_it);
+        if(!cdl.getDescrizione_en().equals(descrizione_en))
+            cdl.setDescrizione_en(descrizione_en);
+        if(!cdl.getImmagine().equals(imgPath))
+            cdl.setImmagine(imgPath);
+        
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeCDL(cdl);
+        response.sendRedirect("Backoffice");
+    }
+    
+    public void action_elimina(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException,DataLayerException{
+        
+   
+    }
+    
+    
+    
 }
 
  
