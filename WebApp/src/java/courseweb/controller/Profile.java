@@ -9,6 +9,7 @@ import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -52,6 +53,16 @@ public class Profile extends BaseController {
         if(!utente.getPassword().equals(password))
             utente.setPassword(password);
         ((IgwDataLayer)request.getAttribute("datalayer")).storeUtente(utente);
+        HttpSession session= request.getSession(false);
+        int id1 = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id1);
+        log.setDescrizione("Ha modifica il suo profilo");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
         response.sendRedirect("Login");
     }
      

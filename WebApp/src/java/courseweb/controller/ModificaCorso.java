@@ -17,6 +17,7 @@ import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -352,6 +353,18 @@ public class ModificaCorso extends BaseController {
             ((IgwDataLayer)request.getAttribute("datalayer")).storeDescrizione_en(descrizioneen);
             ((IgwDataLayer)request.getAttribute("datalayer")).storeDublino_it(dublinoit);
             ((IgwDataLayer)request.getAttribute("datalayer")).storeDublino_en(dublinoen);
+            
+            HttpSession session= request.getSession(false);
+        int id1 = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id1);
+        log.setDescrizione("Ha modificato il corso di"+ nome);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
+        
                 response.sendRedirect("Backoffice");
             
             } catch (DataLayerException ex) {
@@ -365,6 +378,17 @@ public class ModificaCorso extends BaseController {
         int id=Integer.parseInt(request.getParameter("key"));
         Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
         ((IgwDataLayer)request.getAttribute("datalayer")).deleteCorso(corso);
+        
+        HttpSession session= request.getSession(false);
+        int id1 = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id1);
+        log.setDescrizione("Ha aggiunto il );
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
         response.sendRedirect("Backoffice");
         
         
