@@ -4,11 +4,13 @@ import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Utente;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -150,7 +152,11 @@ public class ModificaDocente extends BaseController {
             }
             
             if(request.getParameter("cancella")!=null)
-                action_elimina(request,response);
+                try {
+                    action_elimina(request,response);
+            } catch (SQLException ex) {
+                Logger.getLogger(ModificaDocente.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if(request.getParameter("modifica")!=null){
                 action_modifica(request,response);}
             
@@ -198,9 +204,11 @@ public class ModificaDocente extends BaseController {
     }
     }
     
-    private void action_elimina(HttpServletRequest request, HttpServletResponse response) throws IOException,DataLayerException {
+    private void action_elimina(HttpServletRequest request, HttpServletResponse response) throws IOException,DataLayerException,SQLException {
         int id=Integer.parseInt(request.getParameter("id"));
         Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
+        Utente utente=((IgwDataLayer)request.getAttribute("datalayer")).getUtenteByDocente(docente);
+        ((IgwDataLayer)request.getAttribute("datalayer")).deleteUtente(utente);
         ((IgwDataLayer)request.getAttribute("datalayer")).deleteDocente(docente);
         
     }

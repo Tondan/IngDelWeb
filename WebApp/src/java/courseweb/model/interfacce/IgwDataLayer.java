@@ -11,6 +11,7 @@ import courseweb.controller.data.DataLayer;
 import courseweb.controller.data.DataLayerException;
 import courseweb.model.classi.CorsoImpl;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.List;
 /**
  *
@@ -168,5 +169,9 @@ public interface IgwDataLayer extends DataLayer {
     public void deleteCDL(CDL cdl) throws DataLayerException;
 
     public void deleteDocente(Docente docente) throws DataLayerException;
+    
+    public Utente getUtenteByDocente(Docente docente) throws DataLayerException, SQLException;
+
+    public void deleteUtente(Utente utente) throws DataLayerException;
   
 }

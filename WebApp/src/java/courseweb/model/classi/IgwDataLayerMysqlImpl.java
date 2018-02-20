@@ -40,13 +40,13 @@ import javax.sql.DataSource;
  */
 public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwDataLayer {
 
-    private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
+    private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale,sUtenteByDocente;
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno,sAccess;
     
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en,iMateriale,iLibro,iLibri_Corso;
     private PreparedStatement uDocente, uUtente,uCorso,uCDL;
 
-    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso,dCorso,dDescrizione_it,dDescrizione_en,dDublino_it,dDublino_en,dMaterialeCorso,dAllLibriCorso,dLibro,dAllDocCorso,dAllCDLCorso,dThis_Corso,dOther_Corso,dCDLinColl,dCDL;
+    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso,dCorso,dDescrizione_it,dDescrizione_en,dDublino_it,dDublino_en,dMaterialeCorso,dAllLibriCorso,dLibro,dAllDocCorso,dAllCDLCorso,dThis_Corso,dOther_Corso,dCDLinColl,dCDL,dUtente;
     
     private PreparedStatement iLog;
     
@@ -108,6 +108,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sCorsiByDocente=connection.prepareStatement("SELECT Corso FROM Docenti_Corso,Corso WHERE Docenti_Corso.Corso=Corso.IDCorso AND Docente=? AND Anno=?");
             sCorsiByLibro=connection.prepareStatement("SELECT Corso FROM Libri_Corso WHERE Libro=?");
             sGruppiByServizio=connection.prepareStatement("SELECT Gruppo FROM Group_Services WHERE Servizio=?");
+            sUtenteByDocente=connection.prepareStatement("SELECT * FROM Utente WHERE Docente=?");
             
             PreparedStatement sCDLByAnno=connection.prepareStatement("SELECT * FROM CDL");
             
@@ -122,6 +123,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             iUtente = connection.prepareStatement("INSERT INTO Utente (Username,Password,Docente,Gruppo) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             uUtente =  connection.prepareStatement("UPDATE Utente Set Username=?,Password=? WHERE IDUtente=?");
+            dUtente=connection.prepareStatement("DELETE FROM Utente WHERE IDUtente=?");
             
             iCorso=connection.prepareStatement("INSERT INTO Corso (Nome_it,Nome_en,SSD,Lingua,Semestre,CFU,Anno,Tipologia) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             uCorso=connection.prepareStatement("UPDATE Corso SET Nome_it=?,Nome_en=?,SSD=?,Lingua=?,Semestre=?,CFU=?,Tipologia=? WHERE IDCorso=?");
@@ -1077,6 +1079,15 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     }
     
     
+    @Override
+    public Utente getUtenteByDocente(Docente docente) throws DataLayerException, SQLException {
+        sUtenteByDocente.setInt(1, docente.getIDDocente());
+        ResultSet rs=sUtenteByDocente.executeQuery();
+        if(rs.next())
+            return createUtente(rs);
+        return null;
+    }
+    
     
     @Override
     public void storeDocente(Docente docente) throws DataLayerException{
@@ -1988,9 +1999,23 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
 
     @Override
     public void deleteDocente(Docente docente) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            dUtente.setInt(1, docente.getIDDocente());
+            dUtente.executeUpdate();
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to delete Docente", ex);
+        }
     }
     
+    @Override
+    public void deleteUtente(Utente utente) throws DataLayerException{
+        try{
+            dUtente.setInt(1, utente.getID());
+            dUtente.executeUpdate();
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to delete Utente", ex);
+        }
+    }
 }
         
         

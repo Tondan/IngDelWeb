@@ -79,7 +79,7 @@ public class ModificaCDL extends BaseController {
             
             if(request.getParameter("modifica")!=null)
                 action_modifica(request,response);
-            if(request.getAttribute("cancella")!=null)
+            if(request.getParameter("cancella")!=null)
                 action_elimina(request,response);
             
             if (request.getParameter("n") != null) {
