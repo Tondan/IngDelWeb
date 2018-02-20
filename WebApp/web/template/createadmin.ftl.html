@@ -1,0 +1,115 @@
+<section id="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 text-center">
+                    <h1>Backoffice</h1>
+                    <p class="lead"></p>
+                </div>
+            </div>
+            <!-- End row -->
+        </div>
+        <!-- End container -->
+        <div class="divider_top"></div>
+    </section>
+    <!-- End sub-header -->
+    
+    <section id="main_content">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="active">
+                    <a href="Backoffice?lin=it">Backoffice</a>
+                </li>
+            </ol>
+    
+            <div class="row">
+                <aside class="col-md-4">
+                    <div class="box_style_1 profile">
+                        <h4>Funzioni creazione</h4>
+    
+                        <ul>
+                            <li><a href="CreateCDL">Crea Un Nuovo Cdl</a></li>
+                            <li><a href="CreateCorso">Crea Nuovo Corso</a></li>
+                            <li><a href="RegisterDocente">Registra Nuovo Docente</a></li>
+                            <li><a href="MaterialeNew">Aggiungi Materiale</a></li>
+                            <li><a href="LibroNew">Aggiungi Libro</a></li>
+                        </ul>
+    
+                        <h4>Funzioni modifica</h4>
+                        <ul>
+                            <li><a href="Corsianno">Modifica corsi</a></li>
+                            <li><a href="ModificaCDL">Modifica Cdl</a></li>
+                            <li><a href="ModificaDocente">Modifica Docente</a></li>
+                        </ul>
+    
+                        <h4>Funzioni Upload</h4>
+                        <ul>
+                            <li><a href="MaterialeUp">Materiale gestione</a></li>
+                            <li><a href="LibroUp">Libri gestione</a></li>
+                        </ul>
+    
+                    </div>
+                </aside>
+            </div>
+
+
+
+            <div class="col-md-8 box_style_2">
+                    <span class="tape"></span>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Registra un nuovo admin</h4>
+                            
+                        </div>
+                    </div>
+                    <div id="message-apply"></div>
+    
+                    <form method="post" action="RegisterAdmin">
+                        <div class="row">
+                            <div class="col-md-12">
+                                    <h5>Username Admin</h5>
+                                <div class="form-group">
+                                    <input type="text" class="form-control style_2 required form-control" id="nome" placeholder="Nome" name="username" required>
+                                    <span class="input-icon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <h5>Password Docente</h5>
+                                <div class="form-group">
+                                        <input type="password" class="form-control style_2" placeholder="Cognome" name="password" required>
+                                        <span class="input-icon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6">
+                                    <h5>Password Docente</h5>
+                                    <div class="form-group">
+                                            <input type="password" class="form-control style_2" placeholder="Cognome" name="passwordc" required>
+                                            <span class="input-icon">
+                                            <i class="icon-user"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <input type="button" class="button_medium_outline" onclick="showHide()" id="eye" value="show password">
+                        </div>
+                        
+                        
+                        <hr>
+                        
+                        <input type="submit" name="registra" value="Registra admin" class="button_subscribe_green">
+    
+                    </form>
+                </div>
+                <!-- End row-->
+            </div>
+            <!-- End container -->
+    </section>
+    <!-- End main_content-->
+    
