@@ -15,7 +15,17 @@
 
 <section id="main_content">
     <div class="container">
-        <ol class="breadcrumb">
+            <#if docente??>
+            <ol class="breadcrumb"> 
+                    <li>
+                        <a href="Backoffice">Backoffice</a>
+                    </li>
+                    <li class="active">
+                        <a href="MaterialeNew">Aggiunta materiale</a>
+                    </li>
+                </ol>
+                <#else>
+        <ol class="breadcrumb"> 
             <li>
                 <a href="Backoffice">Backoffice</a>
             </li>
@@ -23,7 +33,7 @@
                 <a href="MaterialeNew">Aggiunta materiale</a>
             </li>
         </ol>
-
+    </#if>
 
         <div class="row">
                 <aside class="col-md-4">
