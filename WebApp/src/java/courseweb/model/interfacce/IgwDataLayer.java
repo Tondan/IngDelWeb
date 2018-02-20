@@ -146,7 +146,7 @@ public interface IgwDataLayer extends DataLayer {
     
     public List<Corso> getAnniPrecedenti(Corso corso) throws DataLayerException;
 
-    public List<Log> getLog();
+    public List<Log> getLog()throws DataLayerException;
     
     public void storeDescrizione_it(Descrizione_it descrizione) throws DataLayerException;
     
@@ -160,5 +160,6 @@ public interface IgwDataLayer extends DataLayer {
 
     public void storeLibro(Libro libro, int corso) throws DataLayerException;
     
+    public void storeLog() throws DataLayerException;
     
 }

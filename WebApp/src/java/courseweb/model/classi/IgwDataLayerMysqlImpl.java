@@ -46,7 +46,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en,iMateriale,iLibro,iLibri_Corso;
     private PreparedStatement uDocente, uUtente,uCorso;
     private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso;
-    private PreparedStatement checkUtente;
+    private PreparedStatement checkUtente,sLog;
     
     @Override
     public void init() throws DataLayerException {
@@ -55,6 +55,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             //CARO BABBO NATALE VOGLIO UN LIST DI TUTTI GLI UTENTI E UN SELECT CORSI CDL BY ANNO, GRAZIE <3
             
+            
+            sLog=connection.prepareStatement("SELECT * FROM Log");
             sCDLByID=connection.prepareStatement("SELECT * FROM CDL WHERE IDCDL=?");
             sCorsoByID=connection.prepareStatement("SELECT * FROM Corso WHERE IDCorso=?");
             sDocenteByID=connection.prepareStatement("SELECT * FROM Docente WHERE IDDocente=?");
@@ -1555,8 +1557,16 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     }
 
     @Override
-    public List<Log> getLog() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Log> getLog() throws DataLayerException{
+        List<Log> result = new ArrayList();
+
+            try(ResultSet rs=sLog.executeQuery()){
+                while(rs.next())
+                    result.add(getLog(rs.getInt("IDLog")));
+        } catch (SQLException ex) {
+            Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
 
     @Override
