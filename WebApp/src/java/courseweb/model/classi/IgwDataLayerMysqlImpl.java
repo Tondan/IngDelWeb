@@ -46,7 +46,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en,iMateriale,iLibro,iLibri_Corso;
     private PreparedStatement uDocente, uUtente,uCorso;
     private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso;
-    private PreparedStatement checkUtente, sLog;
+    private PreparedStatement checkUtente;
     
     @Override
     public void init() throws DataLayerException {
@@ -55,9 +55,6 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             //CARO BABBO NATALE VOGLIO UN LIST DI TUTTI GLI UTENTI E UN SELECT CORSI CDL BY ANNO, GRAZIE <3
             
-            
-            
-            sLog=connection.prepareStatement("SELECT * FROM Log");
             sCDLByID=connection.prepareStatement("SELECT * FROM CDL WHERE IDCDL=?");
             sCorsoByID=connection.prepareStatement("SELECT * FROM Corso WHERE IDCorso=?");
             sDocenteByID=connection.prepareStatement("SELECT * FROM Docente WHERE IDDocente=?");
@@ -96,13 +93,16 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sMaterialeByCorso=connection.prepareStatement("SELECT IDMateriale FROM Materiale WHERE Corso=?");
             
             sCorsiByCDL=connection.prepareStatement("SELECT Corso FROM Corsi_CDL,Corso WHERE Corso=IDCorso AND CDL=? AND Anno=?");   /*LOOK*/
-          
+            
+         /*  sCorsiByCDLAnno=connection.prepareStatement("SELECT * FROM Corsi_CDL,Corsi WHERE CDL=? AND Corsi.Anno<?"); */
             
             sUtentiByGruppo=connection.prepareStatement("SELECT IDUtente FROM Utente WHERE Gruppo=?");
             sServiziByGruppo=connection.prepareStatement("SELECT Servizio FROM Group_Services WHERE Gruppo=?");
             sCorsiByDocente=connection.prepareStatement("SELECT Corso FROM Docenti_Corso,Corso WHERE Docenti_Corso.Corso=Corso.IDCorso AND Docente=? AND Anno=?");
             sCorsiByLibro=connection.prepareStatement("SELECT Corso FROM Libri_Corso WHERE Libro=?");
             sGruppiByServizio=connection.prepareStatement("SELECT Gruppo FROM Group_Services WHERE Servizio=?");
+            
+            PreparedStatement sCDLByAnno=connection.prepareStatement("SELECT * FROM CDL");
             
             sAccess=connection.prepareStatement("SELECT Script FROM Servizio,Utente,Group_Services WHERE Utente.Gruppo=Group_Services.Gruppo AND Servizio.IDServizio=Group_Services.Servizio AND Script=? AND Utente.Username=?");
             
@@ -1556,18 +1556,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     }
 
     @Override
-    public List<Log> getLog() throws DataLayerException{
-        List<Log> result = new ArrayList();
-        
-            try(ResultSet rs=sLog.executeQuery()){
-                while(rs.next())
-                    result.add(getLog(rs.getInt("IDLog")));
-        } catch (SQLException ex) {
-            Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return result;
+    public List<Log> getLog() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 
     @Override
     public void storeDescrizione_en(Descrizione_en descrizione) throws DataLayerException {

@@ -30,14 +30,14 @@ public class Log extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua) throws IOException, ServletException, TemplateManagerException, DataLayerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua) throws IOException, ServletException, TemplateManagerException {
         TemplateResult res = new TemplateResult(getServletContext());
         request.setAttribute("servlet","Log?");
             if(lingua.equals("it")||lingua.equals("")){
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
                 
-                request.setAttribute("log",((IgwDataLayer)request.getAttribute("datalayer")).getLog());
+                //request.setAttribute("log",((IgwDataLayer)request.getAttribute("datalayer")).getLog());
                 
                 
                 HttpSession s = request.getSession(false);
