@@ -51,10 +51,10 @@
 
                     <#if mutuati?has_content>
                         <li><strong>Borrowed Courses:</strong><#list mutuati as mutua> <strong><a href="DetailsCorso?n=${mutua.ID}&lin=en" id="dc"> <#if mutua.nome_en?trim?has_content>  ${mutua.nome_en} <#if mutua?has_next>,&nbsp</#if> <#else> ${mutua.nome_it} <#if mutua?has_next>,&nbsp</#if></#if></a></strong></#list> </li>
-                        
-                    <#else>
+                        </#if>
+                    
                         <#if mutuato??><li><strong>Borrowed By:</strong> <strong><a href="DetailsCorso?n=${mutuato.ID}&lin=en" id="dc"><#if mutuato.nome_en?trim?has_content>  ${mutuato.nome_en} <#else> ${mutuato.nome_it}</#if></a></strong> </#if></li>
-                    </#if>
+                    
 
 
 
