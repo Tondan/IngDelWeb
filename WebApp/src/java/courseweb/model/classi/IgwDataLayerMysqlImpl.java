@@ -5,7 +5,6 @@
  */
 package courseweb.model.classi;
 
-import courseweb.controller.Upload;
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.data.DataLayerMysqlImpl;
 import courseweb.model.interfacce.CDL;
