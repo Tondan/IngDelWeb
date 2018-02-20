@@ -54,10 +54,7 @@
                     
                     <#if mutuato??><li><strong>Mutuato da:</strong> <strong><a href="DetailsCorso?n=${mutuato.ID}&lin=it" id="dc"><#if mutuato.nome_it?trim?has_content>  ${mutuato.nome_it} <#else> ${mutuato.nome_en}</#if></a></strong> </#if></li>
                     
-                    
-
-
-
+                
                     <#list moduli as modulo>
                     <li><strong>Corsi moduli:</strong> <strong><a href="DetailsCorso?n=${modulo.ID}&lin=it" id="dc"><#if modulo.nome_it?trim?has_content>  ${modulo.nome_it} <#else> ${modulo.nome_en} </#if></a></strong> </li>
                     </#list>

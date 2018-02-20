@@ -48,7 +48,7 @@ public class Login extends BaseController {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             if(password.isEmpty())
-                password=request.getParameter("pwd");
+               password=request.getParameter("pwd");
             
             
              if (!username.isEmpty() && !password.isEmpty()){

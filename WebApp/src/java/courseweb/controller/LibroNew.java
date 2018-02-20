@@ -9,6 +9,7 @@ import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -113,5 +114,17 @@ public class LibroNew extends BaseController {
         libro.setEditore(editore);
         libro.setLink(link);
         ((IgwDataLayer)request.getAttribute("datalayer")).storeLibro(libro,corso);
+        
+        
+        HttpSession session= request.getSession(false);
+        int id = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id);
+        log.setDescrizione("Ha aggiunto il libro"+ titolo +"corso"+ corso);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
     }    
 }

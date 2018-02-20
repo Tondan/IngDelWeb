@@ -20,7 +20,7 @@
                     <a href="Backoffice">Backoffice</a>
                 </li>
                 <li class="active">
-                    <a href="CreateCorso">Creazione Corso</a>
+                    <a href="Log">Log</a>
                 </li>
             </ol>
     
@@ -55,7 +55,8 @@
                         </aside>
                 
     
-    
+        
+                        
             <div class="col-md-8">
                 <h2 align="center">LOG</h2>
                 <br>
@@ -72,7 +73,7 @@
                               <tr>
                                 <td>${log.utente.username}</td>
                                 <td>${log.descrizione}</td>
-                                <td>${log.data}</td>
+                                <td>${log.data?string.medium_short}</td>
                               </tr>
                            </#list>
                             </tbody>

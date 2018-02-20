@@ -10,13 +10,12 @@ import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.Dublino_en;
 import courseweb.model.interfacce.Dublino_it;
 import courseweb.model.interfacce.IgwDataLayer;
-import courseweb.model.interfacce.Libro;
-import courseweb.model.interfacce.Materiale;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -234,7 +233,18 @@ public class CreateCorso extends BaseController {
             ((IgwDataLayer)request.getAttribute("datalayer")).storeDublino_it(dublinoit);
             ((IgwDataLayer)request.getAttribute("datalayer")).storeDublino_en(dublinoen);
             
-                response.sendRedirect("Backoffice");
+        HttpSession session= request.getSession(false);
+        int id = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id);
+        log.setDescrizione("Ha creato il corso "+""+nome);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
+        
+        response.sendRedirect("Backoffice");
             
             } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());

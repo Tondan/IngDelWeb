@@ -31,5 +31,11 @@ public interface Log {
     void setData(Timestamp data);
     
     void setDescrizione(String Descrizione);
+    
+    public void setDirty(boolean dirty);
+    
+    public boolean isDirty();
+    
+    public void copyFrom(Log log);
 
 }

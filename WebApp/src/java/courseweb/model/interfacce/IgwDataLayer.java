@@ -160,8 +160,9 @@ public interface IgwDataLayer extends DataLayer {
 
     public void storeLibro(Libro libro, int corso) throws DataLayerException;
     
-    public void storeLog() throws DataLayerException;
 
     public void deleteCorso(Corso corso) throws DataLayerException;
-    
+
+    public void storeLog(Log log) throws DataLayerException;
+  
 }

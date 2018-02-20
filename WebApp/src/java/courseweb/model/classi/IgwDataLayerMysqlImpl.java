@@ -45,7 +45,12 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en,iMateriale,iLibro,iLibri_Corso;
     private PreparedStatement uDocente, uUtente,uCorso,uCDL;
+
     private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso,dCorso,dDescrizione_it,dDescrizione_en,dDublino_it,dDublino_en,dMaterialeCorso,dAllLibriCorso,dLibro,dAllDocCorso,dAllCDLCorso,dThis_Corso,dOther_Corso;
+    
+    private PreparedStatement iLog;
+    
+
     private PreparedStatement checkUtente,sLog;
     
     @Override
@@ -151,6 +156,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             dOther_Corso=connection.prepareStatement("DELETE FROM Colleg_Corsi WHERE Other_Corso=?");
             
             uCDL=connection.prepareStatement("UPDATE CDL SET Nome_it=?,Nome_en=?,CFU=?,Magistrale=?,Immagine=?,Descrizione_it=?,Descrizione_en=?,Abbr_it=?,Abbr_en=? WHERE IDCDL=?");
+            
+            iLog=connection.prepareStatement("INSERT INTO LOG(Utente,Data,Descrizione) VALUES (?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            
             
         } catch (SQLException ex) {
             throw new DataLayerException("Error initializing igw data layer", ex);
@@ -456,9 +464,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
 
     
     
-    
-    
-    public Log createLog(ResultSet rs) throws DataLayerException {
+    public Log CreateLog(ResultSet rs) throws DataLayerException {
         try {
             Log de = new LogImpl(this);
             de.setIDLog(rs.getInt("IDLog")); 
@@ -661,7 +667,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             sLogByID.setInt(1,IDLog);
             try (ResultSet rs=sLogByID.executeQuery()) {
                 if(rs.next())
-                    return createLog(rs);
+                    return CreateLog(rs);
             }
         }
         catch (SQLException ex){
@@ -1850,10 +1856,6 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         }
     }
 
-    @Override
-    public void storeLog() throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void deleteCorso(Corso corso) throws DataLayerException{
@@ -1906,5 +1908,65 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     }
 
 
-}
+    @Override
+    public void storeLog(Log log) throws DataLayerException {
+        
+        int key = log.getIDLog();
+         try {
+            if (key > 0) { //update
+                //non facciamo nulla se l'oggetto non ha subito modifiche
+                //do not store the object if it was not modified
+                if (!log.isDirty()) {
+                    return;
+                }
+                
+  
+            } else { //insert
+                
+               iLog.setInt(1, log.getUtente().getID());
+               iLog.setTimestamp(2,log.getData());
+               iLog.setString(3,log.getDescrizione());             
+                
+                if (iLog.executeUpdate() == 1) {
+                    //per leggere la chiave generata dal database
+                    //per il record appena inserito, usiamo il metodo
+                    //getGeneratedKeys sullo statement.
+                    //to read the generated record key from the database
+                    //we use the getGeneratedKeys method on the same statement
+                    try (ResultSet keys = iLog.getGeneratedKeys()) {
+                        //il valore restituito è un ResultSet con un record
+                        //per ciascuna chiave generata (uno solo nel nostro caso)
+                        //the returned value is a ResultSet with a distinct record for
+                        //each generated key (only one in our case)
+                        if (keys.next()) {
+                            //i campi del record sono le componenti della chiave
+                            //(nel nostro caso, un solo intero)
+                            //the record fields are the key componenets
+                            //(a single integer in our case)
+                            key = keys.getInt(1);
+                        }
+                    }
+                }
+            }
+            //restituiamo l'oggetto appena inserito RICARICATO
+            //dal database tramite le API del modello. In tal
+            //modo terremo conto di ogni modifica apportata
+            //durante la fase di inserimento
+            if (key > 0) {
+                try {
+                    log.copyFrom(getLog(key));
+                } catch (DataLayerException ex) {
+                    Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            log.setDirty(false);
+       
+            } catch (SQLException ex) {
+            Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+    }
+        
+        
+
   

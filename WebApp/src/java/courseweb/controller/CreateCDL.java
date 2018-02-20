@@ -3,13 +3,18 @@ package courseweb.controller;
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.CDL;
+import courseweb.model.interfacce.Log;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -54,7 +59,7 @@ public class CreateCDL extends BaseController {
     }
     
     
-    private void action_creaCDL(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException{
+    private void action_creaCDL(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, DataLayerException{
         String nome= request.getParameter("nome");
         String nomeen= request.getParameter("nome_en");
         String abbr_it=request.getParameter("abbr_it");
@@ -89,6 +94,20 @@ public class CreateCDL extends BaseController {
         cdl.setImmagine(imgPath);
         
         ((IgwDataLayer)request.getAttribute("datalayer")).storeCDL(cdl);
+        
+        
+        
+        HttpSession session= request.getSession(false);
+        int id = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id);
+        log.setDescrizione("Ha creato il cdl "+""+nome);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
+        
         
         request.setAttribute("message", "Upload has been done successfully!");
         response.sendRedirect("Backoffice");

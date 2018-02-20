@@ -10,6 +10,8 @@ import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Log;
 import courseweb.model.interfacce.Utente;
 import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -92,4 +94,39 @@ public class LogImpl implements Log{
         this.dirty=true;
     }
 
+    
+    
+
+
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
+
+    @Override
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    @Override
+    public void copyFrom(Log log) {
+       
+            id=log.getIDLog();
+            data=log.getData();
+            descrizione=log.getDescrizione();
+        try {
+            utente=log.getUtente();
+        } catch (DataLayerException ex) {
+            Logger.getLogger(LogImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        id_utente=log.getIDLog();
+                    
+                    
+                    
+ 
+        this.dirty = true;
+        }   
+  
+    
+    
 }
