@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.servlet.annotation.MultipartConfig;
+
 @MultipartConfig
 /**
  *
@@ -110,7 +111,7 @@ public class ModificaDocente extends BaseController {
                     doc.setCurriculum(currPath);
                 
                 ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(doc);
-                response.sendRedirect("BackOffice");
+                response.sendRedirect("Backoffice");
                 
         } catch (DataLayerException ex) {
             request.setAttribute("message", "Data access exception: " + ex.getMessage());
@@ -164,7 +165,7 @@ public class ModificaDocente extends BaseController {
 
     private void action_seldocente(HttpServletRequest request, HttpServletResponse response,int id ,String lin) throws IOException, TemplateManagerException {
         
-                TemplateResult res = new TemplateResult(getServletContext());
+        TemplateResult res = new TemplateResult(getServletContext());
         request.setAttribute("servlet","ModificaDocente?");
             if(lin.equals("it")||lin.equals("")){
             try {
@@ -176,12 +177,6 @@ public class ModificaDocente extends BaseController {
              
                 request.setAttribute("docenti",((IgwDataLayer)request.getAttribute("datalayer")).getDocente());
                
-    
-                HttpSession s = request.getSession(false);
-                String a = (String) s.getAttribute("username");
-                request.setAttribute("nome",a);
-                
-                res.activate("modificadocente.ftl.html", request, response);
             } catch (DataLayerException ex) {
                 Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, "CIAOOOO", ex);
             }
