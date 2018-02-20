@@ -132,6 +132,14 @@
         <servlet-name>MaterialeNew</servlet-name>
         <servlet-class>courseweb.controller.MaterialeNew</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LibroNew</servlet-name>
+        <servlet-class>courseweb.controller.LibroNew</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LibroUp</servlet-name>
+        <servlet-class>courseweb.controller.LibroUp</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Change</servlet-name>
         <url-pattern>/change</url-pattern>
@@ -239,6 +247,14 @@
     <servlet-mapping>
         <servlet-name>MaterialeNew</servlet-name>
         <url-pattern>/MaterialeNew</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LibroNew</servlet-name>
+        <url-pattern>/LibroNew</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LibroUp</servlet-name>
+        <url-pattern>/LibroUp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

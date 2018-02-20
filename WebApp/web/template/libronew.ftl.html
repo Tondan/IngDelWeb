@@ -1,0 +1,196 @@
+<section id="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 text-center">
+                    <h1>Backoffice</h1>
+                    <p class="lead"></p>
+                </div>
+            </div>
+            <!-- End row -->
+        </div>
+        <!-- End container -->
+        <div class="divider_top"></div>
+    </section>
+    <!-- End sub-header -->
+    
+    <section id="main_content">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="Backoffice">Backoffice</a>
+                </li>
+                <li class="active">
+                    <a href="LibriNew">Aggiunta materiale</a>
+                </li>
+            </ol>
+    
+    
+            <div class="row">
+                <aside class="col-md-4">
+                    <div class="box_style_1 profile">
+                        <h4>Funzioni creazione</h4>
+    
+                        <ul>
+                            <li>
+                                <a href="CreateCDL">Crea un nuovo corso di laurea</a>
+    
+                            </li>
+                            <li>
+                                <a href="CreateCorso">Crea nuovo corso</a>
+    
+                            </li>
+                            <li>
+                                <a href="RegisterDocente">Registra nuovo docente</a>
+    
+                            </li>
+                        </ul>
+    
+                        <h4>Funzioni modifica</h4>
+                        <ul>
+                            <li>
+                                <a href="Corsianno">Modifica corsi</a>
+                            </li>
+                            <li>
+                                <a href="ModificaCDL">Modifica Cdl</a>
+                            </li>
+                            <li>
+                                <a href="ModificaDocente">Modifica Docente</a>
+                            </li>
+                        </ul>
+                    </div>
+    
+                </aside>
+    
+    
+    
+    
+                <div class="col-md-8 box_style_2">
+    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Aggiungi nuovo libro</h4>
+                        </div>
+                    </div>
+                    <div id="message-apply"></div>
+                    <form method="post" action="LibroNew">
+                            <div class="row">
+                                    <!--LIBRI-->
+            
+                                    <div class="panel-group" id="accordion">
+            
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Libri consigliati - Optional
+                                                        <i class="indicator icon-plus pull-right"></i>
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse3" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <h4>Indicazioni libri</h4>
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Autore</h5>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control style_2" placeholder="Autore" name="autore">
+                                                                <span class="input-icon">
+                                                                    <i class="#"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Titolo libro</h5>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control style_2" placeholder="Titolo" name="titolo">
+                                                                <span class="input-icon">
+                                                                    <i class="#"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+            
+            
+            
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Volume libro</h5>
+                                                            <div class="form-group">
+                                                                <input type="number" class="form-control style_2" placeholder="Volume" name="volume">
+                                                                <span class="input-icon">
+                                                                    <i class="#"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Anno pubblicazione</h5>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control style_2" placeholder="Anno" name="anno">
+                                                                <span class="input-icon">
+                                                                    <i class="#"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+            
+            
+            
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Editore</h5>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control style_2" placeholder="Editore" name="editore">
+                                                                <span class="input-icon">
+                                                                    <i class="#"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Link</h5>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control style_2" placeholder="Link" name="link">
+                                                                <span class="input-icon">
+                                                                    <i class="#"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+                                                    <div class="row">
+                                                            <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                            <div class="styled-select">
+                                                                                <select class="form-control" name="corso" required>
+                                                                                    <option value="n" selected>Seleziona corso...</option>
+                                                                                    <#list corso as corso>
+                                                                                    <option value="${corso.ID}">${corso.nome_it}</option>
+                                                                                    </#list>
+                                                                                </select>
+                                                                            </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <input type="submit" name="Aggiungi libro" value="Creazione materiale" class="button_subscribe_green" id="submit-apply">
+                                        </div>
+            
+                                    </div>
+                                </div>
+    
+    
+                                                
+                                
+                      
+    
+    
+                    </form>
+                </div>
+            </div>
+            <!-- End row-->
+        </div>
+        <!-- End container -->
+    </section>
+    <!-- End main_content-->
+    
+    <!-- pattern="[A-Za-z]+[0-9]*+[A-Za-z]*" title="Primo carattere lettera[a-z]-->

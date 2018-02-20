@@ -1,0 +1,221 @@
+<section id="sub-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 text-center">
+                <h1>Backoffice</h1>
+                <p class="lead"></p>
+            </div>
+        </div>
+        <!-- End row -->
+    </div>
+    <!-- End container -->
+    <div class="divider_top"></div>
+</section>
+<!-- End sub-header -->
+
+<section id="main_content">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li>
+                <a href="Backoffice">Backoffice</a>
+            </li>
+            <li class="active">
+                <a href="MaterialeUp">Gestione materiali</a>
+            </li>
+        </ol>
+
+
+        <div class="row">
+            <aside class="col-md-4">
+                <div class="box_style_1 profile">
+                    <h4>Funzioni creazione</h4>
+
+                    <ul>
+                        <li>
+                            <a href="CreateCDL">Crea un nuovo corso di laurea</a>
+
+                        </li>
+                        <li>
+                            <a href="CreateCorso">Crea nuovo corso</a>
+
+                        </li>
+                        <li>
+                            <a href="RegisterDocente">Registra nuovo docente</a>
+
+                        </li>
+                    </ul>
+
+                    <h4>Funzioni modifica</h4>
+                    <ul>
+                        <li>
+                            <a href="Corsianno">Modifica corsi</a>
+                        </li>
+                        <li>
+                            <a href="ModificaCDL">Modifica Cdl</a>
+                        </li>
+                        <li>
+                            <a href="ModificaDocente">Modifica Docente</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <aside class="col-md-12">
+                    <div class="box_style_2">
+                        <h5>Seleziona il corso interessato</h5>
+
+                        <#list corsi as corsi>
+                            <li>
+                                <a href="LibroUp?n=${corsi.ID}"> ${corsi.nome_it} </a>
+                            </li>
+                        </#list>
+
+                    </div>
+                </aside>
+
+            </aside>
+
+
+
+            <#if libri??>
+                <div class="col-md-8 box_style_2">
+                    <span class="tape"></span>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4> Modifica libro </h4>
+                        </div>
+                    </div>
+                    <div id="message-apply"></div>
+
+                    <#assign x=1>
+
+                        <#list libri as libro>
+                            <form method="post" action="LibroUp">
+
+
+
+                                <div class="row">
+                                    <!--LIBRI-->
+
+                                    <div class="panel-group" id="accordion">
+
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse${x}">Libri consigliati ${x} - Optional
+                                                        <i class="indicator icon-plus pull-right"></i>
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse${x}" class="panel-collapse collapse">
+
+                                                <div class="panel-body">
+
+
+                                                    <div>
+
+                                                        <h4>Indicazioni libri - Libro #${x}</h4>
+
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <h5>Autore</h5>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control style_2" placeholder="Autore" value="${libro.autore}" name="autore">
+                                                                    <span class="input-icon">
+                                                                        <i class="#"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <h5>Titolo libro</h5>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control style_2" placeholder="Titolo" value="${libro.titolo}" name="titolo">
+                                                                    <span class="input-icon">
+                                                                        <i class="#"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <h5>Volume libro</h5>
+                                                                <div class="form-group">
+                                                                    <input type="number" class="form-control style_2" placeholder="Volume" value="${libro.volume}" name="volume">
+                                                                    <span class="input-icon">
+                                                                        <i class="#"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <h5>Anno pubblicazione</h5>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control style_2" placeholder="Anno" value="${libro.anno}" name="anno">
+                                                                    <span class="input-icon">
+                                                                        <i class="#"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <h5>Editore</h5>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control style_2" placeholder="Editore" value="${libro.editore}" name="editore">
+                                                                    <span class="input-icon">
+                                                                        <i class="#"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <h5>Link</h5>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control style_2" placeholder="Link" value="${libro.link}" name="link">
+                                                                    <span class="input-icon">
+                                                                        <i class="#"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+
+
+
+
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </form>
+                            <#assign x++>
+
+                        </#list>
+
+
+
+
+
+                </div>
+            </#if>
+        </div>
+        <!-- End row-->
+    </div>
+    <!-- End container -->
+</section>
+<!-- End main_content-->
+
+<!-- pattern="[A-Za-z]+[0-9]*+[A-Za-z]*" title="Primo carattere lettera[a-z]-->
