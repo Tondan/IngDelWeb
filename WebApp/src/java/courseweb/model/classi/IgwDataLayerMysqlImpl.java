@@ -45,7 +45,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en,iMateriale,iLibro,iLibri_Corso;
     private PreparedStatement uDocente, uUtente,uCorso,uCDL;
-    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso;
+    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso,dCorso,dDescrizione_it,dDescrizione_en,dDublino_it,dDublino_en,dMaterialeCorso,dAllLibriCorso,dLibro,dAllDocCorso,dAllCDLCorso,dThis_Corso,dOther_Corso;
     private PreparedStatement checkUtente,sLog;
     
     @Override
@@ -137,6 +137,18 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             dDocentiCorso=connection.prepareStatement("DELETE FROM Docenti_Corso WHERE Corso=? AND Docente=?");
             dCDLCorso=connection.prepareStatement("DELETE FROM Corsi_CDL WHERE Corso=? AND CDL=?");
             dColleg_Corso=connection.prepareStatement("DELETE FROM Colleg_Corsi WHERE This_Corso=? AND Other_Corso=?");
+            dCorso=connection.prepareStatement("DELETE FROM Corso WHERE IDCorso=?");
+            dDescrizione_it=connection.prepareStatement("DELETE FROM Descrizione_it WHERE Corso=?");
+            dDescrizione_en=connection.prepareStatement("DELETE FROM Descrizione_en WHERE Corso=?");
+            dDublino_it=connection.prepareStatement("DELETE FROM Dublino_it WHERE Corso=?");
+            dDublino_en=connection.prepareStatement("DELETE FROM Dublino_en WHERE Corso=?");
+            dMaterialeCorso=connection.prepareStatement("DELETE FROM Materiale WHERE Corso=?");
+            dAllLibriCorso=connection.prepareStatement("DELETE Libri_Corso FROM Libri_Corso LEFT JOIN Corso ON Corso.IDCorso=Libri_Corso.Corso LEFT JOIN Libro ON Libro.IDLibro=Libri_Corso.Libro WHERE Corso=?");
+            dLibro=connection.prepareStatement("DELETE IGNORE FROM Libro WHERE IDLibro=?");
+            dAllDocCorso=connection.prepareStatement("DELETE Docenti_Corso FROM Docenti_Corso LEFT JOIN Corso ON Corso.IDCorso=Docenti_Corso.Corso LEFT JOIN Docente ON Docente.IDDocente=Docenti_Corso.Docente WHERE Corso=?");
+            dAllCDLCorso=connection.prepareStatement("DELETE Corsi_CDL FROM Corsi_CDL LEFT JOIN Corso ON Corso.IDCorso=Corsi_CDL.Corso LEFT JOIN CDL ON CDL.IDCDL=Corsi_CDL.CDL WHERE Corso=?");
+            dThis_Corso=connection.prepareStatement("DELETE FROM Colleg_Corsi WHERE This_Corso=?");
+            dOther_Corso=connection.prepareStatement("DELETE FROM Colleg_Corsi WHERE Other_Corso=?");
             
             uCDL=connection.prepareStatement("UPDATE CDL SET Nome_it=?,Nome_en=?,CFU=?,Magistrale=?,Immagine=?,Descrizione_it=?,Descrizione_en=?,Abbr_it=?,Abbr_en=? WHERE IDCDL=?");
             
@@ -1279,6 +1291,36 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                         iColleg_Corso.executeUpdate();
                     }
                     
+                    List<Corso> mddb=getCorsiModulo(corso);
+                    List<Corso> modulo=corso.getCorsiModulo();
+                    for(Corso c:mddb)
+                        if(!CorsoImpl.contains(corso.getCorsiModulo(), c)){
+                            dColleg_Corso.setInt(1, corso.getID());
+                            dColleg_Corso.setInt(2, c.getID());
+                            dColleg_Corso.executeUpdate();
+                        }
+                    for(Corso c:modulo){
+                        iColleg_Corso.setInt(1, corso.getID());
+                        iColleg_Corso.setInt(2, c.getID());
+                        iColleg_Corso.setString(3, "modulo");
+                        iColleg_Corso.executeUpdate();
+                    }
+                    
+                    List<Corso> pdb=getCorsiPrerequisiti(corso);
+                    List<Corso> propedeudici=corso.getCorsiPrerequisiti();
+                    for(Corso c:pdb)
+                        if(!CorsoImpl.contains(corso.getCorsiPrerequisiti(), c)){
+                            dColleg_Corso.setInt(1, corso.getID());
+                            dColleg_Corso.setInt(2, c.getID());
+                            dColleg_Corso.executeUpdate();
+                        }
+                    for(Corso c:propedeudici){
+                        iColleg_Corso.setInt(1, corso.getID());
+                        iColleg_Corso.setInt(2, c.getID());
+                        iColleg_Corso.setString(3, "propedeudico");
+                        iColleg_Corso.executeUpdate();
+                    }
+                    
                     /*
                     for(Docente doc:docx) 
                         if(!corso.getDocenti().contains(doc)){                                                                                                              
@@ -1805,6 +1847,61 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             } catch (DataLayerException ex1) {
                 Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex1);
             }
+        }
+    }
+
+    @Override
+    public void storeLog() throws DataLayerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteCorso(Corso corso) throws DataLayerException{
+        try{
+            int id=corso.getID();
+
+            dAllDocCorso.setInt(1, id);
+            dAllDocCorso.executeUpdate();
+
+            dAllCDLCorso.setInt(1, id);
+            dAllCDLCorso.executeUpdate();
+            
+            List<Libro> libri=corso.getLibri();
+            
+            dAllLibriCorso.setInt(1, id);
+            dAllLibriCorso.executeUpdate();
+
+            dThis_Corso.setInt(1, id);
+            dThis_Corso.executeUpdate();
+            
+            dOther_Corso.setInt(1, id);
+            dOther_Corso.executeUpdate();
+            
+            for(Libro libro:libri){
+                dLibro.setInt(1, libro.getIDLibro());
+                dLibro.executeUpdate();
+            }
+            
+            dMaterialeCorso.setInt(1, id);
+            dMaterialeCorso.executeUpdate();
+            
+            dDublino_it.setInt(1, id);
+            dDublino_it.executeUpdate();
+            
+            dDublino_en.setInt(1, id);
+            dDublino_en.executeUpdate();
+            
+            dDescrizione_it.setInt(1, id);
+            dDescrizione_it.executeUpdate();
+            
+            dDescrizione_en.setInt(1, id);
+            dDescrizione_en.executeUpdate();
+            
+            dCorso.setInt(1, id);
+            dCorso.executeUpdate();
+        
+        }catch(SQLException ex){
+            
         }
     }
 

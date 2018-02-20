@@ -59,7 +59,7 @@
 
 
                     <#list moduli as modulo>
-                    <li><strong>Corsi moduli:</strong> <strong><a href="DetailsCorso?n=${modulo.ID}&lin=it"><#if modulo.nome_it?trim?has_content>  ${modulo.nome_it} <#else> ${modulo.nome_en} </#if></a></strong> </li>
+                    <li><strong>Corsi moduli:</strong> <strong><a href="DetailsCorso?n=${modulo.ID}&lin=it" id="dc"><#if modulo.nome_it?trim?has_content>  ${modulo.nome_it} <#else> ${modulo.nome_en} </#if></a></strong> </li>
                     </#list>
 
                    

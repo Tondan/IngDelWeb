@@ -97,10 +97,10 @@ public class LibroNew extends BaseController {
         String autore=request.getParameter("autore");
         String titolo=request.getParameter("titolo");
         int volume=0;
-        if(request.getParameter("volume")!=null)
+        if(request.getParameter("volume").length()!=0)
             volume=Integer.parseInt(request.getParameter("volume"));
         int anno=0;
-        if(request.getParameter("anno")!=null)
+        if(request.getParameter("anno").length()!=0)
             anno=Integer.parseInt(request.getParameter("anno"));
         String editore=request.getParameter("editore");
         String link=request.getParameter("link");

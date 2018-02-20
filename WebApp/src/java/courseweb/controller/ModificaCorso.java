@@ -121,6 +121,8 @@ public class ModificaCorso extends BaseController {
             try {
                 if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"ModificaCorso")) {
                     int n;
+                    if(request.getParameter("cancella")!=null)
+                        action_elimina(request,response);
                     if (request.getParameter("modifica") != null) {
                          action_modifica(request, response);
                     } else {
@@ -171,11 +173,11 @@ public class ModificaCorso extends BaseController {
                 
                 String[] docente=request.getParameterValues("docenti");
                 List<Docente> docenti=new ArrayList();
-                
-                for(int i=0,a=0; i<docente.length; i++){
-                   a=Integer.parseInt(docente[i]);
-                   docenti.add(((IgwDataLayer)request.getAttribute("datalayer")).getDocente(a));  
-                }
+                if(docente!=null)
+                    for(int i=0,a=0; i<docente.length; i++){
+                       a=Integer.parseInt(docente[i]);
+                       docenti.add(((IgwDataLayer)request.getAttribute("datalayer")).getDocente(a));  
+                    }
                 
                 String[] c=request.getParameterValues("cdl");
                 List<CDL> cdl=new ArrayList();
@@ -184,6 +186,30 @@ public class ModificaCorso extends BaseController {
                    cdl.add(((IgwDataLayer)request.getAttribute("datalayer")).getCDL(a));  
                 }
                 
+                String[] mutuati=request.getParameterValues("mutuati");
+                List<Corso> mutuaList=new ArrayList();
+                if(mutuati!=null)
+                    for(int i=0,a=0; i<mutuati.length; i++){
+                        a=Integer.parseInt(mutuati[i]);
+                        mutuaList.add(((IgwDataLayer)request.getAttribute("datalayer")).getCorso(a));
+                    }
+                
+                
+                String[] propedeudici=request.getParameterValues("propedeudici");
+                List<Corso> propList=new ArrayList();
+                if(propedeudici!=null)
+                    for(int i=0,a=0; i<propedeudici.length; i++){
+                        a=Integer.parseInt(propedeudici[i]);
+                        propList.add(((IgwDataLayer)request.getAttribute("datalayer")).getCorso(a));
+                    }
+                
+                String[] modulo=request.getParameterValues("modulo");
+                List<Corso> moduloList=new ArrayList();
+                if(modulo!=null)
+                    for(int i=0,a=0; i<modulo.length; i++){
+                        a=Integer.parseInt(modulo[i]);
+                        moduloList.add(((IgwDataLayer)request.getAttribute("datalayer")).getCorso(a));
+                    }
 
                 Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).getCorso(key);
                 
@@ -204,10 +230,13 @@ public class ModificaCorso extends BaseController {
                     corso.setTipologia(tipologia.charAt(0));
                 corso.setDocenti(docenti);
                 corso.setCDLInCorso(cdl);
+                corso.setCorsiModulo(moduloList);
+                corso.setCorsiMutuati(mutuaList);
+                corso.setCorsiPrerequisiti(propList);
                 
                 
                 //DESCRIZIONE
-                Descrizione_it descrizioneit=((IgwDataLayer)request.getAttribute("datalayer")).getDescrizione_it(corso);
+                Descrizione_it descrizioneit=corso.getDescrizione_it();
                 
                 String prerequisiti= request.getParameter("prerequisiti");
                 String obiettivi= request.getParameter("obiettivi");
@@ -219,8 +248,105 @@ public class ModificaCorso extends BaseController {
                 String forum= request.getParameter("forum");
                 String risorse_ext= request.getParameter("risorse");
                 
+                if(!descrizioneit.getPrerequisiti().equals(prerequisiti))
+                    descrizioneit.setPrerequisiti(prerequisiti);
+                if(!descrizioneit.getObiettivi().equals(obiettivi))
+                    descrizioneit.setObiettivi(obiettivi);
+                if(!descrizioneit.getMod_Esame().equals(mod_esame))
+                    descrizioneit.setMod_Esame(mod_esame);
+                if(!descrizioneit.getMod_Insegnamento().equals(note))
+                    descrizioneit.setMod_Insegnamento(mod_insegnamento);
+                if(!descrizioneit.getSillabo().equals(sillabo))
+                    descrizioneit.setSillabo(sillabo);
+                if(!descrizioneit.getNote().equals(note))
+                    descrizioneit.setNote(note);
+                if(!descrizioneit.getHomepage().equals(homepage))
+                    descrizioneit.setHomepage(homepage);
+                if(!descrizioneit.getForum().equals(forum))
+                    descrizioneit.setForum(forum);
+                if(!descrizioneit.getRisorse_Ext().equals(risorse_ext))
+                    descrizioneit.setRisorse_Ext(risorse_ext);
+                
+                
+                //Sezione descrizione EN
+                Descrizione_en descrizioneen=corso.getDescrizione_en();
+                
+                String prerequisitien= request.getParameter("prerequisitien");
+                String obiettivien= request.getParameter("obiettivien");
+                String mod_esameen= request.getParameter("modesaen");
+                String mod_insegnamentoen= request.getParameter("modinsen");
+                String sillaboen= request.getParameter("sillaboen");
+                String noteen= request.getParameter("noteen");
+                String homepageen= request.getParameter("homepageen");
+                String forumen= request.getParameter("forumen");
+                String risorse_exten= request.getParameter("risorseen");
+                
+                if(!descrizioneen.getPrerequisiti().equals(prerequisitien))
+                    descrizioneen.setPrerequisiti(prerequisitien);
+                if(!descrizioneen.getObiettivi().equals(obiettivien))
+                    descrizioneen.setObiettivi(obiettivien);
+                if(!descrizioneen.getMod_Esame().equals(mod_esameen))
+                    descrizioneen.setMod_Esame(mod_esameen);
+                if(!descrizioneen.getMod_Insegnamento().equals(noteen))
+                    descrizioneen.setMod_Insegnamento(mod_insegnamentoen);
+                if(!descrizioneen.getSillabo().equals(sillaboen))
+                    descrizioneen.setSillabo(sillaboen);
+                if(!descrizioneen.getNote().equals(noteen))
+                    descrizioneen.setNote(noteen);
+                if(!descrizioneen.getHomepage().equals(homepageen))
+                    descrizioneen.setHomepage(homepageen);
+                if(!descrizioneen.getForum().equals(forumen))
+                    descrizioneen.setForum(forumen);
+                if(!descrizioneen.getRisorse_Ext().equals(risorse_exten))
+                    descrizioneen.setRisorse_Ext(risorse_exten);
+                
+                
+                //DUBLINO IT
+                Dublino_it dublinoit=corso.getDublino_it();
+                
+                String knowledge = request.getParameter("knowledge");
+                String application  = request.getParameter("application");
+                String evaluation = request.getParameter("evaluation");
+                String communication = request.getParameter("communication");
+                String lifelong = request.getParameter("lifelong");
+                
+                if(!dublinoit.getKnowledge().equals(knowledge))
+                    dublinoit.setKnowledge(knowledge);
+                if(!dublinoit.getApplication().equals(application))
+                    dublinoit.setApplication(application);
+                if(!dublinoit.getEvaluation().equals(evaluation))
+                    dublinoit.setEvaluation(evaluation);
+                if(!dublinoit.getCommunication().equals(communication))
+                    dublinoit.setCommunication(communication);
+                if(!dublinoit.getLifelong().equals(lifelong))
+                    dublinoit.setLifelong(lifelong);
+                
+                //DUBLINO EN
+                Dublino_en dublinoen=corso.getDublino_en();
+                
+                String knowledgeen = request.getParameter("knowledgeen");
+                String applicationen  = request.getParameter("applicationen");
+                String evaluationen = request.getParameter("evaluationen");
+                String communicationen = request.getParameter("communicationen");
+                String lifelongen = request.getParameter("lifelongen");
+                
+                if(!dublinoen.getKnowledge().equals(knowledgeen))
+                    dublinoen.setKnowledge(knowledgeen);
+                if(!dublinoen.getApplication().equals(applicationen))
+                    dublinoen.setApplication(applicationen);
+                if(!dublinoen.getEvaluation().equals(evaluationen))
+                    dublinoen.setEvaluation(evaluationen);
+                if(!dublinoen.getCommunication().equals(communicationen))
+                    dublinoen.setCommunication(communicationen);
+                if(!dublinoen.getLifelong().equals(lifelongen))
+                    dublinoen.setLifelong(lifelongen);
+                
             
             ((IgwDataLayer)request.getAttribute("datalayer")).storeCorso(corso);
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeDescrizione_it(descrizioneit);
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeDescrizione_en(descrizioneen);
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeDublino_it(dublinoit);
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeDublino_en(dublinoen);
                 response.sendRedirect("Backoffice");
             
             } catch (DataLayerException ex) {
@@ -228,8 +354,17 @@ public class ModificaCorso extends BaseController {
             action_error(request, response);
         }
     }
-
-   
+    
+    
+    private void action_elimina(HttpServletRequest request, HttpServletResponse response) throws IOException,DataLayerException {
+        int id=Integer.parseInt(request.getParameter("key"));
+        Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
+        ((IgwDataLayer)request.getAttribute("datalayer")).deleteCorso(corso);
+        response.sendRedirect("Backoffice");
+        
+        
     }
+   
+}
 
  

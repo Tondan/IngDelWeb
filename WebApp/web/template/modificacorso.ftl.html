@@ -252,7 +252,7 @@
                         <div class="col-md-4 col-sm-4">
                             <div>
                                 <h4>Corsi Propedeudici</h4>
-                                <div class="cacca">
+                                <div class="cacca1">
                                     <select class="chzn-select" name="propedeudici" id="special-cazzafò" multiple autocomplete="off">
                                         <#assign seq=[]>
                                             <#list propedeudici as corsi>
@@ -270,7 +270,7 @@
                         <div class="col-md-4 col-sm-4">
                             <div>
                                 <h4>Corsi Modulo</h4>
-                                <div class="cacca">
+                                <div class="cacca2">
                                     <select class="chzn-select" name="modulo" id="special-cazzafò" multiple autocomplete="off">
                                         <#assign seq=[]>
                                             <#list modulo as corsi>
@@ -475,7 +475,7 @@
 											<div class="col-md-6 col-sm-6">
 												<h5>Sillabo EN</h5>
 												<div class="form-group">
-													<textarea rows="5" name="Sillaboen" class="tinymce1">${descrizioneen.sillabo}</textarea>
+													<textarea rows="5" name="sillaboen" class="tinymce1">${descrizioneen.sillabo}</textarea>
 												</div>
 											</div>
 										</div>
@@ -483,10 +483,42 @@
 											<div class="col-md-6 col-sm-6">
 												<h5>Note extra EN</h5>
 												<div class="form-group">
-													<textarea rows="5" name="Noteextraen" class="tinymce1">${descrizioneen.note}</textarea>
+													<textarea rows="5" name="noteen" class="tinymce1">${descrizioneen.note}</textarea>
 												</div>
 											</div>
 										</div>
+                                                                                <div class="row">
+                                            <div>
+                                                <h4>Link esterni</h4>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <h5>Homepage</h5>
+                                                <div class="form-group">
+                                                    <input type="text" value="${descrizioneen.homepage}" class="form-control style_2" placeholder="Link Homepage" name="homepageen">
+                                                    <span class="input-icon">
+                                                        <i class="#"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <h5>Forum</h5>
+                                                <div class="form-group">
+                                                    <input type="text" value="${descrizioneen.forum}" class="form-control style_2" placeholder="Link Forum" name="forumen">
+                                                    <span class="input-icon">
+                                                        <i class="#"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <h5>Risorse esterne</h5>
+                                                <div class="form-group">
+                                                    <input type="text" value="${descrizioneen.risorse_Ext}" class="form-control style_2" placeholder="Link Risorse esterne" name="risorseen">
+                                                    <span class="input-icon">
+                                                        <i class="#"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
 
 									</div>
 								</div>
@@ -518,7 +550,7 @@
 											<div class="col-md-6 col-sm-6">
 												<h5>Knowledge</h5>
 												<div class="form-group">
-													<textarea rows="5" name="Knowledge" class="tinymce1">${dublinoit.knowledge}</textarea>
+													<textarea rows="5" name="knowledge" class="tinymce1">${dublinoit.knowledge}</textarea>
 												</div>
 											</div>
 										</div>
@@ -526,7 +558,7 @@
 											<div class="col-md-6 col-sm-6">
 												<h5>Application</h5>
 												<div class="form-group">
-													<textarea rows="5" name="Application" class="tinymce1">${dublinoit.application}</textarea>
+													<textarea rows="5" name="application" class="tinymce1">${dublinoit.application}</textarea>
 												</div>
 											</div>
 										</div>
@@ -657,5 +689,6 @@
 			<!-- End row-->
 		</div>
 		<!-- End container -->
+        </div>
 </section>
 <!-- End main_content-->
