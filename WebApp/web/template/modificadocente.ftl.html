@@ -193,7 +193,7 @@
             <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
             </a>
             </h5>
-            <input type="file" name="curriculum" v onchange="ValidateCurr(this)" />
+            <input type="file" name="curriculum" onchange="ValidateCurr(this)">
             </div>
             </div>
             </div>
@@ -207,7 +207,7 @@
                         <img id="img-docente1" src="${docente.immagine}" alt="Teacher" class="img-circle styled">
                         <br>
                         <br>
-                        <input type="file" name="immagine" onchange="ValidateImg(this)" />
+                        <input type="file" name="immagine" onchange="ValidateImg(this)">
 
                     </div>
                 </div>
@@ -227,6 +227,7 @@
             
             <!-- End row-->
         </div>
+    </div>
         <!-- End container -->
 </section>
 <!-- End main_content-->
