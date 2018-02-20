@@ -2,7 +2,6 @@ package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
-import courseweb.model.interfacce.CDL;
 import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.view.FailureResult;
@@ -10,10 +9,6 @@ import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -21,12 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 /**
  *
  * @author Toni & Tony
  */
-
-public class Corsianno extends BaseController {
+public class MaterialeUp extends BaseController {
     
 
     private void action_error(HttpServletRequest request, HttpServletResponse response) {
@@ -37,30 +32,21 @@ public class Corsianno extends BaseController {
         }
     }
 
-    private void action_default(HttpServletRequest request, HttpServletResponse response, String lingua) throws IOException, ServletException, TemplateManagerException {
+    private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
         TemplateResult res = new TemplateResult(getServletContext());
-        request.setAttribute("servlet","Corsianno?");
+        request.setAttribute("servlet","MaterialeUp?");
             if(lingua.equals("it")||lingua.equals("")){
             try {
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
                 
-                
-                
-                List<CDL> cdl= ((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag();
-                List<CDL> cdlm= ((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag();
-                
-                request.setAttribute("cdl", cdl);
-                request.setAttribute("cdlm", cdlm);
-                
-                
-                
+                request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
+
                 HttpSession s = request.getSession(false);
                 String a = (String) s.getAttribute("username");
                 request.setAttribute("nome",a);
-                
-                
-                res.activate("corsianno.ftl.html", request, response);
+                 
+                res.activate("materialeup.ftl.html", request, response);
             } catch (DataLayerException ex) {
                 Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, "CIAOOOO", ex);
             }
@@ -68,29 +54,30 @@ public class Corsianno extends BaseController {
 
     }
     }
+     
     
-@Override
+    
+    
+   @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         String lin;
         try{
             HttpSession s = SecurityLayer.checkSession(request);
             String username=(String)s.getAttribute("username");   
         try {
-            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"Corsianno")) {
+            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"ModificaDocente")) {
             if(request.getParameter("lin")==null){
                 lin="it";}
             else{
                 lin=request.getParameter("lin");
             }
-            
+      
             if (request.getParameter("n") != null) {
             int n;
             n = SecurityLayer.checkNumeric(request.getParameter("n"));
-            action_special(request, response, n, lin);
+            action_selcorso(request, response, n, lin);
             }
-            else {
-                action_default(request, response,lin);
-            }
+            action_default(request, response,lin);
             }
             else {
                 SecurityLayer.disposeSession(request);
@@ -107,63 +94,32 @@ public class Corsianno extends BaseController {
         }
     }
 
-   
-
-    private void action_special(HttpServletRequest request, HttpServletResponse response, int id, String lingua) throws TemplateManagerException {
+    private void action_selcorso(HttpServletRequest request, HttpServletResponse response,int id ,String lin) throws IOException, TemplateManagerException {
         
-                TemplateResult res = new TemplateResult(getServletContext());
-                request.setAttribute("servlet","Corsianno?lin=it");
-                if(lingua.equals("it")||lingua.equals("")){
-                try {
+        TemplateResult res = new TemplateResult(getServletContext());
+        request.setAttribute("servlet","MaterialeUp?");
+            if(lin.equals("it")||lin.equals("")){
+            try {
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
                 
+                request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
                 
-                List<CDL> cdl1= ((IgwDataLayer)request.getAttribute("datalayer")).getCDLNoMag();
-                List<CDL> cdlm= ((IgwDataLayer)request.getAttribute("datalayer")).getCDLMag();
-                
-                CDL cdl =((IgwDataLayer)request.getAttribute("datalayer")).getCDL(id);
-                
-                List<Corso> corso = ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiInCdlNoAnno(cdl);
-                
-                Map<Integer, List<Corso>> b= new LinkedHashMap();
-                
-                List<Corso> c;
-                for(Corso corso1: corso){
-                    int anno=corso1.getAnno();
-                    if(b.containsKey(anno)){
-                        c=b.get(anno);
-                        c.add(corso1);
-                        b.put(anno,c);
-                    }
-                    else{
-                        c=new ArrayList();
-                        c.add(corso1);
-                        b.put(anno,c);
-                    
-                    }
- 
-                    }
+                Corso corso = ((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
+                request.setAttribute("materiale" , corso.getMateriale());
                 
                 
-                request.setAttribute("corso",b);
-                request.setAttribute("cdl",cdl1);
-                request.setAttribute("cdlm",cdlm);
                 
-                HttpSession s = request.getSession(false);
-                String a = (String) s.getAttribute("username");
-                request.setAttribute("nome",a);
-                
-                
-                res.activate("corsianno.ftl.html", request, response);
+               
             } catch (DataLayerException ex) {
-                Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE,"ciaooo", ex);
+                Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, "CIAOOOO", ex);
             }
        
 
     }
     }
-
+    
 
 }
+
  

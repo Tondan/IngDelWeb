@@ -124,6 +124,14 @@
         <servlet-name>Change</servlet-name>
         <servlet-class>courseweb.controller.Change</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MaterialeUp</servlet-name>
+        <servlet-class>courseweb.controller.MaterialeUp</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MaterialeNew</servlet-name>
+        <servlet-class>courseweb.controller.MaterialeNew</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Change</servlet-name>
         <url-pattern>/change</url-pattern>
@@ -215,6 +223,14 @@
     <servlet-mapping>
         <servlet-name>ModificaDocente</servlet-name>
         <url-pattern>/ModificaDocente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MaterialeUp</servlet-name>
+        <url-pattern>/MaterialeUp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MaterialeNew</servlet-name>
+        <url-pattern>/MaterialeNew</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

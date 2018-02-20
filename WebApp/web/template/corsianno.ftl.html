@@ -99,6 +99,9 @@
                                 <div class="panel-body">
                                     <#list corso as corso>
                                     <li>
+                                        <#if materiale??>
+                                        <a href="MaterialeUp?n=${corso.ID}&lin=it"><#if corso.nome_it?trim?has_content>${corso.nome_it}<#else>${corso.nome_en}</#if></a>
+                                        </#if>
                                         <a href="ModificaCorso?n=${corso.ID}&lin=it"><#if corso.nome_it?trim?has_content>${corso.nome_it}<#else>${corso.nome_en}</#if></a>
                                     </li>
                                     </#list>
