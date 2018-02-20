@@ -98,7 +98,7 @@ public class MaterialeNewD extends BaseController {
             HttpSession s = SecurityLayer.checkSession(request);
             String username=(String)s.getAttribute("username");   
         try {
-            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"MaterialeNew")) {
+            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"MaterialeNewD")) {
             if(request.getParameter("lin")==null){
                 lin="it";}
             else{
