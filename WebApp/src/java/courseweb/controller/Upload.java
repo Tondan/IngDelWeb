@@ -71,5 +71,9 @@ public class Upload {
         return "";
     }
     
-    
+    protected static void delete(String context,String path) throws IOException{
+        File cn=new File(context);
+        context=cn.getParentFile().getParent()+File.separator+"web\\";
+        Files.delete(Paths.get(context+path));
+    }
 }

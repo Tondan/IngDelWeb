@@ -5,6 +5,7 @@
  */
 package courseweb.model.classi;
 
+import courseweb.controller.Upload;
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.data.DataLayerMysqlImpl;
 import courseweb.model.interfacce.CDL;
@@ -1861,14 +1862,14 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     public void deleteCorso(Corso corso) throws DataLayerException{
         try{
             int id=corso.getID();
-
+            List<Libro> libri=corso.getLibri();
+            
             dAllDocCorso.setInt(1, id);
             dAllDocCorso.executeUpdate();
 
             dAllCDLCorso.setInt(1, id);
             dAllCDLCorso.executeUpdate();
             
-            List<Libro> libri=corso.getLibri();
             
             dAllLibriCorso.setInt(1, id);
             dAllLibriCorso.executeUpdate();
@@ -1902,6 +1903,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             dCorso.setInt(1, id);
             dCorso.executeUpdate();
         
+            Upload.delete();
+            
         }catch(SQLException ex){
             
         }

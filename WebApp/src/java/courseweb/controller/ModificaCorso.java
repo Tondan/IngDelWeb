@@ -341,6 +341,11 @@ public class ModificaCorso extends BaseController {
                 if(!dublinoen.getLifelong().equals(lifelongen))
                     dublinoen.setLifelong(lifelongen);
                 
+                
+                List<Materiale> mat=corso.getMateriale();
+                String context=request.getServletContext().getRealPath("");
+                for(Materiale materiale:mat)
+                    Upload.delete(context,materiale.getLink());
             
             ((IgwDataLayer)request.getAttribute("datalayer")).storeCorso(corso);
             ((IgwDataLayer)request.getAttribute("datalayer")).storeDescrizione_it(descrizioneit);
