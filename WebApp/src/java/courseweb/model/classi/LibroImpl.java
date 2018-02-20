@@ -9,6 +9,8 @@ import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Libro;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -136,6 +138,35 @@ public class LibroImpl implements Libro {
     public void addCorsi(Corso corso) {
         this.Corso.add(corso);
         this.dirty=true;
+    }
+    
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
+
+    @Override
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    @Override
+    public void copyFrom(Libro libro) {
+        IDLibro=libro.getIDLibro();
+        Autore=libro.getAutore();
+        Titolo=libro.getTitolo();
+        Volume=libro.getVolume();
+        Anno=libro.getAnno();
+        Editore=libro.getEditore();
+        Link=libro.getLink();
+        
+        try{
+            Corso=libro.getCorsi();
+        }   
+        catch (DataLayerException ex) {
+            Logger.getLogger(DocenteImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dirty = true;
     }
 
 }

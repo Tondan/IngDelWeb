@@ -43,7 +43,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno,sAccess;
     
-    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en,iMateriale;
+    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en,iMateriale,iLibro,iLibri_Corso;
     private PreparedStatement uDocente, uUtente,uCorso;
     private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso;
     private PreparedStatement checkUtente;
@@ -129,6 +129,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             iDublino_it=connection.prepareStatement("REPLACE INTO Dublino_it(Corso,Knowledge,Application,Evaluation,Communication,Lifelong) VALUES(?,?,?,?,?,?)");
             iDublino_en=connection.prepareStatement("REPLACE INTO Dublino_en(Corso,Knowledge,Application,Evaluation,Communication,Lifelong) VALUES(?,?,?,?,?,?)");
             iMateriale=connection.prepareStatement("INSERT INTO Materiale(Corso,Nome,Link,Descrizione_it,Descrizione_en) VALUES(?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            iLibro=connection.prepareStatement("INSERT INTO Libro(Autore,Titolo,Volume,Anno,Editore,Link) VALUES(?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            iLibri_Corso=connection.prepareStatement("REPLACE INTO Libri_Corso(Corso,Libro) VALUES(?,?)");
             
             dDocentiCorso=connection.prepareStatement("DELETE FROM Docenti_Corso WHERE Corso=? AND Docente=?");
             dCDLCorso=connection.prepareStatement("DELETE FROM Corsi_CDL WHERE Corso=? AND CDL=?");
@@ -1709,6 +1711,84 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         } catch (SQLException ex) {
             try {
                 throw new DataLayerException("Unable to store Materiale", ex);
+            } catch (DataLayerException ex1) {
+                Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+    }
+
+    @Override
+    public void storeLibro(Libro libro, int corso) throws DataLayerException{
+        int key = libro.getIDLibro();
+         try {
+            if (key > 0) { //update
+                //non facciamo nulla se l'oggetto non ha subito modifiche
+                //do not store the object if it was not modified
+                if (!libro.isDirty()) {
+                    return;
+                }
+                
+            /*    uUtente.setString(1, utente.getUsername());
+                uUtente.setString(2, utente.getPassword());
+                
+                
+                
+                
+                
+                uUtente.executeUpdate();
+                */
+            } else { //insert
+                
+               iLibro.setString(1, libro.getAutore());
+               iLibro.setString(2, libro.getTitolo());
+               iLibro.setInt(3, libro.getVolume());
+               iLibro.setInt(4, libro.getAnno());
+               iLibro.setString(5, libro.getEditore());
+               iLibro.setString(6, libro.getLink());
+                
+                if (iLibro.executeUpdate() == 1) {
+                    //per leggere la chiave generata dal database
+                    //per il record appena inserito, usiamo il metodo
+                    //getGeneratedKeys sullo statement.
+                    //to read the generated record key from the database
+                    //we use the getGeneratedKeys method on the same statement
+                    try (ResultSet keys = iLibro.getGeneratedKeys()) {
+                        //il valore restituito è un ResultSet con un record
+                        //per ciascuna chiave generata (uno solo nel nostro caso)
+                        //the returned value is a ResultSet with a distinct record for
+                        //each generated key (only one in our case)
+                        if (keys.next()) {
+                            //i campi del record sono le componenti della chiave
+                            //(nel nostro caso, un solo intero)
+                            //the record fields are the key componenets
+                            //(a single integer in our case)
+                            key = keys.getInt(1);
+                        }
+                    }
+                }
+            }
+            //restituiamo l'oggetto appena inserito RICARICATO
+            //dal database tramite le API del modello. In tal
+            //modo terremo conto di ogni modifica apportata
+            //durante la fase di inserimento
+            //we return the just-inserted object RELOADED from the
+            //database through our API. In this way, the resulting
+            //object will ambed any data correction performed by
+            //the DBMS
+            if (key > 0) {
+                iLibri_Corso.setInt(1, corso);
+                iLibri_Corso.setInt(2, key);
+                iLibri_Corso.executeUpdate();
+                try {
+                    libro.copyFrom(getLibro(key));
+                } catch (DataLayerException ex) {
+                    Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            libro.setDirty(false);
+        } catch (SQLException ex) {
+            try {
+                throw new DataLayerException("Unable to store Libro", ex);
             } catch (DataLayerException ex1) {
                 Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex1);
             }

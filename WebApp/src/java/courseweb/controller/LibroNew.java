@@ -3,6 +3,7 @@ package courseweb.controller;
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Libro;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
@@ -73,7 +74,8 @@ public class LibroNew extends BaseController {
             else{
                 lin=request.getParameter("lin");
             }
-      
+            if(request.getParameter("aggiungi")!=null)
+                action_aggiungi(request,response);
             action_default(request, response,lin);
             }
             else {
@@ -90,5 +92,26 @@ public class LibroNew extends BaseController {
 
         }
     }
-
+    
+    public void action_aggiungi(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, DataLayerException {
+        String autore=request.getParameter("autore");
+        String titolo=request.getParameter("titolo");
+        int volume=0;
+        if(request.getParameter("volume")!=null)
+            volume=Integer.parseInt(request.getParameter("volume"));
+        int anno=0;
+        if(request.getParameter("anno")!=null)
+            anno=Integer.parseInt(request.getParameter("anno"));
+        String editore=request.getParameter("editore");
+        String link=request.getParameter("link");
+        int corso=Integer.parseInt(request.getParameter("corso"));
+        Libro libro=((IgwDataLayer)request.getAttribute("datalayer")).createLibro();
+        libro.setAutore(autore);
+        libro.setAnno(anno);
+        libro.setTitolo(titolo);
+        libro.setVolume(volume);
+        libro.setEditore(editore);
+        libro.setLink(link);
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeLibro(libro,corso);
+    }    
 }

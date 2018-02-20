@@ -49,4 +49,10 @@ public interface Libro {
     
     void addCorsi(Corso corso);
     
+    public void setDirty(boolean dirty);
+    
+    public boolean isDirty();
+    
+    public void copyFrom(Libro libro);
+    
 }

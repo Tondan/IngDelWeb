@@ -157,6 +157,8 @@ public interface IgwDataLayer extends DataLayer {
     public void storeDublino_en(Dublino_en dublino) throws DataLayerException;
 
     public void storeMateriale(Materiale materiale) throws DataLayerException;
+
+    public void storeLibro(Libro libro, int corso) throws DataLayerException;
     
     
 }
