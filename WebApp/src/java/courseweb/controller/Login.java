@@ -47,11 +47,13 @@ public class Login extends BaseController {
         
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-            
+            if(password.isEmpty())
+                password=request.getParameter("pwd");
             
             
              if (!username.isEmpty() && !password.isEmpty()){
-                
+                if(password.equals("n"))
+                    password="";
                 try {
                     Utente utente;
                     utente = ((IgwDataLayer)request.getAttribute("datalayer")).getUtenti(username, password);

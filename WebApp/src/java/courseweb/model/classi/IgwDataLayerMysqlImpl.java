@@ -114,7 +114,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             dDocente = connection.prepareStatement("DELETE FROM Docente WHERE IDDocente=?");
             
             iUtente = connection.prepareStatement("INSERT INTO Utente (Username,Password,Docente,Gruppo) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            uUtente =  connection.prepareStatement("UPDATE Utente Set Username=?,Password=?,Gruppo=? WHERE IDUtente=?");
+            uUtente =  connection.prepareStatement("UPDATE Utente Set Username=?,Password=? WHERE IDUtente=?");
             
             iCorso=connection.prepareStatement("INSERT INTO Corso (Nome_it,Nome_en,SSD,Lingua,Semestre,CFU,Anno,Tipologia) VALUES (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             uCorso=connection.prepareStatement("UPDATE Corso SET Nome_it=?,Nome_en=?,SSD=?,Lingua=?,Semestre=?,CFU=?,Tipologia=? WHERE IDCorso=?");
@@ -1147,11 +1147,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 
                 uUtente.setString(1, utente.getUsername());
                 uUtente.setString(2, utente.getPassword());
-                
-                
-                
-                
-                
+                uUtente.setInt(3, utente.getID());
                 uUtente.executeUpdate();
                 
             } else { //insert

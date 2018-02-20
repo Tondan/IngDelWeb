@@ -50,6 +50,7 @@
                                 </div>
                             </aside>
 
+                    <#if message??><h5>${message}</h5></#if>
                 <div class="col-md-8 box_style_2">
                     <span class="tape"></span>
                     <div class="row">
@@ -62,7 +63,17 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control style_2" value="${utente.username}" name="nome">
+                                    <input type="text" class="form-control style_2" value="${utente.username}" name="nome" required>
+                                    <span class="input-icon">
+                                        <i class="#"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control style_2" placeholder="Inserire la vecchia password" name="old">
                                     <span class="input-icon">
                                         <i class="#"></i>
                                     </span>
@@ -70,7 +81,7 @@
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
-                                        <input type="text" class="form-control style_2" value="${utente.password}" name="password">
+                                        <input type="password" class="form-control style_2" value="${utente.password}" name="password">
                                         <span class="input-icon">
                                         <i class="#"></i>
                                     </span>
@@ -82,7 +93,7 @@
 
 
 
-
+                        <input type="hidden" name="id" value="${utente.ID}">
                         <input type="submit" name="profilo" value="Modifica Profilo" class="button_subscribe_green" id="submit-apply">
     
                     </form>

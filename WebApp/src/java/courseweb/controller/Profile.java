@@ -3,6 +3,7 @@ package courseweb.controller;
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Utente;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
@@ -32,8 +33,26 @@ public class Profile extends BaseController {
 
     
     
-    private void action_modifica(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void action_modifica(HttpServletRequest request, HttpServletResponse response) throws DataLayerException, IOException, ServletException, TemplateManagerException {
+        String nome=request.getParameter("nome");
+        String old=request.getParameter("old");
+        String password=request.getParameter("password");
+        int id=Integer.parseInt(request.getParameter("id"));
+        Utente utente=((IgwDataLayer)request.getAttribute("datalayer")).getUtente(id);
+        if(!nome.trim().isEmpty()&&((IgwDataLayer)request.getAttribute("datalayer")).existUtente(nome)&&!utente.getUsername().equals(nome)){
+            request.setAttribute("message", "Nome già esistente");
+            action_default(request,response,"");
+        }
+        if(((IgwDataLayer)request.getAttribute("datalayer")).getUtenti(nome, old)==null){
+            request.setAttribute("message", "Password errata");
+            action_default(request,response,"");
+        }
+        
+        utente.setUsername(nome);
+        if(!utente.getPassword().equals(password))
+            utente.setPassword(password);
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeUtente(utente);
+        response.sendRedirect("Login");
     }
      
      
@@ -80,7 +99,11 @@ public class Profile extends BaseController {
             try {
                 if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"Profile")) {
                 if (request.getParameter("profilo") != null) {
-                    action_modifica(request, response);
+                    try {
+                        action_modifica(request, response);
+                    } catch (TemplateManagerException ex) {
+                        Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                } else {
                    try {
                        if(request.getParameter("lin")==null)
