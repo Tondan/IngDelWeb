@@ -195,9 +195,12 @@ public class ModificaCDL extends BaseController {
         response.sendRedirect("Backoffice");
     }
     
-    public void action_elimina(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException,DataLayerException{
-        
-   
+    public void action_elimina(HttpServletRequest request, HttpServletResponse response) throws IOException,DataLayerException{
+        int id=Integer.parseInt(request.getParameter("id"));
+        CDL cdl=((IgwDataLayer)request.getAttribute("datalayer")).getCDL(id);
+        String context=request.getServletContext().getRealPath("");
+        Upload.delete(context, cdl.getImmagine());
+        ((IgwDataLayer)request.getAttribute("datalayer")).deleteCDL(cdl);
     }
     
     

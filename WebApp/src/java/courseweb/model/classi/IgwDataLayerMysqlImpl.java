@@ -47,7 +47,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en,iMateriale,iLibro,iLibri_Corso;
     private PreparedStatement uDocente, uUtente,uCorso,uCDL;
 
-    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso,dCorso,dDescrizione_it,dDescrizione_en,dDublino_it,dDublino_en,dMaterialeCorso,dAllLibriCorso,dLibro,dAllDocCorso,dAllCDLCorso,dThis_Corso,dOther_Corso;
+    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso,dCorso,dDescrizione_it,dDescrizione_en,dDublino_it,dDublino_en,dMaterialeCorso,dAllLibriCorso,dLibro,dAllDocCorso,dAllCDLCorso,dThis_Corso,dOther_Corso,dCDLinColl,dCDL;
     
     private PreparedStatement iLog;
     
@@ -155,6 +155,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             dAllCDLCorso=connection.prepareStatement("DELETE Corsi_CDL FROM Corsi_CDL LEFT JOIN Corso ON Corso.IDCorso=Corsi_CDL.Corso LEFT JOIN CDL ON CDL.IDCDL=Corsi_CDL.CDL WHERE Corso=?");
             dThis_Corso=connection.prepareStatement("DELETE FROM Colleg_Corsi WHERE This_Corso=?");
             dOther_Corso=connection.prepareStatement("DELETE FROM Colleg_Corsi WHERE Other_Corso=?");
+            
+            dCDLinColl=connection.prepareStatement("DELETE Corsi_CDL FROM Corsi_CDL LEFT JOIN CDL ON CDL.IDCDL=Corsi_CDL.CDL LEFT JOIN Corso ON Corso.IDCorso=Corsi_CDL.Corso WHERE CDL=?");
+            dCDL=connection.prepareStatement("DELETE FROM CDL WHERE IDCDL=?");
             
             uCDL=connection.prepareStatement("UPDATE CDL SET Nome_it=?,Nome_en=?,CFU=?,Magistrale=?,Immagine=?,Descrizione_it=?,Descrizione_en=?,Abbr_it=?,Abbr_en=? WHERE IDCDL=?");
             
@@ -1967,7 +1970,24 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             Logger.getLogger(IgwDataLayerMysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
+    
+    @Override
+    public void deleteCDL(CDL cdl) throws DataLayerException{
+        try{
+            List<Corso> corsi=cdl.getCorsiInCdl();
+            dCDLinColl.setInt(1, cdl.getIDCDL());
+            dCDLinColl.executeUpdate();
+            
+            for(Corso corso:corsi)
+                deleteCorso(corso);
+            
+            dCDL.setInt(1, cdl.getIDCDL());
+            dCDL.executeUpdate();
+        }catch(SQLException ex){
+        }
     }
+    
+}
         
         
 
