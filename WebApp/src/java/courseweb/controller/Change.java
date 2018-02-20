@@ -1,32 +1,19 @@
 package courseweb.controller;
 
 import courseweb.controller.data.DataLayerException;
-import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.CDL;
 import courseweb.model.interfacce.Corso;
-import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
-import courseweb.view.FailureResult;
-import courseweb.view.TemplateManagerException;
-import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *

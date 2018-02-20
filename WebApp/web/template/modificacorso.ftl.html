@@ -230,7 +230,7 @@
 					</div>
                                         <hr>
                                         
-<!--                                        <div class="row">
+                                       <div class="row">
                         <div class="col-md-4 col-sm-4">
                             <div>
                                 <h4>Corsi mutuati</h4>
@@ -295,7 +295,7 @@
 					<div class="row">
 						<!--IT DESCRIZIONE-->
 
-<!--						<div class="panel-group" id="accordion">
+						<div class="panel-group" id="accordion">
 
 							<div class="panel panel-default">
 								<div class="panel-heading">
@@ -414,7 +414,7 @@
 					<div class="row">
 						<!--EN DESCRIZIONE-->
 
-<!--						<div class="panel-group" id="accordion">
+						<div class="panel-group" id="accordion">
 
 							<div class="panel panel-default">
 								<div class="panel-heading">
@@ -501,8 +501,7 @@
 
 					<div class="row">
 						<!--SILLABO IT-->
-
-<!--						<div class="panel-group" id="accordion">
+				<div class="panel-group" id="accordion">
 
 							<div class="panel panel-default">
 								<div class="panel-heading">
@@ -575,7 +574,7 @@
 					<div class="row">
 						<!--SILLABO EN-->
 
-<!--						<div class="panel panel-default">
+						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title">
 									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse5">Descrittori di dublino EN - Optional
@@ -641,132 +640,8 @@
 
 					<hr>
 
-
-
-
-					<div class="row">
-							<!--LIBRI-->
-	
-<!--							<div class="panel-group" id="accordion">
-	
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<h4 class="panel-title">
-											<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Libri consigliati - Optional
-												<i class="indicator icon-plus pull-right"></i>
-											</a>
-										</h4>
-									</div>
-									<div id="collapse3" class="panel-collapse collapse">
-											
-										<div class="panel-body">
-
-												<#list libro as libro>
-												<#assign x=1>
-											<div>
-												
-											<h4>Indicazioni libri - Libro #${x}</h4>
-	
-											
-											<div class="row">  
-												<div class="col-md-6 col-sm-6">
-													<h5>Autore</h5>
-													<div class="form-group">
-														<input type="text" class="form-control style_2" placeholder="Autore" value="${libro.autore}" name="autore">
-														<span class="input-icon">
-															<i class="#"></i>
-														</span>
-													</div>
-												</div>
-												<div class="col-md-6 col-sm-6">
-													<h5>Titolo libro</h5>
-													<div class="form-group">
-														<input type="text" class="form-control style_2" placeholder="Titolo" value="${libro.titolo}" name="titolo">
-														<span class="input-icon">
-															<i class="#"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-	
-	
-	
-											<div class="row">
-												<div class="col-md-6 col-sm-6">
-													<h5>Volume libro</h5>
-													<div class="form-group">
-														<input type="number" class="form-control style_2" placeholder="Volume" value="${libro.volume}" name="volume">
-														<span class="input-icon">
-															<i class="#"></i>
-														</span>
-													</div>
-												</div>
-												<div class="col-md-6 col-sm-6">
-													<h5>Anno pubblicazione</h5>
-													<div class="form-group">
-														<input type="text" class="form-control style_2" placeholder="Anno" value="${libro.anno}" name="anno">
-														<span class="input-icon">
-															<i class="#"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-	
-	
-	
-											<div class="row">
-												<div class="col-md-6 col-sm-6">
-													<h5>Editore</h5>
-													<div class="form-group">
-														<input type="text" class="form-control style_2" placeholder="Editore" value="${libro.editore}" name="editore">
-														<span class="input-icon">
-															<i class="#"></i>
-														</span>
-													</div>
-												</div>
-												<div class="col-md-6 col-sm-6">
-													<h5>Link</h5>
-													<div class="form-group">
-														<input type="text" class="form-control style_2" placeholder="Link" value="${libro.link}" name="link">
-														<span class="input-icon">
-															<i class="#"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-
-											<#assign x++>
-
-											</#list>
-											<hr>
-											</div>
-
-										</div>
-										
-									</div>
-	
-								</div>
-	
-							</div>
-						</div>
-
-
-
-
-
-
-					<div class="row">
-						<div class="col-md-12">
-							<h4>Upload Materiali - Optional</h4>
-							<div class="form-group">
-								<input type="file" name="materiale" multiple onchange="ValidateCurr(this)" />
-							</div>
-						</div>
-					</div>
-
-					<hr>
 					
--->
+
 					<input type='hidden' name='key' value='${corso.ID}'>
 					<input type="submit" name="modifica" value="Aggiorna Corso" class="button_subscribe_green" id="submit-apply">
 					<input type="submit" name="cancella" value="Cancella Corso" class="button_subscribe_green" style="float:right" id="submit-apply">

@@ -97,7 +97,7 @@ public class LibroUp extends BaseController {
     private void action_selcorso(HttpServletRequest request, HttpServletResponse response, int id ,String lin) throws IOException, TemplateManagerException {
         
         TemplateResult res = new TemplateResult(getServletContext());
-        request.setAttribute("servlet","MaterialeUp?");
+        request.setAttribute("servlet","LibroUp?");
             if(lin.equals("it")||lin.equals("")){
             try {
                 request.setAttribute("lingua","it");
