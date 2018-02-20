@@ -459,4 +459,11 @@ public class CorsoImpl implements Corso{
         this.precedenti=precedenti;
         this.dirty=true;
     }
+    
+    public static boolean contains(List<Corso> list,Corso corso){
+        for(Corso c:list)
+            if(c.getID()==corso.getID())
+                return true;
+        return false;
+    }
 }

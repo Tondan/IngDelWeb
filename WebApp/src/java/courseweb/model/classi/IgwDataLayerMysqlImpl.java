@@ -43,9 +43,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     private PreparedStatement sCorsiMutuatiByCorso,sCorsiPrerequisitiByCorso,sCorsiModuloByCorso,sDocentiByCorso,sLibriByCorso,sMaterialeByCorso,sCorsiByCDL,sUtentiByGruppo,sServiziByGruppo,sCorsiByDocente,sCorsiByLibro,sGruppiByServizio,sCorsi,sDocenti,sCDL,sCdlByMagistrale,sCdlByTriennale;
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno,sAccess;
     
-    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso;
+    private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso;
     private PreparedStatement uDocente, uUtente,uCorso;
-    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso;
+    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso;
     private PreparedStatement checkUtente;
     
     @Override
@@ -120,12 +120,14 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             uCorso=connection.prepareStatement("UPDATE Corso SET Nome_it=?,Nome_en=?,SSD=?,Lingua=?,Semestre=?,CFU=?,Tipologia=? WHERE IDCorso=?");
             iDocentiCorso=connection.prepareStatement("REPLACE INTO Docenti_Corso(Corso,Docente) VALUES (?,?)");
             iCDLCorso=connection.prepareStatement("REPLACE INTO Corsi_CDL(Corso,CDL) VALUES(?,?)");
+            iColleg_Corso=connection.prepareStatement("REPLACE INTO Colleg_Corsi(This_Corso,Other_Corso,Tipo) VALUES(?,?,?)");
             
             iCDL=connection.prepareStatement("INSERT INTO CDL(Nome_it,Nome_en,Anno,CFU,Magistrale,Immagine,Descrizione_it,Descrizione_en,Abbr_it,Abbr_en) VALUES (?,?,?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             
             
             dDocentiCorso=connection.prepareStatement("DELETE FROM Docenti_Corso WHERE Corso=? AND Docente=?");
             dCDLCorso=connection.prepareStatement("DELETE FROM Corsi_CDL WHERE Corso=? AND CDL=?");
+            dColleg_Corso=connection.prepareStatement("DELETE FROM Colleg_Corsi WHERE This_Corso=? AND Other_Corso=?");
             
         } catch (SQLException ex) {
             throw new DataLayerException("Error initializing igw data layer", ex);
@@ -1255,6 +1257,22 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                         iCDLCorso.setInt(2, cdl.getIDCDL());
                         iCDLCorso.executeUpdate();
                     }
+                    
+                    List<Corso> mdb=getCorsiMutuati(corso);
+                    List<Corso> mutuati=corso.getCorsiMutuati();
+                    for(Corso c:mdb)
+                        if(!CorsoImpl.contains(corso.getCorsiMutuati(), c)){
+                            dColleg_Corso.setInt(1, corso.getID());
+                            dColleg_Corso.setInt(2, c.getID());
+                            dColleg_Corso.executeUpdate();
+                        }
+                    for(Corso c:mutuati){
+                        iColleg_Corso.setInt(1, corso.getID());
+                        iColleg_Corso.setInt(2, c.getID());
+                        iColleg_Corso.setString(3, "mutuato");
+                        iColleg_Corso.executeUpdate();
+                    }
+                    
                     /*
                     for(Docente doc:docx) 
                         if(!corso.getDocenti().contains(doc)){                                                                                                              
@@ -1349,6 +1367,27 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 iCDLCorso.setInt(1, key);
                 iCDLCorso.setInt(2, cdl.getIDCDL());
                 iCDLCorso.executeUpdate();
+            }
+            
+            for(Corso c:corso.getCorsiMutuati()){
+                iColleg_Corso.setInt(1, key);
+                iColleg_Corso.setInt(2,c.getID());
+                iColleg_Corso.setString(3, "mutuato");
+                iColleg_Corso.executeUpdate();
+            }
+            
+            for(Corso c:corso.getCorsiModulo()){
+                iColleg_Corso.setInt(1, key);
+                iColleg_Corso.setInt(2,c.getID());
+                iColleg_Corso.setString(3, "modulo");
+                iColleg_Corso.executeUpdate();
+            }
+            
+            for(Corso c:corso.getCorsiPrerequisiti()){
+                iColleg_Corso.setInt(1, key);
+                iColleg_Corso.setInt(2,c.getID());
+                iColleg_Corso.setString(3, "propedeudico");
+                iColleg_Corso.executeUpdate();
             }
             
                 corso.copyFrom(getCorso(key));

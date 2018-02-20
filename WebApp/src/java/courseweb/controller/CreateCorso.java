@@ -85,7 +85,7 @@ public class CreateCorso extends BaseController {
                 
                 String[] docente=request.getParameterValues("docenti");
                 List<Docente> docenti=new ArrayList();
-                if(!docenti.isEmpty())
+                if(docente!=null)
                     for(int i=0,a=0; i<docente.length; i++){
                        a=Integer.parseInt(docente[i]);
                        docenti.add(((IgwDataLayer)request.getAttribute("datalayer")).getDocente(a));  
@@ -93,9 +93,35 @@ public class CreateCorso extends BaseController {
                 
                 String[] c=request.getParameterValues("cdl");
                 List<CDL> cdl=new ArrayList();
-                    for(int i=0,a=0; i<c.length; i++){
-                       a=Integer.parseInt(c[i]);
-                       cdl.add(((IgwDataLayer)request.getAttribute("datalayer")).getCDL(a));  
+                for(int i=0,a=0; i<c.length; i++){
+                   a=Integer.parseInt(c[i]);
+                   cdl.add(((IgwDataLayer)request.getAttribute("datalayer")).getCDL(a));  
+                }
+                
+                    
+                String[] mutuati=request.getParameterValues("mutuati");
+                List<Corso> mutuaList=new ArrayList();
+                if(mutuati!=null)
+                    for(int i=0,a=0; i<mutuati.length; i++){
+                        a=Integer.parseInt(mutuati[i]);
+                        mutuaList.add(((IgwDataLayer)request.getAttribute("datalayer")).getCorso(a));
+                    }
+                
+                
+                String[] propedeudici=request.getParameterValues("propedeudici");
+                List<Corso> propList=new ArrayList();
+                if(propedeudici!=null)
+                    for(int i=0,a=0; i<propedeudici.length; i++){
+                        a=Integer.parseInt(propedeudici[i]);
+                        propList.add(((IgwDataLayer)request.getAttribute("datalayer")).getCorso(a));
+                    }
+                
+                String[] modulo=request.getParameterValues("modulo");
+                List<Corso> moduloList=new ArrayList();
+                if(modulo!=null)
+                    for(int i=0,a=0; i<modulo.length; i++){
+                        a=Integer.parseInt(modulo[i]);
+                        moduloList.add(((IgwDataLayer)request.getAttribute("datalayer")).getCorso(a));
                     }
                 
                 Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).createCorso();
@@ -110,10 +136,13 @@ public class CreateCorso extends BaseController {
                 
                 corso.setDocenti(docenti);
                 corso.setCDLInCorso(cdl);
+                corso.setCorsiModulo(moduloList);
+                corso.setCorsiMutuati(mutuaList);
+                corso.setCorsiPrerequisiti(propList);
                 
                 
              //Sezione descrizione it
-                String prerequisiti= request.getParameter("prerequisiti");
+/*                String prerequisiti= request.getParameter("prerequisiti");
                 String obiettivi= request.getParameter("obiettivi");
                 String mod_esame= request.getParameter("modesa");
                 String mod_insegnamento= request.getParameter("modins");
@@ -236,7 +265,7 @@ public class CreateCorso extends BaseController {
                 materiale.setDescrizione_en(descrizionematerialeen);
                     
                     
-                 
+                 */
                     
             //partenza store
             ((IgwDataLayer)request.getAttribute("datalayer")).storeCorso(corso);

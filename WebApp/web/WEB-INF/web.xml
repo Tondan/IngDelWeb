@@ -136,6 +136,14 @@
         <servlet-name>Change</servlet-name>
         <url-pattern>/change</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Change2</servlet-name>
+        <servlet-class>courseweb.controller.Change2</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Change2</servlet-name>
+        <url-pattern>/change2</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListCorsi</servlet-name>
         <url-pattern>/listcorsi</url-pattern>

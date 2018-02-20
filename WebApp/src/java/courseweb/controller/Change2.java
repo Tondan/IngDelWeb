@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Toni & Tony
  */
-public class Change extends BaseController {
+public class Change2 extends BaseController {
    
 @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
@@ -62,7 +62,7 @@ public class Change extends BaseController {
         
     try {
         PrintWriter out = response.getWriter();
-        out.write("<select class='chzn-select' name='propedeudici' id='special-cazzafà' multiple>");
+        out.write("<select class='chzn-select' name='modulo' id='special-cazzafà' multiple>");
         for(int key:corsi.keySet()){
             out.write("<option value='"+key+"'>"+corsi.get(key)+"</option>");
         }
