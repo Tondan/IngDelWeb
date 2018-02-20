@@ -38,7 +38,7 @@
 										</div>
 									</li>
 									<li>
-											<h5>Nome corso EN</h5>
+										<h5>Nome corso EN</h5>
 										<div class="form-group">
 											<input type="text" name="nomeen" class="required form-control" value="${corso.nome_en}">
 											<span class="input-icon">
@@ -73,140 +73,228 @@
 									</li>
 									<li>
 										<h5>Semestre corso</h5>
-											<div class="styled-select">
-													<select class="required form-control" name="semestre">
-														<#if corso.semestre==1>
-														<option value="1" selected>Primo Semestre</option>
-														<option value="2">Secondo Semestre</option>
-														<#elseif corso.semestre==2>
+										<div class="styled-select">
+											<select class="required form-control" name="semestre">
+												<#if corso.semestre==1>
+													<option value="1" selected>Primo Semestre</option>
+													<option value="2">Secondo Semestre</option>
+													<#elseif corso.semestre==2>
 														<option value="1">Primo Semestre</option>
 														<option value="2" selected>Secondo Semestre</option>
 														<#else>
-														<option value="" selected>Seleziona semestre corso...</option>
-														<option value="1">Primo Semestre</option>
-														<option value="2" selected>Secondo Semestre</option>
-														</#if>
-													</select>
-												</div>
-										</li>
+															<option value="" selected>Seleziona semestre corso...</option>
+															<option value="1">Primo Semestre</option>
+															<option value="2" selected>Secondo Semestre</option>
+												</#if>
+											</select>
+										</div>
+									</li>
 								</ul>
 
-								
-									
-                                    <h5>CFU del Corso</h5>
-                                    <div class="form-group">
-                                            <input type="number" class="required form-control style_2" value="${corso.cfu}" name="cfu" min=1>
-                                            <span class="input-icon">
-                                            <i class="#"></i>
-                                        </span>
-                                    
-                                
+
+
+								<h5>CFU del Corso</h5>
+								<div class="form-group">
+									<input type="number" class="required form-control style_2" value="${corso.cfu}" name="cfu" min=1>
+									<span class="input-icon">
+										<i class="#"></i>
+									</span>
+
+
+
+								</div>
+								<!-- end col-md-6 -->
+							</div>
+							<!-- end row -->
+
+							<div class="row">
+								<div class="col-md-6 col-sm-6">
+									<h5>Tipologia Dei Crediti</h5>
+									<div class="form-group">
+										<div class="styled-select">
+											<select class="required form-control" name="tipologia">
+												<#if corso.tipologia=='A'>
+													<option value="A" selected>A</option>
+													<option value="B">B</option>
+													<#elseif corso.tipologia=='B'>
+														<option value="A">A</option>
+														<option value="B" selected>B</option>
+														<#else>
+															<option value="n" selected>Seleziona tipologia cfu...</option>
+															<option value="A">A</option>
+															<option value="B">B</option>
+												</#if>
+											</select>
+										</div>
+									</div>
+								</div>
 
 							</div>
-							<!-- end col-md-6 -->
-						</div>
-						<!-- end row -->
 
-						<div class="row">
-                                <div class="col-md-6 col-sm-6">
-                                    <h5>Tipologia Dei Crediti</h5>
-                                    <div class="form-group">
-                                            <div class="styled-select">
-                                                    <select class="required form-control" name="tipologia">
-                                                        <#if corso.tipologia=='A'>
-                                                        <option value="A" selected>A</option>
-                                                        <option value="B">B</option>
-                                                        <#elseif corso.tipologia=='B'>
-                                                        <option value="A">A</option>
-                                                        <option value="B" selected>B</option>
-                                                        <#else>
-                                                        <option value="n" selected>Seleziona tipologia cfu...</option>
-                                                        <option value="A">A</option>
-                                                        <option value="B">B</option>
-                                                        </#if>
-                                                    </select>
-                                                </div>
-                                    </div>
-                                </div>
-                                
-							</div>
-							
 
 							<hr>
-    
-                            <input type='hidden' name='key' value='${corso.ID}'>
+
+							<input type='hidden' name='key' value='${corso.ID}'>
 
 
 						</div>
 					</div>
 					<!-- end step-->
 
-				
-					<div class="step row">
-							<div class="col-md-12">
-								<p>Inserisci informazioni supplementari sui libri del corso</p>
-								
-								
-							</div>
-					</div>
 
 					<div class="step row">
-							<div class="col-md-12">
-								<p>Inserisci informazioni supplementari sul corso</p>
-								
-								
-							</div>
-					</div>
 
-
-					<div class="step row">
-							<div class="col-md-12">
-								<p>Inserisci informazioni supplementari sul corso EN</p>
-								
-								
-							</div>
-					</div>
-
-					<div class="step row">
-							<div class="col-md-12">
-								<p>Inserisci i descrittori di dublino</p>
-	
-								
-							</div>
-						</div>
-
-
-						<div class="step row">
-								<div class="col-md-12">
-									<p>Inserisci i descrittori di dublino EN</p>
-		
-									
+						<div class="col-md-12" id="centro">
+							<h3>Inserisci informazioni supplementari sul corso</h3>
+							<h4>Descrizione del corso</h4>
+							<div class="row">
+								<div class="col-md-12 col-sm-12">
+									<h5>Prerequisiti Del Corso</h5>
+									<div class="form-group">
+										<div class="form-group">
+											<textarea rows="5" name="prerequisiti" class="tinymce1">${descrizioneit.prerequisiti}</textarea>
+										</div>
+									</div>
 								</div>
 							</div>
-						<!-- end step -->
+							<div class="row">
+								<div class="col-md-12 col-sm-12">
+									<h5>Obiettivi Del Corso</h5>
+									<div class="form-group">
+										<textarea rows="5" name="obiettivi" class="tinymce1">${descrizioneit.obiettivi}</textarea>
+									</div>
+								</div>
+							</div>
 
 
 
 
-					<div class="submit step" id="complete">
-						<i class="icon-check"></i>
-						<h3>Abbiamo concluso</h3>
-						<button type="submit" name="process" class="submit">Completi la registrazione del suo corso</button>
+							<div class="row">
+								<div class="col-md-12 col-sm-12">
+									<h5>Modalit&#224 D'Esame Del Corso</h5>
+									<div class="form-group">
+										<textarea rows="5" name="modesa" class="tinymce1">${descrizioneit.mod_Esame}</textarea>
+
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 col-sm-12">
+									<h5>Modalit&#224 Di Insegnamento Del Corso</h5>
+									<div class="form-group">
+										<textarea rows="5" name="modins" class="tinymce1">${descrizioneit.mod_Insegnamento}</textarea>
+
+									</div>
+								</div>
+							</div>
+
+
+
+
+							<div class="row">
+								<div class="col-md-6 col-sm-6">
+									<h5>Sillabo</h5>
+									<div class="form-group">
+										<textarea rows="5" name="sillabo" class="tinymce1">${descrizioneit.sillabo}</textarea>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 col-sm-6">
+									<h5>Note extra</h5>
+									<div class="form-group">
+										<textarea rows="5" name="note" class="tinymce1">${descrizioneit.note}</textarea>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div>
+									<h4>Link esterni</h4>
+								</div>
+								<div class="col-md-4 col-sm-4">
+									<h5>Homepage</h5>
+									<div class="form-group">
+										<input type="text" class="form-control style_2" placeholder="Link Homepage" value="${descrizioneit.homepage}" name="homepage">
+										<span class="input-icon">
+											<i class="#"></i>
+										</span>
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-4">
+									<h5>Forum</h5>
+									<div class="form-group">
+										<input type="text" class="form-control style_2" placeholder="Link Forum" value="${descrizioneit.forum}" name="forum">
+										<span class="input-icon">
+											<i class="#"></i>
+										</span>
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-4">
+									<h5>Risorse esterne</h5>
+									<div class="form-group">
+										<input type="text" class="form-control style_2" placeholder="Link Risorse esterne" value="${descrizioneit.risorse_Ext}" name="risorse">
+										<span class="input-icon">
+											<i class="#"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
 					</div>
-					<!-- end submit step -->
+				
 
-				</div>
-				<!-- end middle-wizard -->
 
-				<div id="bottom-wizard">
-					<button type="button" name="backward" class="backward">Indietro</button>
-					<button type="button" name="forward" class="forward">Avanti</button>
+				<div class="step row">
+					<div class="col-md-12">
+						<p>Inserisci informazioni supplementari sul corso EN</p>
+
+
+					</div>
 				</div>
-				<!-- end bottom-wizard -->
-			</form>
+
+				<div class="step row">
+					<div class="col-md-12">
+						<p>Inserisci i descrittori di dublino</p>
+
+
+					</div>
+				</div>
+
+
+				<div class="step row">
+					<div class="col-md-12">
+						<p>Inserisci i descrittori di dublino EN</p>
+
+
+					</div>
+				</div>
+				<!-- end step -->
+
+
+
+
+				<div class="submit step" id="complete">
+					<i class="icon-check"></i>
+					<h3>Abbiamo concluso</h3>
+					<button type="submit" name="process" class="submit">Completi la registrazione del suo corso</button>
+				</div>
+				<!-- end submit step -->
 
 		</div>
-		<!-- end Survey container -->
+		<!-- end middle-wizard -->
+
+		<div id="bottom-wizard">
+			<button type="button" name="backward" class="backward">Indietro</button>
+			<button type="button" name="forward" class="forward">Avanti</button>
+		</div>
+		<!-- end bottom-wizard -->
+		</form>
+
+	</div>
+	<!-- end Survey container -->
 
 	</div>
 </section>

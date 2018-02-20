@@ -32,7 +32,7 @@ public class CreateAdmin extends BaseController {
 
     
     
-    private void action_modifica(HttpServletRequest request, HttpServletResponse response) {
+    private void action_crea(HttpServletRequest request, HttpServletResponse response) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
      
@@ -60,7 +60,7 @@ public class CreateAdmin extends BaseController {
                 
                 request.setAttribute("utente", ((IgwDataLayer)request.getAttribute("datalayer")).getUtente(id));
                 
-                res.activate("profile.ftl.html", request, response);
+                res.activate("createadmin.ftl.html", request, response);
             } catch (DataLayerException ex) {
                 Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -80,7 +80,7 @@ public class CreateAdmin extends BaseController {
             try {
                 if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"Profile")) {
                 if (request.getParameter("profilo") != null) {
-                    action_modifica(request, response);
+                    action_crea(request, response);
                } else {
                    try {
                        if(request.getParameter("lin")==null)
