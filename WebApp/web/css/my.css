@@ -215,14 +215,13 @@ input[type='checkbox'] {
 /*MEDIA QUERY*/
 
 @media only screen and (max-width: 640px) {
-  nav ul,
-  nav:active ul {
-    display: none;
-  }
-  nav:after ul {
-    display: block;
-  }
+
+.sf-menu {
+  width: 100%!important;
+  display: block
 }
+}
+
 
 #dc {
   color: #00FFFFFF

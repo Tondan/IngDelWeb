@@ -16,7 +16,7 @@ else{
 
 }
 
-
+/*
 var BstrapModal = function (title, body, buttons) {
     var title = title || "Lorem Ipsum History", body = body || 
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
@@ -71,7 +71,7 @@ var BstrapModal = function (title, body, buttons) {
 
 });
 
-
+*/
 
 /*
 var counter = 1;
