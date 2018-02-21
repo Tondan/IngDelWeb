@@ -82,54 +82,35 @@ public class CreateCorsoD extends BaseController {
  
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        try {
             String lin;
             int n=0;
-            
-            
-            
-            
-            if(request.getParameter("n")!=null){
-                try {
-                    n = SecurityLayer.checkNumeric(request.getParameter("n"));
-                    
-                    if(request.getParameter("process")!=null)
-                        action_crea(request,response);
-                } catch (DataLayerException | IOException ex) {
-                    Logger.getLogger(CreateCorsoD.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            try{
-            HttpSession s = SecurityLayer.checkSession(request);
-            String username=(String)s.getAttribute("username");
-            try {
-                if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"CreateCorsoD")) {
-             if (request.getParameter("crea") != null) {
-                 action_crea(request, response);
-            } else {
-        try {
             if(request.getParameter("lin")==null)
                 lin="it";
             else
                 lin=request.getParameter("lin");
-            action_default(request, response,lin, n);
-
-        } catch (IOException | TemplateManagerException ex) {
-            request.setAttribute("exception", ex);
-            action_error(request, response);
-
-        }
-    }
-           }else {
-                    SecurityLayer.disposeSession(request);
-                    response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8")); 
-                }
-            } catch (DataLayerException ex) {
-                Logger.getLogger(CreateCorso.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            HttpSession s = SecurityLayer.checkSession(request);
+            String username=(String)s.getAttribute("username");
+            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"CreateCorsoD")) {
+                if (request.getParameter("process") != null)
+                    action_crea(request, response);
+                if(request.getParameter("n")!=null){
+                    n = SecurityLayer.checkNumeric(request.getParameter("n"));
+                            action_default(request, response,lin, n);
+                }           
+            }else {
+                SecurityLayer.disposeSession(request);
+                response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
+            }                
+        } catch (DataLayerException ex) {
+            Logger.getLogger(CreateCorsoD.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            request.setAttribute("exception", ex);
-            action_error(request, response);
+            Logger.getLogger(CreateCorsoD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TemplateManagerException ex) {
+            Logger.getLogger(CreateCorsoD.class.getName()).log(Level.SEVERE, null, ex);
         }
+                            
+           
     }
 
     /**
@@ -144,10 +125,10 @@ public class CreateCorsoD extends BaseController {
 
     private void action_crea(HttpServletRequest request, HttpServletResponse response) throws DataLayerException,IOException {
         int key=Integer.parseInt(request.getParameter("key"));
-        String nome= request.getParameter("nome");
-        String nomeEN= request.getParameter("nome_en");
+        String nome= request.getParameter("nomeit");
+        String nomeEN= request.getParameter("nomeen");
         String ssd= request.getParameter("ssd");
-        String linguac= request.getParameter("linguac");
+        String linguac= request.getParameter("lingua");
         int semestre=0;
         if(request.getParameter("semestre").length()!=0)
             semestre= Integer.parseInt(request.getParameter("semestre"));
@@ -298,7 +279,7 @@ public class CreateCorsoD extends BaseController {
         log.setData(timestamp);
         ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
         
-                response.sendRedirect("Backoffice");
+                response.sendRedirect("BackofficeD");
     }
 
 }
