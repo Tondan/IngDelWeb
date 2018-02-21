@@ -1,0 +1,170 @@
+
+<section id="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 text-center">
+                    <h1>Backoffice</h1>
+                    <p class="lead"></p>
+                </div>
+            </div>
+            <!-- End row -->
+        </div>
+        <!-- End container -->
+        <div class="divider_top"></div>
+    </section>
+    <!-- End sub-header -->
+    
+    <section id="main_content">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="BackofficeD">Backoffice</a>
+                </li>
+                <li class="active">
+                    <a href="MaterialeUpD">Gestione materiali</a>
+                </li>
+            </ol>
+    
+    
+            <div class="row">
+                    <aside class="col-md-4">
+                            <div class="box_style_1 profile">
+                                <h4>Corsi Assegnati</h4>
+            
+                                <ul>
+                                    <#list corso as corso>
+                                        <li>
+                                            <a href="CreateCorsoD?n=${corso.ID}"> ${corso.nome_it} </a>
+                                        </li>
+                                    </#list>
+                                </ul>
+            
+                                <h4>Aggiunta documenti</h4>
+                                <ul>
+                                    <li>
+                                        <a href="MaterialeNewD"> Aggiungi materiale utile </a>
+                                    </li>
+                                    <li>
+                                        <a href="LibroNewD"> Aggiungi libri al corso </a>
+                                    </li>
+                                </ul>
+            
+                                <h4>Gestione documenti</h4>
+                                <ul>
+                                    <li>
+                                        <a href="MaterialeUpD"> Gestisci Materiale Inserito</a>
+                                    </li>
+                                    <li>
+                                        <a href="LibroUpD"> Gestisci Libri Inserito</a>
+                                    </li>
+                                </ul>
+            
+                            </div>
+
+
+                            <aside class="col-md-12">
+                                    <div class="box_style_2">
+                                        <h5>Seleziona il corso interessato</h5>
+                
+                                        <#list corsi as corsi>
+                                            <li>
+                                                <a href="MaterialeUpD?n=${corsi.ID}"> ${corsi.nome_it} </a>
+                                            </li>
+                                        </#list>
+                
+                                    </div>
+                                </aside>
+                
+                            </aside>
+                
+                        
+    
+    
+    
+    <#if materiale??>
+                <div class="col-md-8 box_style_2">
+                    <span class="tape"></span>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4> Modifica materiale </h4>
+                        </div>
+                    </div>
+                    <div id="message-apply"></div>
+    
+                    <#assign x=1>
+    
+                    <#list materiale as materiale>
+                    <form method="post" action="MaterialeUp" enctype="multipart/form-data">
+    
+    
+                        
+                        <div class="row">
+                            <!--Materiali-->
+                            
+                            <div class="panel-group" id="accordion">
+    
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse${x}"> ${materiale.nome} 
+                                                <i class="indicator icon-plus pull-right"></i>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse${x}" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            
+                                                
+                                                <div class="col-md-6">
+                                                    <h5>Nome materiale</h5>
+                                                <input type="text" class="form-control style_2" placeholder="Nome materiale" value="${materiale.nome}" name="nomem">
+                                                </div>
+                                                <div class="col-md-6">
+    
+                                                    <h5>Link</h5><a href="download?k=${materiale.link}">${materiale.link}</a>  
+                                                <input type="file" name="linkm" />
+                                            </div>
+                                            
+    
+    
+    
+    
+                                            <div class="col-md-12">
+                                                <h5>Descrizione materiale IT</h5>
+                                                <textarea rows="1" name="descrizioneitm" class="tinymce">${materiale.descrizione_it}</textarea>
+                                                <h5>Descrizione materiale EN</h5>
+                                                <textarea rows="1" name="descrizioneenm" class="tinymce">${materiale.descrizione_en}</textarea>
+    
+                                                <#assign x++>
+                                            
+                                            <hr>
+                                            <input type="hidden" name="id" value="${materiale.ID}">
+                                            <input type="submit" name="modifica" value="Modifica materiale" class="button_subscribe_green" id="submit-apply">
+                                            <input type="submit" name="cancella" value="Cancella materiale" style="float:right" class="button_subscribe_green" id="submit-apply">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                       
+    
+                    </form>
+                    </#list>
+    
+    
+    
+    
+                </div>
+    
+                </#if>
+            </div>
+            <!-- End row-->
+        </div>
+        <!-- End container -->
+    </section>
+    <!-- End main_content-->
+    
+    <!-- pattern="[A-Za-z]+[0-9]*+[A-Za-z]*" title="Primo carattere lettera[a-z]-->

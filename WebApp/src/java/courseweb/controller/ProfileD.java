@@ -15,9 +15,13 @@ import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
+@MultipartConfig
 
 /**
  *
@@ -40,6 +44,8 @@ public class ProfileD extends BaseController {
         
         String nome=request.getParameter("nome");
         String cognome=request.getParameter("cognome");
+        String email=request.getParameter("email");
+        
         String old=request.getParameter("old");
         String password=request.getParameter("password");
         int id=Integer.parseInt(request.getParameter("id"));
@@ -90,12 +96,12 @@ public class ProfileD extends BaseController {
                 
                 int id = (int) session.getAttribute("docenteid");
                 
-                
                 Docente docente = ((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
                 
                 request.setAttribute("docente", docente);
                 
                 request.setAttribute("utente", ((IgwDataLayer)request.getAttribute("datalayer")).getUtente(id));
+                request.setAttribute("corso", ((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id));
                 
                 res.activate("profiled.ftl.html", request, response);
             } catch (DataLayerException ex) {
@@ -119,7 +125,7 @@ public class ProfileD extends BaseController {
             String username=(String)s.getAttribute("username");
             try {
                 if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"BackofficeD")) {
-                if (request.getParameter("profilo") != null) {
+                if (request.getParameter("profilo") != null){
                     try {
                         action_modifica(request, response);
                     } catch (TemplateManagerException ex) {

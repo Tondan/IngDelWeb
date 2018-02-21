@@ -1,86 +1,189 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package courseweb.controller;
 
+import courseweb.controller.data.DataLayerException;
+import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.Corso;
+import courseweb.model.interfacce.Docente;
+import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Materiale;
+import courseweb.view.FailureResult;
+import courseweb.view.TemplateManagerException;
+import courseweb.view.TemplateResult;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
+@MultipartConfig
 /**
  *
- * @author Tony
+ * @author Toni & Tony
  */
-public class MaterialeUpD extends HttpServlet {
+public class MaterialeUpD extends BaseController {
+    
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MaterialeUpD</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet MaterialeUpD at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+    private void action_error(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getAttribute("exception") != null) {
+            (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("exception"), request, response);
+        } else {
+            (new FailureResult(getServletContext())).activate((String) request.getAttribute("message"), request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
+        TemplateResult res = new TemplateResult(getServletContext());
+        request.setAttribute("servlet","MaterialeUpD?");
+            if(lingua.equals("it")||lingua.equals("")){
+            try {
+                request.setAttribute("lingua","it");
+                request.setAttribute("page_title", "Backoffice");
+
+                HttpSession s = request.getSession(false);
+                String a = (String) s.getAttribute("username");
+                int id = (int) s.getAttribute("docenteid");
+                
+                
+                Docente docente = ((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
+                request.setAttribute("docente",docente);
+                request.setAttribute("nome",a);
+                request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente));
+                
+                
+                
+                res.activate("materialeupd.ftl.html", request, response);
+            } catch (DataLayerException ex) {
+                Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, "CIAOOOO", ex);
+            }
+
+    }
+    }
+     
+    
+    
+    
+  @Override
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        String lin;
+        try{
+            HttpSession s = SecurityLayer.checkSession(request);
+            String username=(String)s.getAttribute("username");   
+        try {
+            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"BackofficeD")) {
+            if(request.getParameter("lin")==null){
+                lin="it";}
+            else{
+                lin=request.getParameter("lin");
+            }
+            
+            if(request.getParameter("modifica")!=null)
+                action_modifica(request,response);
+            if(request.getParameter("cancella")!=null)
+                action_elimina(request,response);
+            
+            if (request.getParameter("n") != null) {
+            int n;
+            n = SecurityLayer.checkNumeric(request.getParameter("n"));
+            action_selcorso(request, response, n, lin);
+            }
+            action_default(request, response,lin);
+            }
+            else {
+                SecurityLayer.disposeSession(request);
+                    response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
+            }
+            } catch (DataLayerException ex) {
+                Logger.getLogger(Corsianno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } catch (IOException | TemplateManagerException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
+
+        }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    
+    private void action_modifica(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, DataLayerException{
+        String nome=request.getParameter("nomem");
+        String descrizioneit=request.getParameter("descrizioneitm");
+        String descrizioneen=request.getParameter("descrizioneenm");
+        int id=Integer.parseInt(request.getParameter("id"));
+        Materiale materiale=((IgwDataLayer)request.getAttribute("datalayer")).getMateriale(id);
+        String filePath=materiale.getLink();
+        String fileName;
+        String context=request.getServletContext().getRealPath("");
+        Part file=request.getPart("linkm");
+        if(file.getSize()!=0){
+            fileName=nome;
+            filePath=Upload.Up(context,file,"Materiale",fileName,filePath);
+        }
+        if(!materiale.getNome().equals(nome))
+            materiale.setNome(nome);
+        if(!materiale.getDescrizione_it().equals(descrizioneit))
+            materiale.setDescrizione_it(descrizioneit);
+        if(!materiale.getDescrizione_en().equals(descrizioneen))
+            materiale.setDescrizione_en(descrizioneen);
+        if(!materiale.getLink().equals(filePath))
+            materiale.setLink(nome);
+        
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeMateriale(materiale);
+        
+        
     }
+    
+    
+    public void action_elimina(HttpServletRequest request, HttpServletResponse response) throws IOException,DataLayerException{
+        int id=Integer.parseInt(request.getParameter("id"));
+        Materiale materiale=((IgwDataLayer)request.getAttribute("datalayer")).getMateriale(id);
+        String context=request.getServletContext().getRealPath("");
+        Upload.delete(context, materiale.getLink());
+        
+        String nomelog=materiale.getNome();
+       HttpSession session= request.getSession(false);
+        int id1 = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id1);
+        log.setDescrizione("Ha cancellato il materiale"+""+ nomelog);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        
+        ((IgwDataLayer)request.getAttribute("datalayer")).deleteMateriale(materiale);
+    
+    }
+    
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    private void action_selcorso(HttpServletRequest request, HttpServletResponse response,int id ,String lin) throws IOException, TemplateManagerException {
+        
+        TemplateResult res = new TemplateResult(getServletContext());
+        request.setAttribute("servlet","MaterialeUpD?");
+            if(lin.equals("it")||lin.equals("")){
+            try {
+                request.setAttribute("lingua","it");
+                request.setAttribute("page_title", "Backoffice");
+                
+                request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente));
+                
+                Corso corso = ((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
+                request.setAttribute("materiale" , corso.getMateriale());
+                
+                
+                
+               
+            } catch (DataLayerException ex) {
+                Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, "CIAOOOO", ex);
+            }
+       
 
+    }
+    }
+    
 }

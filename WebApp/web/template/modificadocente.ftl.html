@@ -17,50 +17,40 @@
     <div class="container">
         <ol class="breadcrumb">
             <li>
-                <a href="BackofficeD?">Backoffice</a>
+                <a href="Backoffice">Backoffice</a>
             </li>
             <li class="active">
-                <a href="ModificaCDL">Modifica Corso di Laurea</a>
+                <a href="ModificaDocente">Modifica Corso di Laurea</a>
             </li>
         </ol>
 
         <div class="row">
-            <aside class="col-md-4">
-                <div class="box_style_1 profile">
-                    <h4>Corsi Assegnati</h4>
-
-                    <ul>
-                        <#list corso as corso>
-                            <li>
-                                <a href="CreateCorsoD?n=${corso.ID}"> ${corso.nome_it} </a>
-                            </li>
-                        </#list>
-                    </ul>
-
-                    <h4>Aggiunta documenti</h4>
-                    <ul>
-                        <li>
-                            <a href="MaterialeNewD"> Aggiungi materiale utile </a>
-                        </li>
-                        <li>
-                            <a href="LibroNewD"> Aggiungi libri al corso </a>
-                        </li>
-                    </ul>
-
-                    <h4>Gestione documenti</h4>
-                    <ul>
-                        <li>
-                            <a href="MaterialeUpD"> Gestisci Materiale Inserito</a>
-                        </li>
-                        <li>
-                            <a href="LibroUpD"> Gestisci Libri Inserito</a>
-                        </li>
-                    </ul>
-
-                </div>
-
-            </aside>
-
+            <aside class="col-md-4"> 
+                    <div class="box_style_1 profile"> 
+                        <h4>Funzioni creazione</h4> 
+     
+                        <ul> 
+                            <li><a href="CreateCDL">Crea Un Nuovo Cdl</a></li> 
+                            <li><a href="CreateCorso">Crea Nuovo Corso</a></li> 
+                            <li><a href="RegisterDocente">Registra Nuovo Docente</a></li> 
+                            <li><a href="MaterialeNew">Aggiungi Materiale</a></li> 
+                            <li><a href="LibroNew">Aggiungi Libro</a></li> 
+                        </ul> 
+     
+                        <h4>Funzioni modifica</h4> 
+                        <ul> 
+                            <li><a href="Corsianno">Modifica corsi</a></li> 
+                            <li><a href="ModificaCDL">Modifica Cdl</a></li> 
+                            <li><a href="ModificaDocente">Modifica Docente</a></li> 
+                        </ul> 
+     
+                        <h4>Funzioni Upload</h4> 
+                        <ul> 
+                            <li><a href="MaterialeUp">Materiale gestione</a></li> 
+                            <li><a href="LibroUp">Libri gestione</a></li> 
+                        </ul> 
+     
+                    </div> 
 
             <aside class="col-md-12">
                 <div class="box_style_2">
