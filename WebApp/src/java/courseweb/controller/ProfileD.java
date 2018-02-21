@@ -19,10 +19,10 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 
 @MultipartConfig
-
 /**
  *
  * @author Toni & Tony
@@ -41,7 +41,84 @@ public class ProfileD extends BaseController {
     
     
     private void action_modifica(HttpServletRequest request, HttpServletResponse response) throws DataLayerException, IOException, ServletException, TemplateManagerException {
+       try{
+            int id=Integer.parseInt(request.getParameter("id"));
+            String nome= request.getParameter("nome");
+            String cognome= request.getParameter("cognome");
+            Docente doc=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
+                String imgPath=doc.getImmagine();
+                String fileName;
+                String context=request.getServletContext().getRealPath("");
+                Part immagine=request.getPart("immagine");
+                if(immagine.getSize()!=0){
+                    fileName=nome+cognome;
+                    imgPath=Upload.Up(context,immagine,"imgDocenti",fileName,imgPath);
+                }
+                String email= request.getParameter("email");
+                String ufficio= request.getParameter("ufficio");
+                String telefono= request.getParameter("telefono");
+                String specializzazione= request.getParameter("specializzazione");
+                String ricerche= request.getParameter("ricerche");
+                String pubblicazioni= request.getParameter("pubblicazioni");
+                
+                Part curriculum=request.getPart("curriculum");
+                String currPath;
+                if(doc.getCurriculum().length()!=0)
+                    currPath=doc.getCurriculum();
+                else
+                    currPath=null;
+                if(curriculum.getSize()!=0){
+                    fileName=nome+cognome;
+                    currPath=Upload.Up(context,curriculum,"curriculum",fileName,currPath);
+                }
+                String ricevimento= request.getParameter("ricevimento");
+                
+                if(!doc.getNome().equals(nome))
+                    doc.setNome(nome);
+                if(!doc.getCognome().equals(cognome))
+                    doc.setCognome(cognome);
+                if(!doc.getEmail().equals(email))
+                    doc.setEmail(email);
+                if(!doc.getUfficio().equals(ufficio))
+                    doc.setUfficio(ufficio);
+                if(!doc.getTelefono().equals(telefono))
+                    doc.setTelefono(telefono);
+                if(!doc.getSpecializzazione().equals(specializzazione))
+                    doc.setSpecializzazione(specializzazione);
+                if(!doc.getRicerche().equals(ricerche))
+                    doc.setRicerche(ricerche);
+                if(!doc.getPubblicazione().equals(pubblicazioni))
+                    doc.setPubblicazioni(pubblicazioni);
+                if(!doc.getRicevimento().equals(ricevimento))
+                    doc.setRicevimento(ricevimento);
+                if(!doc.getImmagine().equals(imgPath))
+                    doc.setImmagine(imgPath);
+                if(!doc.getCurriculum().equals(currPath))
+                    doc.setCurriculum(currPath);
+                
+                ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(doc);
+                
+                HttpSession session= request.getSession(false);
+                int id1 = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
         
+            Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+            log.setIDUtente(id1);
+            log.setDescrizione("Ha modificato il docente "+" "+ nome +" "+cognome);
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            log.setData(timestamp);
+            ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
+        
+                response.sendRedirect("BackofficeD");
+                
+        } catch (DataLayerException ex) {
+            request.setAttribute("message", "Data access exception: " + ex.getMessage());
+            action_error(request, response);
+        }
+        
+        
+        
+        /*
         String nome=request.getParameter("nome");
         String cognome=request.getParameter("cognome");
         String email=request.getParameter("email");
@@ -73,7 +150,7 @@ public class ProfileD extends BaseController {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         log.setData(timestamp);
         ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
-        response.sendRedirect("Login");
+        response.sendRedirect("Login");*/
     }
      
      
@@ -116,48 +193,57 @@ public class ProfileD extends BaseController {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
-        String lin;
-        
-        
-        
         try{
-            HttpSession s = SecurityLayer.checkSession(request);
+        String lin;
+        if(request.getParameter("lin")==null)
+                lin="it";
+            else
+                lin=request.getParameter("lin");
+        HttpSession s = SecurityLayer.checkSession(request);
             String username=(String)s.getAttribute("username");
-            try {
-                if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"BackofficeD")) {
-                if (request.getParameter("profilo") != null){
-                    try {
-                        action_modifica(request, response);
-                    } catch (TemplateManagerException ex) {
-                        Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-               } else {
-                   try {
-                       if(request.getParameter("lin")==null)
-                           lin="it";
-                       else
-                           lin=request.getParameter("lin");
-                       action_default(request, response,lin);
-
-                   } catch (IOException | TemplateManagerException ex) {
-                       request.setAttribute("exception", ex);
-                       action_error(request, response);
-
-                   }
-               }
+        if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"BackOfficeD")) {
+            if (request.getParameter("profilo") != null)
+                    action_modifica(request, response);
+            action_default(request, response,lin);
             }else {
                 SecurityLayer.disposeSession(request);
-                    response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
+                response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
             }
-            } catch (DataLayerException ex) {
-                Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
+        /*
+        try {
+            String lin;
+            int n=0;
+            if(request.getParameter("lin")==null)
+                lin="it";
+            else
+                lin=request.getParameter("lin");
+            HttpSession s = SecurityLayer.checkSession(request);
+            String username=(String)s.getAttribute("username");
+            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"BackOfficeD")) {
+                if (request.getParameter("profile") != null)
+                    action_modifica(request, response);
+                action_default(request, response,lin);
+                           
+            }else {
+                SecurityLayer.disposeSession(request);
+                response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
+            }                
+        } catch (DataLayerException ex) {
+            Logger.getLogger(CreateCorsoD.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            request.setAttribute("exception", ex);
-            action_error(request, response);
+            Logger.getLogger(CreateCorsoD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TemplateManagerException ex) {
+            Logger.getLogger(CreateCorsoD.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+    }   catch (DataLayerException ex) {
+            Logger.getLogger(ProfileD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ProfileD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TemplateManagerException ex) {
+            Logger.getLogger(ProfileD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     /**
      * Returns a short description of the servlet.
      *
