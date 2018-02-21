@@ -56,12 +56,13 @@
                                       <tbody>
                                             <#list materiale as materiale,peso>
                                         <tr>
+                                                <#noautoesc>
                                                 <th scope="row"> ${materiale.nome}</th>
-                                                <td> <#if materiale.descrizione_it?trim?has_content> ${materiale.descrizione_it} <#else> ${materiale.descrizione_en} </#if></td>
+                                                 <td> <#if materiale.descrizione_it?trim?has_content> ${materiale.descrizione_it} <#else> ${materiale.descrizione_en} </#if></td>
                                                 <td> ${peso} KB</td>
                                                 <td class="icon-download"><a href="download?k=${materiale.link}"> Scarica Ora </a></td>
                                         </tr>
-     
+                                       </#noautoesc>
                            </#list>
         
                         </tbody>
@@ -81,14 +82,14 @@
                                   </thead>
                                   <tbody>
                                         <#list materiale as materiale,peso>
-                                    
+                                        <#noautoesc>
                                         <tr>
                                     <td>${materiale.nome}</td>
                                             <td><#if materiale.descrizione_en?trim?has_content> ${materiale.descrizione_en} <#else> ${materiale.descrizione_it}</#if></td>
                                             <td>${peso} KB</td>
                                             <td class="icon-download"><a href="download?k=${materiale.link}">Download Now</a></td>
                                         </tr>
-                                
+                                        </#noautoesc>
                                        </#list>
                     </tbody>
             </table>

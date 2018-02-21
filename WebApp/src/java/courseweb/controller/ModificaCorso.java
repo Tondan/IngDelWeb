@@ -373,6 +373,8 @@ public class ModificaCorso extends BaseController {
         int id=Integer.parseInt(request.getParameter("key"));
         Corso corso=((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
         String nome=corso.getNome_it();
+        List<CDL> cdl=corso.getCDL();
+        
         List<Materiale> mat=corso.getMateriale();
             String context=request.getServletContext().getRealPath("");
             for(Materiale materiale:mat)
@@ -385,7 +387,7 @@ public class ModificaCorso extends BaseController {
         
         courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
         log.setIDUtente(id1);
-        log.setDescrizione("Ha cancellato il corso di"+nome);
+        log.setDescrizione("Ha cancellato il corso di "+ nome + " appartenente al cdl di "+ cdl );
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         log.setData(timestamp);
         ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);

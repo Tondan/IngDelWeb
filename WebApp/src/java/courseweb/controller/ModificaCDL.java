@@ -82,6 +82,13 @@ public class ModificaCDL extends BaseController {
             if(request.getParameter("cancella")!=null)
                 action_elimina(request,response);
             
+            if(request.getParameter("cancella")!=null){
+                action_elimina(request,response);}
+            
+            if(request.getParameter("modifica")!=null){
+                action_modifica(request,response);}
+            
+            
             if (request.getParameter("n") != null) {
             int n;
             n = SecurityLayer.checkNumeric(request.getParameter("n"));
@@ -185,7 +192,7 @@ public class ModificaCDL extends BaseController {
         
         Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
         log.setIDUtente(id1);
-        log.setDescrizione("Ha modificato il cdl"+""+ nome);
+        log.setDescrizione("Ha modificato il cdl "+" "+ nome);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         log.setData(timestamp);
         ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
@@ -197,19 +204,24 @@ public class ModificaCDL extends BaseController {
         CDL cdl=((IgwDataLayer)request.getAttribute("datalayer")).getCDL(id);
         String context=request.getServletContext().getRealPath("");
         Upload.delete(context, cdl.getImmagine());
+        
         String nomelog=cdl.getNome_it();
-       HttpSession session= request.getSession(false);
+        HttpSession session= request.getSession(false);
         int id1 = (int) session.getAttribute("userid");
         //int id = (int) session.getAttribute("docenteid");
         
+        
         Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
         log.setIDUtente(id1);
-        log.setDescrizione("Ha cancellato il cdl"+""+ nomelog);
+        log.setDescrizione("Ha cancellato il cdl " + " "+ nomelog);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         log.setData(timestamp);
         
         ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
         ((IgwDataLayer)request.getAttribute("datalayer")).deleteCDL(cdl);
+        
+        response.sendRedirect("Backoffice");
+        
     }
     
     

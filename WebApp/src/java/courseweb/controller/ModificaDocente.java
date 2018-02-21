@@ -5,6 +5,7 @@ import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.Docente;
 import courseweb.model.interfacce.IgwDataLayer;
 import courseweb.model.interfacce.Utente;
+import courseweb.model.interfacce.Log;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
@@ -116,12 +117,12 @@ public class ModificaDocente extends BaseController {
                 ((IgwDataLayer)request.getAttribute("datalayer")).storeDocente(doc);
                 
                 HttpSession session= request.getSession(false);
-            int id1 = (int) session.getAttribute("userid");
+                int id1 = (int) session.getAttribute("userid");
         //int id = (int) session.getAttribute("docenteid");
         
-            courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+            Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
             log.setIDUtente(id1);
-            log.setDescrizione("Ha modificato il docente"+""+ nome +""+cognome);
+            log.setDescrizione("Ha modificato il docente "+" "+ nome +" "+cognome);
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             log.setData(timestamp);
             ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
@@ -210,6 +211,8 @@ public class ModificaDocente extends BaseController {
         Utente utente=((IgwDataLayer)request.getAttribute("datalayer")).getUtenteByDocente(docente);
         ((IgwDataLayer)request.getAttribute("datalayer")).deleteUtente(utente);
         ((IgwDataLayer)request.getAttribute("datalayer")).deleteDocente(docente);
+        
+    
         
     }
 

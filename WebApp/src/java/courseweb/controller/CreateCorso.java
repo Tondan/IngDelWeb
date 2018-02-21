@@ -4,6 +4,7 @@ import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.CDL;
 import courseweb.model.interfacce.Corso;
+import courseweb.model.interfacce.Log;
 import courseweb.model.interfacce.Descrizione_en;
 import courseweb.model.interfacce.Descrizione_it;
 import courseweb.model.interfacce.Docente;
@@ -237,9 +238,9 @@ public class CreateCorso extends BaseController {
         int id = (int) session.getAttribute("userid");
         //int id = (int) session.getAttribute("docenteid");
         
-        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
         log.setIDUtente(id);
-        log.setDescrizione("Ha creato il corso "+""+nome);
+        log.setDescrizione("Ha creato il corso "+""+nome+" nel cdl "+ cdl + "con docente" + docente);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         log.setData(timestamp);
         ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
