@@ -85,8 +85,20 @@ public class CreateCorsoD extends BaseController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             String lin;
             int n=0;
-            if(request.getParameter("n")!=null)
-                n = SecurityLayer.checkNumeric(request.getParameter("n"));
+            
+            
+            
+            
+            if(request.getParameter("n")!=null){
+                try {
+                    n = SecurityLayer.checkNumeric(request.getParameter("n"));
+                    
+                    if(request.getParameter("process")!=null)
+                        action_crea(request,response);
+                } catch (DataLayerException | IOException ex) {
+                    Logger.getLogger(CreateCorsoD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             try{
             HttpSession s = SecurityLayer.checkSession(request);
             String username=(String)s.getAttribute("username");

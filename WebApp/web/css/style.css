@@ -305,10 +305,10 @@ ul.latest_news h5 {
 }
 
 footer {
-    background: url(../img/logo_footer.png) center 60px no-repeat #1c1c1c;
+    background: #1c1c1c;
     color: #fff;
     width: 100%;
-    padding-top: 150px;
+    padding-top: 50px;
     text-align: center;
     font-size: 13px
 }
