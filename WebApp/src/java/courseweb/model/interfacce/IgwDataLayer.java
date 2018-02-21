@@ -175,5 +175,7 @@ public interface IgwDataLayer extends DataLayer {
     public void deleteUtente(Utente utente) throws DataLayerException;
 
     public void deleteMateriale(Materiale materiale) throws DataLayerException;
+
+    public void deleteLibro(Libro libro) throws DataLayerException,SQLException;
   
 }

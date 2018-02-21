@@ -4,11 +4,14 @@ import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Libro;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -34,7 +37,7 @@ public class LibroUp extends BaseController {
 
     private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
         TemplateResult res = new TemplateResult(getServletContext());
-        request.setAttribute("servlet","MaterialeUp?");
+        request.setAttribute("servlet","LibroUp?");
             if(lingua.equals("it")||lingua.equals("")){
             try {
                 request.setAttribute("lingua","it");
@@ -71,7 +74,16 @@ public class LibroUp extends BaseController {
             else{
                 lin=request.getParameter("lin");
             }
-      
+            
+            if(request.getParameter("modifica")!=null)
+                action_modifica(request,response);
+            if(request.getParameter("cancella")!=null)
+                try {
+                    action_elimina(request,response);
+            } catch (SQLException ex) {
+                Logger.getLogger(LibroUp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             if (request.getParameter("n") != null) {
             int n;
             n = SecurityLayer.checkNumeric(request.getParameter("n"));
@@ -120,7 +132,69 @@ public class LibroUp extends BaseController {
     }
     }
     
-
+    
+    private void action_modifica(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, DataLayerException{
+        String autore=request.getParameter("autore");
+        String titolo=request.getParameter("titolo");
+        int volume=0;
+        if(request.getParameter("volume").length()!=0)
+            volume=Integer.parseInt(request.getParameter("volume"));
+        int anno=0;
+        if(request.getParameter("anno").length()!=0)
+            anno=Integer.parseInt(request.getParameter("anno"));
+        String editore=request.getParameter("editore");
+        String link=request.getParameter("link");
+        int id=Integer.parseInt(request.getParameter("id"));
+        
+        Libro libro=((IgwDataLayer)request.getAttribute("datalayer")).getLibro(id);
+        if(!libro.getAutore().equals(autore))
+            libro.setAutore(autore);
+        if(libro.getAnno()!=anno)
+            libro.setAnno(anno);
+        if(!libro.getTitolo().equals(titolo))
+            libro.setTitolo(titolo);
+        if(libro.getVolume()!=volume)
+            libro.setVolume(volume);
+        if(!libro.getEditore().equals(editore))
+            libro.setEditore(editore);
+        if(libro.getLink().equals(link))
+            libro.setLink(link);
+        
+        String nomelog=libro.getTitolo();
+       HttpSession session= request.getSession(false);
+        int id1 = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id1);
+        log.setDescrizione("Ha modificato il libro"+""+ nomelog);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeLibro(libro,0);
+        response.sendRedirect("Backoffice");
+    }
+    
+    
+    public void action_elimina(HttpServletRequest request, HttpServletResponse response) throws IOException,DataLayerException, SQLException{
+        int id=Integer.parseInt(request.getParameter("id"));
+        Libro libro=((IgwDataLayer)request.getAttribute("datalayer")).getLibro(id);
+        
+        String nomelog=libro.getTitolo();
+       HttpSession session= request.getSession(false);
+        int id1 = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id1);
+        log.setDescrizione("Ha cancellato il libro"+""+ nomelog);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        
+        
+        ((IgwDataLayer)request.getAttribute("datalayer")).deleteLibro(libro);
+        response.sendRedirect("Backoffice");
+    } 
 }
 
  

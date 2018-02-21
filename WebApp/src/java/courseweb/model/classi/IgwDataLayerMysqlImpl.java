@@ -44,9 +44,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno,sAccess;
     
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en,iMateriale,iLibro,iLibri_Corso;
-    private PreparedStatement uDocente, uUtente,uCorso,uCDL,uMateriale;
+    private PreparedStatement uDocente, uUtente,uCorso,uCDL,uMateriale,uLibro;
 
-    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso,dCorso,dDescrizione_it,dDescrizione_en,dDublino_it,dDublino_en,dMaterialeCorso,dAllLibriCorso,dLibro,dAllDocCorso,dAllCDLCorso,dThis_Corso,dOther_Corso,dCDLinColl,dCDL,dUtente,dCorsiDocente,dMateriale;
+    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso,dCorso,dDescrizione_it,dDescrizione_en,dDublino_it,dDublino_en,dMaterialeCorso,dAllLibriCorso,dLibro,dAllDocCorso,dAllCDLCorso,dThis_Corso,dOther_Corso,dCDLinColl,dCDL,dUtente,dCorsiDocente,dMateriale,dLibriCorso;
     
     private PreparedStatement iLog;
     
@@ -157,6 +157,8 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             dThis_Corso=connection.prepareStatement("DELETE FROM Colleg_Corsi WHERE This_Corso=?");
             dOther_Corso=connection.prepareStatement("DELETE FROM Colleg_Corsi WHERE Other_Corso=?");
             
+            dLibriCorso=connection.prepareStatement("DELETE Libri_Corso FROM Libri_Corso LEFT JOIN Corso ON Corso.IDCorso=Libri_Corso.Corso LEFT JOIN Libro ON Libro.IDLibro=Libri_Corso.Libro WHERE Libro=?");
+            
             dCDLinColl=connection.prepareStatement("DELETE Corsi_CDL FROM Corsi_CDL LEFT JOIN CDL ON CDL.IDCDL=Corsi_CDL.CDL LEFT JOIN Corso ON Corso.IDCorso=Corsi_CDL.Corso WHERE CDL=?");
             dCDL=connection.prepareStatement("DELETE FROM CDL WHERE IDCDL=?");
             
@@ -165,6 +167,7 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             
             dCorsiDocente=connection.prepareStatement("DELETE Docenti_Corso FROM Docenti_Corso LEFT JOIN Docente ON Docente.IDDocente=Docenti_Corso.Docente LEFT JOIN Corso ON Corso.IDCorso=Docenti_Corso.Corso WHERE Docente=?");
             uCDL=connection.prepareStatement("UPDATE CDL SET Nome_it=?,Nome_en=?,CFU=?,Magistrale=?,Immagine=?,Descrizione_it=?,Descrizione_en=?,Abbr_it=?,Abbr_en=? WHERE IDCDL=?");
+            uLibro=connection.prepareStatement("UPDATE Libro SET Autore=?,Titolo=?,Volume=?,Anno=?,Editore=?,Link=? WHERE IDLibro=?");
             
             iLog=connection.prepareStatement("INSERT INTO LOG(Utente,Data,Descrizione) VALUES (?,?,?)",Statement.RETURN_GENERATED_KEYS);
             
@@ -1804,16 +1807,15 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 if (!libro.isDirty()) {
                     return;
                 }
-                
-            /*    uUtente.setString(1, utente.getUsername());
-                uUtente.setString(2, utente.getPassword());
-                
-                
-                
-                
-                
-                uUtente.executeUpdate();
-                */
+                uLibro.setString(1, libro.getAutore());
+                uLibro.setString(2, libro.getTitolo());
+                uLibro.setInt(3, libro.getVolume());
+                uLibro.setInt(4, libro.getAnno());
+                uLibro.setString(5, libro.getEditore());
+                uLibro.setString(6, libro.getLink());
+                uLibro.setInt(7, libro.getIDLibro());
+                uLibro.executeUpdate();
+            
             } else { //insert
                 
                iLibro.setString(1, libro.getAutore());
@@ -2031,6 +2033,15 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         }catch(SQLException ex){
             throw new DataLayerException("Unable to delete Materiale", ex);
         }
+    }
+
+    @Override
+    public void deleteLibro(Libro libro) throws DataLayerException,SQLException {
+        dLibriCorso.setInt(1, libro.getIDLibro());
+        dLibriCorso.executeUpdate();
+        
+        dLibro.setInt(1, libro.getIDLibro());
+        dLibro.executeUpdate();
     }
         
 }
