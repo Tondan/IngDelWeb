@@ -148,6 +148,22 @@
         <servlet-name>MaterialeNewD</servlet-name>
         <servlet-class>courseweb.controller.MaterialeNewD</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfileD</servlet-name>
+        <servlet-class>courseweb.controller.ProfileD</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MaterialeUpD</servlet-name>
+        <servlet-class>courseweb.controller.MaterialeUpD</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LibroUpD</servlet-name>
+        <servlet-class>courseweb.controller.LibroUpD</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LibroNewD</servlet-name>
+        <servlet-class>courseweb.controller.LibroNewD</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Change</servlet-name>
         <url-pattern>/change</url-pattern>
@@ -271,6 +287,22 @@
     <servlet-mapping>
         <servlet-name>MaterialeNewD</servlet-name>
         <url-pattern>/MaterialeNewD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileD</servlet-name>
+        <url-pattern>/ProfileD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MaterialeUpD</servlet-name>
+        <url-pattern>/MaterialeUpD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LibroUpD</servlet-name>
+        <url-pattern>/LibroUpD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LibroNewD</servlet-name>
+        <url-pattern>/LibroNewD</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

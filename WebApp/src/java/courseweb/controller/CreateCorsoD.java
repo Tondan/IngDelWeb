@@ -15,7 +15,6 @@ import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
