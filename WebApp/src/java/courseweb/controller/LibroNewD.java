@@ -80,7 +80,7 @@ public class LibroNewD extends BaseController {
                 lin=request.getParameter("lin");
             HttpSession s = SecurityLayer.checkSession(request);
             String username=(String)s.getAttribute("username");
-            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"CreateCorsoD")) {
+            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"LibroNewD")) {
                 if (request.getParameter("aggiungi") != null)
                     action_aggiungi(request, response);
                             action_default(request, response,lin);          

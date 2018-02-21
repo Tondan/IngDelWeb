@@ -30,7 +30,7 @@
 									<li>
 										<h5>Nome corso IT</h5>
 										<div class="form-group">
-											<input type="text" name="nomeit" class="required form-control" value="${corso.nome_it}">
+											<input type="text" name="nomeit" class="required form-control"  title="Immettere qui il nome del corso in lingua italiana" value="${corso.nome_it}">
 											<span class="input-icon">
 												<i class="icon-user"></i>
 											</span>
@@ -39,7 +39,7 @@
 									<li>
 										<h5>Nome corso EN</h5>
 										<div class="form-group">
-											<input type="text" name="nomeen" class="required form-control" value="${corso.nome_en}">
+											<input type="text" name="nomeen" class="required form-control"  title="Immettere qui il nome del corso in lingua inglese" value="${corso.nome_en}">
 											<span class="input-icon">
 												<i class="icon-user"></i>
 											</span>
@@ -48,7 +48,7 @@
 									<li>
 										<h5>SSD</h5>
 										<div class="form-group">
-											<input type="text" name="ssd" class="required form-control" value="${corso.SSD}">
+											<input type="text" name="ssd" class="required form-control" pattern="[A-Za-z]{3}" maxlength="3" title="Immettere qui ssd del corso, tre caratteri"  value="${corso.SSD}">
 											<span class="input-icon">
 												<i class=""></i>
 											</span>
@@ -64,7 +64,7 @@
 									<li>
 										<h5>Lingua</h5>
 										<div class="form-group">
-											<input type="text" name="lingua" class="required form-control" value="${corso.lingua}">
+											<input type="text" name="lingua" class="required form-control" pattern="[A-Za-z]{3}" maxlength="3" title="Immettere qui lingua del corso, tre caratteri" value="${corso.lingua}">
 											<span class="input-icon">
 												<i class=""></i>
 											</span>
@@ -474,4 +474,4 @@
 </section>
 <!-- end section main container -->
 
-<!-- pattern="[A-Za-z]+[0-9]*+[A-Za-z]*" title="Primo carattere lettera[a-z]-->
+<!-- pattern="[A-Za-z]+[0-9]*+[A-Za-z]*" title="Primo carattere lettera[a-z]"-->

@@ -160,7 +160,7 @@ public class ProfileD extends BaseController {
      
     private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
         TemplateResult res = new TemplateResult(getServletContext());
-        request.setAttribute("servlet","Profile?");
+        request.setAttribute("servlet","ProfileD?");
             if(lingua.equals("it")||lingua.equals("")){
             try {
                 request.setAttribute("lingua","it");
@@ -178,7 +178,7 @@ public class ProfileD extends BaseController {
                 request.setAttribute("docente", docente);
                 
                 request.setAttribute("utente", ((IgwDataLayer)request.getAttribute("datalayer")).getUtente(id));
-                request.setAttribute("corso", ((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id));
+                request.setAttribute("corso", ((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente));
                 
                 res.activate("profiled.ftl.html", request, response);
             } catch (DataLayerException ex) {
@@ -201,7 +201,7 @@ public class ProfileD extends BaseController {
                 lin=request.getParameter("lin");
         HttpSession s = SecurityLayer.checkSession(request);
             String username=(String)s.getAttribute("username");
-        if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"BackOfficeD")) {
+        if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"ProfileD")) {
             if (request.getParameter("profilo") != null)
                     action_modifica(request, response);
             action_default(request, response,lin);

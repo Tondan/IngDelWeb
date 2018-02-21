@@ -1496,6 +1496,79 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
         //also closing PreparedStamenents is a good practice...
         try {
             sCorsoByID.close();
+            sLog.close();
+            sCDLByID.close();
+            sCorsoByID.close();
+            sDocenteByID.close();
+            sDescrizione_itByCorso.close();
+            sDescrizione_enByCorso.close();
+            sDublino_itByCorso.close();
+            sDublino_enByCorso.close();
+            sMaterialeByID.close();
+            sLibroByID.close();
+            sGruppoByID.close();
+            sUtenteByID.close();
+            sServizioByID.close();
+            sLogByID.close();
+            sCorsiByAnno.close();
+            sCDLByCorso.close();
+            sCorsoMutuaByCorso.close();
+            sCdlByMagistrale.close();
+            sCdlByTriennale.close();
+            Login.close();
+            sCorsiByCDLNoAnno.close();
+            sDocenti.close();
+            sCorsi.close();
+            sCDL.close();
+            sCorsiMutuatiByCorso.close();
+            sCorsiPrerequisitiByCorso.close();
+            sCorsiModuloByCorso.close();
+            sDocentiByCorso.close();
+            sMaterialeByCorso.close();
+            sCorsiByCDL.close();
+            sUtentiByGruppo.close();
+            sServiziByGruppo.close();
+            sCorsiByDocente.close();
+            sCorsiByLibro.close();
+            sGruppiByServizio.close();
+            sUtenteByDocente.close();
+            sAccess.close();
+            checkUtente.close();
+            iDocente.close();
+            uDocente.close();
+            dDocente.close();
+            iUtente.close();
+            uUtente.close();
+            dUtente.close();
+            iCorso.close();
+            uCorso.close();
+            iDocentiCorso.close();
+            iCDLCorso.close();
+            iColleg_Corso.close();
+            iCDL.close();
+            iDescrizione_it.close();
+            iDescrizione_en.close();
+            iDublino_it.close();
+            iDublino_en.close();
+            iMateriale.close();
+            iLibro.close();
+            iLibri_Corso.close();
+            dDocentiCorso.close();
+            dCDLCorso.close();
+            iColleg_Corso.close();
+            dCorso.close();
+            dDescrizione_it.close();
+            dDescrizione_en.close();
+            dDublino_it.close();
+            dDublino_en.close();
+            dMaterialeCorso.close();
+            
+            
+            
+            
+            
+            
+            
         } catch (SQLException ex) {
             //
         }

@@ -55,7 +55,7 @@ public class LibroUpD extends BaseController {
                 
                 Docente docente=((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
                 
-                request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente));
+                request.setAttribute("corso",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente));
 
                  
                 res.activate("libroupD.ftl.html", request, response);

@@ -240,7 +240,7 @@ public class CreateCorso extends BaseController {
         
         Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
         log.setIDUtente(id);
-        log.setDescrizione("Ha creato il corso "+""+nome+" nel cdl "+ cdl + "con docente" + docente);
+        log.setDescrizione("Ha creato il corso "+""+nome);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         log.setData(timestamp);
         ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);

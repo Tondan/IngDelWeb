@@ -51,7 +51,7 @@ public class MaterialeUpD extends BaseController {
                 
                 
                 Docente docente = ((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id1);
-                request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente));
+                request.setAttribute("corso",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente));
                 request.setAttribute("docente",docente);
                 request.setAttribute("nome",a);
                 
