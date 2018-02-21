@@ -47,13 +47,14 @@ public class MaterialeUpD extends BaseController {
 
                 HttpSession s = request.getSession(false);
                 String a = (String) s.getAttribute("username");
-                int id = (int) s.getAttribute("docenteid");
+                int id1 = (int) s.getAttribute("docenteid");
                 
                 
-                Docente docente = ((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id);
+                Docente docente = ((IgwDataLayer)request.getAttribute("datalayer")).getDocente(id1);
+                request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente));
                 request.setAttribute("docente",docente);
                 request.setAttribute("nome",a);
-                request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente));
+                
                 
                 
                 
@@ -161,7 +162,7 @@ public class MaterialeUpD extends BaseController {
     }
     
 
-    private void action_selcorso(HttpServletRequest request, HttpServletResponse response,int id ,String lin) throws IOException, TemplateManagerException {
+    private void action_selcorso(HttpServletRequest request, HttpServletResponse response, int id ,String lin) throws IOException, TemplateManagerException {
         
         TemplateResult res = new TemplateResult(getServletContext());
         request.setAttribute("servlet","MaterialeUpD?");
@@ -170,7 +171,7 @@ public class MaterialeUpD extends BaseController {
                 request.setAttribute("lingua","it");
                 request.setAttribute("page_title", "Backoffice");
                 
-                request.setAttribute("corsi",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiDelDocente(docente));
+
                 
                 Corso corso = ((IgwDataLayer)request.getAttribute("datalayer")).getCorso(id);
                 request.setAttribute("materiale" , corso.getMateriale());

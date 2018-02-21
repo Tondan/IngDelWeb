@@ -1,86 +1,130 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package courseweb.controller;
 
+import courseweb.controller.data.DataLayerException;
+import courseweb.controller.security.SecurityLayer;
+import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Libro;
+import courseweb.view.FailureResult;
+import courseweb.view.TemplateManagerException;
+import courseweb.view.TemplateResult;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 
 /**
  *
- * @author Tony
+ * @author Toni & Tony
  */
-public class LibroNewD extends HttpServlet {
+public class LibroNewD extends BaseController {
+    
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LibroNewD</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LibroNewD at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+    private void action_error(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getAttribute("exception") != null) {
+            (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("exception"), request, response);
+        } else {
+            (new FailureResult(getServletContext())).activate((String) request.getAttribute("message"), request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    
+    
+    private void action_default(HttpServletRequest request, HttpServletResponse response,String lingua) throws IOException, ServletException, TemplateManagerException {
+        TemplateResult res = new TemplateResult(getServletContext());
+        request.setAttribute("servlet","LibroNew?");
+            if(lingua.equals("it")||lingua.equals("")){
+            try {
+                request.setAttribute("lingua","it");
+                request.setAttribute("page_title", "Backoffice");
+                
+                request.setAttribute("corso",((IgwDataLayer)request.getAttribute("datalayer")).getCorsiByAnno());
+                
+
+                HttpSession s = request.getSession(false);
+                String a = (String) s.getAttribute("username");
+                request.setAttribute("nome",a);
+                 
+                res.activate("libronewd.ftl.html", request, response);
+            } catch (DataLayerException ex) {
+                Logger.getLogger(Backoffice.class.getName()).log(Level.SEVERE, "CIAOOOO", ex);
+            }
+       
+
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
     }
+     
+    
+    
+    
+   @Override
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        String lin;
+        try{
+            HttpSession s = SecurityLayer.checkSession(request);
+            String username=(String)s.getAttribute("username");   
+        try {
+            if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"LibroNew")) {
+            if(request.getParameter("lin")==null){
+                lin="it";}
+            else{
+                lin=request.getParameter("lin");
+            }
+            if(request.getParameter("aggiungi")!=null)
+                action_aggiungi(request,response);
+            action_default(request, response,lin);
+            }
+            else {
+                SecurityLayer.disposeSession(request);
+                    response.sendRedirect("Login?referrer=" + URLEncoder.encode(request.getRequestURI(), "UTF-8"));
+            }
+            } catch (DataLayerException ex) {
+                Logger.getLogger(Corsianno.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+        } catch (IOException | TemplateManagerException ex) {
+            request.setAttribute("exception", ex);
+            action_error(request, response);
 
+        }
+    }
+    
+    public void action_aggiungi(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, DataLayerException {
+        String autore=request.getParameter("autore");
+        String titolo=request.getParameter("titolo");
+        int volume=0;
+        if(request.getParameter("volume").length()!=0)
+            volume=Integer.parseInt(request.getParameter("volume"));
+        int anno=0;
+        if(request.getParameter("anno").length()!=0)
+            anno=Integer.parseInt(request.getParameter("anno"));
+        String editore=request.getParameter("editore");
+        String link=request.getParameter("link");
+        int corso=Integer.parseInt(request.getParameter("corso"));
+        Libro libro=((IgwDataLayer)request.getAttribute("datalayer")).createLibro();
+        libro.setAutore(autore);
+        libro.setAnno(anno);
+        libro.setTitolo(titolo);
+        libro.setVolume(volume);
+        libro.setEditore(editore);
+        libro.setLink(link);
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeLibro(libro,corso);
+        
+        
+        HttpSession session= request.getSession(false);
+        int id = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id);
+        log.setDescrizione("Ha aggiunto il libro"+ titolo +"corso"+ corso);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
+    }    
 }
