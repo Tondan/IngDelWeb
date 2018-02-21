@@ -124,6 +124,7 @@ public class CreateCorsoD extends BaseController {
     }// </editor-fold>
 
     private void action_crea(HttpServletRequest request, HttpServletResponse response) throws DataLayerException,IOException {
+        
         int key=Integer.parseInt(request.getParameter("key"));
         String nome= request.getParameter("nomeit");
         String nomeEN= request.getParameter("nomeen");
@@ -167,7 +168,7 @@ public class CreateCorsoD extends BaseController {
         String homepage= request.getParameter("homepage");
         String forum= request.getParameter("forum");
         String risorse_ext= request.getParameter("risorse");
-
+       
         if(!descrizioneit.getPrerequisiti().equals(prerequisiti))
             descrizioneit.setPrerequisiti(prerequisiti);
         if(!descrizioneit.getObiettivi().equals(obiettivi))
@@ -279,7 +280,7 @@ public class CreateCorsoD extends BaseController {
         log.setData(timestamp);
         ((IgwDataLayer)request.getAttribute("datalayer")).storeLog(log);
         
-                response.sendRedirect("BackofficeD");
+        response.sendRedirect("BackofficeD");
     }
 
 }
