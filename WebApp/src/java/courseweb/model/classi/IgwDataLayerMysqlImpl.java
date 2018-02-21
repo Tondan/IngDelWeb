@@ -44,9 +44,9 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     private PreparedStatement sCDLByID,sCorsoByID,sDocenteByID,sDescrizione_itByCorso,sDescrizione_enByCorso,sDublino_itByCorso,sDublino_enByCorso,sMaterialeByID,sLibroByID,sGruppoByID,sUtenteByID,sServizioByID,sLogByID,sCorsiByAnno,sCDLByCorso,Login,sCorsoMutuaByCorso,sCorsiByCDLNoAnno,sAccess;
     
     private PreparedStatement iDocente, iUtente,iCorso,iDocentiCorso,iCDL,iCDLCorso,iColleg_Corso,iDescrizione_it,iDescrizione_en,iDublino_it,iDublino_en,iMateriale,iLibro,iLibri_Corso;
-    private PreparedStatement uDocente, uUtente,uCorso,uCDL;
+    private PreparedStatement uDocente, uUtente,uCorso,uCDL,uMateriale;
 
-    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso,dCorso,dDescrizione_it,dDescrizione_en,dDublino_it,dDublino_en,dMaterialeCorso,dAllLibriCorso,dLibro,dAllDocCorso,dAllCDLCorso,dThis_Corso,dOther_Corso,dCDLinColl,dCDL,dUtente;
+    private PreparedStatement dDocente,dDocentiCorso,dCDLCorso,dColleg_Corso,dCorso,dDescrizione_it,dDescrizione_en,dDublino_it,dDublino_en,dMaterialeCorso,dAllLibriCorso,dLibro,dAllDocCorso,dAllCDLCorso,dThis_Corso,dOther_Corso,dCDLinColl,dCDL,dUtente,dCorsiDocente,dMateriale;
     
     private PreparedStatement iLog;
     
@@ -160,6 +160,10 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             dCDLinColl=connection.prepareStatement("DELETE Corsi_CDL FROM Corsi_CDL LEFT JOIN CDL ON CDL.IDCDL=Corsi_CDL.CDL LEFT JOIN Corso ON Corso.IDCorso=Corsi_CDL.Corso WHERE CDL=?");
             dCDL=connection.prepareStatement("DELETE FROM CDL WHERE IDCDL=?");
             
+            uMateriale=connection.prepareStatement("UPDATE Materiale SET Nome=?,Link=?,Descrizione_it=?,Descrizione_en=? WHERE IDMateriale=?");
+            dMateriale=connection.prepareStatement("DELETE FROM Materiale WHERE IDMateriale=?");
+            
+            dCorsiDocente=connection.prepareStatement("DELETE Docenti_Corso FROM Docenti_Corso LEFT JOIN Docente ON Docente.IDDocente=Docenti_Corso.Docente LEFT JOIN Corso ON Corso.IDCorso=Docenti_Corso.Corso WHERE Docente=?");
             uCDL=connection.prepareStatement("UPDATE CDL SET Nome_it=?,Nome_en=?,CFU=?,Magistrale=?,Immagine=?,Descrizione_it=?,Descrizione_en=?,Abbr_it=?,Abbr_en=? WHERE IDCDL=?");
             
             iLog=connection.prepareStatement("INSERT INTO LOG(Utente,Data,Descrizione) VALUES (?,?,?)",Statement.RETURN_GENERATED_KEYS);
@@ -1729,15 +1733,13 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                     return;
                 }
                 
-            /*    uUtente.setString(1, utente.getUsername());
-                uUtente.setString(2, utente.getPassword());
-                
-                
-                
-                
-                
-                uUtente.executeUpdate();
-                */
+                uMateriale.setString(1, materiale.getNome());
+                uMateriale.setString(2, materiale.getLink());
+                uMateriale.setString(3, materiale.getDescrizione_it());
+                uMateriale.setString(4, materiale.getDescrizione_en());
+                uMateriale.setInt(5, materiale.getID());
+                uMateriale.executeUpdate();
+            
             } else { //insert
                 
                iMateriale.setInt(1, materiale.getCorso().getID());
@@ -2000,8 +2002,11 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
     @Override
     public void deleteDocente(Docente docente) throws DataLayerException {
         try{
-            dUtente.setInt(1, docente.getIDDocente());
-            dUtente.executeUpdate();
+            dCorsiDocente.setInt(1, docente.getIDDocente());
+            dCorsiDocente.executeUpdate();
+            
+            dDocente.setInt(1, docente.getIDDocente());
+            dDocente.executeUpdate();
         }catch(SQLException ex){
             throw new DataLayerException("Unable to delete Docente", ex);
         }
@@ -2016,6 +2021,18 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
             throw new DataLayerException("Unable to delete Utente", ex);
         }
     }
+    
+    @Override
+    public void deleteMateriale(Materiale materiale) throws DataLayerException{
+        try{
+            dMateriale.setInt(1, materiale.getID());
+            dMateriale.executeUpdate();
+            
+        }catch(SQLException ex){
+            throw new DataLayerException("Unable to delete Materiale", ex);
+        }
+    }
+        
 }
         
         

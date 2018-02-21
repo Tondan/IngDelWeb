@@ -173,5 +173,7 @@ public interface IgwDataLayer extends DataLayer {
     public Utente getUtenteByDocente(Docente docente) throws DataLayerException, SQLException;
 
     public void deleteUtente(Utente utente) throws DataLayerException;
+
+    public void deleteMateriale(Materiale materiale) throws DataLayerException;
   
 }

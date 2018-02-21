@@ -4,19 +4,23 @@ import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.Corso;
 import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Materiale;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
-
+@MultipartConfig
 /**
  *
  * @author Toni & Tony
@@ -71,7 +75,12 @@ public class MaterialeUp extends BaseController {
             else{
                 lin=request.getParameter("lin");
             }
-      
+            
+            if(request.getParameter("modifica")!=null)
+                action_modifica(request,response);
+            if(request.getParameter("cancella")!=null)
+                action_elimina(request,response);
+            
             if (request.getParameter("n") != null) {
             int n;
             n = SecurityLayer.checkNumeric(request.getParameter("n"));
@@ -119,7 +128,56 @@ public class MaterialeUp extends BaseController {
     }
     }
     
-
+    private void action_modifica(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, TemplateManagerException, DataLayerException{
+        String nome=request.getParameter("nomem");
+        String descrizioneit=request.getParameter("descrizioneitm");
+        String descrizioneen=request.getParameter("descrizioneenm");
+        int id=Integer.parseInt(request.getParameter("id"));
+        Materiale materiale=((IgwDataLayer)request.getAttribute("datalayer")).getMateriale(id);
+        String filePath=materiale.getLink();
+        String fileName;
+        String context=request.getServletContext().getRealPath("");
+        Part file=request.getPart("linkm");
+        if(file.getSize()!=0){
+            fileName=nome;
+            filePath=Upload.Up(context,file,"Materiale",fileName,filePath);
+        }
+        if(!materiale.getNome().equals(nome))
+            materiale.setNome(nome);
+        if(!materiale.getDescrizione_it().equals(descrizioneit))
+            materiale.setDescrizione_it(descrizioneit);
+        if(!materiale.getDescrizione_en().equals(descrizioneen))
+            materiale.setDescrizione_en(descrizioneen);
+        if(!materiale.getLink().equals(filePath))
+            materiale.setLink(nome);
+        
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeMateriale(materiale);
+        
+        
+    }
+    
+    
+    public void action_elimina(HttpServletRequest request, HttpServletResponse response) throws IOException,DataLayerException{
+        int id=Integer.parseInt(request.getParameter("id"));
+        Materiale materiale=((IgwDataLayer)request.getAttribute("datalayer")).getMateriale(id);
+        String context=request.getServletContext().getRealPath("");
+        Upload.delete(context, materiale.getLink());
+        
+        String nomelog=materiale.getNome();
+       HttpSession session= request.getSession(false);
+        int id1 = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id1);
+        log.setDescrizione("Ha cancellato il materiale"+""+ nomelog);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        
+        ((IgwDataLayer)request.getAttribute("datalayer")).deleteMateriale(materiale);
+    
+    }
+    
 }
 
  

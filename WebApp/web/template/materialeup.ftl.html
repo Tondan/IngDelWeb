@@ -85,7 +85,7 @@
                 <#assign x=1>
 
                 <#list materiale as materiale>
-                <form method="post" action="MaterialeUp">
+                <form method="post" action="MaterialeUp" enctype="multipart/form-data">
 
 
                     
@@ -113,7 +113,7 @@
                                             <div class="col-md-6">
 
                                                 <h5>Link</h5><a href="download?k=${materiale.link}">${materiale.link}</a>  
-                                            <input type="file" name="linkm" onchange="ValidateCurr(this)" />
+                                            <input type="file" name="linkm" />
                                         </div>
                                         
 
@@ -129,6 +129,7 @@
                                             <#assign x++>
                                         
                                         <hr>
+                                        <input type="hidden" name="id" value="${materiale.ID}">
                                         <input type="submit" name="modifica" value="Modifica materiale" class="button_subscribe_green" id="submit-apply">
                                         <input type="submit" name="cancella" value="Cancella materiale" style="float:right" class="button_subscribe_green" id="submit-apply">
                                         </div>
