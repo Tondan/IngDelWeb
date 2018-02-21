@@ -3,11 +3,13 @@ package courseweb.controller;
 import courseweb.controller.data.DataLayerException;
 import courseweb.controller.security.SecurityLayer;
 import courseweb.model.interfacce.IgwDataLayer;
+import courseweb.model.interfacce.Utente;
 import courseweb.view.FailureResult;
 import courseweb.view.TemplateManagerException;
 import courseweb.view.TemplateResult;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -32,8 +34,29 @@ public class CreateAdmin extends BaseController {
 
     
     
-    private void action_crea(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void action_crea(HttpServletRequest request, HttpServletResponse response) throws DataLayerException, IOException {
+        String username=request.getParameter("username");
+        String password=request.getParameter("password");
+        
+        Utente utente=((IgwDataLayer)request.getAttribute("datalayer")).createUtente();
+        utente.setUsername(username);
+        utente.setPassword(password);
+        utente.setIDGruppo(1);
+        utente.setDocente(0);
+        
+        String nomelog=utente.getUsername();
+       HttpSession session= request.getSession(false);
+        int id1 = (int) session.getAttribute("userid");
+        //int id = (int) session.getAttribute("docenteid");
+        
+        courseweb.model.interfacce.Log log=((IgwDataLayer)request.getAttribute("datalayer")).CreateLog();
+        log.setIDUtente(id1);
+        log.setDescrizione("Ha creato il nuovo amministratore"+""+ nomelog);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.setData(timestamp);
+        
+        ((IgwDataLayer)request.getAttribute("datalayer")).storeUtente(utente);
+        response.sendRedirect("Backoffice");
     }
      
      
@@ -79,7 +102,7 @@ public class CreateAdmin extends BaseController {
             String username=(String)s.getAttribute("username");
             try {
                 if (((IgwDataLayer)request.getAttribute("datalayer")).getAccessUtente(username,"Profile")) {
-                if (request.getParameter("profilo") != null) {
+                if (request.getParameter("registra") != null) {
                     action_crea(request, response);
                } else {
                    try {

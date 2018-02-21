@@ -1200,7 +1200,10 @@ public class IgwDataLayerMysqlImpl extends DataLayerMysqlImpl implements IgwData
                 iUtente.setString(2, utente.getPassword());
                 
                 iUtente.setInt(4, utente.getGruppo().getIDGruppo());
-                iUtente.setInt(3, utente.getDocente());
+                if(utente.getDocente()!=0)
+                    iUtente.setInt(3, utente.getDocente());
+                else
+                    iUtente.setNull(3, java.sql.Types.INTEGER);
 
                 
                 
