@@ -48,6 +48,7 @@ Desktop.ini
 ######################
 # NetBeans
 ######################
+build.xml
 nbproject/
 build/
 nbbuild/
